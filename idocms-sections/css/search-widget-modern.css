@@ -58,7 +58,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  align-items: flex-end;
+  align-items: stretch;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -168,12 +168,120 @@
 }
 
 /* ========================================
-   7. SUBMIT BUTTON - PROMINENT CTA
+   7. DROPDOWN LISTS - LOCATION & PERSONS
+   ======================================== */
+
+/* Location dropdown */
+.iailocation-cities {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #FFFFFF;
+  border: 2px solid #B8935E;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(28, 60, 90, 0.15);
+  margin-top: 0.5rem;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  list-style: none;
+  padding: 0.5rem;
+}
+
+.iailocation-city,
+.iailocation-district,
+.iailocation-addres {
+  padding: 0.75rem 1rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.95rem;
+  color: #1C3C5A;
+  background: #FFFFFF;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 0.25rem;
+  list-style: none;
+}
+
+.iailocation-city:hover,
+.iailocation-district:hover,
+.iailocation-addres:hover {
+  background: #F5F1EA;
+  color: #B8935E;
+  transform: translateX(4px);
+}
+
+.iailocation-city:focus,
+.iailocation-district:focus,
+.iailocation-addres:focus {
+  outline: 2px solid #B8935E;
+  outline-offset: 2px;
+  background: #F5F1EA;
+}
+
+/* Nested lists */
+.iailocation-districts,
+.iailocation-addresses {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Person selector dropdown */
+.iai_persons_selector,
+.iai_input-small .dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #FFFFFF;
+  border: 2px solid #B8935E;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(28, 60, 90, 0.15);
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  z-index: 1000;
+  list-style: none;
+}
+
+.iai_persons_selector li,
+.iai_input-small .dropdown-list li {
+  padding: 0.75rem 1rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.95rem;
+  color: #1C3C5A;
+  background: #FFFFFF;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 0.25rem;
+  list-style: none;
+}
+
+.iai_persons_selector li:hover,
+.iai_input-small .dropdown-list li:hover {
+  background: #F5F1EA;
+  color: #B8935E;
+  transform: translateX(4px);
+}
+
+.iai_persons_selector li:focus,
+.iai_input-small .dropdown-list li:focus {
+  outline: 2px solid #B8935E;
+  outline-offset: 2px;
+  background: #F5F1EA;
+}
+
+/* ========================================
+   8. SUBMIT BUTTON - PROMINENT CTA
    ======================================== */
 
 .formbutton {
   flex: 0 0 auto;
   min-width: 220px;
+  display: flex;
+  align-items: stretch;
 }
 
 .formbutton button,
@@ -218,18 +326,19 @@
 }
 
 /* ========================================
-   8. LITEPICKER CALENDAR - FULL STYLING
+   9. LITEPICKER CALENDAR - FULL STYLING
    ======================================== */
 
 /* Main container */
 .litepicker {
   font-family: 'Lato', sans-serif !important;
-  background: #FFFFFF;
-  border-radius: 16px;
-  box-shadow: 0 12px 48px rgba(28, 60, 90, 0.2), 0 4px 16px rgba(28, 60, 90, 0.1);
-  border: 1px solid rgba(184, 147, 94, 0.2);
-  padding: 1.5rem;
+  background: #FFFFFF !important;
+  border-radius: 20px !important;
+  box-shadow: 0 12px 48px rgba(28, 60, 90, 0.2), 0 4px 16px rgba(28, 60, 90, 0.1) !important;
+  border: 2px solid rgba(184, 147, 94, 0.3) !important;
+  padding: 1.5rem !important;
   min-width: 320px;
+  overflow: hidden;
 }
 
 /* Loader */
@@ -280,9 +389,9 @@
 }
 
 .month-item-name {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #1C3C5A;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1C3C5A !important;
   text-transform: capitalize;
 }
 
@@ -353,7 +462,7 @@
   gap: 2px;
 }
 
-/* Day item - default */
+/* Day item - default (AVAILABLE - GREEN) */
 .day-item {
   position: relative;
   aspect-ratio: 1;
@@ -361,19 +470,20 @@
   align-items: center;
   justify-content: center;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
   color: #1C3C5A;
-  background: #FFFFFF;
-  border: 2px solid transparent;
-  border-radius: 8px;
+  background: rgba(46, 204, 113, 0.1);
+  border: 2px solid rgba(46, 204, 113, 0.3);
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .day-item:hover {
-  background: #F5F1EA;
-  border-color: #B8935E;
+  background: rgba(46, 204, 113, 0.2);
+  border-color: #2ECC71;
   transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(46, 204, 113, 0.3);
 }
 
 /* Day close icon (X) */
@@ -393,23 +503,27 @@
 
 /* Today */
 .day-item.is-today {
-  background: rgba(184, 147, 94, 0.1);
+  background: rgba(184, 147, 94, 0.25);
   border-color: #B8935E;
-  font-weight: 700;
+  font-weight: 800;
+  box-shadow: 0 0 0 3px rgba(184, 147, 94, 0.2);
 }
 
-/* Locked (unavailable) */
+/* Locked (unavailable - RED) */
 .day-item.is-locked {
-  background: #F8F8F8;
-  color: #CCC;
+  background: rgba(231, 76, 60, 0.15) !important;
+  border: 2px solid rgba(231, 76, 60, 0.4) !important;
+  color: #C0392B !important;
   cursor: not-allowed;
   position: relative;
+  font-weight: 600;
 }
 
 .day-item.is-locked:hover {
-  background: #F8F8F8;
-  border-color: transparent;
+  background: rgba(231, 76, 60, 0.2) !important;
+  border-color: #E74C3C !important;
   transform: none;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
 }
 
 .day-item.is-locked::before {
@@ -421,6 +535,17 @@
   height: 70%;
   background: #E74C3C;
   transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.day-item.is-locked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1px;
+  height: 70%;
+  background: #E74C3C;
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 /* Selected range */
@@ -439,18 +564,23 @@
 
 /* Half begin/end (checkout/checkin only) */
 .day-item.halfBegin {
-  background: linear-gradient(135deg, #B8935E 50%, transparent 50%);
-  color: #1C3C5A;
+  background: linear-gradient(135deg, #2ECC71 50%, rgba(231, 76, 60, 0.15) 50%) !important;
+  border: 2px solid #2ECC71 !important;
+  color: #1C3C5A !important;
+  font-weight: 700;
 }
 
 .day-item.halfEnd {
-  background: linear-gradient(135deg, transparent 50%, #B8935E 50%);
-  color: #1C3C5A;
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.15) 50%, #2ECC71 50%) !important;
+  border: 2px solid #2ECC71 !important;
+  color: #1C3C5A !important;
+  font-weight: 700;
 }
 
 .day-item.halfBegin:hover,
 .day-item.halfEnd:hover {
-  transform: scale(1.05);
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4);
 }
 
 /* Empty cells */
@@ -460,7 +590,7 @@
 }
 
 /* ========================================
-   9. LITEPICKER LEGEND
+   10. LITEPICKER LEGEND
    ======================================== */
 
 .litepicker__legend {
@@ -469,36 +599,38 @@
   border-top: 2px solid #F5F1EA;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
 .litepicker__legend > div {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  font-size: 0.85rem;
-  color: #666;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1C3C5A;
 }
 
 .legend__halfBegin::before,
 .legend__halfEnd::before {
   content: '';
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
   flex-shrink: 0;
+  border: 2px solid #2ECC71;
 }
 
 .legend__halfBegin::before {
-  background: linear-gradient(135deg, #B8935E 50%, #F5F1EA 50%);
+  background: linear-gradient(135deg, #2ECC71 50%, rgba(231, 76, 60, 0.15) 50%);
 }
 
 .legend__halfEnd::before {
-  background: linear-gradient(135deg, #F5F1EA 50%, #B8935E 50%);
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.15) 50%, #2ECC71 50%);
 }
 
 /* ========================================
-   10. LITEPICKER TOOLTIP
+   11. LITEPICKER TOOLTIP
    ======================================== */
 
 .container__tooltip {
@@ -510,8 +642,17 @@
   box-shadow: 0 4px 12px rgba(28, 60, 90, 0.3);
 }
 
+/* Remove any blue background from container */
+.container__main {
+  background: transparent !important;
+}
+
+.litepicker .container__months {
+  background: transparent !important;
+}
+
 /* ========================================
-   11. VALIDATION & ERROR STATES
+   12. VALIDATION & ERROR STATES
    ======================================== */
 
 .widget__option input:invalid,
@@ -536,7 +677,7 @@
 }
 
 /* ========================================
-   12. RESPONSIVE - MOBILE
+   13. RESPONSIVE - MOBILE
    ======================================== */
 
 @media (max-width: 1024px) {
@@ -614,7 +755,7 @@
 }
 
 /* ========================================
-   13. ACCESSIBILITY
+   14. ACCESSIBILITY
    ======================================== */
 
 .widget__option input:focus-visible,
@@ -646,7 +787,7 @@
 }
 
 /* ========================================
-   14. ANIMATIONS (reduced motion)
+   15. ANIMATIONS (reduced motion)
    ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
@@ -660,7 +801,7 @@
 }
 
 /* ========================================
-   15. DARK MODE SUPPORT (opcjonalne)
+   16. DARK MODE SUPPORT (opcjonalne)
    ======================================== */
 
 @media (prefers-color-scheme: dark) {
