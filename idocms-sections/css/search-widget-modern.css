@@ -1,5 +1,5 @@
 /* ========================================
-   MODERN SEARCH WIDGET STYLING
+   MODERN SEARCH WIDGET + LITEPICKER STYLING
    dla idoBooking Search Widget (.iai-search)
 
    INSTRUKCJA WKLEJANIA:
@@ -10,7 +10,7 @@
 
    CO ROBI:
    - Modernizuje wygląd wyszukiwarki rezerwacji
-   - Dodaje glassmorphism i nowoczesne cienie
+   - Stylizuje kalendarz Litepicker
    - Poprawia UX (hover, focus, transitions)
    - Responsywne na mobile
    - Integruje z kolorami mountain luxury
@@ -30,88 +30,46 @@
   position: relative;
   width: 100%;
   z-index: 100;
-  padding: 1rem 0;
+  padding: 0;
+  margin: 0;
 }
 
 #iai_book_se {
   position: relative;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 #iai_book_se.iai_frontpage {
-  /* Frontpage variant - full width */
   max-width: 100%;
 }
 
 /* ========================================
-   2. TRIGGER BUTTON (jeśli widget jest collapsible)
-   ======================================== */
-
-.iai_book_trigger {
-  background: linear-gradient(135deg, #B8935E 0%, #A67C52 100%);
-  color: #FFFFFF;
-  padding: 1rem 2rem;
-  border-radius: 12px;
-  font-family: 'Lato', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(184, 147, 94, 0.3);
-  border: none;
-  outline: none;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.iai_book_trigger:hover {
-  background: linear-gradient(135deg, #A67C52 0%, #8F6A45 100%);
-  box-shadow: 0 6px 20px rgba(184, 147, 94, 0.4);
-  transform: translateY(-2px);
-}
-
-.iai_book_trigger:active {
-  transform: translateY(0);
-}
-
-/* ========================================
-   3. FORM CONTAINER - GLASSMORPHISM
+   2. FORM CONTAINER - NO BACKGROUND
    ======================================== */
 
 #iai_book_form {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow:
-    0 8px 32px rgba(28, 60, 90, 0.12),
-    0 2px 8px rgba(28, 60, 90, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.75rem;
   align-items: flex-end;
-  transition: all 0.3s ease;
-}
-
-#iai_book_form:hover {
-  box-shadow:
-    0 12px 48px rgba(28, 60, 90, 0.15),
-    0 4px 12px rgba(28, 60, 90, 0.1);
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* ========================================
-   4. FORM OPTIONS - INDIVIDUAL FIELDS
+   3. FORM OPTIONS - INDIVIDUAL FIELDS
    ======================================== */
 
 .widget__option {
-  flex: 1 1 200px;
-  min-width: 180px;
+  flex: 1 1 auto;
+  min-width: 150px;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -128,7 +86,7 @@
 }
 
 /* ========================================
-   5. INPUT FIELDS - MODERN STYLING
+   4. INPUT FIELDS - MODERN STYLING
    ======================================== */
 
 .widget__option input,
@@ -149,6 +107,7 @@
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+  box-shadow: 0 2px 8px rgba(28, 60, 90, 0.08);
 }
 
 .widget__option input:focus,
@@ -156,7 +115,7 @@
 #iai_book_form input:focus,
 #iai_book_form select:focus {
   border-color: #B8935E;
-  box-shadow: 0 0 0 4px rgba(184, 147, 94, 0.1);
+  box-shadow: 0 0 0 4px rgba(184, 147, 94, 0.15), 0 4px 12px rgba(28, 60, 90, 0.12);
   background: #FDFCFB;
 }
 
@@ -165,9 +124,9 @@
 #iai_book_form input:hover,
 #iai_book_form select:hover {
   border-color: #B8935E;
+  box-shadow: 0 4px 12px rgba(28, 60, 90, 0.1);
 }
 
-/* Placeholder styling */
 .widget__option input::placeholder,
 #iai_book_form input::placeholder {
   color: #A0A0A0;
@@ -175,7 +134,7 @@
 }
 
 /* ========================================
-   6. SELECT DROPDOWNS - CUSTOM ARROW
+   5. SELECT DROPDOWNS - CUSTOM ARROW
    ======================================== */
 
 .widget__option select,
@@ -184,39 +143,37 @@
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 12px;
+  background-color: #FFFFFF;
   padding-right: 2.5rem;
   cursor: pointer;
 }
 
 /* ========================================
-   7. SPECIFIC FIELDS
+   6. SPECIFIC FIELDS
    ======================================== */
 
-/* Location */
 .showlocation select,
 .showlocation input {
   font-weight: 500;
 }
 
-/* Date pickers */
 .datefrom input,
 .dateto input {
   cursor: pointer;
 }
 
-/* Person input (small) */
 .iai_input-small input {
   text-align: center;
   font-weight: 600;
 }
 
 /* ========================================
-   8. SUBMIT BUTTON - CTA STYLE
+   7. SUBMIT BUTTON - PROMINENT CTA
    ======================================== */
 
 .formbutton {
   flex: 0 0 auto;
-  min-width: 200px;
+  min-width: 220px;
 }
 
 .formbutton button,
@@ -224,27 +181,31 @@
 #iai_book_form button[type="submit"],
 #iai_book_form input[type="submit"] {
   width: 100%;
-  padding: 1rem 2rem;
-  font-family: 'Lato', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #FFFFFF;
-  background: linear-gradient(135deg, #B8935E 0%, #A67C52 100%);
-  border: none;
-  border-radius: 10px;
+  min-height: 52px;
+  padding: 0.875rem 2rem !important;
+  font-family: 'Lato', sans-serif !important;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  color: #FFFFFF !important;
+  background: linear-gradient(135deg, #B8935E 0%, #A67C52 100%) !important;
+  border: none !important;
+  border-radius: 10px !important;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   box-shadow: 0 4px 15px rgba(184, 147, 94, 0.3);
   outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .formbutton button:hover,
 .formbutton input[type="submit"]:hover,
 #iai_book_form button[type="submit"]:hover,
 #iai_book_form input[type="submit"]:hover {
-  background: linear-gradient(135deg, #A67C52 0%, #8F6A45 100%);
+  background: linear-gradient(135deg, #A67C52 0%, #8F6A45 100%) !important;
   box-shadow: 0 6px 20px rgba(184, 147, 94, 0.4);
   transform: translateY(-2px);
 }
@@ -257,7 +218,300 @@
 }
 
 /* ========================================
-   9. VALIDATION & ERROR STATES
+   8. LITEPICKER CALENDAR - FULL STYLING
+   ======================================== */
+
+/* Main container */
+.litepicker {
+  font-family: 'Lato', sans-serif !important;
+  background: #FFFFFF;
+  border-radius: 16px;
+  box-shadow: 0 12px 48px rgba(28, 60, 90, 0.2), 0 4px 16px rgba(28, 60, 90, 0.1);
+  border: 1px solid rgba(184, 147, 94, 0.2);
+  padding: 1.5rem;
+  min-width: 320px;
+}
+
+/* Loader */
+.litepicker__loader {
+  border-color: #B8935E transparent transparent transparent;
+}
+
+/* Error/validation message */
+.litepicker__val {
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.litepicker__val.--errorDate {
+  background: #FFF5F5;
+  color: #E74C3C;
+  border-left: 4px solid #E74C3C;
+}
+
+/* Month container */
+.container__months {
+  display: flex;
+  gap: 1rem;
+}
+
+.month-item {
+  flex: 1;
+  min-width: 280px;
+}
+
+/* Month header */
+.month-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0 1rem 0;
+  margin-bottom: 0.75rem;
+  border-bottom: 2px solid #F5F1EA;
+}
+
+.month-item-header div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.month-item-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1C3C5A;
+  text-transform: capitalize;
+}
+
+.month-item-year {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #666;
+}
+
+/* Navigation buttons */
+.button-previous-month,
+.button-next-month {
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-previous-month:hover,
+.button-next-month:hover {
+  background: #F5F1EA;
+}
+
+.button-previous-month:disabled,
+.button-next-month:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.button-previous-month svg,
+.button-next-month svg {
+  fill: #1C3C5A;
+  width: 10px;
+  height: 14px;
+}
+
+/* No previous month styling */
+.no-previous-month .button-previous-month {
+  visibility: hidden;
+}
+
+/* Weekdays row */
+.month-item-weekdays-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 0.5rem;
+}
+
+.month-item-weekdays-row > div {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+  padding: 0.5rem 0;
+}
+
+/* Days container */
+.container__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+/* Day item - default */
+.day-item {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #1C3C5A;
+  background: #FFFFFF;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.day-item:hover {
+  background: #F5F1EA;
+  border-color: #B8935E;
+  transform: scale(1.05);
+}
+
+/* Day close icon (X) */
+.day-close {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 0.6rem;
+  color: #E74C3C;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.day-item.is-locked .day-close {
+  opacity: 1;
+}
+
+/* Today */
+.day-item.is-today {
+  background: rgba(184, 147, 94, 0.1);
+  border-color: #B8935E;
+  font-weight: 700;
+}
+
+/* Locked (unavailable) */
+.day-item.is-locked {
+  background: #F8F8F8;
+  color: #CCC;
+  cursor: not-allowed;
+  position: relative;
+}
+
+.day-item.is-locked:hover {
+  background: #F8F8F8;
+  border-color: transparent;
+  transform: none;
+}
+
+.day-item.is-locked::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1px;
+  height: 70%;
+  background: #E74C3C;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* Selected range */
+.day-item.is-start-date,
+.day-item.is-end-date {
+  background: #B8935E !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  border-color: #A67C52;
+}
+
+.day-item.is-in-range {
+  background: rgba(184, 147, 94, 0.2);
+  color: #1C3C5A;
+}
+
+/* Half begin/end (checkout/checkin only) */
+.day-item.halfBegin {
+  background: linear-gradient(135deg, #B8935E 50%, transparent 50%);
+  color: #1C3C5A;
+}
+
+.day-item.halfEnd {
+  background: linear-gradient(135deg, transparent 50%, #B8935E 50%);
+  color: #1C3C5A;
+}
+
+.day-item.halfBegin:hover,
+.day-item.halfEnd:hover {
+  transform: scale(1.05);
+}
+
+/* Empty cells */
+.container__days > div:empty {
+  background: transparent;
+  pointer-events: none;
+}
+
+/* ========================================
+   9. LITEPICKER LEGEND
+   ======================================== */
+
+.litepicker__legend {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 2px solid #F5F1EA;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.litepicker__legend > div {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.legend__halfBegin::before,
+.legend__halfEnd::before {
+  content: '';
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.legend__halfBegin::before {
+  background: linear-gradient(135deg, #B8935E 50%, #F5F1EA 50%);
+}
+
+.legend__halfEnd::before {
+  background: linear-gradient(135deg, #F5F1EA 50%, #B8935E 50%);
+}
+
+/* ========================================
+   10. LITEPICKER TOOLTIP
+   ======================================== */
+
+.container__tooltip {
+  background: #1C3C5A;
+  color: #FFFFFF;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 12px rgba(28, 60, 90, 0.3);
+}
+
+/* ========================================
+   11. VALIDATION & ERROR STATES
    ======================================== */
 
 .widget__option input:invalid,
@@ -273,7 +527,6 @@
   background: #FFF5F5;
 }
 
-/* Error messages */
 .iai_error_message,
 .error-message {
   font-size: 0.75rem;
@@ -283,13 +536,22 @@
 }
 
 /* ========================================
-   10. RESPONSIVE - MOBILE
+   12. RESPONSIVE - MOBILE
    ======================================== */
+
+@media (max-width: 1024px) {
+  .container__months {
+    flex-direction: column;
+  }
+
+  .month-item {
+    min-width: 100%;
+  }
+}
 
 @media (max-width: 768px) {
   #iai_book_form {
-    padding: 1.5rem 1rem;
-    gap: 1rem;
+    gap: 0.75rem;
   }
 
   .widget__option {
@@ -303,17 +565,27 @@
 
   .formbutton button,
   .formbutton input[type="submit"] {
-    padding: 0.875rem 1.5rem;
-    font-size: 1rem;
+    padding: 0.875rem 1.5rem !important;
+    font-size: 1rem !important;
+  }
+
+  .litepicker {
+    padding: 1rem;
+    border-radius: 12px;
+    max-width: 100%;
+  }
+
+  .container__days {
+    gap: 1px;
+  }
+
+  .day-item {
+    font-size: 0.85rem;
+    border-radius: 6px;
   }
 }
 
 @media (max-width: 480px) {
-  #iai_book_form {
-    padding: 1rem;
-    border-radius: 12px;
-  }
-
   .widget__option input,
   .widget__option select {
     padding: 0.75rem;
@@ -323,13 +595,28 @@
   .widget__option label {
     font-size: 0.8125rem;
   }
+
+  .litepicker {
+    padding: 0.75rem;
+  }
+
+  .month-item-name {
+    font-size: 1rem;
+  }
+
+  .month-item-year {
+    font-size: 0.9rem;
+  }
+
+  .day-item {
+    font-size: 0.8rem;
+  }
 }
 
 /* ========================================
-   11. ACCESSIBILITY
+   13. ACCESSIBILITY
    ======================================== */
 
-/* Focus visible dla keyboard navigation */
 .widget__option input:focus-visible,
 .widget__option select:focus-visible,
 .formbutton button:focus-visible,
@@ -340,7 +627,12 @@
   outline-offset: 2px;
 }
 
-/* Screen reader only labels */
+.day-item:focus-visible {
+  outline: 3px solid #B8935E;
+  outline-offset: 2px;
+  z-index: 10;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -354,60 +646,6 @@
 }
 
 /* ========================================
-   12. LOADING STATE (opcjonalne)
-   ======================================== */
-
-.iai_book_form--loading {
-  opacity: 0.6;
-  pointer-events: none;
-  position: relative;
-}
-
-.iai_book_form--loading::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 40px;
-  height: 40px;
-  margin: -20px 0 0 -20px;
-  border: 4px solid rgba(184, 147, 94, 0.2);
-  border-top-color: #B8935E;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* ========================================
-   13. DARK BACKGROUND VARIANT
-   (jeśli widget jest na ciemnym tle)
-   ======================================== */
-
-.iai-search.dark-variant #iai_book_form {
-  background: rgba(28, 60, 90, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.iai-search.dark-variant .widget__option label {
-  color: #F5F1EA;
-}
-
-.iai-search.dark-variant .widget__option input,
-.iai-search.dark-variant .widget__option select {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-.iai-search.dark-variant .widget__option input:focus,
-.iai-search.dark-variant .widget__option select:focus {
-  background: #FFFFFF;
-  border-color: #B8935E;
-}
-
-/* ========================================
    14. ANIMATIONS (reduced motion)
    ======================================== */
 
@@ -415,10 +653,40 @@
   .widget__option input,
   .widget__option select,
   .formbutton button,
-  #iai_book_form,
-  .iai_book_trigger {
+  .day-item {
     transition: none;
     animation: none;
+  }
+}
+
+/* ========================================
+   15. DARK MODE SUPPORT (opcjonalne)
+   ======================================== */
+
+@media (prefers-color-scheme: dark) {
+  .widget__option label {
+    color: #F5F1EA;
+  }
+
+  .widget__option input,
+  .widget__option select {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #1C3C5A;
+  }
+
+  .litepicker {
+    background: #1C3C5A;
+    border-color: rgba(184, 147, 94, 0.3);
+  }
+
+  .month-item-name,
+  .day-item {
+    color: #F5F1EA;
+  }
+
+  .day-item:hover {
+    background: rgba(184, 147, 94, 0.2);
   }
 }
 </style>
