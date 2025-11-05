@@ -1,0 +1,260 @@
+<!-- FAQ 1: ACCORDION KLASYCZNY
+
+INSTRUKCJA WKLEJANIA:
+1. Panel CMS idoBooking - Nowa sekcja CMS
+2. Nazwa: "FAQ - Pytania"
+3. Poziom: Body
+4. Wklej kod i zapisz
+
+DO PERSONALIZACJI:
+- Zmień pytania i odpowiedzi
+- Dodaj/usuń elementy FAQ
+- Dostosuj kolory w CSS jeśli potrzeba
+-->
+
+<section class="faq-accordion-section" id="faq">
+  <div class="faq-container">
+
+    <div class="faq-intro">
+      <span class="faq-badge">FAQ</span>
+      <h2 class="faq-title">Często Zadawane Pytania</h2>
+      <p class="faq-subtitle">
+        Odpowiedzi na najczęstsze pytania dotyczące rezerwacji, pobytu i naszych apartamentów.
+      </p>
+    </div>
+
+    <div class="faq-accordion">
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Jak mogę dokonać rezerwacji?</span>
+          <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <p>Rezerwacji można dokonać online przez nasz system rezerwacji dostępny na stronie, telefonicznie lub mailowo. Akceptujemy rezerwacje na minimum 2 doby. Po dokonaniu rezerwacji otrzymasz potwierdzenie na email.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Czy mogę przyjechać ze zwierzęciem?</span>
+          <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <p>Tak! Akceptujemy zwierzęta domowe w większości naszych apartamentów. Obowiązuje dodatkowa opłata w wysokości 50 zł/dobę. Prosimy o wcześniejsze poinformowanie nas o obecności zwierzęcia.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>O której godzinie jest check-in i check-out?</span>
+          <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <p>Check-in: od 15:00<br>Check-out: do 11:00<br><br>Istnieje możliwość wcześniejszego zameldowania lub późniejszego wymeldowania za dodatkową opłatą (w zależności od dostępności).</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Czy w apartamentach jest Wi-Fi?</span>
+          <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <p>Tak, wszystkie nasze apartamenty wyposażone są w bezpłatne, szybkie Wi-Fi. Dane dostępowe otrzymasz przy zameldowaniu.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Czy jest parking?</span>
+          <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <p>Tak, dysponujemy bezpłatnym, monitorowanym parkingiem dla naszych gości. Jedno miejsce parkingowe na apartament jest wliczone w cenę.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Czy mogę anulować rezerwację?</span>
+          <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <p>Bezpłatna anulacja możliwa jest do 7 dni przed planowanym przyjazdem. W przypadku późniejszej anulacji lub niepojawienia się, pobierana jest opłata w wysokości 50% całkowitej wartości rezerwacji.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+// FAQ Accordion functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const faqItems = document.querySAll('.faq-item');
+
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+
+    question.addEventListener('click', () => {
+      const isOpen = question.getAttribute('aria-expanded') === 'true';
+
+      // Close all other items
+      faqItems.forEach(otherItem => {
+        otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        otherItem.querySelector('.faq-answer').style.maxHeight = null;
+      });
+
+      // Toggle current item
+      if (!isOpen) {
+        question.setAttribute('aria-expanded', 'true');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+});
+</script>
+
+<style>
+/* FAQ Accordion Styles */
+.faq-accordion-section {
+  padding: clamp(4rem, 8vw, 7rem) 0;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F5F1EA 100%);
+}
+
+.faq-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.faq-intro {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.faq-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  background: rgba(184, 147, 94, 0.1);
+  color: #9A7A4A;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border-radius: 25px;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(184, 147, 94, 0.3);
+}
+
+.faq-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: #0F2438;
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+}
+
+.faq-subtitle {
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
+  color: #6B7280;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.faq-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq-item {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.75rem 2rem;
+  background: none;
+  border: none;
+  text-align: left;
+  font-family: 'Lato', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1C3C5A;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+  color: #B8935E;
+}
+
+.faq-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  color: #B8935E;
+}
+
+.faq-question[aria-expanded="true"] .faq-icon {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.faq-answer p {
+  padding: 0 2rem 2rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #6B7280;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .faq-container {
+    padding: 0 1.5rem;
+  }
+
+  .faq-question {
+    padding: 1.5rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .faq-answer p {
+    padding: 0 1.5rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+</style>
