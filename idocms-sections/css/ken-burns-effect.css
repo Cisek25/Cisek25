@@ -12,7 +12,10 @@
 .main-hero-image,
 #main-visual img,
 .header-bg-image,
-[class*="hero"] img {
+[class*="hero"] img,
+.parallax-slider img,
+.parallax-slider .slick-slide img,
+.slick-slider.parallax-slider img {
   animation: kenBurnsZoom 20s ease-in-out infinite alternate;
   transform-origin: center center;
   will-change: transform;
@@ -61,14 +64,18 @@
 /* Zapobieganie overflow */
 .hero-container,
 .header-container,
-[class*="hero-wrap"] {
+[class*="hero-wrap"],
+.parallax-slider,
+.parallax-slider .slick-list,
+.parallax-slider .slick-track {
   overflow: hidden;
   position: relative;
 }
 
 /* Optymalizacja wydajności */
 .hero-image,
-.main-hero-image {
+.main-hero-image,
+.parallax-slider img {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
@@ -78,7 +85,8 @@
   .hero-image,
   .main-hero-image,
   .hero-advanced,
-  .hero-smooth {
+  .hero-smooth,
+  .parallax-slider img {
     animation: none !important;
   }
 }
