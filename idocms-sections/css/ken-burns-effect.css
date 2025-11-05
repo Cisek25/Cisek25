@@ -1,0 +1,130 @@
+/* ========================================
+   KEN BURNS EFFECT - Powolny zoom na hero
+
+   INSTRUKCJA:
+   1. Dodaj ten kod do sekcji "Koniec sekcji body" lub do głównego CSS
+   2. Upewnij się, że Twoje hero image ma klasę odpowiednią
+   3. Efekt działa automatycznie
+   ======================================== */
+
+/* Ken Burns Effect - wersja podstawowa */
+.hero-image,
+.main-hero-image,
+#main-visual img,
+.header-bg-image,
+[class*="hero"] img,
+.parallax-slider img,
+.parallax-slider .slick-slide img,
+.slick-slider.parallax-slider img {
+  animation: kenBurnsZoom 20s ease-in-out infinite alternate;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+@keyframes kenBurnsZoom {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+/* Wersja z lekkim przesunięciem (bardziej dynamiczna) */
+.hero-advanced {
+  animation: kenBurnsAdvanced 25s ease-in-out infinite alternate;
+}
+
+@keyframes kenBurnsAdvanced {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.08) translate(-2%, 0);
+  }
+  100% {
+    transform: scale(1.12) translate(2%, -2%);
+  }
+}
+
+/* Wersja ultra smooth (najsubtelniejsza) */
+.hero-smooth {
+  animation: kenBurnsSmooth 30s ease-in-out infinite alternate;
+}
+
+@keyframes kenBurnsSmooth {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+/* Zapobieganie overflow */
+.hero-container,
+.header-container,
+[class*="hero-wrap"],
+.parallax-slider,
+.parallax-slider .slick-list,
+.parallax-slider .slick-track {
+  overflow: hidden;
+  position: relative;
+}
+
+/* Optymalizacja wydajności */
+.hero-image,
+.main-hero-image,
+.parallax-slider img {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Wyłączenie dla użytkowników preferujących brak animacji */
+@media (prefers-reduced-motion: reduce) {
+  .hero-image,
+  .main-hero-image,
+  .hero-advanced,
+  .hero-smooth,
+  .parallax-slider img {
+    animation: none !important;
+  }
+}
+
+/* Mobile - lżejszy efekt */
+@media (max-width: 768px) {
+  @keyframes kenBurnsZoom {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes kenBurnsAdvanced {
+    0% {
+      transform: scale(1) translate(0, 0);
+    }
+    100% {
+      transform: scale(1.05) translate(0, 0);
+    }
+  }
+}
+
+/* ========================================
+   UŻYCIE:
+
+   Opcja 1 - Automatyczne (wszystkie hero)
+   Kod działa automatycznie na popularne selektory
+
+   Opcja 2 - Manualne (dodaj klasę)
+   <div class="hero-image">
+     <img src="...">
+   </div>
+
+   Opcja 3 - Wybierz wariant
+   .hero-smooth - najsubtelniejszy (1.05x, 30s)
+   .hero-image - standardowy (1.1x, 20s)
+   .hero-advanced - dynamiczny z przesunięciem (1.12x, 25s)
+   ======================================== */
