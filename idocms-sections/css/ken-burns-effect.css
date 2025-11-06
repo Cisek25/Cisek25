@@ -16,7 +16,7 @@
 .parallax-slider img,
 .parallax-slider .slick-slide img,
 .slick-slider.parallax-slider img {
-  animation: kenBurnsZoom 20s ease-in-out infinite alternate;
+  animation: kenBurnsZoom 10s ease-in-out infinite alternate;
   transform-origin: center center;
   will-change: transform;
 }

@@ -69,7 +69,8 @@ body {
 }
 
 /* ========================================
-   3. MENU/HEADER - PRZEZROCZYSTE
+   3. MENU/HEADER - CAŁKOWICIE PRZEZROCZYSTE
+   UWAGA: Dla pełnej funkcjonalności użyj transparent-menu.css
    ======================================== */
 
 header,
@@ -78,13 +79,14 @@ nav,
 .main-nav,
 #header,
 .header-wrapper {
-  background: rgba(255, 255, 255, 0.85) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border-bottom: 1px solid rgba(184, 147, 94, 0.2) !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
 }
 
-/* Napisy w menu widoczne */
+/* Napisy w menu - bardzo widoczne */
 header a,
 .main-header a,
 nav a,
@@ -93,8 +95,15 @@ nav a,
 .header-wrapper a,
 .menu a,
 .nav-link {
-  color: var(--mountain-navy) !important;
-  font-weight: 600 !important;
+  color: #0F2438 !important;
+  font-weight: 800 !important;
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 1),
+    0 1px 3px rgba(255, 255, 255, 0.8),
+    0 2px 5px rgba(0, 0, 0, 0.3) !important;
+  padding: 10px 16px !important;
+  background: rgba(255, 255, 255, 0.3) !important;
+  border-radius: 6px !important;
   transition: all 0.3s ease !important;
 }
 
@@ -107,6 +116,8 @@ nav a:hover,
 .menu a:hover,
 .nav-link:hover {
   color: var(--mountain-gold) !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  transform: scale(1.05) !important;
 }
 
 /* ========================================
@@ -118,7 +129,7 @@ nav a:hover,
 .slick-slider.parallax-slider img,
 .hero-image img,
 .main-visual img {
-  animation: kenBurnsDeep 15s ease-in-out infinite alternate !important;
+  animation: kenBurnsDeep 10s ease-in-out infinite alternate !important;
   transform-origin: center center;
   will-change: transform;
 }
