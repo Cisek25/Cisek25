@@ -69,55 +69,44 @@ body {
 }
 
 /* ========================================
-   3. MENU/HEADER - CAŁKOWICIE PRZEZROCZYSTE
+   3. MENU/HEADER - PRZEZROCZYSTE
    UWAGA: Dla pełnej funkcjonalności użyj transparent-menu.css
    ======================================== */
 
-header,
-.main-header,
-nav,
-.main-nav,
-#header,
-.header-wrapper {
+/* Główny wrapper menu */
+.menu-wrapper,
+.menu-wrapper.bgd-color-light {
   background: transparent !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border-bottom: none !important;
+  background-color: transparent !important;
   box-shadow: none !important;
+  border-bottom: none !important;
 }
 
-/* Napisy w menu - bardzo widoczne */
-header a,
-.main-header a,
-nav a,
-.main-nav a,
-#header a,
-.header-wrapper a,
-.menu a,
-.nav-link {
+/* Navbar */
+.navbar {
+  background: transparent !important;
+}
+
+/* Linki nawigacji */
+.nav-link,
+.navbar-nav .nav-link {
   color: #0F2438 !important;
   font-weight: 800 !important;
   text-shadow:
-    0 0 10px rgba(255, 255, 255, 1),
-    0 1px 3px rgba(255, 255, 255, 0.8),
-    0 2px 5px rgba(0, 0, 0, 0.3) !important;
+    0 0 8px rgba(255, 255, 255, 1),
+    0 1px 3px rgba(255, 255, 255, 0.9),
+    0 2px 4px rgba(0, 0, 0, 0.25) !important;
   padding: 10px 16px !important;
-  background: rgba(255, 255, 255, 0.3) !important;
+  background: rgba(255, 255, 255, 0.35) !important;
   border-radius: 6px !important;
   transition: all 0.3s ease !important;
 }
 
-header a:hover,
-.main-header a:hover,
-nav a:hover,
-.main-nav a:hover,
-#header a:hover,
-.header-wrapper a:hover,
-.menu a:hover,
-.nav-link:hover {
+.nav-link:hover,
+.navbar-nav .nav-link:hover {
   color: var(--mountain-gold) !important;
-  background: rgba(255, 255, 255, 0.7) !important;
-  transform: scale(1.05) !important;
+  background: rgba(255, 255, 255, 0.65) !important;
+  transform: translateY(-2px) !important;
 }
 
 /* ========================================
@@ -234,9 +223,28 @@ nav a:hover,
 
 .apartments-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr));
+  grid-template-columns: repeat(4, 1fr); /* 4 kolumny na desktop */
   gap: 2.5rem;
   margin-top: 3rem;
+}
+
+/* Responsive grid */
+@media (max-width: 1400px) {
+  .apartments-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 kolumny na mniejszych ekranach */
+  }
+}
+
+@media (max-width: 1024px) {
+  .apartments-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 kolumny na tabletach */
+  }
+}
+
+@media (max-width: 768px) {
+  .apartments-grid {
+    grid-template-columns: 1fr; /* 1 kolumna na mobile */
+  }
 }
 
 .apartment-card {
