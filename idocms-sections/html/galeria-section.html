@@ -655,44 +655,64 @@
   // FILTROWANIE GALERII
   // ========================================
 
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const galleryItems = document.querySelectorAll('.gallery-item');
+  // Inicjalizacja - wywoła się natychmiast lub po DOMContentLoaded
+  function initGallery() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
 
-  filterButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const filter = this.getAttribute('data-filter');
+    console.log('Gallery init:', galleryItems.length, 'items found');
 
-      // Aktualizuj aktywny przycisk
-      filterButtons.forEach(btn => {
-        btn.classList.remove('active');
-        btn.setAttribute('aria-selected', 'false');
-      });
-      this.classList.add('active');
-      this.setAttribute('aria-selected', 'true');
-
-      // Filtruj elementy
-      galleryItems.forEach(item => {
-        const category = item.getAttribute('data-category');
-
-        if (filter === 'wszystkie' || category === filter) {
-          item.classList.remove('hidden');
-          item.style.display = '';
-          item.style.animation = 'fadeIn 0.6s ease';
-        } else {
-          item.classList.add('hidden');
-          item.style.display = 'none';
-        }
-      });
-    });
-  });
-
-  // Pokaż wszystkie elementy przy załadowaniu
-  window.addEventListener('DOMContentLoaded', function() {
+    // WAŻNE: Pokaż wszystkie elementy na start
     galleryItems.forEach(item => {
       item.classList.remove('hidden');
-      item.style.display = '';
+      item.style.display = 'block';
+      item.style.visibility = 'visible';
+      item.style.opacity = '1';
     });
-  });
+
+    // Obsługa kliknięć w filtry
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const filter = this.getAttribute('data-filter');
+        console.log('Filter clicked:', filter);
+
+        // Aktualizuj aktywny przycisk
+        filterButtons.forEach(btn => {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-selected', 'false');
+        });
+        this.classList.add('active');
+        this.setAttribute('aria-selected', 'true');
+
+        // Filtruj elementy
+        galleryItems.forEach(item => {
+          const category = item.getAttribute('data-category');
+
+          if (filter === 'wszystkie' || category === filter) {
+            item.classList.remove('hidden');
+            item.style.display = 'block';
+            item.style.visibility = 'visible';
+            item.style.opacity = '1';
+            item.style.animation = 'fadeIn 0.6s ease';
+          } else {
+            item.classList.add('hidden');
+            item.style.display = 'none';
+            item.style.visibility = 'hidden';
+            item.style.opacity = '0';
+          }
+        });
+
+        console.log('Filter applied:', filter);
+      });
+    });
+  }
+
+  // Wywołaj natychmiast jeśli DOM gotowy, lub czekaj na DOMContentLoaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGallery);
+  } else {
+    initGallery();
+  }
 
   // ========================================
   // LIGHTBOX
