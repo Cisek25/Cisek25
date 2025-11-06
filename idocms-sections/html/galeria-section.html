@@ -546,9 +546,9 @@
 
       <!-- Item 8 - Okolica Deptak -->
       <article class="gallery-item" data-category="okolica" role="listitem">
-        <img src="https://images.unsplash.com/photo-1555881788-586f720e6f50?w=800&h=600&fit=crop&q=80" alt="Centrum Szklarskiej Poręby" class="gallery-image" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?w=800&h=600&fit=crop&q=80" alt="Centrum Szklarskiej Poręby z restauracjami i kawiarniami" class="gallery-image" loading="lazy">
         <div class="gallery-overlay">
-          <h3 class="gallery-item-title">Deptak w Szklarskiej</h3>
+          <h3 class="gallery-item-title">Centrum Szklarskiej Poręby</h3>
           <span class="gallery-item-category">Okolica</span>
         </div>
         <div class="gallery-zoom-icon">🔍</div>
@@ -616,15 +616,13 @@
 
       <!-- Item 15 - Wnętrze Kominek -->
       <article class="gallery-item" data-category="wnetrza" role="listitem">
-        <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800&h=600&fit=crop&q=80" alt="Salon z okazałym kominkiem" class="gallery-image" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=800&h=600&fit=crop&q=80" alt="Przytulny salon z drewnianym kominkiem i widokiem na góry" class="gallery-image" loading="lazy">
         <div class="gallery-overlay">
           <h3 class="gallery-item-title">Salon z Kominkiem</h3>
           <span class="gallery-item-category">Wnętrza</span>
         </div>
         <div class="gallery-zoom-icon">🔍</div>
       </article>
-
-      <!-- Możesz dodać więcej itemów kopiując powyższą strukturę -->
 
     </div>
 
@@ -678,11 +676,21 @@
 
         if (filter === 'wszystkie' || category === filter) {
           item.classList.remove('hidden');
+          item.style.display = '';
           item.style.animation = 'fadeIn 0.6s ease';
         } else {
           item.classList.add('hidden');
+          item.style.display = 'none';
         }
       });
+    });
+  });
+
+  // Pokaż wszystkie elementy przy załadowaniu
+  window.addEventListener('DOMContentLoaded', function() {
+    galleryItems.forEach(item => {
+      item.classList.remove('hidden');
+      item.style.display = '';
     });
   });
 
