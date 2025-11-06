@@ -223,9 +223,28 @@ body {
 
 .apartments-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr));
+  grid-template-columns: repeat(4, 1fr); /* 4 kolumny na desktop */
   gap: 2.5rem;
   margin-top: 3rem;
+}
+
+/* Responsive grid */
+@media (max-width: 1400px) {
+  .apartments-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 kolumny na mniejszych ekranach */
+  }
+}
+
+@media (max-width: 1024px) {
+  .apartments-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 kolumny na tabletach */
+  }
+}
+
+@media (max-width: 768px) {
+  .apartments-grid {
+    grid-template-columns: 1fr; /* 1 kolumna na mobile */
+  }
 }
 
 .apartment-card {
