@@ -1,0 +1,521 @@
+/* ========================================
+   KOMPLETNY CSS - APARTAMENTY SZKLARSKA PORĘBA
+   ======================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Lato:wght@300;400;700;900&display=swap');
+
+/* ========================================
+   1. ZMIENNE CSS
+   ======================================== */
+
+:root {
+  /* Kolory */
+  --mountain-gold: #B8935E;
+  --mountain-gold-dark: #9A7A4A;
+  --mountain-gold-light: #D4A574;
+  --mountain-navy: #1C3C5A;
+  --mountain-navy-dark: #0F2438;
+  --mountain-navy-light: #2C5F7C;
+  --mountain-cream: #F5F1EA;
+  --mountain-cream-dark: #E8E3D8;
+  --mountain-stone: #6B7280;
+  --mountain-white: #FFFFFF;
+  --mountain-charcoal: #333333;
+
+  /* Cienie */
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.10);
+  --shadow-lg: 0 20px 50px rgba(0,0,0,0.15);
+  --shadow-xl: 0 25px 60px rgba(0,0,0,0.20);
+
+  /* Zaokrąglenia */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  /* Fonty */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Spacing */
+  --section-padding: clamp(4rem, 8vw, 7rem);
+  --container-max: 1400px;
+}
+
+/* ========================================
+   2. RESET & BASE
+   ======================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--mountain-charcoal);
+  line-height: 1.7;
+  background-color: var(--mountain-white);
+  overflow-x: hidden;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================
+   3. MENU/HEADER - PRZEZROCZYSTE
+   ======================================== */
+
+header,
+.main-header,
+nav,
+.main-nav,
+#header,
+.header-wrapper {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid rgba(184, 147, 94, 0.2) !important;
+}
+
+/* Napisy w menu widoczne */
+header a,
+.main-header a,
+nav a,
+.main-nav a,
+#header a,
+.header-wrapper a,
+.menu a,
+.nav-link {
+  color: var(--mountain-navy) !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+header a:hover,
+.main-header a:hover,
+nav a:hover,
+.main-nav a:hover,
+#header a:hover,
+.header-wrapper a:hover,
+.menu a:hover,
+.nav-link:hover {
+  color: var(--mountain-gold) !important;
+}
+
+/* ========================================
+   4. KEN BURNS EFFECT - SZYBSZY I GŁĘBSZY
+   ======================================== */
+
+.parallax-slider img,
+.parallax-slider .slick-slide img,
+.slick-slider.parallax-slider img,
+.hero-image img,
+.main-visual img {
+  animation: kenBurnsDeep 15s ease-in-out infinite alternate !important;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+@keyframes kenBurnsDeep {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.15);
+  }
+}
+
+.parallax-slider,
+.parallax-slider .slick-list,
+.parallax-slider .slick-track,
+.hero-container {
+  overflow: hidden !important;
+  position: relative;
+}
+
+.parallax-slider img,
+.hero-image img {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .parallax-slider img,
+  .hero-image img {
+    animation: none !important;
+  }
+}
+
+/* ========================================
+   5. FULL WIDTH FIX
+   ======================================== */
+
+.apartments-premium-section,
+.mountain-amenities-section,
+.timeline-section,
+.location-split-section {
+  width: 100vw !important;
+  position: relative !important;
+  left: 50% !important;
+  right: 50% !important;
+  margin-left: -50vw !important;
+  margin-right: -50vw !important;
+  overflow: hidden;
+}
+
+/* ========================================
+   6. SEKCJA APARTAMENTÓW
+   ======================================== */
+
+.apartments-premium-section {
+  padding: var(--section-padding) 0;
+  background: linear-gradient(180deg, var(--mountain-cream) 0%, var(--mountain-white) 100%);
+}
+
+.apartments-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.apartments-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.apartments-super {
+  display: inline-block;
+  padding: 10px 24px;
+  background: rgba(184, 147, 94, 0.1);
+  color: var(--mountain-gold-dark);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border-radius: 25px;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(184, 147, 94, 0.3);
+}
+
+.apartments-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  color: var(--mountain-navy-dark);
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.apartments-subtitle {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  color: var(--mountain-stone);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.apartments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr));
+  gap: 2.5rem;
+  margin-top: 3rem;
+}
+
+.apartment-card {
+  background: var(--mountain-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.apartment-card:hover {
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--mountain-gold-light);
+}
+
+.apartment-image {
+  position: relative;
+  height: 280px;
+  overflow: hidden;
+}
+
+.apartment-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.apartment-card:hover .apartment-image img {
+  transform: scale(1.1);
+}
+
+.apartment-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(184, 147, 94, 0.95);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  backdrop-filter: blur(10px);
+  z-index: 2;
+}
+
+.apartment-content {
+  padding: 2rem;
+}
+
+.apartment-name {
+  font-family: var(--font-display);
+  font-size: 1.875rem;
+  color: var(--mountain-navy);
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.apartment-description {
+  font-size: 0.95rem;
+  color: var(--mountain-stone);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.apartment-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--mountain-cream-dark);
+  border-bottom: 1px solid var(--mountain-cream-dark);
+}
+
+.feature {
+  text-align: center;
+}
+
+.feature-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.feature-value {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--mountain-navy);
+  display: block;
+}
+
+.feature-label {
+  font-size: 0.875rem;
+  color: var(--mountain-stone);
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.apartment-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1.5rem;
+}
+
+.apartment-price {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-from {
+  font-size: 0.875rem;
+  color: var(--mountain-stone);
+  margin-bottom: 0.25rem;
+}
+
+.price-amount {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--mountain-gold-dark);
+  font-family: var(--font-display);
+}
+
+.price-period {
+  font-size: 0.875rem;
+  color: var(--mountain-stone);
+}
+
+.apartment-cta {
+  padding: 14px 28px;
+  background: var(--mountain-navy);
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.apartment-cta:hover {
+  background: var(--mountain-navy-dark);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-md);
+}
+
+.apartment-cta::after {
+  content: '→';
+  transition: transform 0.3s ease;
+}
+
+.apartment-cta:hover::after {
+  transform: translateX(4px);
+}
+
+/* ========================================
+   7. UDOGODNIENIA (8)
+   ======================================== */
+
+.mountain-amenities-section {
+  padding: var(--section-padding) 0;
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--mountain-cream) 100%);
+}
+
+.amenities-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.amenities-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.amenities-badge {
+  display: inline-block;
+  padding: 10px 24px;
+  background: rgba(184, 147, 94, 0.1);
+  color: var(--mountain-gold-dark);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border-radius: 25px;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(184, 147, 94, 0.3);
+}
+
+.amenities-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  color: var(--mountain-navy-dark);
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.amenities-subtitle {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  color: var(--mountain-stone);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 2.5rem;
+  margin-top: 3rem;
+}
+
+.amenity-card {
+  background: var(--mountain-white);
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.amenity-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--mountain-gold), var(--mountain-gold-light));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.amenity-card:hover::before {
+  transform: scaleX(1);
+}
+
+.amenity-card:hover {
+  border-color: var(--mountain-gold-light);
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-xl);
+}
+
+.amenity-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(135deg, var(--mountain-gold-light) 0%, var(--mountain-gold) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 0.4s ease;
+}
+
+.amenity-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.amenity-card:hover .amenity-icon {
+  transform: scale(1.1);
+  box-shadow: 0 10px 30px rgba(184, 147, 94, 0.4);
+}
+
+.amenity-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--mountain-navy);
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.amenity-description {
+  font-size: 0.95rem;
+  color: var(--mountain-stone);
+  line-height: 1.6;
+}
+
+/* Plik jest za duży, kontynuacja w następnej części... */
