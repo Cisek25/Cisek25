@@ -10,7 +10,13 @@
    do kolorystyki apartamentów (gold + navy)
    ======================================== */
 
+/* Import Google Fonts - WAŻNE dla polskich znaków! */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Lato:wght@300;400;700;900&display=swap');
+
 :root {
+  /* Czcionki */
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Lato', sans-serif;
   /* Główne kolory - Apartamenty Górskie */
   --breadcrumb-active: #1C3C5A;
   --breadcrumb-inactive: #858585;
@@ -178,7 +184,7 @@
 .offer__price {
   color: var(--mainColor) !important;
   font-weight: 700 !important;
-  font-size: 1.5rem !important;
+  font-size: 1.88rem !important;
 }
 
 /* Badge/etykiety */
@@ -189,7 +195,7 @@
   color: white !important;
   padding: 6px 14px !important;
   border-radius: 20px !important;
-  font-size: 0.875rem !important;
+  font-size: 1.1rem !important;
   font-weight: 600 !important;
 }
 
@@ -249,7 +255,7 @@ textarea:focus {
   color: white !important;
   border-radius: 8px !important;
   padding: 8px 12px !important;
-  font-size: 0.875rem !important;
+  font-size: 1.1rem !important;
 }
 
 /* Alerts/komunikaty */
@@ -330,7 +336,7 @@ input[type="radio"]:checked {
 
   .price,
   .price-amount {
-    font-size: 1.25rem !important;
+    font-size: 1.56rem !important;
   }
 }
 

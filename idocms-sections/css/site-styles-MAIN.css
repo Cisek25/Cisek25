@@ -63,54 +63,13 @@ body {
   line-height: 1.7;
   background-color: var(--mountain-white);
   overflow-x: hidden;
-  font-size: 16px;
+  font-size: 20px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 /* ========================================
-   3. MENU/HEADER - PRZEZROCZYSTE
-   UWAGA: Dla pełnej funkcjonalności użyj transparent-menu.css
-   ======================================== */
-
-/* Główny wrapper menu */
-.menu-wrapper,
-.menu-wrapper.bgd-color-light {
-  background: transparent !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
-  border-bottom: none !important;
-}
-
-/* Navbar */
-.navbar {
-  background: transparent !important;
-}
-
-/* Linki nawigacji */
-.nav-link,
-.navbar-nav .nav-link {
-  color: #0F2438 !important;
-  font-weight: 800 !important;
-  text-shadow:
-    0 0 8px rgba(255, 255, 255, 1),
-    0 1px 3px rgba(255, 255, 255, 0.9),
-    0 2px 4px rgba(0, 0, 0, 0.25) !important;
-  padding: 10px 16px !important;
-  background: rgba(255, 255, 255, 0.35) !important;
-  border-radius: 6px !important;
-  transition: all 0.3s ease !important;
-}
-
-.nav-link:hover,
-.navbar-nav .nav-link:hover {
-  color: var(--mountain-gold) !important;
-  background: rgba(255, 255, 255, 0.65) !important;
-  transform: translateY(-2px) !important;
-}
-
-/* ========================================
-   4. KEN BURNS EFFECT - SZYBSZY I GŁĘBSZY
+   3. KEN BURNS EFFECT - SZYBSZY I GŁĘBSZY
    ======================================== */
 
 .parallax-slider img,
@@ -195,7 +154,7 @@ body {
   padding: 10px 24px;
   background: rgba(184, 147, 94, 0.1);
   color: var(--mountain-gold-dark);
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -206,7 +165,7 @@ body {
 
 .apartments-title {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: clamp(3.125rem, 6.25vw, 5.625rem);
   color: var(--mountain-navy-dark);
   margin-bottom: 1.25rem;
   font-weight: 700;
@@ -214,7 +173,7 @@ body {
 }
 
 .apartments-subtitle {
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-size: clamp(1.375rem, 2.5vw, 1.69rem);
   color: var(--mountain-stone);
   max-width: 700px;
   margin: 0 auto;
@@ -223,15 +182,15 @@ body {
 
 .apartments-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 kolumny na desktop */
+  grid-template-columns: repeat(3, 1fr); /* 3 kolumny na desktop (9 apartamentów = 3x3) */
   gap: 2.5rem;
   margin-top: 3rem;
 }
 
 /* Responsive grid */
-@media (max-width: 1400px) {
+@media (max-width: 1200px) {
   .apartments-grid {
-    grid-template-columns: repeat(3, 1fr); /* 3 kolumny na mniejszych ekranach */
+    grid-template-columns: repeat(2, 1fr); /* 2 kolumny na mniejszych ekranach */
   }
 }
 
@@ -287,7 +246,7 @@ body {
   color: white;
   padding: 8px 16px;
   border-radius: 20px;
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   font-weight: 700;
   backdrop-filter: blur(10px);
   z-index: 2;
@@ -299,14 +258,14 @@ body {
 
 .apartment-name {
   font-family: var(--font-display);
-  font-size: 1.875rem;
+  font-size: 2.34rem;
   color: var(--mountain-navy);
   margin-bottom: 0.75rem;
   font-weight: 700;
 }
 
 .apartment-description {
-  font-size: 0.95rem;
+  font-size: 1.19rem;
   color: var(--mountain-stone);
   margin-bottom: 1.5rem;
   line-height: 1.6;
@@ -327,20 +286,20 @@ body {
 }
 
 .feature-icon {
-  font-size: 1.5rem;
+  font-size: 1.88rem;
   margin-bottom: 0.5rem;
   display: block;
 }
 
 .feature-value {
-  font-size: 1.125rem;
+  font-size: 1.41rem;
   font-weight: 700;
   color: var(--mountain-navy);
   display: block;
 }
 
 .feature-label {
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   color: var(--mountain-stone);
   display: block;
   margin-top: 0.25rem;
@@ -360,20 +319,20 @@ body {
 }
 
 .price-from {
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   color: var(--mountain-stone);
   margin-bottom: 0.25rem;
 }
 
 .price-amount {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: var(--mountain-gold-dark);
   font-family: var(--font-display);
 }
 
 .price-period {
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   color: var(--mountain-stone);
 }
 
@@ -384,7 +343,7 @@ body {
   text-decoration: none;
   border-radius: 25px;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 1.19rem;
   transition: all 0.3s ease;
   white-space: nowrap;
   display: inline-flex;
@@ -432,7 +391,7 @@ body {
   padding: 10px 24px;
   background: rgba(184, 147, 94, 0.1);
   color: var(--mountain-gold-dark);
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -443,7 +402,7 @@ body {
 
 .amenities-title {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: clamp(3.125rem, 6.25vw, 5.625rem);
   color: var(--mountain-navy-dark);
   margin-bottom: 1.25rem;
   font-weight: 700;
@@ -451,7 +410,7 @@ body {
 }
 
 .amenities-subtitle {
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-size: clamp(1.375rem, 2.5vw, 1.69rem);
   color: var(--mountain-stone);
   max-width: 700px;
   margin: 0 auto;
@@ -525,14 +484,14 @@ body {
 
 .amenity-title {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: 1.88rem;
   color: var(--mountain-navy);
   margin-bottom: 0.75rem;
   font-weight: 700;
 }
 
 .amenity-description {
-  font-size: 0.95rem;
+  font-size: 1.19rem;
   color: var(--mountain-stone);
   line-height: 1.6;
 }
