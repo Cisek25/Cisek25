@@ -10,13 +10,13 @@
    do kolorystyki apartamentów (gold + navy)
    ======================================== */
 
-/* Import Google Fonts - WAŻNE dla polskich znaków! */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Lato:wght@300;400;700;900&display=swap');
+/* Import Google Fonts - ROBOTO dla polskich znaków! */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
 :root {
   /* Czcionki */
-  --font-display: 'Playfair Display', serif;
-  --font-body: 'Lato', sans-serif;
+  --font-display: 'Roboto', Arial, sans-serif;
+  --font-body: 'Roboto', Arial, sans-serif;
   /* Główne kolory - Apartamenty Górskie */
   --breadcrumb-active: #1C3C5A;
   --breadcrumb-inactive: #858585;
