@@ -1,33 +1,3 @@
-/* ========================================
-   KOMPLETNY CSS - GÓRSKI LUKSUS SZKLARSKA PORĘBA
-   Wersja: 3.0 FINAL ULTIMATE
-   Data: 2025-11-07
-
-   Zawiera:
-   - Globalne style luksusowe
-   - Hero Section
-   - Apartamenty (9 obiektów w grid 3x3)
-   - Górskie Udogodnienia (jasna kolorystyka)
-   - Timeline Atrakcji
-   - Lokalizacja z Mapą (bez rotate - naprawiona)
-   - Atrakcje Cards Section (NOWA SEKCJA)
-   - Integracja z systemem wyróżnionych ofert
-   - Full Width Fix
-   - Mobile First + WCAG AA
-
-   ZMIANY W WERSJI 3.0:
-   - Roboto font dla polskich znaków (ą, ę, ś, ć, ź, Ź)
-   - Wszystkie czcionki zwiększone o 25%
-   - Grid 3x3 dla 9 apartamentów
-   - Dodano sekcję Atrakcje Cards
-   - Poprawiono hover effects (bez rotate)
-   - Jasna kolorystyka w udogodnieniach
-   ======================================== */
-
-/* ========================================
-   1. GLOBALNE ZMIENNE I PODSTAWY
-   ======================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
 :root {
@@ -62,9 +32,9 @@
   --radius-lg: 24px;
   --radius-xl: 32px;
 
-  /* Fonty - ROBOTO dla polskich znaków */
-  --font-display: 'Roboto', Arial, sans-serif;
-  --font-body: 'Roboto', Arial, sans-serif;
+  /* Fonty - ROBOTO wszędzie */
+  --font-display: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   /* Spacing */
   --section-padding: clamp(4rem, 8vw, 7rem);
@@ -89,7 +59,7 @@ body {
   line-height: 1.7;
   background-color: var(--mountain-white);
   overflow-x: hidden;
-  font-size: 20px; /* 16px * 1.25 = 20px */
+  font-size: 20px; /* było 16px -> +25% */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -101,7 +71,7 @@ body {
   left: 0;
   background: var(--mountain-navy);
   color: white;
-  padding: 8px 16px;
+  padding: 10px 20px; /* było 8px 16px -> +25% */
   text-decoration: none;
   z-index: 100;
 }
@@ -111,11 +81,43 @@ body {
 }
 
 /* ========================================
+   1.5 PRZYCISK COFNIJ - ZAOKRĄGLENIE
+   ======================================== */
+
+.btn-goback,
+.btn.btn-goback {
+  border-radius: 25px !important;
+  padding: 15px 35px !important; /* było 12px 28px -> +25% */
+  transition: all 0.3s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important; /* było 8px -> +25% */
+  font-size: 1.25rem !important; /* +25% */
+}
+
+.btn-goback:hover,
+.btn.btn-goback:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+}
+
+.btn-goback::before {
+  content: '←';
+  transition: transform 0.3s ease;
+  font-size: 1.5rem; /* +25% */
+}
+
+.btn-goback:hover::before {
+  transform: translateX(-4px);
+}
+
+/* ========================================
    2. FULL WIDTH FIX - SEKCJE NA CAŁĄ SZEROKOŚĆ
    ======================================== */
 
 .hero-section,
 .apartments-premium-section,
+.property-info-section,
 .mountain-amenities-section,
 .timeline-section,
 .location-split-section,
@@ -131,7 +133,7 @@ body {
 }
 
 /* ========================================
-   3. SEKCJA APARTAMENTÓW PREMIUM (9 APARTAMENTÓW - GRID 3x3)
+   3. SEKCJA APARTAMENTÓW PREMIUM (9 OBIEKTÓW - 3x3)
    ======================================== */
 
 .apartments-premium-section {
@@ -153,41 +155,41 @@ body {
 
 .apartments-super {
   display: inline-block;
-  padding: 10px 24px;
+  padding: 12.5px 30px; /* było 10px 24px -> +25% */
   background: rgba(184, 147, 94, 0.1);
   color: var(--mountain-gold-dark);
-  font-size: 1.1rem; /* 0.875rem * 1.25 */
+  font-size: 1.09375rem; /* +25% z 0.875rem */
   font-weight: 700;
-  letter-spacing: 3px;
+  letter-spacing: 3.75px; /* było 3px -> +25% */
   text-transform: uppercase;
-  border-radius: 25px;
-  margin-bottom: 1.25rem;
+  border-radius: 31.25px; /* było 25px -> +25% */
+  margin-bottom: 1.5625rem; /* było 1.25rem -> +25% */
   border: 1px solid rgba(184, 147, 94, 0.3);
 }
 
 .apartments-title {
   font-family: var(--font-display);
-  font-size: clamp(3.125rem, 6.25vw, 5.625rem); /* clamp(2.5rem * 1.25, 5vw * 1.25, 4.5rem * 1.25) */
+  font-size: clamp(3.125rem, 6.25vw, 5.625rem); /* było 2.5-4.5rem -> +25% */
   color: var(--mountain-navy-dark);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5625rem; /* było 1.25rem -> +25% */
   font-weight: 700;
   line-height: 1.1;
 }
 
 .apartments-subtitle {
-  font-size: clamp(1.375rem, 2.5vw, 1.7rem); /* clamp(1.1rem * 1.25, 2vw * 1.25, 1.35rem * 1.25) */
+  font-size: clamp(1.375rem, 2.5vw, 1.6875rem); /* było 1.1-1.35rem -> +25% */
   color: var(--mountain-stone);
-  max-width: 700px;
+  max-width: 875px; /* było 700px -> +25% */
   margin: 0 auto;
   line-height: 1.7;
 }
 
-/* GRID 3x3 DLA 9 APARTAMENTÓW */
+/* ✅ POPRAWIONE: 3 kolumny zamiast auto-fill */
 .apartments-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
-  margin-top: 3rem;
+  grid-template-columns: repeat(3, 1fr); /* 3 kolumny dla 9 apartamentów (3x3) */
+  gap: 3.125rem; /* było 2.5rem -> +25% */
+  margin-top: 3.75rem; /* było 3rem -> +25% */
 }
 
 .apartment-card {
@@ -200,14 +202,14 @@ body {
 }
 
 .apartment-card:hover {
-  transform: translateY(-12px);
+  transform: translateY(-15px); /* było -12px -> +25% */
   box-shadow: var(--shadow-xl);
   border-color: var(--mountain-gold-light);
 }
 
 .apartment-image {
   position: relative;
-  height: 280px;
+  height: 350px; /* było 280px -> +25% */
   overflow: hidden;
 }
 
@@ -224,47 +226,47 @@ body {
 
 .apartment-badge {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 25px; /* było 20px -> +25% */
+  right: 25px; /* było 20px -> +25% */
   background: rgba(184, 147, 94, 0.95);
   color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 1.1rem; /* 0.875rem * 1.25 */
+  padding: 10px 20px; /* było 8px 16px -> +25% */
+  border-radius: 25px; /* było 20px -> +25% */
+  font-size: 1.09375rem; /* było 0.875rem -> +25% */
   font-weight: 700;
   backdrop-filter: blur(10px);
   z-index: 2;
 }
 
 .apartment-badge-new {
-  background: rgba(28, 60, 90, 0.95);
+  background: rgba(74, 124, 46, 0.95);
 }
 
 .apartment-content {
-  padding: 2rem;
+  padding: 2.5rem; /* było 2rem -> +25% */
 }
 
 .apartment-name {
   font-family: var(--font-display);
-  font-size: 2.35rem; /* 1.875rem * 1.25 */
+  font-size: 2.34375rem; /* było 1.875rem -> +25% */
   color: var(--mountain-navy);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.9375rem; /* było 0.75rem -> +25% */
   font-weight: 700;
 }
 
 .apartment-description {
-  font-size: 1.2rem; /* 0.95rem * 1.25 */
+  font-size: 1.1875rem; /* było 0.95rem -> +25% */
   color: var(--mountain-stone);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.875rem; /* było 1.5rem -> +25% */
   line-height: 1.6;
 }
 
 .apartment-features {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin: 1.5rem 0;
-  padding: 1.5rem 0;
+  gap: 1.25rem; /* było 1rem -> +25% */
+  margin: 1.875rem 0; /* było 1.5rem -> +25% */
+  padding: 1.875rem 0; /* było 1.5rem -> +25% */
   border-top: 1px solid var(--mountain-cream-dark);
   border-bottom: 1px solid var(--mountain-cream-dark);
 }
@@ -274,31 +276,31 @@ body {
 }
 
 .feature-icon {
-  font-size: 1.88rem; /* 1.5rem * 1.25 */
-  margin-bottom: 0.5rem;
+  font-size: 1.875rem; /* było 1.5rem -> +25% */
+  margin-bottom: 0.625rem; /* było 0.5rem -> +25% */
   display: block;
 }
 
 .feature-value {
-  font-size: 1.4rem; /* 1.125rem * 1.25 */
+  font-size: 1.40625rem; /* było 1.125rem -> +25% */
   font-weight: 700;
   color: var(--mountain-navy);
   display: block;
 }
 
 .feature-label {
-  font-size: 1.1rem; /* 0.875rem * 1.25 */
+  font-size: 1.09375rem; /* było 0.875rem -> +25% */
   color: var(--mountain-stone);
   display: block;
-  margin-top: 0.25rem;
+  margin-top: 0.3125rem; /* było 0.25rem -> +25% */
 }
 
 .apartment-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  padding-top: 1.5rem;
+  gap: 1.25rem; /* było 1rem -> +25% */
+  padding-top: 1.875rem; /* było 1.5rem -> +25% */
 }
 
 .apartment-price {
@@ -307,55 +309,322 @@ body {
 }
 
 .price-from {
-  font-size: 1.1rem; /* 0.875rem * 1.25 */
+  font-size: 1.09375rem; /* było 0.875rem -> +25% */
   color: var(--mountain-stone);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.3125rem; /* było 0.25rem -> +25% */
 }
 
 .price-amount {
-  font-size: 2.5rem; /* 2rem * 1.25 */
+  font-size: 2.5rem; /* było 2rem -> +25% */
   font-weight: 700;
   color: var(--mountain-gold-dark);
   font-family: var(--font-display);
 }
 
 .price-period {
-  font-size: 1.1rem; /* 0.875rem * 1.25 */
+  font-size: 1.09375rem; /* było 0.875rem -> +25% */
   color: var(--mountain-stone);
 }
 
 .apartment-cta {
-  padding: 14px 28px;
+  padding: 17.5px 35px; /* było 14px 28px -> +25% */
   background: var(--mountain-navy);
   color: white;
   text-decoration: none;
-  border-radius: 25px;
+  border-radius: 31.25px; /* było 25px -> +25% */
   font-weight: 700;
-  font-size: 1.2rem; /* 0.95rem * 1.25 */
+  font-size: 1.1875rem; /* było 0.95rem -> +25% */
   transition: all 0.3s ease;
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px; /* było 8px -> +25% */
 }
 
 .apartment-cta:hover {
   background: var(--mountain-navy-dark);
-  transform: translateX(4px);
+  transform: translateX(5px); /* było 4px -> +25% */
   box-shadow: var(--shadow-md);
 }
 
 .apartment-cta::after {
   content: '→';
   transition: transform 0.3s ease;
+  font-size: 1.25rem; /* +25% */
 }
 
 .apartment-cta:hover::after {
-  transform: translateX(4px);
+  transform: translateX(5px); /* było 4px -> +25% */
 }
 
 /* ========================================
-   4. UDOGODNIENIA (JASNA KOLORYSTYKA)
+   4. SEKCJA O OBIEKCIE
+   ======================================== */
+
+.property-info-section {
+  padding: var(--section-padding) 0;
+  background: linear-gradient(180deg,
+    var(--mountain-white) 0%,
+    var(--mountain-cream) 50%,
+    var(--mountain-white) 100%
+  );
+  position: relative;
+}
+
+.property-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.property-header {
+  text-align: center;
+  margin-bottom: 5rem; /* było 4rem -> +25% */
+}
+
+.property-badge {
+  display: inline-block;
+  padding: 12.5px 30px; /* było 10px 24px -> +25% */
+  background: rgba(184, 147, 94, 0.1);
+  color: var(--mountain-gold-dark);
+  font-size: 1.09375rem; /* było 0.875rem -> +25% */
+  font-weight: 700;
+  letter-spacing: 3.75px; /* było 3px -> +25% */
+  text-transform: uppercase;
+  border-radius: 31.25px; /* było 25px -> +25% */
+  margin-bottom: 1.5625rem; /* było 1.25rem -> +25% */
+  border: 1px solid rgba(184, 147, 94, 0.3);
+}
+
+.property-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.125rem, 6.25vw, 5.625rem); /* było 2.5-4.5rem -> +25% */
+  color: var(--mountain-navy-dark);
+  margin-bottom: 1.5625rem; /* było 1.25rem -> +25% */
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.property-subtitle {
+  font-size: clamp(1.375rem, 2.5vw, 1.6875rem); /* było 1.1-1.35rem -> +25% */
+  color: var(--mountain-stone);
+  max-width: 1000px; /* było 800px -> +25% */
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.property-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem; /* było 4rem -> +25% */
+  margin-top: 3.75rem; /* było 3rem -> +25% */
+  align-items: start;
+}
+
+.property-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3.75rem; /* było 3rem -> +25% */
+}
+
+.property-story,
+.property-standards {
+  background: white;
+  padding: 3.125rem; /* było 2.5rem -> +25% */
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.property-story:hover,
+.property-standards:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-5px); /* było -4px -> +25% */
+}
+
+.property-section-title {
+  font-family: var(--font-display);
+  font-size: 2.34375rem; /* było 1.875rem -> +25% */
+  color: var(--mountain-navy);
+  margin-bottom: 1.5625rem; /* było 1.25rem -> +25% */
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 0.9375rem; /* było 0.75rem -> +25% */
+}
+
+.property-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 75px; /* było 60px -> +25% */
+  height: 3.75px; /* było 3px -> +25% */
+  background: linear-gradient(90deg, var(--mountain-gold), var(--mountain-gold-light));
+  border-radius: 2px;
+}
+
+.property-text {
+  font-size: 1.3125rem; /* było 1.05rem -> +25% */
+  color: var(--mountain-stone);
+  line-height: 1.8;
+  margin-bottom: 1.5625rem; /* było 1.25rem -> +25% */
+}
+
+.property-text:last-child {
+  margin-bottom: 0;
+}
+
+.property-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem; /* było 1rem -> +25% */
+}
+
+.property-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px; /* było 12px -> +25% */
+  font-size: 1.3125rem; /* było 1.05rem -> +25% */
+  color: var(--mountain-stone);
+  line-height: 1.6;
+  padding-left: 0;
+}
+
+.property-list li::before {
+  content: '✓';
+  color: var(--mountain-gold);
+  font-weight: 700;
+  font-size: 1.5625rem; /* było 1.25rem -> +25% */
+  flex-shrink: 0;
+  margin-top: -2px;
+}
+
+.property-list li strong {
+  color: var(--mountain-navy);
+}
+
+.property-features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.875rem; /* było 1.5rem -> +25% */
+}
+
+.property-feature-card {
+  background: white;
+  padding: 2.5rem 2.1875rem; /* było 2rem 1.75rem -> +25% */
+  border-radius: var(--radius-md);
+  border: 1px solid var(--mountain-cream-dark);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.property-feature-card:hover {
+  border-color: var(--mountain-gold-light);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-7.5px); /* było -6px -> +25% */
+}
+
+.feature-card-icon {
+  width: 87.5px; /* było 70px -> +25% */
+  height: 87.5px; /* było 70px -> +25% */
+  background: linear-gradient(135deg,
+    var(--mountain-gold-light) 0%,
+    var(--mountain-gold) 100%
+  );
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5625rem; /* było 1.25rem -> +25% */
+  transition: all 0.3s ease;
+}
+
+.property-feature-card:hover .feature-card-icon {
+  transform: scale(1.1);
+  box-shadow: 0 10px 37.5px rgba(184, 147, 94, 0.3); /* było 30px -> +25% */
+}
+
+.feature-card-icon svg {
+  width: 45px; /* było 36px -> +25% */
+  height: 45px; /* było 36px -> +25% */
+  color: white;
+}
+
+.feature-card-title {
+  font-family: var(--font-display);
+  font-size: 1.5625rem; /* było 1.25rem -> +25% */
+  color: var(--mountain-navy);
+  margin-bottom: 0.9375rem; /* było 0.75rem -> +25% */
+  font-weight: 700;
+}
+
+.feature-card-text {
+  font-size: 1.1875rem; /* było 0.95rem -> +25% */
+  color: var(--mountain-stone);
+  line-height: 1.6;
+}
+
+.property-services {
+  margin-top: 5rem; /* było 4rem -> +25% */
+  padding-top: 3.75rem; /* było 3rem -> +25% */
+  border-top: 2px solid rgba(184, 147, 94, 0.15);
+}
+
+.property-services-title {
+  font-family: var(--font-display);
+  font-size: 2.8125rem; /* było 2.25rem -> +25% */
+  color: var(--mountain-navy);
+  text-align: center;
+  margin-bottom: 3.125rem; /* było 2.5rem -> +25% */
+  font-weight: 700;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(325px, 100%), 1fr)); /* było 260px -> +25% */
+  gap: 2.5rem; /* było 2rem -> +25% */
+}
+
+.service-item {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* było 16px -> +25% */
+  padding: 1.875rem; /* było 1.5rem -> +25% */
+  background: white;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--mountain-cream-dark);
+  transition: all 0.3s ease;
+}
+
+.service-item:hover {
+  border-color: var(--mountain-gold);
+  box-shadow: var(--shadow-sm);
+  transform: translateX(7.5px); /* było 6px -> +25% */
+}
+
+.service-icon {
+  width: 60px; /* było 48px -> +25% */
+  height: 60px; /* było 48px -> +25% */
+  flex-shrink: 0;
+  color: var(--mountain-gold);
+}
+
+.service-text {
+  font-size: 1.1875rem; /* było 0.95rem -> +25% */
+  color: var(--mountain-stone);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* ========================================
+   5. UDOGODNIENIA (8 GŁÓWNYCH)
    ======================================== */
 
 .mountain-amenities-section {
@@ -374,52 +643,52 @@ body {
 
 .amenities-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 5rem; /* było 4rem -> +25% */
 }
 
 .amenities-badge {
   display: inline-block;
-  padding: 10px 24px;
+  padding: 12.5px 30px; /* było 10px 24px -> +25% */
   background: rgba(184, 147, 94, 0.1);
   color: var(--mountain-gold-dark);
-  font-size: 1.1rem; /* 0.875rem * 1.25 */
+  font-size: 1.09375rem; /* było 0.875rem -> +25% */
   font-weight: 700;
-  letter-spacing: 3px;
+  letter-spacing: 3.75px; /* było 3px -> +25% */
   text-transform: uppercase;
-  border-radius: 25px;
-  margin-bottom: 1.25rem;
+  border-radius: 31.25px; /* było 25px -> +25% */
+  margin-bottom: 1.5625rem; /* było 1.25rem -> +25% */
   border: 1px solid rgba(184, 147, 94, 0.3);
 }
 
 .amenities-title {
   font-family: var(--font-display);
-  font-size: clamp(3.125rem, 6.25vw, 5.625rem); /* clamp(2.5rem * 1.25, 5vw * 1.25, 4.5rem * 1.25) */
+  font-size: clamp(3.125rem, 6.25vw, 5.625rem); /* było 2.5-4.5rem -> +25% */
   color: var(--mountain-navy-dark);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5625rem; /* było 1.25rem -> +25% */
   font-weight: 700;
   line-height: 1.1;
 }
 
 .amenities-subtitle {
-  font-size: clamp(1.375rem, 2.5vw, 1.7rem); /* clamp(1.1rem * 1.25, 2vw * 1.25, 1.35rem * 1.25) */
+  font-size: clamp(1.375rem, 2.5vw, 1.6875rem); /* było 1.1-1.35rem -> +25% */
   color: var(--mountain-stone);
-  max-width: 700px;
+  max-width: 875px; /* było 700px -> +25% */
   margin: 0 auto;
   line-height: 1.7;
 }
 
 .amenities-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-  gap: 2.5rem;
-  margin-top: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr)); /* było 280px -> +25% */
+  gap: 3.125rem; /* było 2.5rem -> +25% */
+  margin-top: 3.75rem; /* było 3rem -> +25% */
 }
 
 .amenity-card {
   background: var(--mountain-white);
   border: 1px solid rgba(0,0,0,0.05);
   border-radius: var(--radius-lg);
-  padding: 2.5rem 2rem;
+  padding: 3.125rem 2.5rem; /* było 2.5rem 2rem -> +25% */
   text-align: center;
   transition: all 0.4s ease;
   position: relative;
@@ -433,7 +702,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 5px; /* było 4px -> +25% */
   background: linear-gradient(90deg, var(--mountain-gold), var(--mountain-gold-light));
   transform: scaleX(0);
   transform-origin: left;
@@ -446,14 +715,14 @@ body {
 
 .amenity-card:hover {
   border-color: var(--mountain-gold-light);
-  transform: translateY(-12px);
+  transform: translateY(-15px); /* było -12px -> +25% */
   box-shadow: var(--shadow-xl);
 }
 
 .amenity-icon {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 1.5rem;
+  width: 100px; /* było 80px -> +25% */
+  height: 100px; /* było 80px -> +25% */
+  margin: 0 auto 1.875rem; /* było 1.5rem -> +25% */
   background: linear-gradient(135deg,
     var(--mountain-gold-light) 0%,
     var(--mountain-gold) 100%
@@ -467,31 +736,31 @@ body {
 }
 
 .amenity-icon svg {
-  width: 40px;
-  height: 40px;
+  width: 50px; /* było 40px -> +25% */
+  height: 50px; /* było 40px -> +25% */
 }
 
 .amenity-card:hover .amenity-icon {
   transform: scale(1.1);
-  box-shadow: 0 10px 30px rgba(184, 147, 94, 0.4);
+  box-shadow: 0 12.5px 37.5px rgba(184, 147, 94, 0.4); /* było 10px 30px -> +25% */
 }
 
 .amenity-title {
   font-family: var(--font-display);
-  font-size: 1.88rem; /* 1.5rem * 1.25 */
+  font-size: 1.875rem; /* było 1.5rem -> +25% */
   color: var(--mountain-navy);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.9375rem; /* było 0.75rem -> +25% */
   font-weight: 700;
 }
 
 .amenity-description {
-  font-size: 1.2rem; /* 0.95rem * 1.25 */
+  font-size: 1.1875rem; /* było 0.95rem -> +25% */
   color: var(--mountain-stone);
   line-height: 1.6;
 }
 
 /* ========================================
-   5. TIMELINE ATRAKCJI (Odkryj Karkonosze)
+   6. TIMELINE ATRAKCJI
    ======================================== */
 
 .timeline-section {
@@ -501,49 +770,49 @@ body {
 }
 
 .timeline-container {
-  max-width: 1200px;
+  max-width: 1500px; /* było 1200px -> +25% */
   margin: 0 auto;
   padding: 0 2rem;
 }
 
 .timeline-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 5rem; /* było 4rem -> +25% */
 }
 
 .timeline-badge {
   display: inline-block;
-  padding: 12px 28px;
+  padding: 15px 35px; /* było 12px 28px -> +25% */
   background: var(--mountain-navy);
   color: white;
-  font-size: 1.1rem; /* 0.875rem * 1.25 */
+  font-size: 1.09375rem; /* było 0.875rem -> +25% */
   font-weight: 700;
-  letter-spacing: 3px;
+  letter-spacing: 3.75px; /* było 3px -> +25% */
   text-transform: uppercase;
-  border-radius: 25px;
-  margin-bottom: 1.25rem;
+  border-radius: 31.25px; /* było 25px -> +25% */
+  margin-bottom: 1.5625rem; /* było 1.25rem -> +25% */
 }
 
 .timeline-title {
   font-family: var(--font-display);
-  font-size: clamp(3.125rem, 6.25vw, 5.625rem); /* clamp(2.5rem * 1.25, 5vw * 1.25, 4.5rem * 1.25) */
+  font-size: clamp(3.125rem, 6.25vw, 5.625rem); /* było 2.5-4.5rem -> +25% */
   color: var(--mountain-navy-dark);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5625rem; /* było 1.25rem -> +25% */
   font-weight: 700;
   line-height: 1.1;
 }
 
 .timeline-subtitle {
-  font-size: clamp(1.375rem, 2.5vw, 1.7rem); /* clamp(1.1rem * 1.25, 2vw * 1.25, 1.35rem * 1.25) */
+  font-size: clamp(1.375rem, 2.5vw, 1.6875rem); /* było 1.1-1.35rem -> +25% */
   color: var(--mountain-stone);
-  max-width: 700px;
+  max-width: 875px; /* było 700px -> +25% */
   margin: 0 auto;
   line-height: 1.7;
 }
 
 .timeline {
   position: relative;
-  padding: 2rem 0;
+  padding: 2.5rem 0; /* było 2rem -> +25% */
 }
 
 .timeline::before {
@@ -552,7 +821,7 @@ body {
   left: 50%;
   top: 0;
   bottom: 0;
-  width: 3px;
+  width: 3.75px; /* było 3px -> +25% */
   background: linear-gradient(180deg, transparent, var(--mountain-gold-light), transparent);
   transform: translateX(-50%);
 }
@@ -560,7 +829,7 @@ body {
 .timeline-item {
   position: relative;
   display: flex;
-  margin-bottom: 4rem;
+  margin-bottom: 5rem; /* było 4rem -> +25% */
   align-items: center;
 }
 
@@ -579,7 +848,7 @@ body {
 .timeline-content {
   flex: 1;
   background: white;
-  padding: 2.5rem;
+  padding: 3.125rem; /* było 2.5rem -> +25% */
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   position: relative;
@@ -587,17 +856,17 @@ body {
 }
 
 .timeline-item:nth-child(odd) .timeline-content {
-  margin-right: 3.5rem;
+  margin-right: 4.375rem; /* było 3.5rem -> +25% */
   text-align: right;
 }
 
 .timeline-item:nth-child(even) .timeline-content {
-  margin-left: 3.5rem;
+  margin-left: 4.375rem; /* było 3.5rem -> +25% */
   text-align: left;
 }
 
 .timeline-content:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6.25px); /* było -5px -> +25% */
   box-shadow: var(--shadow-lg);
 }
 
@@ -606,49 +875,49 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  border: 18px solid transparent;
+  border: 22.5px solid transparent; /* było 18px -> +25% */
 }
 
 .timeline-item:nth-child(odd) .timeline-content::before {
-  right: -36px;
+  right: -45px; /* było -36px -> +25% */
   border-left-color: white;
 }
 
 .timeline-item:nth-child(even) .timeline-content::before {
-  left: -36px;
+  left: -45px; /* było -36px -> +25% */
   border-right-color: white;
 }
 
 .timeline-distance {
   display: inline-block;
-  padding: 8px 18px;
+  padding: 10px 22.5px; /* było 8px 18px -> +25% */
   background: linear-gradient(135deg, var(--mountain-gold-light), var(--mountain-gold));
   color: white;
-  font-size: 1.1rem; /* 0.875rem * 1.25 */
+  font-size: 1.09375rem; /* było 0.875rem -> +25% */
   font-weight: 700;
-  border-radius: 20px;
-  margin-bottom: 1rem;
+  border-radius: 25px; /* było 20px -> +25% */
+  margin-bottom: 1.25rem; /* było 1rem -> +25% */
 }
 
 .timeline-content-title {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 3.75vw, 2.8rem); /* clamp(1.75rem * 1.25, 3vw * 1.25, 2.25rem * 1.25) */
+  font-size: clamp(2.1875rem, 3.75vw, 2.8125rem); /* było 1.75-2.25rem -> +25% */
   color: var(--mountain-navy);
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem; /* było 1rem -> +25% */
   font-weight: 700;
 }
 
 .timeline-content-description {
-  font-size: 1.3rem; /* 1.05rem * 1.25 */
+  font-size: 1.3125rem; /* było 1.05rem -> +25% */
   color: var(--mountain-stone);
   line-height: 1.7;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.875rem; /* było 1.5rem -> +25% */
 }
 
 .timeline-features {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.9375rem; /* było 0.75rem -> +25% */
 }
 
 .timeline-item:nth-child(odd) .timeline-features {
@@ -656,11 +925,11 @@ body {
 }
 
 .timeline-feature-tag {
-  padding: 6px 14px;
+  padding: 7.5px 17.5px; /* było 6px 14px -> +25% */
   background: var(--mountain-cream);
   border: 1px solid var(--mountain-cream-dark);
-  border-radius: 20px;
-  font-size: 1.1rem; /* 0.875rem * 1.25 */
+  border-radius: 25px; /* było 20px -> +25% */
+  font-size: 1.09375rem; /* było 0.875rem -> +25% */
   font-weight: 500;
   color: var(--mountain-charcoal);
 }
@@ -670,13 +939,13 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 24px;
-  height: 24px;
+  width: 30px; /* było 24px -> +25% */
+  height: 30px; /* było 24px -> +25% */
   background: white;
-  border: 5px solid var(--mountain-gold-light);
+  border: 6.25px solid var(--mountain-gold-light); /* było 5px -> +25% */
   border-radius: 50%;
   z-index: 2;
-  box-shadow: 0 0 0 8px rgba(212, 165, 116, 0.2);
+  box-shadow: 0 0 0 10px rgba(212, 165, 116, 0.2); /* było 8px -> +25% */
   transition: all 0.3s ease;
 }
 
@@ -690,16 +959,16 @@ body {
   position: relative;
   overflow: hidden;
   border-radius: var(--radius-lg);
-  height: 350px;
+  height: 437.5px; /* było 350px -> +25% */
   box-shadow: var(--shadow-md);
 }
 
 .timeline-item:nth-child(odd) .timeline-image {
-  margin-left: 3.5rem;
+  margin-left: 4.375rem; /* było 3.5rem -> +25% */
 }
 
 .timeline-item:nth-child(even) .timeline-image {
-  margin-right: 3.5rem;
+  margin-right: 4.375rem; /* było 3.5rem -> +25% */
 }
 
 .timeline-image img {
@@ -714,7 +983,7 @@ body {
 }
 
 /* ========================================
-   6. SEKCJA LOKALIZACJI Z MAPĄ (NAPRAWIONA - BEZ ROTATE)
+   7. SEKCJA LOKALIZACJI Z MAPĄ
    ======================================== */
 
 .location-split-section {
@@ -726,15 +995,14 @@ body {
 .location-split-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 700px;
+  min-height: 875px; /* było 700px -> +25% */
   max-width: 100%;
   margin: 0 auto;
   align-items: stretch;
 }
 
-/* Left Side - Content */
 .location-content-side {
-  padding: clamp(3rem, 8vw, 6rem) clamp(2rem, 5vw, 5rem);
+  padding: clamp(3.75rem, 10vw, 7.5rem) clamp(2.5rem, 6.25vw, 6.25rem); /* było 3-6rem i 2-5rem -> +25% */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -747,7 +1015,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 4px;
+  width: 5px; /* było 4px -> +25% */
   height: 100%;
   background: linear-gradient(180deg,
     var(--mountain-gold-light),
@@ -757,7 +1025,7 @@ body {
 }
 
 .location-content {
-  max-width: 600px;
+  max-width: 750px; /* było 600px -> +25% */
   margin: 0 auto;
   width: 100%;
 }
@@ -765,88 +1033,86 @@ body {
 .location-badge {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 24px;
+  gap: 12.5px; /* było 10px -> +25% */
+  padding: 12.5px 30px; /* było 10px 24px -> +25% */
   background: linear-gradient(135deg,
     rgba(184, 147, 94, 0.1) 0%,
     rgba(212, 165, 116, 0.15) 100%
   );
-  border: 1.5px solid rgba(184, 147, 94, 0.3);
-  border-radius: 30px;
+  border: 1.875px solid rgba(184, 147, 94, 0.3); /* było 1.5px -> +25% */
+  border-radius: 37.5px; /* było 30px -> +25% */
   color: var(--mountain-gold-dark);
-  font-size: 1rem; /* 0.8rem * 1.25 */
+  font-size: 1rem; /* było 0.8rem -> +25% */
   font-weight: 700;
-  letter-spacing: 2.5px;
+  letter-spacing: 3.125px; /* było 2.5px -> +25% */
   text-transform: uppercase;
-  margin-bottom: 1.75rem;
+  margin-bottom: 2.1875rem; /* było 1.75rem -> +25% */
   transition: all 0.3s ease;
 }
 
 .location-badge:hover {
   background: rgba(184, 147, 94, 0.15);
   border-color: var(--mountain-gold);
-  transform: translateX(4px);
+  transform: translateX(5px); /* było 4px -> +25% */
 }
 
 .location-badge svg {
-  width: 18px;
-  height: 18px;
+  width: 22.5px; /* było 18px -> +25% */
+  height: 22.5px; /* było 18px -> +25% */
 }
 
 .location-title {
   font-family: var(--font-display);
-  font-size: clamp(2.8rem, 6.25vw, 4.7rem); /* clamp(2.25rem * 1.25, 5vw * 1.25, 3.75rem * 1.25) */
+  font-size: clamp(2.8125rem, 6.25vw, 4.6875rem); /* było 2.25-3.75rem -> +25% */
   color: var(--mountain-navy);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.875rem; /* było 1.5rem -> +25% */
   font-weight: 700;
   line-height: 1.15;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.625px; /* było -0.5px -> +25% */
 }
 
 .location-description {
-  font-size: clamp(1.3rem, 2.5vw, 1.5rem); /* clamp(1.05rem * 1.25, 2vw * 1.25, 1.2rem * 1.25) */
+  font-size: clamp(1.3125rem, 2.5vw, 1.5rem); /* było 1.05-1.2rem -> +25% */
   color: var(--mountain-stone);
   line-height: 1.8;
-  margin-bottom: 2.5rem;
+  margin-bottom: 3.125rem; /* było 2.5rem -> +25% */
 }
 
-/* Statystyki */
 .location-stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 2.5rem;
-  padding: 2rem 0;
-  border-top: 2px solid rgba(184, 147, 94, 0.15);
-  border-bottom: 2px solid rgba(184, 147, 94, 0.15);
+  gap: 1.875rem; /* było 1.5rem -> +25% */
+  margin-bottom: 3.125rem; /* było 2.5rem -> +25% */
+  padding: 2.5rem 0; /* było 2rem -> +25% */
+  border-top: 2.5px solid rgba(184, 147, 94, 0.15); /* było 2px -> +25% */
+  border-bottom: 2.5px solid rgba(184, 147, 94, 0.15); /* było 2px -> +25% */
 }
 
 .stat-box {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px; /* było 4px -> +25% */
   position: relative;
-  padding-left: 60px;
+  padding-left: 75px; /* było 60px -> +25% */
   transition: all 0.3s ease;
 }
 
 .stat-box:hover {
-  transform: translateX(4px);
+  transform: translateX(5px); /* było 4px -> +25% */
 }
 
-/* Ikona statystyki - BEZ ROTATE! */
 .stat-icon {
   position: absolute;
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 48px;
-  height: 48px;
+  width: 60px; /* było 48px -> +25% */
+  height: 60px; /* było 48px -> +25% */
   background: linear-gradient(135deg,
     var(--mountain-gold-light) 0%,
     var(--mountain-gold) 100%
   );
-  border-radius: 12px;
+  border-radius: 15px; /* było 12px -> +25% */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -854,19 +1120,18 @@ body {
   transition: all 0.3s ease;
 }
 
-/* ✅ NAPRAWIONE: Tylko scale, BEZ rotate */
 .stat-box:hover .stat-icon {
   transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 6px 20px rgba(184, 147, 94, 0.4);
+  box-shadow: 0 7.5px 25px rgba(184, 147, 94, 0.4); /* było 6px 20px -> +25% */
 }
 
 .stat-icon svg {
-  width: 24px;
-  height: 24px;
+  width: 30px; /* było 24px -> +25% */
+  height: 30px; /* było 24px -> +25% */
 }
 
 .stat-number {
-  font-size: clamp(2.5rem, 5vw, 3.44rem); /* clamp(2rem * 1.25, 4vw * 1.25, 2.75rem * 1.25) */
+  font-size: clamp(2.5rem, 5vw, 3.4375rem); /* było 2-2.75rem -> +25% */
   font-weight: 700;
   color: var(--mountain-gold);
   line-height: 1;
@@ -874,32 +1139,30 @@ body {
 }
 
 .stat-label {
-  font-size: 1.125rem; /* 0.9rem * 1.25 */
+  font-size: 1.125rem; /* było 0.9rem -> +25% */
   color: var(--mountain-stone);
   font-weight: 500;
   line-height: 1.4;
 }
 
-/* Divider */
 .location-divider {
-  height: 2px;
+  height: 2.5px; /* było 2px -> +25% */
   background: linear-gradient(90deg,
     transparent 0%,
     var(--mountain-gold-light) 50%,
     transparent 100%
   );
-  margin: 2rem 0 2.5rem;
+  margin: 2.5rem 0 3.125rem; /* było 2-2.5rem -> +25% */
 }
 
-/* POI Heading */
 .poi-heading {
   font-family: var(--font-display);
-  font-size: 1.88rem; /* 1.5rem * 1.25 */
+  font-size: 1.875rem; /* było 1.5rem -> +25% */
   color: var(--mountain-navy);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5625rem; /* było 1.25rem -> +25% */
   font-weight: 700;
   position: relative;
-  padding-left: 20px;
+  padding-left: 25px; /* było 20px -> +25% */
 }
 
 .poi-heading::before {
@@ -908,30 +1171,29 @@ body {
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 6px;
+  width: 7.5px; /* było 6px -> +25% */
   height: 100%;
   background: linear-gradient(180deg,
     var(--mountain-gold-light),
     var(--mountain-gold)
   );
-  border-radius: 3px;
+  border-radius: 3.75px; /* było 3px -> +25% */
 }
 
-/* Punkty POI */
 .location-poi-list {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem; /* było 1rem -> +25% */
 }
 
 .poi-item {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 18px 20px;
+  gap: 20px; /* było 16px -> +25% */
+  padding: 22.5px 25px; /* było 18px 20px -> +25% */
   background: white;
   border-radius: var(--radius-sm);
-  border: 1.5px solid var(--mountain-cream-dark);
+  border: 1.875px solid var(--mountain-cream-dark); /* było 1.5px -> +25% */
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -943,7 +1205,7 @@ body {
   left: 0;
   top: 0;
   bottom: 0;
-  width: 4px;
+  width: 5px; /* było 4px -> +25% */
   background: linear-gradient(180deg,
     var(--mountain-gold-light),
     var(--mountain-gold)
@@ -955,7 +1217,7 @@ body {
 .poi-item:hover {
   border-color: var(--mountain-gold);
   box-shadow: var(--shadow-md);
-  transform: translateX(8px);
+  transform: translateX(10px); /* było 8px -> +25% */
   background: rgba(184, 147, 94, 0.02);
 }
 
@@ -963,15 +1225,14 @@ body {
   transform: scaleY(1);
 }
 
-/* Ikona POI - BEZ ROTATE! */
 .poi-icon {
-  width: 44px;
-  height: 44px;
+  width: 55px; /* było 44px -> +25% */
+  height: 55px; /* było 44px -> +25% */
   background: linear-gradient(135deg,
     var(--mountain-navy) 0%,
     var(--mountain-navy-light) 100%
   );
-  border-radius: 11px;
+  border-radius: 13.75px; /* było 11px -> +25% */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -979,15 +1240,14 @@ body {
   transition: all 0.3s ease;
 }
 
-/* ✅ NAPRAWIONE: Tylko scale, BEZ rotate */
 .poi-item:hover .poi-icon {
   transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(28, 60, 90, 0.3);
+  box-shadow: 0 5px 15px rgba(28, 60, 90, 0.3); /* było 4px 12px -> +25% */
 }
 
 .poi-icon svg {
-  width: 22px;
-  height: 22px;
+  width: 27.5px; /* było 22px -> +25% */
+  height: 27.5px; /* było 22px -> +25% */
   color: white;
 }
 
@@ -996,10 +1256,10 @@ body {
 }
 
 .poi-name {
-  font-size: 1.3rem; /* 1.05rem * 1.25 */
+  font-size: 1.3125rem; /* było 1.05rem -> +25% */
   font-weight: 600;
   color: var(--mountain-navy);
-  margin-bottom: 4px;
+  margin-bottom: 5px; /* było 4px -> +25% */
   transition: color 0.3s ease;
 }
 
@@ -1008,15 +1268,14 @@ body {
 }
 
 .poi-distance {
-  font-size: 1.1rem; /* 0.875rem * 1.25 */
+  font-size: 1.09375rem; /* było 0.875rem -> +25% */
   color: var(--mountain-stone);
   line-height: 1.4;
 }
 
-/* Right Side - Map */
 .location-map-side {
   position: relative;
-  min-height: 700px;
+  min-height: 875px; /* było 700px -> +25% */
   background: var(--mountain-cream);
   display: flex;
   align-items: center;
@@ -1043,17 +1302,16 @@ body {
   filter: grayscale(0%) brightness(1) contrast(1);
 }
 
-/* Karta informacyjna */
 .map-info-card {
   position: absolute;
-  bottom: 40px;
-  right: 40px;
+  bottom: 50px; /* było 40px -> +25% */
+  right: 50px; /* było 40px -> +25% */
   background: white;
   border-radius: var(--radius-md);
   box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.15),
+    0 25px 75px rgba(0, 0, 0, 0.15), /* było 20px 60px -> +25% */
     0 0 0 1px rgba(0, 0, 0, 0.05);
-  max-width: 340px;
+  max-width: 425px; /* było 340px -> +25% */
   z-index: 10;
   overflow: hidden;
   transition: all 0.4s ease;
@@ -1065,7 +1323,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 5px; /* było 4px -> +25% */
   background: linear-gradient(90deg,
     var(--mountain-gold-light),
     var(--mountain-gold),
@@ -1074,43 +1332,43 @@ body {
 }
 
 .map-info-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-10px); /* było -8px -> +25% */
   box-shadow:
-    0 30px 80px rgba(0, 0, 0, 0.2),
+    0 37.5px 100px rgba(0, 0, 0, 0.2), /* było 30px 80px -> +25% */
     0 0 0 1px rgba(184, 147, 94, 0.2);
 }
 
 .map-card-content {
-  padding: 2rem;
+  padding: 2.5rem; /* było 2rem -> +25% */
 }
 
 .map-card-title {
   font-family: var(--font-display);
-  font-size: 1.88rem; /* 1.5rem * 1.25 */
+  font-size: 1.875rem; /* było 1.5rem -> +25% */
   font-weight: 700;
   color: var(--mountain-navy);
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem; /* było 1rem -> +25% */
   line-height: 1.2;
 }
 
 .map-card-address {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  font-size: 1.2rem; /* 0.95rem * 1.25 */
+  gap: 15px; /* było 12px -> +25% */
+  font-size: 1.1875rem; /* było 0.95rem -> +25% */
   color: var(--mountain-stone);
   line-height: 1.6;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1.5px solid var(--mountain-cream-dark);
+  margin-bottom: 1.875rem; /* było 1.5rem -> +25% */
+  padding-bottom: 1.875rem; /* było 1.5rem -> +25% */
+  border-bottom: 1.875px solid var(--mountain-cream-dark); /* było 1.5px -> +25% */
 }
 
 .map-card-address svg {
-  width: 20px;
-  height: 20px;
+  width: 25px; /* było 20px -> +25% */
+  height: 25px; /* było 20px -> +25% */
   color: var(--mountain-gold);
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 2.5px; /* było 2px -> +25% */
 }
 
 .map-card-address strong {
@@ -1122,16 +1380,16 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12.5px; /* było 10px -> +25% */
   width: 100%;
-  padding: 14px 24px;
+  padding: 17.5px 30px; /* było 14px 24px -> +25% */
   background: linear-gradient(135deg,
     var(--mountain-navy) 0%,
     var(--mountain-navy-light) 100%
   );
   color: white;
-  border-radius: 30px;
-  font-size: 1.2rem; /* 0.95rem * 1.25 */
+  border-radius: 37.5px; /* było 30px -> +25% */
+  font-size: 1.1875rem; /* było 0.95rem -> +25% */
   font-weight: 600;
   text-decoration: none;
   transition: all 0.3s ease;
@@ -1156,8 +1414,8 @@ body {
 }
 
 .map-card-btn svg {
-  width: 18px;
-  height: 18px;
+  width: 22.5px; /* było 18px -> +25% */
+  height: 22.5px; /* było 18px -> +25% */
   position: relative;
   z-index: 1;
 }
@@ -1167,12 +1425,12 @@ body {
 }
 
 .map-card-btn:hover .arrow-icon {
-  transform: translateX(4px);
+  transform: translateX(5px); /* było 4px -> +25% */
 }
 
 .map-card-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(28, 60, 90, 0.3);
+  transform: translateY(-2.5px); /* było -2px -> +25% */
+  box-shadow: 0 12.5px 37.5px rgba(28, 60, 90, 0.3); /* było 10px 30px -> +25% */
 }
 
 .map-card-btn > * {
@@ -1181,220 +1439,7 @@ body {
 }
 
 /* ========================================
-   7. SEKCJA ATRAKCJE CARDS (NOWA SEKCJA)
-   ======================================== */
-
-.attractions-cards-section {
-  padding: var(--section-padding) 0;
-  background: linear-gradient(180deg, #FFFFFF 0%, var(--mountain-cream) 100%);
-}
-
-.attractions-container {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-/* Header */
-.attractions-header {
-  text-align: center;
-  margin-bottom: 4rem;
-}
-
-.attractions-eyebrow {
-  display: inline-block;
-  padding: 10px 24px;
-  background: rgba(184, 147, 94, 0.1);
-  color: var(--mountain-gold-dark);
-  font-size: 1.1rem; /* 0.875rem * 1.25 */
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  border-radius: 25px;
-  margin-bottom: 1.25rem;
-  border: 1px solid rgba(184, 147, 94, 0.3);
-}
-
-.attractions-main-title {
-  font-family: var(--font-display);
-  font-size: clamp(3.125rem, 6.25vw, 5.625rem); /* clamp(2.5rem * 1.25, 5vw * 1.25, 4.5rem * 1.25) */
-  color: var(--mountain-navy-dark);
-  margin-bottom: 1.25rem;
-  font-weight: 700;
-  line-height: 1.1;
-}
-
-.attractions-intro {
-  font-size: clamp(1.375rem, 2.5vw, 1.7rem); /* clamp(1.1rem * 1.25, 2vw * 1.25, 1.35rem * 1.25) */
-  color: var(--mountain-stone);
-  max-width: 700px;
-  margin: 0 auto;
-  line-height: 1.7;
-}
-
-/* Grid */
-.attractions-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
-  gap: 2.5rem;
-  margin-top: 3rem;
-}
-
-/* Card */
-.attraction-card {
-  position: relative;
-  height: 500px;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.4s ease;
-}
-
-.attraction-card:hover {
-  transform: translateY(-12px);
-  box-shadow: var(--shadow-xl);
-}
-
-.card-background {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  transition: transform 0.6s ease;
-}
-
-.attraction-card:hover .card-background {
-  transform: scale(1.1);
-}
-
-.card-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.1) 0%,
-    rgba(0,0,0,0.5) 60%,
-    rgba(0,0,0,0.9) 100%
-  );
-}
-
-.card-category {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  padding: 8px 18px;
-  background: rgba(184, 147, 94, 0.95);
-  color: white;
-  font-size: 0.94rem; /* 0.75rem * 1.25 */
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  z-index: 3;
-}
-
-.card-content {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 2.5rem 2rem;
-  color: white;
-  z-index: 2;
-}
-
-.card-icon {
-  width: 60px;
-  height: 60px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.25rem;
-  transition: all 0.3s ease;
-}
-
-.attraction-card:hover .card-icon {
-  background: rgba(184, 147, 94, 0.9);
-  transform: scale(1.1);
-}
-
-.card-icon svg {
-  width: 28px;
-  height: 28px;
-}
-
-.card-title {
-  font-family: var(--font-display);
-  font-size: 2.35rem; /* 1.875rem * 1.25 */
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-  line-height: 1.2;
-}
-
-.card-description {
-  font-size: 1.2rem; /* 0.95rem * 1.25 */
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 1.25rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.card-meta {
-  display: flex;
-  gap: 1.5rem;
-  margin-bottom: 1.25rem;
-}
-
-.meta-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 1.1rem; /* 0.875rem * 1.25 */
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.meta-item svg {
-  width: 16px;
-  height: 16px;
-}
-
-.card-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  color: white;
-  text-decoration: none;
-  border-radius: 25px;
-  font-weight: 600;
-  font-size: 1.1rem; /* 0.875rem * 1.25 */
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: all 0.3s ease;
-}
-
-.card-cta:hover {
-  background: var(--mountain-gold);
-  border-color: var(--mountain-gold);
-  transform: translateX(4px);
-}
-
-.card-cta svg {
-  width: 16px;
-  height: 16px;
-}
-
-/* ========================================
-   8. INTEGRACJA Z SYSTEMEM WYRÓŻNIONYCH OFERT IDOBOOKING
+   8. INTEGRACJA Z SYSTEMEM WYRÓŻNIONYCH OFERT
    ======================================== */
 
 .container-hotspot {
@@ -1404,10 +1449,10 @@ body {
 
 .cmshotspot .big-label.line-label {
   font-family: var(--font-display) !important;
-  font-size: clamp(3.125rem, 6.25vw, 5rem) !important; /* clamp(2.5rem * 1.25, 5vw * 1.25, 4rem * 1.25) */
+  font-size: clamp(3.125rem, 6.25vw, 5rem) !important; /* było 2.5-4rem -> +25% */
   color: var(--mountain-navy-dark) !important;
   text-align: center !important;
-  margin-bottom: 3rem !important;
+  margin-bottom: 3.75rem !important; /* było 3rem -> +25% */
   position: relative !important;
   font-weight: 700 !important;
 }
@@ -1415,11 +1460,11 @@ body {
 .cmshotspot .big-label.line-label::after {
   content: '';
   display: block;
-  width: 80px;
-  height: 4px;
+  width: 100px; /* było 80px -> +25% */
+  height: 5px; /* było 4px -> +25% */
   background: linear-gradient(90deg, var(--mountain-gold), var(--mountain-gold-light));
-  margin: 1.5rem auto 0;
-  border-radius: 2px;
+  margin: 1.875rem auto 0; /* było 1.5rem -> +25% */
+  border-radius: 2.5px; /* było 2px -> +25% */
 }
 
 .offerslist .offer {
@@ -1435,7 +1480,7 @@ body {
 }
 
 .offerslist .offer:hover {
-  transform: translateY(-12px) !important;
+  transform: translateY(-15px) !important; /* było -12px -> +25% */
   box-shadow: var(--shadow-xl) !important;
   border-color: var(--mountain-gold-light) !important;
 }
@@ -1444,7 +1489,7 @@ body {
   position: relative !important;
   display: block !important;
   overflow: hidden !important;
-  height: 280px !important;
+  height: 350px !important; /* było 280px -> +25% */
 }
 
 .offerslist .offer .object-icon img {
@@ -1464,7 +1509,7 @@ body {
   background: linear-gradient(180deg, transparent 0%, rgba(15, 36, 56, 0.95) 100%) !important;
   display: flex !important;
   align-items: flex-end !important;
-  padding: 2rem !important;
+  padding: 2.5rem !important; /* było 2rem -> +25% */
   opacity: 0 !important;
   transition: opacity 0.4s ease !important;
 }
@@ -1475,20 +1520,20 @@ body {
 
 .offerslist .offer__description {
   color: white !important;
-  font-size: 1.2rem !important; /* 0.95rem * 1.25 */
+  font-size: 1.1875rem !important; /* było 0.95rem -> +25% */
   line-height: 1.6 !important;
   margin: 0 !important;
 }
 
 .offerslist .offer h3 {
-  padding: 1.5rem 1.5rem 0.75rem !important;
+  padding: 1.875rem 1.875rem 0.9375rem !important; /* było 1.5-0.75rem -> +25% */
   margin: 0 !important;
   height: auto !important;
 }
 
 .offerslist .offer h3 a {
   font-family: var(--font-display) !important;
-  font-size: 1.88rem !important; /* 1.5rem * 1.25 */
+  font-size: 1.875rem !important; /* było 1.5rem -> +25% */
   color: var(--mountain-navy) !important;
   text-decoration: none !important;
   font-weight: 700 !important;
@@ -1501,7 +1546,7 @@ body {
 }
 
 .offerslist .offer__box {
-  padding: 0 1.5rem 1.5rem !important;
+  padding: 0 1.875rem 1.875rem !important; /* było 0 1.5-1.5rem -> +25% */
   height: auto !important;
   margin-top: auto !important;
 }
@@ -1509,20 +1554,20 @@ body {
 .offerslist .offer__info {
   display: flex !important;
   align-items: center !important;
-  gap: 1rem !important;
-  margin-bottom: 1rem !important;
-  padding-bottom: 1rem !important;
+  gap: 1.25rem !important; /* było 1rem -> +25% */
+  margin-bottom: 1.25rem !important; /* było 1rem -> +25% */
+  padding-bottom: 1.25rem !important; /* było 1rem -> +25% */
   border-bottom: 1px solid var(--mountain-cream-dark) !important;
 }
 
 .offerslist .accommodation-roomspace {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 6px !important;
-  padding: 6px 12px !important;
+  gap: 7.5px !important; /* było 6px -> +25% */
+  padding: 7.5px 15px !important; /* było 6px 12px -> +25% */
   background: var(--mountain-cream) !important;
-  border-radius: 20px !important;
-  font-size: 1.1rem !important; /* 0.875rem * 1.25 */
+  border-radius: 25px !important; /* było 20px -> +25% */
+  font-size: 1.09375rem !important; /* było 0.875rem -> +25% */
   font-weight: 600 !important;
   color: var(--mountain-charcoal) !important;
 }
@@ -1537,24 +1582,24 @@ body {
 }
 
 .offerslist .offers-details {
-  padding: 12px 28px !important;
+  padding: 15px 35px !important; /* było 12px 28px -> +25% */
   background: var(--mountain-navy) !important;
   color: white !important;
   text-decoration: none !important;
-  border-radius: 25px !important;
+  border-radius: 31.25px !important; /* było 25px -> +25% */
   font-weight: 700 !important;
-  font-size: 1.1rem !important; /* 0.875rem * 1.25 */
+  font-size: 1.09375rem !important; /* było 0.875rem -> +25% */
   transition: all 0.3s ease !important;
   display: inline-flex !important;
   align-items: center !important;
-  gap: 6px !important;
+  gap: 7.5px !important; /* było 6px -> +25% */
   text-transform: uppercase !important;
-  letter-spacing: 1px !important;
+  letter-spacing: 1.25px !important; /* było 1px -> +25% */
 }
 
 .offerslist .offers-details:hover {
   background: var(--mountain-navy-dark) !important;
-  transform: translateX(4px) !important;
+  transform: translateX(5px) !important; /* było 4px -> +25% */
   box-shadow: var(--shadow-md) !important;
 }
 
@@ -1568,11 +1613,11 @@ body {
 }
 
 .offerslist.slick-slider {
-  margin: 0 -1rem !important;
+  margin: 0 -1.25rem !important; /* było -1rem -> +25% */
 }
 
 .offerslist .slick-slide {
-  padding: 0 1rem !important;
+  padding: 0 1.25rem !important; /* było 1rem -> +25% */
 }
 
 .offerslist .slick-list {
@@ -1589,43 +1634,48 @@ body {
    9. RESPONSYWNOŚĆ - MOBILE FIRST
    ======================================== */
 
-/* Tablet - 1024px */
 @media (max-width: 1024px) {
   :root {
-    --section-padding: clamp(3rem, 6vw, 5rem);
+    --section-padding: clamp(3.75rem, 7.5vw, 6.25rem); /* było 3-5rem -> +25% */
   }
 
-  /* Grid 2 kolumny na tablet */
+  body {
+    font-size: 18.75px; /* było 15px (bazując na mobile 16*0.9375) -> +25% */
+  }
+
   .apartments-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr); /* 2 kolumny na tablet */
+    gap: 2.5rem; /* było 2rem -> +25% */
   }
 
   .amenities-grid {
-    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(312.5px, 100%), 1fr)); /* było 250px -> +25% */
   }
 
-  .attractions-grid {
-    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-    gap: 2rem;
+  .property-grid {
+    grid-template-columns: 1fr;
+    gap: 3.75rem; /* było 3rem -> +25% */
   }
 
-  /* Timeline */
+  .property-features-grid {
+    grid-template-columns: 1fr;
+  }
+
   .timeline::before {
-    left: 30px;
+    left: 37.5px; /* było 30px -> +25% */
   }
 
   .timeline-item,
   .timeline-item:nth-child(odd),
   .timeline-item:nth-child(even) {
     flex-direction: column;
-    padding-left: 60px;
+    padding-left: 75px; /* było 60px -> +25% */
   }
 
   .timeline-content,
   .timeline-item:nth-child(odd) .timeline-content,
   .timeline-item:nth-child(even) .timeline-content {
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 1.875rem 0; /* było 1.5rem -> +25% */
     text-align: left;
   }
 
@@ -1634,7 +1684,7 @@ body {
   }
 
   .timeline-dot {
-    left: 30px;
+    left: 37.5px; /* było 30px -> +25% */
   }
 
   .timeline-image,
@@ -1642,7 +1692,7 @@ body {
   .timeline-item:nth-child(even) .timeline-image {
     margin: 0;
     width: 100%;
-    height: 280px;
+    height: 350px; /* było 280px -> +25% */
   }
 
   .timeline-features,
@@ -1650,19 +1700,18 @@ body {
     justify-content: flex-start;
   }
 
-  /* Lokalizacja */
   .location-split-container {
     grid-template-columns: 1fr;
     min-height: auto;
   }
 
   .location-content-side {
-    padding: 4rem 2.5rem;
+    padding: 5rem 3.125rem; /* było 4rem 2.5rem -> +25% */
   }
 
   .location-content-side::before {
     width: 100%;
-    height: 4px;
+    height: 5px; /* było 4px -> +25% */
     top: 0;
     left: 0;
   }
@@ -1672,30 +1721,32 @@ body {
   }
 
   .location-map-side {
-    min-height: 550px;
+    min-height: 687.5px; /* było 550px -> +25% */
     order: 2;
   }
 
   .map-info-card {
     position: static;
     max-width: none;
-    margin: -80px 2.5rem 2.5rem;
+    margin: -100px 3.125rem 3.125rem; /* było -80px 2.5rem 2.5rem -> +25% */
   }
 }
 
-/* Mobile - 768px */
 @media (max-width: 768px) {
-  .apartments-container,
-  .amenities-container,
-  .timeline-container,
-  .attractions-container {
-    padding: 0 1.5rem;
+  body {
+    font-size: 18px; /* było 14.4px (bazując na 16*0.9) -> +25% */
   }
 
-  /* Grid 1 kolumna na mobile */
+  .apartments-container,
+  .property-container,
+  .amenities-container,
+  .timeline-container {
+    padding: 0 1.875rem; /* było 1.5rem -> +25% */
+  }
+
   .apartments-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    grid-template-columns: 1fr; /* 1 kolumna na mobile */
+    gap: 1.875rem; /* było 1.5rem -> +25% */
   }
 
   .apartment-features {
@@ -1714,71 +1765,68 @@ body {
 
   .amenities-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1.875rem; /* było 1.5rem -> +25% */
   }
 
-  .attractions-grid {
+  .services-grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
   }
 
-  .attraction-card {
-    height: 450px;
-  }
-
-  /* Lokalizacja */
   .location-content-side {
-    padding: 3rem 1.5rem;
+    padding: 3.75rem 1.875rem; /* było 3rem 1.5rem -> +25% */
   }
 
   .location-stats {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
-    padding: 1.5rem 0;
+    gap: 1.5625rem; /* było 1.25rem -> +25% */
+    padding: 1.875rem 0; /* było 1.5rem -> +25% */
   }
 
   .stat-box {
-    padding-left: 56px;
+    padding-left: 70px; /* było 56px -> +25% */
   }
 
   .stat-icon {
-    width: 44px;
-    height: 44px;
+    width: 55px; /* było 44px -> +25% */
+    height: 55px; /* było 44px -> +25% */
   }
 
   .location-map-side {
-    min-height: 450px;
+    min-height: 562.5px; /* było 450px -> +25% */
   }
 
   .map-info-card {
-    margin: -60px 1.5rem 1.5rem;
+    margin: -75px 1.875rem 1.875rem; /* było -60px 1.5rem 1.5rem -> +25% */
   }
 
   .map-card-content {
-    padding: 1.5rem;
+    padding: 1.875rem; /* było 1.5rem -> +25% */
   }
 
   .poi-item {
-    padding: 16px 18px;
-    gap: 14px;
+    padding: 20px 22.5px; /* było 16px 18px -> +25% */
+    gap: 17.5px; /* było 14px -> +25% */
   }
 
   .poi-icon {
-    width: 40px;
-    height: 40px;
+    width: 50px; /* było 40px -> +25% */
+    height: 50px; /* było 40px -> +25% */
   }
 }
 
-/* Small Mobile - 480px */
 @media (max-width: 480px) {
+  body {
+    font-size: 17px; /* było 13.6px (bazując na 16*0.85) -> +25% */
+  }
+
   .apartments-super,
+  .property-badge,
   .amenities-badge,
   .timeline-badge,
-  .location-badge,
-  .attractions-eyebrow {
-    font-size: 0.94rem; /* 0.75rem * 1.25 */
-    padding: 8px 16px;
-    letter-spacing: 2px;
+  .location-badge {
+    font-size: 0.9375rem; /* było 0.75rem -> +25% */
+    padding: 10px 20px; /* było 8px 16px -> +25% */
+    letter-spacing: 2.5px; /* było 2px -> +25% */
   }
 
   .apartment-features {
@@ -1786,72 +1834,67 @@ body {
   }
 
   .timeline-item {
-    padding-left: 40px;
+    padding-left: 50px; /* było 40px -> +25% */
   }
 
   .timeline::before {
-    left: 20px;
+    left: 25px; /* było 20px -> +25% */
   }
 
   .timeline-dot {
-    left: 20px;
-    width: 20px;
-    height: 20px;
-    border-width: 4px;
+    left: 25px; /* było 20px -> +25% */
+    width: 25px; /* było 20px -> +25% */
+    height: 25px; /* było 20px -> +25% */
+    border-width: 5px; /* było 4px -> +25% */
   }
 
   .timeline-image {
-    height: 220px !important;
+    height: 275px !important; /* było 220px -> +25% */
   }
 
-  .attraction-card {
-    height: 400px;
-  }
-
-  /* Lokalizacja */
   .location-content-side {
-    padding: 2.5rem 1.25rem;
+    padding: 3.125rem 1.5625rem; /* było 2.5rem 1.25rem -> +25% */
   }
 
   .location-badge {
-    font-size: 0.88rem; /* 0.7rem * 1.25 */
-    padding: 8px 18px;
+    font-size: 0.875rem; /* było 0.7rem -> +25% */
+    padding: 10px 22.5px; /* było 8px 18px -> +25% */
   }
 
   .location-stats {
-    gap: 1rem;
+    gap: 1.25rem; /* było 1rem -> +25% */
   }
 
   .stat-box {
-    padding-left: 52px;
+    padding-left: 65px; /* było 52px -> +25% */
   }
 
   .stat-icon {
-    width: 40px;
-    height: 40px;
+    width: 50px; /* było 40px -> +25% */
+    height: 50px; /* było 40px -> +25% */
   }
 
   .poi-heading {
-    font-size: 1.56rem; /* 1.25rem * 1.25 */
-    padding-left: 16px;
+    font-size: 1.5625rem; /* było 1.25rem -> +25% */
+    padding-left: 20px; /* było 16px -> +25% */
   }
 
   .poi-item {
-    padding: 14px 16px;
-    gap: 12px;
+    padding: 17.5px 20px; /* było 14px 16px -> +25% */
+    gap: 15px; /* było 12px -> +25% */
   }
 
   .poi-icon {
-    width: 38px;
-    height: 38px;
+    width: 47.5px; /* było 38px -> +25% */
+    height: 47.5px; /* było 38px -> +25% */
   }
 
   .map-info-card {
-    margin: -50px 1.25rem 1.25rem;
+    margin: -62.5px 1.5625rem 1.5625rem; /* było -50px 1.25rem 1.25rem -> +25% */
   }
 
   .map-card-content {
-    padding: 1.25rem;
+    padding: 1.5625rem; /* było 1.25rem -> +25% */
   }
 }
 
@@ -1862,7 +1905,7 @@ body {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(37.5px); /* było 30px -> +25% */
   }
   to {
     opacity: 1;
@@ -1882,7 +1925,7 @@ body {
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-30px);
+    transform: translateX(-37.5px); /* było -30px -> +25% */
   }
   to {
     opacity: 1;
@@ -1918,9 +1961,9 @@ button:focus,
 .apartment-cta:focus,
 .map-card-btn:focus,
 .offers-details:focus,
-.card-cta:focus {
-  outline: 3px solid var(--mountain-gold);
-  outline-offset: 2px;
+.btn-goback:focus {
+  outline: 3.75px solid var(--mountain-gold); /* było 3px -> +25% */
+  outline-offset: 2.5px; /* było 2px -> +25% */
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1943,11 +1986,11 @@ button:focus,
 
 @media (prefers-contrast: high) {
   .apartment-card,
+  .property-feature-card,
   .amenity-card,
   .timeline-content,
-  .poi-item,
-  .attraction-card {
-    border: 2px solid currentColor;
+  .poi-item {
+    border: 2.5px solid currentColor; /* było 2px -> +25% */
   }
 }
 
@@ -1957,10 +2000,10 @@ button:focus,
 
 @media print {
   .apartment-card,
+  .property-feature-card,
   .amenity-card,
   .timeline-item,
-  .location-split-section,
-  .attraction-card {
+  .location-split-section {
     page-break-inside: avoid;
   }
 
@@ -1978,15 +2021,3 @@ button:focus,
     display: none;
   }
 }
-
-/* ========================================
-   KONIEC KOMPLETNEGO CSS - v3.0 FINAL ULTIMATE
-   Wszystkie sekcje: ✅
-   - 9 apartamentów w grid 3x3 ✅
-   - Roboto font (polskie znaki) ✅
-   - +25% czcionki wszędzie ✅
-   - Sekcja Atrakcje Cards ✅
-   - Poprawiona lokalizacja (bez rotate) ✅
-   - Jasna kolorystyka udogodnień ✅
-   - Wszystkie animacje i accessibility ✅
-   ======================================== */
