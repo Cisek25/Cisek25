@@ -1,0 +1,262 @@
+/* ========================================
+   KOMPLETNY CSS - CZĘŚĆ 3/5
+   Apartamenty Szklarska Poręba
+   
+   WAŻNE: Dodaj WSZYSTKIE 5 plików w kolejności:
+   1. COMPLETE-CSS-PART1.css
+   2. COMPLETE-CSS-PART2.css
+   3. COMPLETE-CSS-PART3.css
+   4. COMPLETE-CSS-PART4.css
+   5. COMPLETE-CSS-PART5.css
+   ======================================== */
+
+   NOWE KOMPONENTY - PALETA ROZSZERZEŃ
+   Apartamenty Górskie - Szklarska Poręba
+
+   INSTRUKCJA:
+   Dodatkowe komponenty i warianty do istniejących sekcji.
+   Wklej do Custom CSS lub w <style> tag.
+
+   ZAWIERA:
+   1. Hero Section z tekstem
+   2. CTA (Call to Action) Banner
+   3. Testimonials (Opinie)
+   4. FAQ Accordion
+   5. Contact Form Section
+   6. Features Comparison Table
+   7. Newsletter Signup
+   8. Social Proof Bar
+   ======================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Lato:wght@300;400;700;900&display=swap');
+
+/* Użyj zmiennych z głównego CSS */
+:root {
+  --mountain-gold: #B8935E;
+  --mountain-gold-dark: #9A7A4A;
+  --mountain-navy: #1C3C5A;
+  --mountain-navy-dark: #0F2438;
+  --mountain-cream: #F5F1EA;
+  --mountain-white: #FFFFFF;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ========================================
+   1. HERO SECTION Z TEKSTEM
+   ======================================== */
+
+.hero-text-section {
+  position: relative;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  overflow: hidden;
+  width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  left: 50%;
+  right: 50%;
+  position: relative;
+}
+
+.hero-text-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(15, 36, 56, 0.8) 0%, rgba(28, 60, 90, 0.6) 100%);
+  z-index: 1;
+}
+
+.hero-text-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  max-width: 900px;
+  padding: 3rem;
+}
+
+.hero-super-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--mountain-gold);
+  margin-bottom: 1.5rem;
+}
+
+.hero-main-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.75rem, 8.75vw, 6.875rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.hero-subtitle {
+  font-size: clamp(1.5rem, 3.75vw, 2rem);
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  opacity: 0.95;
+}
+
+.hero-cta-group {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-cta-primary,
+.hero-cta-secondary {
+  padding: 16px 40px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-cta-primary {
+  background: var(--mountain-gold);
+  color: white;
+  box-shadow: 0 8px 20px rgba(184, 147, 94, 0.4);
+}
+
+.hero-cta-primary:hover {
+  background: var(--mountain-gold-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(184, 147, 94, 0.5);
+}
+
+.hero-cta-secondary {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.hero-cta-secondary:hover {
+  background: white;
+  color: var(--mountain-navy);
+}
+
+/* ========================================
+   2. CTA BANNER
+   ======================================== */
+
+.cta-banner {
+  background: linear-gradient(135deg, var(--mountain-navy) 0%, var(--mountain-navy-dark) 100%);
+  padding: 4rem 2rem;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  left: 50%;
+  right: 50%;
+}
+
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(184, 147, 94, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.cta-banner-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-banner-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.125rem, 6.25vw, 5rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.cta-banner-text {
+  font-size: 1.56rem;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+}
+
+.cta-banner-btn {
+  background: var(--mountain-gold);
+  color: white;
+  padding: 18px 48px;
+  font-size: 1.38rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 30px;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(184, 147, 94, 0.4);
+}
+
+.cta-banner-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 30px rgba(184, 147, 94, 0.5);
+}
+
+/* ========================================
+   3. TESTIMONIALS (OPINIE)
+   ======================================== */
+
+.testimonials-section {
+  padding: clamp(4rem, 8vw, 7rem) 0;
+  background: var(--mountain-cream);
+  width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  left: 50%;
+  right: 50%;
+  position: relative;
+}
+
+.testimonials-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.testimonials-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.testimonials-badge {
+  display: inline-block;
+  padding: 10px 24px;
+  background: rgba(184, 147, 94, 0.1);
+  color: var(--mountain-gold-dark);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border-radius: 25px;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(184, 147, 94, 0.3);
+}

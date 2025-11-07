@@ -1,4 +1,16 @@
 /* ========================================
+   KOMPLETNY CSS - CZĘŚĆ 1/5
+   Apartamenty Szklarska Poręba
+   
+   WAŻNE: Dodaj WSZYSTKIE 5 plików w kolejności:
+   1. COMPLETE-CSS-PART1.css
+   2. COMPLETE-CSS-PART2.css
+   3. COMPLETE-CSS-PART3.css
+   4. COMPLETE-CSS-PART4.css
+   5. COMPLETE-CSS-PART5.css
+   ======================================== */
+
+/* ========================================
    KOMPLETNY CSS - APARTAMENTY SZKLARSKA PORĘBA
    ======================================== */
 
@@ -168,3 +180,83 @@ body {
   font-size: clamp(3.125rem, 6.25vw, 5.625rem);
   color: var(--mountain-navy-dark);
   margin-bottom: 1.25rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.apartments-subtitle {
+  font-size: clamp(1.375rem, 2.5vw, 1.69rem);
+  color: var(--mountain-stone);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.apartments-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 kolumny na desktop (9 apartamentów = 3x3) */
+  gap: 2.5rem;
+  margin-top: 3rem;
+}
+
+/* Responsive grid */
+@media (max-width: 1200px) {
+  .apartments-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 kolumny na mniejszych ekranach */
+  }
+}
+
+@media (max-width: 1024px) {
+  .apartments-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 kolumny na tabletach */
+  }
+}
+
+@media (max-width: 768px) {
+  .apartments-grid {
+    grid-template-columns: 1fr; /* 1 kolumna na mobile */
+  }
+}
+
+.apartment-card {
+  background: var(--mountain-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.apartment-card:hover {
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--mountain-gold-light);
+}
+
+.apartment-image {
+  position: relative;
+  height: 280px;
+  overflow: hidden;
+}
+
+.apartment-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.apartment-card:hover .apartment-image img {
+  transform: scale(1.1);
+}
+
+.apartment-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(184, 147, 94, 0.95);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 1.1rem;
+  font-weight: 700;

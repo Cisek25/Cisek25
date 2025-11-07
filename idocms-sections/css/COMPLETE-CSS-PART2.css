@@ -1,13 +1,132 @@
 /* ========================================
-   CSS CZĘŚĆ 3/3 - UDOGODNIENIA
-   APARTAMENTY SZKLARSKA PORĘBA
-
-   INSTRUKCJA:
-   Dodaj wszystkie 3 pliki CSS do CMS w kolejności:
-   1. site-styles-PART1.css
-   2. site-styles-PART2.css
-   3. site-styles-PART3.css (ten plik)
+   KOMPLETNY CSS - CZĘŚĆ 2/5
+   Apartamenty Szklarska Poręba
+   
+   WAŻNE: Dodaj WSZYSTKIE 5 plików w kolejności:
+   1. COMPLETE-CSS-PART1.css
+   2. COMPLETE-CSS-PART2.css
+   3. COMPLETE-CSS-PART3.css
+   4. COMPLETE-CSS-PART4.css
+   5. COMPLETE-CSS-PART5.css
    ======================================== */
+
+  backdrop-filter: blur(10px);
+  z-index: 2;
+}
+
+.apartment-content {
+  padding: 2rem;
+}
+
+.apartment-name {
+  font-family: var(--font-display);
+  font-size: 2.34rem;
+  color: var(--mountain-navy);
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.apartment-description {
+  font-size: 1.19rem;
+  color: var(--mountain-stone);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.apartment-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--mountain-cream-dark);
+  border-bottom: 1px solid var(--mountain-cream-dark);
+}
+
+.feature {
+  text-align: center;
+}
+
+.feature-icon {
+  font-size: 1.88rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.feature-value {
+  font-size: 1.41rem;
+  font-weight: 700;
+  color: var(--mountain-navy);
+  display: block;
+}
+
+.feature-label {
+  font-size: 1.1rem;
+  color: var(--mountain-stone);
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.apartment-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1.5rem;
+}
+
+.apartment-price {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-from {
+  font-size: 1.1rem;
+  color: var(--mountain-stone);
+  margin-bottom: 0.25rem;
+}
+
+.price-amount {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--mountain-gold-dark);
+  font-family: var(--font-display);
+}
+
+.price-period {
+  font-size: 1.1rem;
+  color: var(--mountain-stone);
+}
+
+.apartment-cta {
+  padding: 14px 28px;
+  background: var(--mountain-navy);
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 1.19rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.apartment-cta:hover {
+  background: var(--mountain-navy-dark);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-md);
+}
+
+.apartment-cta::after {
+  content: '→';
+  transition: transform 0.3s ease;
+}
+
+.apartment-cta:hover::after {
+  transform: translateX(4px);
+}
 
 /* ========================================
    7. UDOGODNIENIA (8)
@@ -138,3 +257,6 @@
   color: var(--mountain-stone);
   line-height: 1.6;
 }
+
+/* Plik jest za duży, kontynuacja w następnej części... */
+/* ========================================
