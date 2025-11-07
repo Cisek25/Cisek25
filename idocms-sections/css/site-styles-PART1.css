@@ -1,11 +1,5 @@
 /* ========================================
-   CSS CZĘŚĆ 1 - PODSTAWY I ZMIENNE
-   APARTAMENTY SZKLARSKA PORĘBA
-
-   INSTRUKCJA:
-   Dodaj oba pliki CSS do CMS w kolejności:
-   1. site-styles-PART1.css (ten plik)
-   2. site-styles-PART2.css
+   KOMPLETNY CSS - APARTAMENTY SZKLARSKA PORĘBA
    ======================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Lato:wght@300;400;700;900&display=swap');
@@ -119,7 +113,7 @@ body {
 }
 
 /* ========================================
-   4. FULL WIDTH FIX
+   5. FULL WIDTH FIX
    ======================================== */
 
 .apartments-premium-section,
@@ -134,3 +128,43 @@ body {
   margin-right: -50vw !important;
   overflow: hidden;
 }
+
+/* ========================================
+   6. SEKCJA APARTAMENTÓW
+   ======================================== */
+
+.apartments-premium-section {
+  padding: var(--section-padding) 0;
+  background: linear-gradient(180deg, var(--mountain-cream) 0%, var(--mountain-white) 100%);
+}
+
+.apartments-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.apartments-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.apartments-super {
+  display: inline-block;
+  padding: 10px 24px;
+  background: rgba(184, 147, 94, 0.1);
+  color: var(--mountain-gold-dark);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border-radius: 25px;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(184, 147, 94, 0.3);
+}
+
+.apartments-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.125rem, 6.25vw, 5.625rem);
+  color: var(--mountain-navy-dark);
+  margin-bottom: 1.25rem;
