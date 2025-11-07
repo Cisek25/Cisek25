@@ -1,20 +1,27 @@
 /* ========================================
-   KOMPLETNY CSS - APARTAMENTY GÓRSKIE SZKLARSKA PORĘBA
-   Wersja: 2.0 COMPLETE
+   KOMPLETNY CSS - GÓRSKI LUKSUS SZKLARSKA PORĘBA
+   Wersja: 3.0 FINAL ULTIMATE
    Data: 2025-11-07
 
-   ZAWIERA:
+   Zawiera:
    - Globalne style luksusowe
    - Hero Section
    - Apartamenty (9 obiektów w grid 3x3)
-   - Górskie Udogodnienia
+   - Górskie Udogodnienia (jasna kolorystyka)
    - Timeline Atrakcji
-   - Lokalizacja z Mapą
-   - Integracja z systemem wyróżnionych ofert idoBooking
+   - Lokalizacja z Mapą (bez rotate - naprawiona)
+   - Atrakcje Cards Section (NOWA SEKCJA)
+   - Integracja z systemem wyróżnionych ofert
    - Full Width Fix
    - Mobile First + WCAG AA
+
+   ZMIANY W WERSJI 3.0:
+   - Roboto font dla polskich znaków (ą, ę, ś, ć, ź, Ź)
    - Wszystkie czcionki zwiększone o 25%
-   - Roboto font dla polskich znaków
+   - Grid 3x3 dla 9 apartamentów
+   - Dodano sekcję Atrakcje Cards
+   - Poprawiono hover effects (bez rotate)
+   - Jasna kolorystyka w udogodnieniach
    ======================================== */
 
 /* ========================================
@@ -112,6 +119,7 @@ body {
 .mountain-amenities-section,
 .timeline-section,
 .location-split-section,
+.attractions-cards-section,
 .container-hotspot {
   width: 100vw !important;
   position: relative !important;
@@ -123,7 +131,7 @@ body {
 }
 
 /* ========================================
-   3. SEKCJA APARTAMENTÓW PREMIUM (9 APARTAMENTÓW)
+   3. SEKCJA APARTAMENTÓW PREMIUM (9 APARTAMENTÓW - GRID 3x3)
    ======================================== */
 
 .apartments-premium-section {
@@ -148,7 +156,7 @@ body {
   padding: 10px 24px;
   background: rgba(184, 147, 94, 0.1);
   color: var(--mountain-gold-dark);
-  font-size: 1.1rem; /* 0.875rem * 1.25 = 1.1rem */
+  font-size: 1.1rem; /* 0.875rem * 1.25 */
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -347,27 +355,13 @@ body {
 }
 
 /* ========================================
-   4. GÓRSKIE UDOGODNIENIA
+   4. UDOGODNIENIA (JASNA KOLORYSTYKA)
    ======================================== */
 
 .mountain-amenities-section {
   padding: var(--section-padding) 0;
-  background: linear-gradient(135deg, #0F2438 0%, #1C3C5A 50%, #2C5F7C 100%);
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--mountain-cream) 100%);
   position: relative;
-  color: white;
-}
-
-.mountain-amenities-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background:
-    radial-gradient(circle at 20% 50%, rgba(184, 147, 94, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(212, 165, 116, 0.1) 0%, transparent 50%);
-  pointer-events: none;
 }
 
 .amenities-container {
@@ -384,25 +378,23 @@ body {
 }
 
 .amenities-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  display: inline-block;
   padding: 10px 24px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 25px;
+  background: rgba(184, 147, 94, 0.1);
+  color: var(--mountain-gold-dark);
   font-size: 1.1rem; /* 0.875rem * 1.25 */
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
-  margin-bottom: 1.5rem;
-  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(184, 147, 94, 0.3);
 }
 
 .amenities-title {
   font-family: var(--font-display);
   font-size: clamp(3.125rem, 6.25vw, 5.625rem); /* clamp(2.5rem * 1.25, 5vw * 1.25, 4.5rem * 1.25) */
-  color: white;
+  color: var(--mountain-navy-dark);
   margin-bottom: 1.25rem;
   font-weight: 700;
   line-height: 1.1;
@@ -410,7 +402,7 @@ body {
 
 .amenities-subtitle {
   font-size: clamp(1.375rem, 2.5vw, 1.7rem); /* clamp(1.1rem * 1.25, 2vw * 1.25, 1.35rem * 1.25) */
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--mountain-stone);
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.7;
@@ -419,20 +411,20 @@ body {
 .amenities-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-  gap: 2rem;
+  gap: 2.5rem;
   margin-top: 3rem;
 }
 
 .amenity-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--mountain-white);
+  border: 1px solid rgba(0,0,0,0.05);
   border-radius: var(--radius-lg);
   padding: 2.5rem 2rem;
   text-align: center;
   transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .amenity-card::before {
@@ -453,41 +445,48 @@ body {
 }
 
 .amenity-card:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(184, 147, 94, 0.5);
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  border-color: var(--mountain-gold-light);
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-xl);
 }
 
 .amenity-icon {
   width: 80px;
   height: 80px;
   margin: 0 auto 1.5rem;
-  background: linear-gradient(135deg, rgba(184, 147, 94, 0.2), rgba(212, 165, 116, 0.2));
+  background: linear-gradient(135deg,
+    var(--mountain-gold-light) 0%,
+    var(--mountain-gold) 100%
+  );
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3.125rem; /* 2.5rem * 1.25 */
+  color: white;
   transition: all 0.4s ease;
 }
 
+.amenity-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
 .amenity-card:hover .amenity-icon {
-  transform: scale(1.1) rotate(5deg);
-  background: linear-gradient(135deg, rgba(184, 147, 94, 0.4), rgba(212, 165, 116, 0.4));
+  transform: scale(1.1);
+  box-shadow: 0 10px 30px rgba(184, 147, 94, 0.4);
 }
 
 .amenity-title {
   font-family: var(--font-display);
   font-size: 1.88rem; /* 1.5rem * 1.25 */
-  color: white;
+  color: var(--mountain-navy);
   margin-bottom: 0.75rem;
   font-weight: 700;
 }
 
 .amenity-description {
   font-size: 1.2rem; /* 0.95rem * 1.25 */
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--mountain-stone);
   line-height: 1.6;
 }
 
@@ -715,7 +714,7 @@ body {
 }
 
 /* ========================================
-   6. SEKCJA LOKALIZACJI Z MAPĄ
+   6. SEKCJA LOKALIZACJI Z MAPĄ (NAPRAWIONA - BEZ ROTATE)
    ======================================== */
 
 .location-split-section {
@@ -725,15 +724,17 @@ body {
 }
 
 .location-split-container {
-  display: flex;
-  min-height: 650px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 700px;
+  max-width: 100%;
+  margin: 0 auto;
   align-items: stretch;
 }
 
 /* Left Side - Content */
 .location-content-side {
-  flex: 1;
-  padding: clamp(3rem, 8vw, 6rem) clamp(2rem, 5vw, 4rem);
+  padding: clamp(3rem, 8vw, 6rem) clamp(2rem, 5vw, 5rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -748,32 +749,48 @@ body {
   left: 0;
   width: 4px;
   height: 100%;
-  background: linear-gradient(180deg, var(--mountain-gold-light), var(--mountain-gold));
+  background: linear-gradient(180deg,
+    var(--mountain-gold-light),
+    var(--mountain-gold),
+    var(--mountain-gold-light)
+  );
 }
 
 .location-content {
   max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .location-badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 20px;
-  background: rgba(212, 165, 116, 0.1);
-  border: 1px solid rgba(212, 165, 116, 0.3);
-  border-radius: 25px;
+  gap: 10px;
+  padding: 10px 24px;
+  background: linear-gradient(135deg,
+    rgba(184, 147, 94, 0.1) 0%,
+    rgba(212, 165, 116, 0.15) 100%
+  );
+  border: 1.5px solid rgba(184, 147, 94, 0.3);
+  border-radius: 30px;
   color: var(--mountain-gold-dark);
-  font-size: 0.94rem; /* 0.75rem * 1.25 */
+  font-size: 1rem; /* 0.8rem * 1.25 */
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
+  transition: all 0.3s ease;
+}
+
+.location-badge:hover {
+  background: rgba(184, 147, 94, 0.15);
+  border-color: var(--mountain-gold);
+  transform: translateX(4px);
 }
 
 .location-badge svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
 }
 
 .location-title {
@@ -782,36 +799,77 @@ body {
   color: var(--mountain-navy);
   margin-bottom: 1.5rem;
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
 }
 
 .location-description {
   font-size: clamp(1.3rem, 2.5vw, 1.5rem); /* clamp(1.05rem * 1.25, 2vw * 1.25, 1.2rem * 1.25) */
   color: var(--mountain-stone);
   line-height: 1.8;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
+/* Statystyki */
 .location-stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
-  margin-bottom: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--mountain-cream-dark);
+  margin-bottom: 2.5rem;
+  padding: 2rem 0;
+  border-top: 2px solid rgba(184, 147, 94, 0.15);
+  border-bottom: 2px solid rgba(184, 147, 94, 0.15);
 }
 
 .stat-box {
   display: flex;
   flex-direction: column;
+  gap: 4px;
+  position: relative;
+  padding-left: 60px;
+  transition: all 0.3s ease;
+}
+
+.stat-box:hover {
+  transform: translateX(4px);
+}
+
+/* Ikona statystyki - BEZ ROTATE! */
+.stat-icon {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg,
+    var(--mountain-gold-light) 0%,
+    var(--mountain-gold) 100%
+  );
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+/* ✅ NAPRAWIONE: Tylko scale, BEZ rotate */
+.stat-box:hover .stat-icon {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 20px rgba(184, 147, 94, 0.4);
+}
+
+.stat-icon svg {
+  width: 24px;
+  height: 24px;
 }
 
 .stat-number {
   font-size: clamp(2.5rem, 5vw, 3.44rem); /* clamp(2rem * 1.25, 4vw * 1.25, 2.75rem * 1.25) */
   font-weight: 700;
-  color: var(--mountain-gold-light);
+  color: var(--mountain-gold);
   line-height: 1;
-  margin-bottom: 0.5rem;
   font-family: var(--font-display);
 }
 
@@ -819,40 +877,112 @@ body {
   font-size: 1.125rem; /* 0.9rem * 1.25 */
   color: var(--mountain-stone);
   font-weight: 500;
+  line-height: 1.4;
 }
 
+/* Divider */
+.location-divider {
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--mountain-gold-light) 50%,
+    transparent 100%
+  );
+  margin: 2rem 0 2.5rem;
+}
+
+/* POI Heading */
+.poi-heading {
+  font-family: var(--font-display);
+  font-size: 1.88rem; /* 1.5rem * 1.25 */
+  color: var(--mountain-navy);
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+  position: relative;
+  padding-left: 20px;
+}
+
+.poi-heading::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(180deg,
+    var(--mountain-gold-light),
+    var(--mountain-gold)
+  );
+  border-radius: 3px;
+}
+
+/* Punkty POI */
 .location-poi-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .poi-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 18px;
+  gap: 16px;
+  padding: 18px 20px;
   background: white;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--mountain-cream-dark);
+  border: 1.5px solid var(--mountain-cream-dark);
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.poi-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg,
+    var(--mountain-gold-light),
+    var(--mountain-gold)
+  );
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
 }
 
 .poi-item:hover {
-  border-color: var(--mountain-gold-light);
-  box-shadow: var(--shadow-sm);
-  transform: translateX(6px);
+  border-color: var(--mountain-gold);
+  box-shadow: var(--shadow-md);
+  transform: translateX(8px);
+  background: rgba(184, 147, 94, 0.02);
 }
 
+.poi-item:hover::before {
+  transform: scaleY(1);
+}
+
+/* Ikona POI - BEZ ROTATE! */
 .poi-icon {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, var(--mountain-navy-light), var(--mountain-navy));
-  border-radius: 10px;
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg,
+    var(--mountain-navy) 0%,
+    var(--mountain-navy-light) 100%
+  );
+  border-radius: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+/* ✅ NAPRAWIONE: Tylko scale, BEZ rotate */
+.poi-item:hover .poi-icon {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(28, 60, 90, 0.3);
 }
 
 .poi-icon svg {
@@ -868,103 +998,405 @@ body {
 .poi-name {
   font-size: 1.3rem; /* 1.05rem * 1.25 */
   font-weight: 600;
-  color: var(--mountain-navy-light);
-  margin-bottom: 2px;
+  color: var(--mountain-navy);
+  margin-bottom: 4px;
+  transition: color 0.3s ease;
+}
+
+.poi-item:hover .poi-name {
+  color: var(--mountain-gold-dark);
 }
 
 .poi-distance {
   font-size: 1.1rem; /* 0.875rem * 1.25 */
   color: var(--mountain-stone);
+  line-height: 1.4;
 }
 
 /* Right Side - Map */
 .location-map-side {
-  flex: 1;
   position: relative;
-  min-height: 650px;
+  min-height: 700px;
+  background: var(--mountain-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.location-map {
+.map-wrapper {
   position: absolute;
   inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.google-map-iframe {
+  width: 100%;
+  height: 100%;
   border: none;
-  filter: grayscale(15%) brightness(0.95);
-  transition: filter 0.3s ease;
+  filter: grayscale(20%) brightness(0.95) contrast(1.05);
+  transition: filter 0.4s ease;
 }
 
-.location-map:hover {
-  filter: grayscale(0%) brightness(1);
+.google-map-iframe:hover {
+  filter: grayscale(0%) brightness(1) contrast(1);
 }
 
+/* Karta informacyjna */
 .map-info-card {
   position: absolute;
-  bottom: 30px;
-  right: 30px;
+  bottom: 40px;
+  right: 40px;
   background: white;
-  padding: 1.75rem;
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-xl);
-  max-width: 320px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  max-width: 340px;
   z-index: 10;
-  border: 1px solid rgba(0,0,0,0.05);
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.map-info-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg,
+    var(--mountain-gold-light),
+    var(--mountain-gold),
+    var(--mountain-gold-light)
+  );
+}
+
+.map-info-card:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(184, 147, 94, 0.2);
+}
+
+.map-card-content {
+  padding: 2rem;
 }
 
 .map-card-title {
   font-family: var(--font-display);
-  font-size: 1.56rem; /* 1.25rem * 1.25 */
+  font-size: 1.88rem; /* 1.5rem * 1.25 */
   font-weight: 700;
   color: var(--mountain-navy);
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
 }
 
 .map-card-address {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
+  gap: 12px;
   font-size: 1.2rem; /* 0.95rem * 1.25 */
   color: var(--mountain-stone);
   line-height: 1.6;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1.5px solid var(--mountain-cream-dark);
 }
 
 .map-card-address svg {
-  width: 18px;
-  height: 18px;
-  color: var(--mountain-gold-light);
+  width: 20px;
+  height: 20px;
+  color: var(--mountain-gold);
   flex-shrink: 0;
   margin-top: 2px;
+}
+
+.map-card-address strong {
+  font-weight: 600;
+  color: var(--mountain-navy);
 }
 
 .map-card-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
-  background: var(--mountain-navy-light);
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 24px;
+  background: linear-gradient(135deg,
+    var(--mountain-navy) 0%,
+    var(--mountain-navy-light) 100%
+  );
   color: white;
-  border-radius: 25px;
+  border-radius: 30px;
   font-size: 1.2rem; /* 0.95rem * 1.25 */
   font-weight: 600;
   text-decoration: none;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.map-card-btn:hover {
-  background: var(--mountain-navy-dark);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+.map-card-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    var(--mountain-navy-light) 0%,
+    var(--mountain-navy-dark) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.map-card-btn:hover::before {
+  opacity: 1;
 }
 
 .map-card-btn svg {
   width: 18px;
   height: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+.map-card-btn .arrow-icon {
+  transition: transform 0.3s ease;
+}
+
+.map-card-btn:hover .arrow-icon {
+  transform: translateX(4px);
+}
+
+.map-card-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(28, 60, 90, 0.3);
+}
+
+.map-card-btn > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* ========================================
-   7. INTEGRACJA Z SYSTEMEM WYRÓŻNIONYCH OFERT IDOBOOKING
+   7. SEKCJA ATRAKCJE CARDS (NOWA SEKCJA)
    ======================================== */
 
-/* Stylizacja dla automatycznie generowanej sekcji wyróżnionych ofert */
+.attractions-cards-section {
+  padding: var(--section-padding) 0;
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--mountain-cream) 100%);
+}
+
+.attractions-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Header */
+.attractions-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.attractions-eyebrow {
+  display: inline-block;
+  padding: 10px 24px;
+  background: rgba(184, 147, 94, 0.1);
+  color: var(--mountain-gold-dark);
+  font-size: 1.1rem; /* 0.875rem * 1.25 */
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border-radius: 25px;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(184, 147, 94, 0.3);
+}
+
+.attractions-main-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.125rem, 6.25vw, 5.625rem); /* clamp(2.5rem * 1.25, 5vw * 1.25, 4.5rem * 1.25) */
+  color: var(--mountain-navy-dark);
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.attractions-intro {
+  font-size: clamp(1.375rem, 2.5vw, 1.7rem); /* clamp(1.1rem * 1.25, 2vw * 1.25, 1.35rem * 1.25) */
+  color: var(--mountain-stone);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* Grid */
+.attractions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
+  gap: 2.5rem;
+  margin-top: 3rem;
+}
+
+/* Card */
+.attraction-card {
+  position: relative;
+  height: 500px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.attraction-card:hover {
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-xl);
+}
+
+.card-background {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s ease;
+}
+
+.attraction-card:hover .card-background {
+  transform: scale(1.1);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.1) 0%,
+    rgba(0,0,0,0.5) 60%,
+    rgba(0,0,0,0.9) 100%
+  );
+}
+
+.card-category {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px 18px;
+  background: rgba(184, 147, 94, 0.95);
+  color: white;
+  font-size: 0.94rem; /* 0.75rem * 1.25 */
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  z-index: 3;
+}
+
+.card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2.5rem 2rem;
+  color: white;
+  z-index: 2;
+}
+
+.card-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.attraction-card:hover .card-icon {
+  background: rgba(184, 147, 94, 0.9);
+  transform: scale(1.1);
+}
+
+.card-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 2.35rem; /* 1.875rem * 1.25 */
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+.card-description {
+  font-size: 1.2rem; /* 0.95rem * 1.25 */
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 1.25rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-meta {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.1rem; /* 0.875rem * 1.25 */
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.meta-item svg {
+  width: 16px;
+  height: 16px;
+}
+
+.card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1.1rem; /* 0.875rem * 1.25 */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.card-cta:hover {
+  background: var(--mountain-gold);
+  border-color: var(--mountain-gold);
+  transform: translateX(4px);
+}
+
+.card-cta svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ========================================
+   8. INTEGRACJA Z SYSTEMEM WYRÓŻNIONYCH OFERT IDOBOOKING
+   ======================================== */
+
 .container-hotspot {
   background: var(--mountain-cream) !important;
   padding: var(--section-padding) 0 !important;
@@ -990,7 +1422,6 @@ body {
   border-radius: 2px;
 }
 
-/* Stylizacja kart ofert */
 .offerslist .offer {
   background: white !important;
   border-radius: var(--radius-lg) !important;
@@ -1136,7 +1567,6 @@ body {
   font-size: inherit !important;
 }
 
-/* Slider dla ofert */
 .offerslist.slick-slider {
   margin: 0 -1rem !important;
 }
@@ -1156,7 +1586,7 @@ body {
 }
 
 /* ========================================
-   8. RESPONSYWNOŚĆ - MOBILE FIRST
+   9. RESPONSYWNOŚĆ - MOBILE FIRST
    ======================================== */
 
 /* Tablet - 1024px */
@@ -1165,7 +1595,7 @@ body {
     --section-padding: clamp(3rem, 6vw, 5rem);
   }
 
-  /* Grid 2x4 + 1 na tablet */
+  /* Grid 2 kolumny na tablet */
   .apartments-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
@@ -1175,7 +1605,12 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
   }
 
-  /* Timeline na tablet */
+  .attractions-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    gap: 2rem;
+  }
+
+  /* Timeline */
   .timeline::before {
     left: 30px;
   }
@@ -1215,25 +1650,36 @@ body {
     justify-content: flex-start;
   }
 
-  /* Lokalizacja na tablet */
+  /* Lokalizacja */
   .location-split-container {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    min-height: auto;
   }
 
   .location-content-side {
-    padding: 3rem 2rem;
+    padding: 4rem 2.5rem;
+  }
+
+  .location-content-side::before {
+    width: 100%;
+    height: 4px;
+    top: 0;
+    left: 0;
+  }
+
+  .location-content {
+    max-width: 100%;
   }
 
   .location-map-side {
-    min-height: 500px;
+    min-height: 550px;
+    order: 2;
   }
 
   .map-info-card {
-    position: relative;
-    bottom: auto;
-    right: auto;
-    margin: -60px 20px 20px;
+    position: static;
     max-width: none;
+    margin: -80px 2.5rem 2.5rem;
   }
 }
 
@@ -1241,7 +1687,8 @@ body {
 @media (max-width: 768px) {
   .apartments-container,
   .amenities-container,
-  .timeline-container {
+  .timeline-container,
+  .attractions-container {
     padding: 0 1.5rem;
   }
 
@@ -1270,18 +1717,55 @@ body {
     gap: 1.5rem;
   }
 
+  .attractions-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .attraction-card {
+    height: 450px;
+  }
+
+  /* Lokalizacja */
+  .location-content-side {
+    padding: 3rem 1.5rem;
+  }
+
   .location-stats {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.25rem;
+    padding: 1.5rem 0;
+  }
+
+  .stat-box {
+    padding-left: 56px;
+  }
+
+  .stat-icon {
+    width: 44px;
+    height: 44px;
   }
 
   .location-map-side {
-    min-height: 400px;
+    min-height: 450px;
   }
 
   .map-info-card {
-    margin: -40px 15px 15px;
+    margin: -60px 1.5rem 1.5rem;
+  }
+
+  .map-card-content {
     padding: 1.5rem;
+  }
+
+  .poi-item {
+    padding: 16px 18px;
+    gap: 14px;
+  }
+
+  .poi-icon {
+    width: 40px;
+    height: 40px;
   }
 }
 
@@ -1290,7 +1774,8 @@ body {
   .apartments-super,
   .amenities-badge,
   .timeline-badge,
-  .location-badge {
+  .location-badge,
+  .attractions-eyebrow {
     font-size: 0.94rem; /* 0.75rem * 1.25 */
     padding: 8px 16px;
     letter-spacing: 2px;
@@ -1318,10 +1803,60 @@ body {
   .timeline-image {
     height: 220px !important;
   }
+
+  .attraction-card {
+    height: 400px;
+  }
+
+  /* Lokalizacja */
+  .location-content-side {
+    padding: 2.5rem 1.25rem;
+  }
+
+  .location-badge {
+    font-size: 0.88rem; /* 0.7rem * 1.25 */
+    padding: 8px 18px;
+  }
+
+  .location-stats {
+    gap: 1rem;
+  }
+
+  .stat-box {
+    padding-left: 52px;
+  }
+
+  .stat-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .poi-heading {
+    font-size: 1.56rem; /* 1.25rem * 1.25 */
+    padding-left: 16px;
+  }
+
+  .poi-item {
+    padding: 14px 16px;
+    gap: 12px;
+  }
+
+  .poi-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .map-info-card {
+    margin: -50px 1.25rem 1.25rem;
+  }
+
+  .map-card-content {
+    padding: 1.25rem;
+  }
 }
 
 /* ========================================
-   9. ANIMACJE
+   10. ANIMACJE
    ======================================== */
 
 @keyframes fadeInUp {
@@ -1355,17 +1890,13 @@ body {
   }
 }
 
-/* Animacja pojawiania się elementów przy scrollu */
 .location-content {
-  opacity: 0;
-  transform: translateX(-30px);
   animation: slideInLeft 0.8s ease forwards;
 }
 
 .poi-item {
   opacity: 0;
-  transform: translateX(-20px);
-  animation: slideInLeft 0.5s ease forwards;
+  animation: slideInLeft 0.6s ease forwards;
 }
 
 .poi-item:nth-child(1) { animation-delay: 0.1s; }
@@ -1373,21 +1904,25 @@ body {
 .poi-item:nth-child(3) { animation-delay: 0.3s; }
 .poi-item:nth-child(4) { animation-delay: 0.4s; }
 
+.map-info-card {
+  animation: fadeIn 0.8s ease 0.6s forwards;
+  opacity: 0;
+}
+
 /* ========================================
-   10. ACCESSIBILITY - WCAG AA
+   11. ACCESSIBILITY - WCAG AA
    ======================================== */
 
-/* Focus states dla keyboard navigation */
 a:focus,
 button:focus,
 .apartment-cta:focus,
 .map-card-btn:focus,
-.offers-details:focus {
+.offers-details:focus,
+.card-cta:focus {
   outline: 3px solid var(--mountain-gold);
   outline-offset: 2px;
 }
 
-/* Reduced motion dla użytkowników z preferencją */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1397,42 +1932,61 @@ button:focus,
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  .location-content,
+  .poi-item,
+  .map-info-card {
+    opacity: 1;
+    animation: none;
+  }
 }
 
-/* High contrast mode support */
 @media (prefers-contrast: high) {
   .apartment-card,
   .amenity-card,
   .timeline-content,
-  .poi-item {
+  .poi-item,
+  .attraction-card {
     border: 2px solid currentColor;
   }
 }
 
-/* Dark mode support (opcjonalne) */
-@media (prefers-color-scheme: dark) {
-  /* W przyszłości można dodać dark mode */
-}
-
 /* ========================================
-   11. PRINT STYLES
+   12. PRINT STYLES
    ======================================== */
 
 @media print {
   .apartment-card,
   .amenity-card,
   .timeline-item,
-  .location-split-section {
+  .location-split-section,
+  .attraction-card {
     page-break-inside: avoid;
   }
 
-  .location-map {
+  .google-map-iframe {
+    display: none;
+  }
+
+  .map-info-card {
+    position: static;
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+
+  .map-card-btn {
     display: none;
   }
 }
 
 /* ========================================
-   KONIEC KOMPLETNEGO CSS
-   Łączna liczba linii: ~1800+
-   Wszystkie sekcje zawarte
+   KONIEC KOMPLETNEGO CSS - v3.0 FINAL ULTIMATE
+   Wszystkie sekcje: ✅
+   - 9 apartamentów w grid 3x3 ✅
+   - Roboto font (polskie znaki) ✅
+   - +25% czcionki wszędzie ✅
+   - Sekcja Atrakcje Cards ✅
+   - Poprawiona lokalizacja (bez rotate) ✅
+   - Jasna kolorystyka udogodnień ✅
+   - Wszystkie animacje i accessibility ✅
    ======================================== */
