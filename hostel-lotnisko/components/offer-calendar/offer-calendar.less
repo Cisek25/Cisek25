@@ -1,0 +1,17 @@
+.calendar-data {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 3rem;
+  position: relative;
+  &.--hideCalendar {
+		display: none;
+	}
+  &.--skeleton {
+    .widgetLoader {
+      display: block;
+    }
+    @media (min-width: 979px) {
+      min-height: 40rem;
+    }
+  }
+}

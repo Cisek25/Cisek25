@@ -1,0 +1,468 @@
+/* ========================================
+   BOOKING ENGINE - KOLORYSTYKA IDOBOOKING
+   URBAN WINGS HOSTEL - WARSZAWA
+
+   INSTRUKCJA:
+   Wklej ten kod do: Panel CMS → Wygląd/Style → Custom CSS
+   LUB do sekcji "Koniec sekcji body" w tagu <style>
+
+   CO ROBI:
+   Dopasowuje kolory systemu rezerwacji idoBooking
+   do kolorystyki hostelu (blue + purple + amber)
+   ======================================== */
+
+/* Import Google Fonts - Poppins dla nowoczesnego wyglądu */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  /* Czcionki */
+  --font-display: 'Poppins', Arial, sans-serif;
+  --font-body: 'Poppins', Arial, sans-serif;
+
+  /* Główne kolory - Urban Wings Hostel */
+  --breadcrumb-active: #3B82F6;
+  --breadcrumb-inactive: #858585;
+
+  /* Przyciski - Blue + Purple + Amber */
+  --button1-background: #3B82F6;
+  --button1-text: #fff;
+  --button1-background-hover: #8B5CF6;
+  --button1-text-hover: #fff;
+
+  --button2-background: #8B5CF6;
+  --button2-text: #fff;
+  --button2-background-hover: #3B82F6;
+  --button2-text-hover: #fff;
+
+  --button3-background: #F59E0B;
+  --button3-text: #fff;
+  --button3-background-hover: #D97706;
+  --button3-text-hover: #fff;
+
+  /* Linki */
+  --link-text: #3B82F6;
+  --link-text-hover: #8B5CF6;
+
+  /* Tła i tekst */
+  --body-background-color: #F9FAFB;
+  --body-color: #1F2937;
+  --background-section-color: #fff;
+  --background-text-color: #1F2937;
+
+  /* Ceny */
+  --promo-price-color: #F59E0B;
+  --cross-price-color: #9CA3AF;
+  --addonprice-text: #fff;
+  --addonprice-background: #3B82F6;
+
+  /* Tabele */
+  --table-text: #1F2937;
+  --table-background: #F3F4F6;
+
+  /* Inputy */
+  --input-text: #1F2937;
+  --input-background: #fff;
+  --input-border: #D1D5DB;
+  --input-text-hover: #3B82F6;
+  --input-border-hover: #3B82F6;
+
+  --input2-text: #1F2937;
+  --input2-border: #D1D5DB;
+
+  /* Podsumowanie */
+  --summary-color: #3B82F6;
+
+  /* Zakładki */
+  --tab-top-1: #3B82F6;
+  --tab-top-1-text: #fff;
+  --tab-top-2: #8B5CF6;
+
+  /* Kalendarz */
+  --calendar-persons-icon: #3B82F6;
+  --calendar-day-highlight: #8B5CF6;
+  --calendar-day-highlight-color: #fff;
+  --calendar-day-highlight-hover: #7C3AED;
+  --calendar-day-highlight-disabled: #EF4444;
+  --calendar-day-available-day: #DBEAFE;
+  --calendar-day-weekend: #EDE9FE;
+
+  /* Przyciski górne */
+  --button-top-login: #F3F4F6;
+  --buttton-top-contact: #F3F4F6;
+
+  /* Nawigacja */
+  --main-nav-bar: #F9FAFB;
+  --main-nav-bar-text-color: #1F2937;
+  --main-nav-button: #3B82F6;
+  --main-nav-button-color: #3B82F6;
+  --button1-background-hover-active: #fff;
+
+  /* Przyciski akcji */
+  --button-background-proceed: #8B5CF6;
+  --button-background-grey: #6B7280;
+
+  /* Kalendarz - dodatkowe */
+  --calendar-background-color: #fff;
+  --background-section-color-callendar: #fff;
+  --calendar-text-color: #1F2937;
+  --dark-background-text: #1F2937;
+  --callendar-border-color: #E5E7EB;
+
+  /* Inne */
+  --flag-border: #E5E7EB;
+  --top-link-promo: #fff;
+  --dark-background-icon: #F3F4F6;
+
+  /* Kolory główne */
+  --mainColor: #3B82F6;
+  --supportcolor1: #8B5CF6;
+
+  /* Kafelki */
+  --tile-background: #fff;
+  --subtile-background: #F9FAFB;
+  --subbutton-background: #60A5FA;
+  --subbutton-text: #fff;
+  --tile-border: #E5E7EB;
+
+  /* Filtry */
+  --filter-category-button-color: #8B5CF6;
+
+  /* Udostępnianie */
+  --share-background: #F3F4F6;
+}
+
+/* ========================================
+   DODATKOWE STYLE DLA POPRAWY UX - HOSTEL
+   ======================================== */
+
+/* Przycisk rezerwacji - główny CTA */
+.iai_book_form button[type="submit"],
+.offers-details,
+.btn-primary,
+.booking-button {
+  background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%) !important;
+  border: none !important;
+  color: white !important;
+  padding: 14px 32px !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important;
+}
+
+.iai_book_form button[type="submit"]:hover,
+.offers-details:hover,
+.btn-primary:hover,
+.booking-button:hover {
+  background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Karty obiektów/ofert - hostelowy vibe */
+.offer,
+.object-card,
+.accommodation-card {
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+  transition: all 0.3s ease !important;
+  border: 2px solid rgba(59, 130, 246, 0.1) !important;
+  background: #fff !important;
+}
+
+.offer:hover,
+.object-card:hover,
+.accommodation-card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 12px 40px rgba(59, 130, 246, 0.2) !important;
+  border-color: var(--mainColor) !important;
+}
+
+/* Ceny - wyróżnienie hostelowe */
+.price,
+.price-amount,
+.offer__price {
+  color: var(--mainColor) !important;
+  font-weight: 800 !important;
+  font-size: 2rem !important;
+}
+
+.price-currency {
+  color: var(--supportcolor1) !important;
+  font-weight: 600 !important;
+}
+
+/* Badge/etykiety - energiczne */
+.badge,
+.label,
+.tag {
+  background: linear-gradient(135deg, var(--mainColor), var(--supportcolor1)) !important;
+  color: white !important;
+  padding: 6px 16px !important;
+  border-radius: 20px !important;
+  font-size: 0.875rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* Inputy formularza - nowoczesny styl */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+select,
+textarea {
+  border: 2px solid var(--input-border) !important;
+  border-radius: 12px !important;
+  padding: 14px 18px !important;
+  transition: all 0.3s ease !important;
+  font-family: var(--font-body) !important;
+  background: #fff !important;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--mainColor) !important;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1) !important;
+  outline: none !important;
+  background: #fff !important;
+}
+
+/* Breadcrumbs */
+.breadcrumb {
+  background: transparent !important;
+  padding: 1.5rem 0 !important;
+}
+
+.breadcrumb a {
+  color: var(--breadcrumb-inactive) !important;
+  transition: color 0.3s ease !important;
+  font-weight: 500 !important;
+}
+
+.breadcrumb a:hover {
+  color: var(--mainColor) !important;
+}
+
+.breadcrumb .active {
+  color: var(--breadcrumb-active) !important;
+  font-weight: 700 !important;
+}
+
+/* Loader/spinner - hostelowe kolory */
+.loader,
+.spinner {
+  border-top-color: var(--mainColor) !important;
+  border-right-color: var(--supportcolor1) !important;
+}
+
+/* Tooltips */
+.tooltip {
+  background: var(--mainColor) !important;
+  color: white !important;
+  border-radius: 8px !important;
+  padding: 8px 14px !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+}
+
+/* Alerts/komunikaty - przyjazne */
+.alert-success {
+  background: #ECFDF5 !important;
+  border-color: #10B981 !important;
+  color: #065F46 !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+}
+
+.alert-warning {
+  background: #FEF3C7 !important;
+  border-color: var(--button3-background) !important;
+  color: #92400E !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+}
+
+.alert-error {
+  background: #FEE2E2 !important;
+  border-color: #EF4444 !important;
+  color: #991B1B !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+}
+
+/* Tabsy/zakładki - energiczne */
+.nav-tabs .nav-link {
+  border: none !important;
+  color: var(--mainColor) !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  padding: 12px 24px !important;
+}
+
+.nav-tabs .nav-link.active {
+  background: linear-gradient(135deg, var(--mainColor), var(--supportcolor1)) !important;
+  color: white !important;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+.nav-tabs .nav-link:hover {
+  background: rgba(59, 130, 246, 0.1) !important;
+  color: var(--mainColor) !important;
+}
+
+/* Progress bar/pasek postępu */
+.progress-bar {
+  background: linear-gradient(90deg, var(--mainColor) 0%, var(--supportcolor1) 100%) !important;
+  border-radius: 10px !important;
+}
+
+/* Checkboxy i radio - hostelowy akcent */
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
+  accent-color: var(--mainColor) !important;
+}
+
+/* Kalendarz - lepszy kontrast */
+.calendar-day {
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+}
+
+.calendar-day:hover {
+  background: rgba(59, 130, 246, 0.1) !important;
+  transform: scale(1.05) !important;
+}
+
+.calendar-day.selected {
+  background: var(--calendar-day-highlight) !important;
+  color: var(--calendar-day-highlight-color) !important;
+  font-weight: 700 !important;
+}
+
+/* Footer booking engine */
+.booking-footer {
+  background: linear-gradient(135deg, #1F2937 0%, #111827 100%) !important;
+  color: white !important;
+  padding: 3rem 0 !important;
+}
+
+.booking-footer a {
+  color: rgba(255, 255, 255, 0.8) !important;
+  transition: color 0.3s ease !important;
+}
+
+.booking-footer a:hover {
+  color: var(--mainColor) !important;
+}
+
+/* Hostelowe akcenty - energia młodości */
+.feature-icon {
+  color: var(--mainColor) !important;
+}
+
+.price-note {
+  color: var(--supportcolor1) !important;
+  font-weight: 600 !important;
+}
+
+/* Przyciski drugorzędne */
+.btn-secondary {
+  background: transparent !important;
+  border: 2px solid var(--mainColor) !important;
+  color: var(--mainColor) !important;
+  padding: 12px 28px !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-secondary:hover {
+  background: var(--mainColor) !important;
+  color: white !important;
+  transform: translateY(-2px) !important;
+}
+
+/* ========================================
+   RESPONSYWNOŚĆ
+   ======================================== */
+
+@media (max-width: 768px) {
+  .iai_book_form button[type="submit"],
+  .booking-button {
+    width: 100% !important;
+    padding: 14px 24px !important;
+    font-size: 1rem !important;
+  }
+
+  .price,
+  .price-amount {
+    font-size: 1.75rem !important;
+  }
+
+  .nav-tabs .nav-link {
+    padding: 10px 16px !important;
+    font-size: 0.875rem !important;
+  }
+}
+
+/* ========================================
+   DARK MODE (opcjonalnie)
+   ======================================== */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --body-background-color: #111827;
+    --body-color: #F9FAFB;
+    --background-section-color: #1F2937;
+    --table-background: #374151;
+  }
+
+  .offer,
+  .object-card,
+  .accommodation-card {
+    background: #1F2937 !important;
+    border-color: rgba(59, 130, 246, 0.3) !important;
+  }
+}
+
+/* ========================================
+   ANIMACJE - MŁODZIEŻOWY VIBE
+   ======================================== */
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.booking-button.loading {
+  animation: pulse 1.5s ease-in-out infinite !important;
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.offer,
+.object-card {
+  animation: slideInUp 0.5s ease-out !important;
+}

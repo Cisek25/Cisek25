@@ -1,0 +1,1 @@
+<div id="calendar-data" class="calendar-data --skeleton {if $showSectionConfiguration['display_availability_calendar_on_offer_page'] != 1}--hideCalendar{/if}"><div class="widgetLoader"></div></div>

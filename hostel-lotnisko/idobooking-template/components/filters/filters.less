@@ -1,0 +1,120 @@
+#menu_filter{
+    position: relative;
+    display: none;
+    @media (min-width: 979px){
+        display: block;
+    }
+}
+@media (max-width: 979px){
+    .aside .iai-search {
+        min-height: 350px;
+    }
+}
+
+#filter_buttons {
+    position: sticky;
+    bottom: 0;
+}
+
+.filter_items {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid var(--bordercolor);
+    background: var(--bgcontent);
+}
+
+.filter_header a {
+    display: block;
+    width: 100%;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+.filter_header a:hover {
+    text-decoration: none;
+}
+
+.filter_header i {
+    float: right;
+    font-size: 22px;
+}
+
+.filter_content {
+    margin-top: 10px;
+}
+.filter_sub {
+    margin-bottom: 1rem;
+}
+.filter_header_sub {
+    font-weight: 600;
+    margin-bottom: .5rem;
+    display: block;
+}
+
+.filter_content input {
+    margin-right: 10px;
+    display: none;
+}
+
+#menu_filter .filter_content .checkbox label > span {
+    transition: 0.3s opacity;
+    &:hover {
+        cursor: pointer;
+        opacity: 0.7;
+    }
+}
+#menu_filter .filter_content .checkbox label input[type="checkbox"]+span::before {
+    content: '';
+    width: 13px;
+    height: 13px;
+    background: #fff;
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+#menu_filter .filter_content .checkbox label input[type="checkbox"]+span span {
+    vertical-align: middle;
+}
+
+span#elements_counter {
+    display: inline-block;
+    margin-right: 3px;
+}
+
+.filter_header strong {
+    text-transform: uppercase;
+}
+
+#menu_filter label.disabled {
+    opacity: 0.5;
+    text-decoration: line-through;
+}
+
+.offers_content h1 strong {
+    margin-right: 10px;
+}
+
+
+#menu_filter .filter_content .checkbox label input[type="checkbox"]+span::before {
+    border: 1px solid var(--bordercolor);
+}
+
+#menu_filter .filter_content .checkbox label input[type="checkbox"]:checked+span::before {
+    background: var(--maincolor1);
+}
+
+#menu_filter .filter_content .checkbox label input[type="checkbox"]:checked+span {
+    color: var(--maincolor1);
+}
+#menu_filter h4 {
+    background: transparent;
+    color: var(--maincolor1);
+    font-size: 2rem;
+}
+#show_filters{
+    margin-bottom: 20px; 
+    @media (min-width: 979px){
+        display: none;
+    }
+}

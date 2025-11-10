@@ -1,0 +1,80 @@
+.page-offers .payment-info {
+  padding: 15px 0;
+  display: none;
+  text-align: left;
+  margin-bottom: 0;
+
+  i {
+    padding-right: 10px;
+    color: var(--btn_medium);
+    font-size:3rem;
+    vertical-align:middle;
+  }
+
+  h5 {
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+
+  &>div {
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  &>div>* {
+    display: block;
+    text-align: center;
+  }
+
+  @media (min-width: 979px) {
+    display: block;
+    border-top: 1px solid var(--bordercolor);
+  }
+
+  @media (min-width: 1200px) {
+    text-align: left;
+  }
+}
+
+.page-offers .payment-info {
+  background: none;
+}
+
+.page-offer .payment-info h5 , .page-offer .payment-info p {
+  display: none;
+}
+
+@media (min-width: 979px) {
+  .page-offers .payment-info>div>* {
+    display: table-cell;
+    text-align: left;
+  }
+
+  .page-offers .offer-right.payment-info+.offer-label {
+    margin-top: 15px;
+  }
+}
+
+@media (min-width: 757px) {
+  .page-offers .payment-info>div {
+    margin-bottom: 15px;
+  }
+
+  .page-offers .payment-info>div:last-child {
+    margin-bottom: 0;
+  }
+
+}
+
+@media (min-width: 1200px) {
+  .page-offers .payment-info>div {
+    display: table;
+    margin-bottom: 25px;
+  }
+
+  .page-offers .payment-info>div>* {
+    display: table-cell;
+    text-align: left;
+  }
+}
