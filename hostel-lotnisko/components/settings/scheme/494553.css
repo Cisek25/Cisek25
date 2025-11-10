@@ -1,0 +1,33 @@
+html:root {
+    /* AMBER NEW */
+/* ZMIENNE KOLORYSTYCZNE HONEY*/
+--bgcolor1: #fff;
+--bgcolor2: #f1f1f1;
+--bgcolor3: #fff;
+/* <-- $maincolor  */
+--maincolor1: #AD5009;
+--maincolor1_rgba: 173, 80, 9;/* <-- $maincolor  */
+--maincolor2: #78350F;
+--supportcolor1: #ff7218;
+--supportcolor2: #e5e5e5;
+--hovercolor1: #fff;
+--hovercolor2: #fff;
+
+--widget_header: #b0b2b1;
+
+--btn_large: #AD5009;
+--btn_medium: #AD5009;
+--btn_small: #424240;
+--btn_large_hover: #78350F;
+--btn_medium_hover: #78350F;
+--btn_small_hover: #78350F;
+
+--txtcolor1: #282828;
+--txtcolor2: #282828;
+--bgaside: #fff;
+--bgcontent: #fff;
+--bordercolor: #e5e5e5;
+--widget_icons: #AD5009;
+--icons1: #AD5009;
+/* ZMIENNE KOLORYSTYCZNE END */
+}

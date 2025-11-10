@@ -1,0 +1,216 @@
+@import "../../components/settings/settings.less";
+
+@import "../../components/offer-top/offer-top.less";
+@import "../../components/offer-amenities/offer-amenities.less";
+@import "../../components/offer-tabs/offer-tabs.less";
+@import "../../components/offer-calendar/offer-calendar.less";
+@import "../../components/offer-gallery/offer-gallery.less";
+@import "../../components/offer-additional/offer-additional.less";
+@import "../../components/offer-prices/offer-prices.less";
+@import "../../components/offer-form/offer-form.less";
+@import "../../components/offer-advantages/offer-advantages.less";
+@import "../../components/side-payments/side-payments.less";
+@import "../../components/offer-reservation/offer-reservation.less";
+@import "../../components/distinguished/distinguished.less";
+
+
+.offer-label {
+    font-weight: 600;
+    padding-bottom: 10px;
+}
+
+h2.label{
+    font-size: 1.8rem;
+    margin: 15px 0 20px;
+}   
+.container.wrapper > div{
+    margin-top: 0;
+}
+
+@media(min-width:979px){
+    .container.wrapper {
+        margin-top: -300px;
+        margin-bottom: 60px;
+    }
+}
+.offer_site.page{
+    padding-top:15px;
+    @media(min-width:979px){
+        padding-top:0;
+    }
+}
+
+#offer-price-list {
+    display: none;    
+}   
+.additional-offers{
+    margin-bottom: 40px; 
+}
+.card{
+    box-shadow: 0 0 15px 0 rgba(0,0,0,0.3);
+    border-radius: 0;
+    margin-bottom: 20px;
+}
+.card-block{
+    padding: 25px;
+}
+
+.card-block p{
+    margin: 0;
+}
+.card-price{
+    display: inline-block;
+    margin:0;
+}
+.card-block a {
+    display: block;
+    float: right;
+}
+.card-footer{
+    margin-top: 40px;
+    padding: 0;
+    background: none;
+    border-top: 0;
+}
+.cennik_link {
+    text-transform: lowercase;
+    display: block;
+    text-align: center;
+    text-decoration: underline;
+}
+.cennik_link:hover {
+    text-decoration: none;
+}
+.cennik_link:first-letter {
+    text-transform: uppercase;
+}
+
+.cennik h2.big-label {
+    margin-top: 20px;
+}
+
+
+.row.additional > div {
+    margin-bottom: 0;
+}
+
+.additional_info {
+    margin-bottom: 30px;
+}
+
+.room_desc {
+    word-break: break-word;
+    margin-bottom: 0;
+    @media(min-width:979px){
+        margin-bottom: 40px;
+    }
+}
+/* hiding description */
+.room_desc.minified {
+    position: relative;
+    overflow: hidden;
+    max-height: 200px;
+    transition: max-height 0.4s;
+}
+
+.offer_site .lay_shadow {
+    box-shadow: 0 0px 60px 60px var(--bgcontent);
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 1px;
+    top: 200px;
+    transition: top 0.4s;
+}
+.offer_site .room_desc-wrapper {
+    padding: 20px 50px;
+}
+.offer_site .room_desc_wrapper {
+    margin-top: 30px;
+}
+.offer_site .room_desc_btn {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.offer_site .room_desc_btn .btn{
+    width: auto;
+    color: var(--hovercolor2);
+    
+    &:hover{
+        color: var(--hovercolor2);
+    }
+}
+.offer_site .container.wrapper .col-lg-9 {
+    @media (min-width: 979px) { 
+        background: var(--bgcontent);
+    }
+}
+@media (min-width: 979px) { 
+    .offer-wrapper {
+        border: 1px solid var(--bordercolor);
+        border-bottom: 0;
+    }
+    .offer-desc-wrapper {
+        border: 1px solid var(--bordercolor);
+        border-top: 0;
+    }
+}
+.page-offer  .offer-parallax > img{
+    display: none;
+    @media (min-width: 979px) { 
+        width: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: 50% 50%;
+        height: 70vh;
+    }
+}
+.page-offer  .offer-parallax {
+    height: auto;
+    @media (min-width: 979px) {
+        display: block;  
+        height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }    
+    @media (min-width:1200px) {
+        height: 70vh;
+    }
+  }
+.offer_site .container.wrapper .col-lg-3 {
+    @media (min-width: 979px) {        
+        background: var(--bgcontent);
+        -webkit-box-shadow: -10px 10px 15px 0px rgba(0, 0, 0, 0.05);
+        -moz-box-shadow: -10px 10px 15px 0px rgba(0, 0, 0, 0.05);
+        box-shadow: -10px 10px 15px 0px rgba(0, 0, 0, 0.05);
+    }
+}
+.offer_site footer {
+    @media (min-width: 979px) {        
+        background: var(--bgcolor2);
+    }
+}
+.offer-wrapper , .offer-desc-wrapper {
+    margin-left: 0;
+    margin-right: 0;
+    background: var(--bgcontent);
+    align-items: flex-start;
+}
+.offer-desc-wrapper {
+    padding: 0 15px;
+    & > * {
+        width: 100%;
+    }
+}
+
+#map_container{
+    min-height: 300px;
+    z-index: 10;
+ }
+ 
+.page-offer .main-container {
+    @media (min-width:979px) {
+        margin-bottom: 0;
+    }
+}
