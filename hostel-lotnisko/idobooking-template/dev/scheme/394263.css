@@ -1,0 +1,32 @@
+html:root {
+/* ZMIENNE KOLORYSTYCZNE ROUGE*/
+--bgcolor1: #fff;
+--bgcolor2: #f1f1f1;
+--bgcolor3: #fff;
+/* <-- $maincolor  */
+--maincolor1: #BE185D;
+--maincolor1_rgba: 190, 24, 93;/* <-- $maincolor  */
+--maincolor2: #831843;
+--supportcolor1: #ff7218;
+--supportcolor2: #e5e5e5;
+--hovercolor1: #fff;
+--hovercolor2: #fff;
+
+--widget_header: #b0b2b1;
+
+--btn_large: #BE185D;
+--btn_medium: #BE185D;
+--btn_small: #424240;
+--btn_large_hover: #831843;
+--btn_medium_hover: #831843;
+--btn_small_hover: #831843;
+
+--txtcolor1: #282828;
+--txtcolor2: #282828;
+--bgaside: #fff;
+--bgcontent: #fff;
+--bordercolor: #e5e5e5;
+--widget_icons: #BE185D;
+--icons1: #BE185D;
+/* ZMIENNE KOLORYSTYCZNE END */
+}

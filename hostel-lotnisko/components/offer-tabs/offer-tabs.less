@@ -1,0 +1,169 @@
+.tab {
+	padding-bottom: 15px;
+	@media (min-width: 979px) {
+		padding-bottom: 30px;
+	}
+}
+
+.tabs {
+	display: flex;
+	border-bottom: 1px solid #CFCFCF;
+	margin-bottom: 2.5rem;
+	width: 100%;
+	margin: 0 0 2rem;
+	flex-direction: column;
+	&.--hideCalendar {
+		.calendar-data, #calendar-data_mobile {
+			display: none;
+		}
+	}
+	@media (max-width: 979px) {
+		.offer-label , .extra-options h2.label {
+			display: none;
+		}
+	}
+	@media (min-width: 979px) {
+		flex-direction: row;
+		margin: 0 0 3rem;
+		padding: 15px 0 0;
+		&.--fixed {
+			position: fixed;
+			top: 64px;
+			background: var(--bgcontent);
+			z-index: 10;
+			max-width: 940px;
+		}
+	}
+	@media (min-width: 979px) {
+		&.--fixed {
+			max-width: 1140px;
+		}
+	}
+
+	&__item {
+		cursor: pointer;
+		padding-bottom: 1.5rem;
+		position: relative;
+
+		@media (min-width: 979px) {
+			padding-bottom: 0rem;
+
+			&.active, &:hover {
+				& > span:after {
+					opacity: 1;
+					transform: scaleX(1.1) translateX(5%);
+				}
+			}
+		}
+
+		& > span {
+			font-weight: 400;
+			text-transform: uppercase;
+			letter-spacing: 0.05rem;
+			font-size: 1.3rem;
+
+			@media (min-width: 979px) {
+				position: relative;
+				padding-bottom: 1.5rem;
+				display: block;
+
+				&:after {
+					content: '';
+					width: 90%;
+					height: 1px;
+					position: absolute;
+					bottom: -1px;
+					left: 0;
+					background-color: var(--maincolor1);
+					border-radius: 3px;
+					opacity: 0;
+					transition: 0.2s transform;
+				}
+			}
+		}
+
+		&:has( > span:not(:empty)) {
+			margin-right: 3rem;
+		}
+
+	}
+
+	@media (max-width: 979px) {
+		border-bottom: none;
+		margin-bottom: 2rem;
+        overflow: hidden;
+		&__item {
+			margin-right: 0;
+
+			&.active {
+				& > span {
+					padding-bottom: 1rem;
+					margin-bottom: 2.5rem;
+
+					&:before {
+						display: none;
+					}
+				}
+			}
+
+			&:after {
+				display: none;
+			}
+
+			.headline {
+				display: none;
+			}
+
+			& > span {
+				font-size: 1.4rem;
+				border-top: 1px solid #CFCFCF;
+				padding-top: 2rem;
+				padding-bottom: 1rem;
+				width: 100%;
+				display: block;
+				position: relative;
+
+				&:after, &:before {
+					content: '';
+					position: absolute;
+					right: 0;
+					background-color: var(--maincolor1);
+					top: 2.6rem;
+				}
+
+				&:after {
+					width: 1.4rem;
+					height: .2rem;
+				}
+
+				&:before {
+					height: 1.4rem;
+					width: .2rem;
+					right: .6rem;
+					top: 2rem;
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 979px) {
+	#calendar-data, #room_data, #room_rules, #extra-options, #additional, #room_desc, #offer-prices {
+		&:not(.active) {
+			position: absolute;
+			visibility: hidden;
+			z-index: -1;
+			max-width: 100%;
+		}
+	}
+}
+
+@media (max-width: 1200px) {
+	.tabs ~ section, #details_wrapper {
+		padding-bottom: 3rem;
+
+		&:last-child {
+			padding-bottom: 0;
+		}
+	}
+}

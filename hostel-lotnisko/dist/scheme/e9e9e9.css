@@ -1,0 +1,34 @@
+html:root {
+    /* Cyan [brown] NEW */
+/* ZMIENNE KOLORYSTYCZNE BROWN*/
+--bgcolor1: #fff;
+--bgcolor2: #f1f1f1;
+--bgcolor3: #fff;
+/*--maincolor1: #e9e9e9;*/
+/* <-- $maincolor  */
+--maincolor1: #0E7490;
+--maincolor1_rgba: 14, 116, 144;/* <-- $maincolor  */
+--maincolor2: #164E63;
+--supportcolor1: #ff7218;
+--supportcolor2: #e5e5e5;
+--hovercolor1: #fff;
+--hovercolor2: #fff;
+
+--widget_header: #b0b2b1;
+
+--btn_large: #0E7490;
+--btn_medium: #0E7490;
+--btn_small: #424240;
+--btn_large_hover: #164E63;
+--btn_medium_hover: #164E63;
+--btn_small_hover: #164E63;
+
+--txtcolor1: #282828;
+--txtcolor2: #282828;
+--bgaside: #fff;
+--bgcontent: #fff;
+--bordercolor: #e5e5e5;
+--widget_icons: #0E7490;
+--icons1: #0E7490;
+/* ZMIENNE KOLORYSTYCZNE END */
+}

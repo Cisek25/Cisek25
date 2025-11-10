@@ -1,0 +1,34 @@
+html:root {
+/* Green NEW */
+/* ZMIENNE KOLORYSTYCZNE GREEN*/
+--bgcolor1: #fff;
+--bgcolor2: #f1f1f1;
+--bgcolor3: #fff;
+/*--maincolor1: #ebebeb;*//* <-- $maincolor  */
+--maincolor1: #147D3B;
+--maincolor1_rgba: 20, 125, 59;/* <-- $maincolor  */
+--maincolor2: #14532D; 
+/* #282828; */
+--supportcolor1: #598700;
+--supportcolor2: #e5e5e5;
+--hovercolor1: #fff;
+--hovercolor2: #fff;
+
+--widget_header: #b0b2b1;
+
+--btn_large: #147D3B;
+--btn_medium: #147D3B;
+--btn_small: #424240;
+--btn_large_hover: #14532D;
+--btn_medium_hover: #14532D;
+--btn_small_hover: #14532D;
+
+--txtcolor1: #282828;
+--txtcolor2: #282828;
+--bgaside: #fff;
+--bgcontent: #fff;
+--bordercolor: #e5e5e5;
+--widget_icons: #147D3B;
+--icons1: #147D3B;
+/* ZMIENNE KOLORYSTYCZNE END */
+}
