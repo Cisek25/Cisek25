@@ -1,14 +1,22 @@
 /* ============================================
-   OFFERS PAGE - FINAL CSS V2
-   Poprawki dla podstrony /offers - WERSJA POPRAWIONA
+   OFFERS PAGE - FINAL CSS
+   Poprawki dla podstrony /offers - BEZPIECZNE
 
-   ZMIANY W V2:
-   ✓ Większa czcionka w filtrach (checkboxy)
-   ✓ Większa czcionka w menu
-   ✓ Mniejsza czcionka w "Informacja o sposobach płatności"
-   ✓ Ładny big-label ze złotym badge
-   ✓ Przycisk "Zastosuj filtry" - navy color
+   INSTRUKCJA WDROŻENIA:
+   Wklej ten CSS do: Custom CSS w panelu idoBooking dla podstrony /offers
 
+   CO ROBI:
+   - Footer: Telefon w jednej linii
+   - Przyciski "SZCZEGÓŁY" wyśrodkowane
+   - Przycisk "ZASTOSUJ FILTRY" wyśrodkowany
+   - Filtry: collapsible, bez dodatkowego tła
+   - Kolory: Navy + Gold (jak na głównej)
+
+   CZEGO NIE ROBI (bezpieczeństwo):
+   ❌ NIE dotyka tła strony/hero
+   ❌ NIE zmienia struktury menu
+   ❌ NIE styluje .iai-search (wyszukiwarka)
+   ❌ NIE dotyka payment-info
    ============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
@@ -43,11 +51,11 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
 
-/* ===== 3. MENU - WIĘKSZA CZCIONKA ===== */
+/* ===== 3. MENU - lekkie poprawki ===== */
 .navbar-nav .nav-link {
   font-family: 'Roboto', sans-serif;
   font-weight: 600;
-  font-size: 1.05rem !important; /* Zwiększone z 0.9rem */
+  font-size: 0.9rem;
   letter-spacing: 0.5px;
   transition: color 0.3s ease;
 }
@@ -83,7 +91,7 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 8px 20px rgba(184, 147, 94, 0.35);
 }
 
-/* ===== 5. PRZYCISK "ZASTOSUJ FILTRY" - NAVY COLOR ===== */
+/* ===== 5. PRZYCISK "ZASTOSUJ FILTRY" ===== */
 #filter_buttons {
   text-align: center;
   padding: 1.5rem 1rem;
@@ -92,8 +100,8 @@ h1, h2, h3, h4, h5, h6 {
 #filter_buttons button {
   width: auto;
   min-width: 200px;
-  background: var(--navy) !important; /* Wymuszenie navy */
-  color: white !important;
+  background: var(--navy);
+  color: white;
   border: none;
   padding: 1rem 2.5rem;
   border-radius: 8px;
@@ -105,12 +113,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #filter_buttons button:hover {
-  background: var(--gold) !important;
+  background: var(--gold);
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(184, 147, 94, 0.35);
 }
 
-/* ===== 6. FILTRY - WIĘKSZA CZCIONKA ===== */
+/* ===== 6. FILTRY - BEZ dodatkowego tła! ===== */
 .filter_header {
   background: transparent;
   padding: 0.75rem 1rem;
@@ -130,7 +138,7 @@ h1, h2, h3, h4, h5, h6 {
 .filter_header strong {
   font-weight: 600;
   color: var(--navy);
-  font-size: 1.05rem; /* Zwiększone z 1rem */
+  font-size: 1rem;
 }
 
 .filter_header:hover strong {
@@ -178,7 +186,6 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 3px;
 }
 
-/* CHECKBOXY - WIĘKSZA CZCIONKA */
 .checkbox {
   padding: 0.5rem 0.75rem;
   margin: 0.25rem 0;
@@ -197,12 +204,12 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
   font-weight: 400;
   color: #2C3E50;
-  font-size: 1.05rem !important; /* Zwiększone z 0.9rem */
+  font-size: 0.9rem;
 }
 
 .checkbox input[type="checkbox"] {
-  width: 20px; /* Zwiększone z 18px */
-  height: 20px; /* Zwiększone z 18px */
+  width: 18px;
+  height: 18px;
   margin-right: 0.75rem;
   cursor: pointer;
   accent-color: var(--gold);
@@ -213,64 +220,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--navy);
 }
 
-/* ===== 7. PAYMENT INFO - MNIEJSZA CZCIONKA ===== */
-.payment-info h5,
-.payment-info p,
-.payment-info {
-  font-size: 0.85rem !important;
-  line-height: 1.4;
-}
-
-.payment-info h5 {
-  font-size: 0.95rem !important;
-  margin-bottom: 0.5rem;
-}
-
-/* ===== 8. BIG LABEL - ŁADNY ZE ZŁOTYM BADGE ===== */
-.big-label {
-  font-family: 'Roboto', sans-serif;
-  color: var(--navy);
-  font-weight: 700;
-  font-size: 2.5rem;
-  margin: 2rem 0;
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.big-label::before {
-  content: '★';
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-  color: white;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  box-shadow: 0 4px 15px rgba(184, 147, 94, 0.3);
-}
-
-.big-label small {
-  color: var(--stone);
-  font-weight: 400;
-  font-size: 1.25rem;
-}
-
-.big-label small:first-of-type {
-  background: var(--gold);
-  color: white;
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-left: 0.5rem;
-}
-
-/* ===== 9. OFFERS CARDS ===== */
+/* ===== 7. OFFERS CARDS ===== */
 .offers-container {
   background: white;
   border-radius: 12px;
@@ -308,7 +258,19 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
 
-/* ===== 10. MOBILE ===== */
+/* ===== 8. PAGE TITLE ===== */
+.big-label {
+  font-family: 'Roboto', serif;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.big-label small {
+  color: var(--stone);
+  font-weight: 400;
+}
+
+/* ===== 9. MOBILE ===== */
 #show_filters {
   display: none;
   width: 100%;
@@ -349,20 +311,9 @@ h1, h2, h3, h4, h5, h6 {
   #filter_buttons button {
     min-width: 100%;
   }
-
-  .big-label {
-    font-size: 1.75rem;
-    flex-wrap: wrap;
-  }
-
-  .big-label::before {
-    width: 40px;
-    height: 40px;
-    font-size: 1.25rem;
-  }
 }
 
-/* ===== 11. MISC ===== */
+/* ===== 10. MISC ===== */
 #backTop {
   background: var(--gold);
   transition: all 0.3s ease;
