@@ -255,7 +255,7 @@ body {
 }
 
 .apartment-description {
-  font-size: 1.1875rem; /* było 0.95rem -> +25% */
+  font-size: 1.4rem; /* zwiększone o ~18% dla lepszej czytelności */
   color: var(--mountain-stone);
   margin-bottom: 1.875rem; /* było 1.5rem -> +25% */
   line-height: 1.6;
@@ -333,7 +333,7 @@ body {
   text-decoration: none;
   border-radius: 31.25px; /* było 25px -> +25% */
   font-weight: 700;
-  font-size: 1.1875rem; /* było 0.95rem -> +25% */
+  font-size: 1.35rem; /* zwiększone dla lepszej czytelności przycisku */
   transition: all 0.3s ease;
   white-space: nowrap;
   display: inline-flex;
@@ -343,6 +343,7 @@ body {
 
 .apartment-cta:hover {
   background: var(--mountain-navy-dark);
+  color: white !important; /* FIX: zapewnienie widoczności tekstu na hover */
   transform: translateX(5px); /* było 4px -> +25% */
   box-shadow: var(--shadow-md);
 }

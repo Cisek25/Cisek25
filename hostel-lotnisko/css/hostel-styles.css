@@ -746,6 +746,44 @@ section {
   color: var(--teal-light);
 }
 
+/* Adres wycentrowany pod mapą */
+.location-address-centered {
+  margin-top: 3rem;
+  padding: 2.5rem;
+  background: var(--grey-dark);
+  color: var(--white);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.location-address-centered h4 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--yellow-accent);
+}
+
+.location-address-centered p {
+  margin-bottom: 0.75rem;
+  opacity: 0.9;
+  font-size: 1.125rem;
+}
+
+.location-address-centered .location-email,
+.location-address-centered .location-phone {
+  display: inline-block;
+  margin: 0.5rem 1rem;
+  font-size: 1.125rem;
+}
+
+.location-address-centered .location-email:hover,
+.location-address-centered .location-phone:hover {
+  color: var(--yellow-accent);
+}
+
 /* ========================================
    SECTION 9: ATTRACTIONS SECTION
    ======================================== */
