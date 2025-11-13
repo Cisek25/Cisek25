@@ -1,0 +1,803 @@
+<!-- ========================================
+     GALERIA - Apartamenty Górskie
+
+     INSTRUKCJA UŻYCIA:
+     1. Wklej ten kod do CMS w sekcji "Koniec sekcji body"
+     2. CSS jest zawarty w <style> na początku
+     3. JavaScript na końcu obsługuje filtry i lightbox
+     4. Zdjęcia: zamień URL-e na własne
+     5. Działa responsive - automatycznie dostosowuje się do mobile
+
+     FUNKCJE:
+     - Filtrowanie po kategoriach
+     - Lightbox (powiększenie po kliknięciu)
+     - Masonry layout (Pinterest style)
+     - Lazy loading
+     - Animacje hover
+     ======================================== -->
+
+<style>
+/* ========================================
+   GALERIA - CSS
+   ======================================== */
+
+.gallery-section {
+  padding: clamp(4rem, 8vw, 7rem) 0;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F5F1EA 100%);
+  width: 100vw !important;
+  position: relative !important;
+  left: 50% !important;
+  right: 50% !important;
+  margin-left: -50vw !important;
+  margin-right: -50vw !important;
+  overflow: hidden;
+}
+
+.gallery-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Header */
+.gallery-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.gallery-badge {
+  display: inline-block;
+  padding: 10px 24px;
+  background: rgba(184, 147, 94, 0.1);
+  color: #9A7A4A;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border-radius: 25px;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(184, 147, 94, 0.3);
+}
+
+.gallery-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  color: #0F2438;
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.gallery-subtitle {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  color: #6B7280;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  line-height: 1.7;
+}
+
+/* Filtry */
+.gallery-filters {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.filter-btn {
+  padding: 12px 30px;
+  background: white;
+  border: 2px solid #E8E3D8;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #1C3C5A;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Lato', sans-serif;
+}
+
+.filter-btn:hover {
+  border-color: #B8935E;
+  color: #B8935E;
+  transform: translateY(-2px);
+}
+
+.filter-btn.active {
+  background: #1C3C5A;
+  color: white;
+  border-color: #1C3C5A;
+}
+
+/* Grid galerii */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
+  gap: 2rem;
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Item galerii */
+.gallery-item {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: white;
+}
+
+.gallery-item:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+}
+
+.gallery-item.hidden {
+  display: none;
+}
+
+/* Wysokości różne dla efektu masonry */
+.gallery-item:nth-child(3n+1) {
+  grid-row: span 1;
+}
+
+.gallery-item:nth-child(3n+2) {
+  grid-row: span 1;
+}
+
+.gallery-item:nth-child(3n+3) {
+  grid-row: span 1;
+}
+
+/* Obrazek */
+.gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+  display: block;
+  aspect-ratio: 4/3;
+}
+
+.gallery-item:hover .gallery-image {
+  transform: scale(1.1);
+}
+
+/* Overlay */
+.gallery-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(0deg, rgba(15, 36, 56, 0.95) 0%, transparent 100%);
+  padding: 2rem 1.5rem 1.5rem;
+  transform: translateY(100%);
+  transition: transform 0.4s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+  transform: translateY(0);
+}
+
+.gallery-item-title {
+  color: white;
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.gallery-item-category {
+  color: #B8935E;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Ikona zoom */
+.gallery-zoom-icon {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 50px;
+  height: 50px;
+  background: rgba(184, 147, 94, 0.95);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.gallery-item:hover .gallery-zoom-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ========================================
+   LIGHTBOX
+   ======================================== */
+
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  animation: lightboxFadeIn 0.3s ease;
+}
+
+@keyframes lightboxFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox-content {
+  max-width: 90vw;
+  max-height: 90vh;
+  position: relative;
+  animation: lightboxZoomIn 0.4s ease;
+}
+
+@keyframes lightboxZoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.lightbox-image {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 3rem;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.lightbox-close:hover {
+  color: #B8935E;
+  transform: rotate(90deg);
+}
+
+.lightbox-caption {
+  position: absolute;
+  bottom: -60px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Nawigacja lightbox */
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(184, 147, 94, 0.9);
+  border: none;
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-nav:hover {
+  background: #B8935E;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-prev {
+  left: -80px;
+}
+
+.lightbox-next {
+  right: -80px;
+}
+
+/* ========================================
+   MOBILE RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .gallery-item:nth-child(n) {
+    grid-row: span 1;
+  }
+
+  .gallery-overlay {
+    transform: translateY(0);
+    background: linear-gradient(0deg, rgba(15, 36, 56, 0.8) 0%, transparent 100%);
+  }
+
+  .gallery-zoom-icon {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .filter-btn {
+    padding: 10px 20px;
+    font-size: 0.85rem;
+  }
+
+  .lightbox-prev {
+    left: 10px;
+  }
+
+  .lightbox-next {
+    right: 10px;
+  }
+
+  .lightbox-nav {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .lightbox-close {
+    top: -40px;
+    font-size: 2rem;
+  }
+}
+
+/* ========================================
+   LOADING STATE
+   ======================================== */
+
+.gallery-loading {
+  text-align: center;
+  padding: 4rem 0;
+  font-size: 1.2rem;
+  color: #6B7280;
+}
+
+.gallery-loading::after {
+  content: '';
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 4px solid #E8E3D8;
+  border-top-color: #B8935E;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 1rem;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style>
+
+<!-- ========================================
+     SEKCJA GALERII - HTML
+     ======================================== -->
+
+<section class="gallery-section" id="galeria" aria-labelledby="gallery-title">
+  <div class="gallery-container">
+
+    <!-- Header -->
+    <div class="gallery-header">
+      <span class="gallery-badge" role="text">Nasza Galeria</span>
+      <h2 class="gallery-title" id="gallery-title">Odkryj Nasze Apartamenty</h2>
+      <p class="gallery-subtitle">
+        Zobacz piękne wnętrza naszych apartamentów oraz malownicze okolice
+        Szklarskiej Poręby. Każde zdjęcie opowiada historię wyjątkowego pobytu w sercu Karkonoszy.
+      </p>
+    </div>
+
+    <!-- Filtry -->
+    <div class="gallery-filters" role="tablist">
+      <button class="filter-btn active" data-filter="wszystkie" role="tab" aria-selected="true">
+        Wszystkie
+      </button>
+      <button class="filter-btn" data-filter="apartamenty" role="tab" aria-selected="false">
+        Apartamenty
+      </button>
+      <button class="filter-btn" data-filter="okolica" role="tab" aria-selected="false">
+        Okolica
+      </button>
+      <button class="filter-btn" data-filter="wnetrza" role="tab" aria-selected="false">
+        Wnętrza
+      </button>
+      <button class="filter-btn" data-filter="widoki" role="tab" aria-selected="false">
+        Widoki
+      </button>
+    </div>
+
+    <!-- Grid galerii -->
+    <div class="gallery-grid" role="list">
+
+      <!-- Item 1 - Apartament -->
+      <article class="gallery-item" data-category="apartamenty" role="listitem">
+        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop&q=80" alt="Luksusowe wnętrze apartamentu z widokiem na góry" class="gallery-image" loading="lazy">
+        <div class="gallery-overlay">
+          <h3 class="gallery-item-title">Apartament Górski Widok</h3>
+          <span class="gallery-item-category">Apartamenty</span>
+        </div>
+        <div class="gallery-zoom-icon">🔍</div>
+      </article>
+
+      <!-- Item 2 - Widok -->
+      <article class="gallery-item" data-category="widoki" role="listitem">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&q=80" alt="Panorama Karkonoszy o zachodzie słońca" class="gallery-image" loading="lazy">
+        <div class="gallery-overlay">
+          <h3 class="gallery-item-title">Zachód Słońca w Karkonoszach</h3>
+          <span class="gallery-item-category">Widoki</span>
+        </div>
+        <div class="gallery-zoom-icon">🔍</div>
+      </article>
+
+      <!-- Item 3 - Wnętrze Kuchnia -->
+      <article class="gallery-item" data-category="wnetrza" role="listitem">
+        <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&h=600&fit=crop&q=80" alt="Nowoczesna kuchnia w apartamencie" class="gallery-image" loading="lazy">
+        <div class="gallery-overlay">
+          <h3 class="gallery-item-title">Nowoczesna Kuchnia</h3>
+          <span class="gallery-item-category">Wnętrza</span>
+        </div>
+        <div class="gallery-zoom-icon">🔍</div>
+      </article>
+
+      <!-- Item 4 - Okolica Szlak -->
+      <article class="gallery-item" data-category="okolica" role="listitem">
+        <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&h=600&fit=crop&q=80" alt="Szlak turystyczny w Karkonoszach" class="gallery-image" loading="lazy">
+        <div class="gallery-overlay">
+          <h3 class="gallery-item-title">Szlak na Szrenicę</h3>
+          <span class="gallery-item-category">Okolica</span>
+        </div>
+        <div class="gallery-zoom-icon">🔍</div>
+      </article>
+
+      <!-- Item 5 - Apartament Sypialnia -->
+      <article class="gallery-item" data-category="apartamenty" role="listitem">
+        <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop&q=80" alt="Przestronna sypialnia z king-size bed" class="gallery-image" loading="lazy">
+        <div class="gallery-overlay">
+          <h3 class="gallery-item-title">Główna Sypialnia</h3>
+          <span class="gallery-item-category">Apartamenty</span>
+        </div>
+        <div class="gallery-zoom-icon">🔍</div>
+      </article>
+
+      <!-- Item 6 - Widok Góry -->
+      <article class="gallery-item" data-category="widoki" role="listitem">
+        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&h=600&fit=crop&q=80" alt="Widok z balkonu na góry" class="gallery-image" loading="lazy">
+        <div class="gallery-overlay">
+          <h3 class="gallery-item-title">Widok z Balkonu</h3>
+          <span class="gallery-item-category">Widoki</span>
+        </div>
+        <div class="gallery-zoom-icon">🔍</div>
+      </article>
+
+      <!-- Item 7 - Wnętrze Salon -->
+      <article class="gallery-item" data-category="wnetrza" role="listitem">
+        <img src="https://images.unsplash.com/photo-1556912167-f556f1f39faa?w=800&h=600&fit=crop&q=80" alt="Salon z kominkiem" class="gallery-image" loading="lazy">
+        <div class="gallery-overlay">
+          <h3 class="gallery-item-title">Przytulny Salon</h3>
+          <span class="gallery-item-category">Wnętrza</span>
+        </div>
+        <div class="gallery-zoom-icon">🔍</div>
+      </article>
+
+      <!-- Item 8 - Okolica Deptak -->
+      <article class="gallery-item" data-category="okolica" role="listitem">
+        <img src="https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?w=800&h=600&fit=crop&q=80" alt="Centrum Szklarskiej Poręby z restauracjami i kawiarniami" class="gallery-image" loading="lazy">
+        <div class="gallery-overlay">
+          <h3 class="gallery-item-title">Centrum Szklarskiej Poręby</h3>
+          <span class="gallery-item-category">Okolica</span>
+        </div>
+        <div class="gallery-zoom-icon">🔍</div>
+      </article>
+
+      <!-- Item 9 - Apartament Łazienka -->
+      <article class="gallery-item" data-category="apartamenty" role="listitem">
+        <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&h=600&fit=crop&q=80" alt="Elegancka łazienka" class="gallery-image" loading="lazy">
+        <div class="gallery-overlay">
+          <h3 class="gallery-item-title">Łazienka Premium</h3>
+          <span class="gallery-item-category">Apartamenty</span>
+        </div>
+        <div class="gallery-zoom-icon">🔍</div>
+      </article>
+
+      <!-- Item 10 - Widok Zimowy -->
+      <article class="gallery-item" data-category="widoki" role="listitem">
+        <img src="https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=800&h=600&fit=crop&q=80" alt="Zimowa panorama Karkonoszy" class="gallery-image" loading="lazy">
+        <div class="gallery-overlay">
+          <h3 class="gallery-item-title">Zimowe Karkonosze</h3>
+          <span class="gallery-item-category">Widoki</span>
+        </div>
+        <div class="gallery-zoom-icon">🔍</div>
+      </article>
+
+      <!-- Item 11 - Wnętrze Jadalnia -->
+      <article class="gallery-item" data-category="wnetrza" role="listitem">
+        <img src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&h=600&fit=crop&q=80" alt="Jadalnia z drewnianym stołem" class="gallery-image" loading="lazy">
+        <div class="gallery-overlay">
+          <h3 class="gallery-item-title">Jadalnia</h3>
+          <span class="gallery-item-category">Wnętrza</span>
+        </div>
+        <div class="gallery-zoom-icon">🔍</div>
+      </article>
+
+      <!-- Item 12 - Okolica Wodospad -->
+      <article class="gallery-item" data-category="okolica" role="listitem">
+        <img src="https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=800&h=600&fit=crop&q=80" alt="Wodospad Kamieńczyka" class="gallery-image" loading="lazy">
+        <div class="gallery-overlay">
+          <h3 class="gallery-item-title">Wodospad Kamieńczyka</h3>
+          <span class="gallery-item-category">Okolica</span>
+        </div>
+        <div class="gallery-zoom-icon">🔍</div>
+      </article>
+
+      <!-- Item 13 - Apartament Balkon -->
+      <article class="gallery-item" data-category="apartamenty" role="listitem">
+        <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&h=600&fit=crop&q=80" alt="Balkon z meblami ogrodowymi" class="gallery-image" loading="lazy">
+        <div class="gallery-overlay">
+          <h3 class="gallery-item-title">Taras z Widokiem</h3>
+          <span class="gallery-item-category">Apartamenty</span>
+        </div>
+        <div class="gallery-zoom-icon">🔍</div>
+      </article>
+
+      <!-- Item 14 - Widok Letni -->
+      <article class="gallery-item" data-category="widoki" role="listitem">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&q=80" alt="Letnia panorama gór" class="gallery-image" loading="lazy">
+        <div class="gallery-overlay">
+          <h3 class="gallery-item-title">Lato w Górach</h3>
+          <span class="gallery-item-category">Widoki</span>
+        </div>
+        <div class="gallery-zoom-icon">🔍</div>
+      </article>
+
+      <!-- Item 15 - Wnętrze Kominek -->
+      <article class="gallery-item" data-category="wnetrza" role="listitem">
+        <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=800&h=600&fit=crop&q=80" alt="Przytulny salon z drewnianym kominkiem i widokiem na góry" class="gallery-image" loading="lazy">
+        <div class="gallery-overlay">
+          <h3 class="gallery-item-title">Salon z Kominkiem</h3>
+          <span class="gallery-item-category">Wnętrza</span>
+        </div>
+        <div class="gallery-zoom-icon">🔍</div>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ========================================
+     LIGHTBOX
+     ======================================== -->
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption">
+  <div class="lightbox-content">
+    <button class="lightbox-close" aria-label="Zamknij lightbox">&times;</button>
+    <button class="lightbox-nav lightbox-prev" aria-label="Poprzednie zdjęcie">‹</button>
+    <img src="" alt="" class="lightbox-image" id="lightbox-image">
+    <button class="lightbox-nav lightbox-next" aria-label="Następne zdjęcie">›</button>
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+</div>
+
+<!-- ========================================
+     JAVASCRIPT
+     ======================================== -->
+
+<script>
+(function() {
+  'use strict';
+
+  // ========================================
+  // FILTROWANIE GALERII
+  // ========================================
+
+  // Inicjalizacja - wywoła się natychmiast lub po DOMContentLoaded
+  function initGallery() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    console.log('Gallery init:', galleryItems.length, 'items found');
+
+    // WAŻNE: Pokaż wszystkie elementy na start
+    galleryItems.forEach(item => {
+      item.classList.remove('hidden');
+      item.style.display = 'block';
+      item.style.visibility = 'visible';
+      item.style.opacity = '1';
+    });
+
+    // Obsługa kliknięć w filtry
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const filter = this.getAttribute('data-filter');
+        console.log('Filter clicked:', filter);
+
+        // Aktualizuj aktywny przycisk
+        filterButtons.forEach(btn => {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-selected', 'false');
+        });
+        this.classList.add('active');
+        this.setAttribute('aria-selected', 'true');
+
+        // Filtruj elementy
+        galleryItems.forEach(item => {
+          const category = item.getAttribute('data-category');
+
+          if (filter === 'wszystkie' || category === filter) {
+            item.classList.remove('hidden');
+            item.style.display = 'block';
+            item.style.visibility = 'visible';
+            item.style.opacity = '1';
+            item.style.animation = 'fadeIn 0.6s ease';
+          } else {
+            item.classList.add('hidden');
+            item.style.display = 'none';
+            item.style.visibility = 'hidden';
+            item.style.opacity = '0';
+          }
+        });
+
+        console.log('Filter applied:', filter);
+      });
+    });
+  }
+
+  // Wywołaj natychmiast jeśli DOM gotowy, lub czekaj na DOMContentLoaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGallery);
+  } else {
+    initGallery();
+  }
+
+  // ========================================
+  // LIGHTBOX
+  // ========================================
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImage = document.getElementById('lightbox-image');
+  const lightboxCaption = document.getElementById('lightbox-caption');
+  const lightboxClose = document.querySelector('.lightbox-close');
+  const lightboxPrev = document.querySelector('.lightbox-prev');
+  const lightboxNext = document.querySelector('.lightbox-next');
+
+  let currentIndex = 0;
+  let visibleItems = [];
+
+  // Aktualizuj listę widocznych elementów
+  function updateVisibleItems() {
+    visibleItems = Array.from(galleryItems).filter(item => !item.classList.contains('hidden'));
+  }
+
+  // Otwórz lightbox
+  galleryItems.forEach((item, index) => {
+    item.addEventListener('click', function() {
+      updateVisibleItems();
+      currentIndex = visibleItems.indexOf(this);
+      showLightbox();
+    });
+  });
+
+  function showLightbox() {
+    const currentItem = visibleItems[currentIndex];
+    const img = currentItem.querySelector('.gallery-image');
+    const title = currentItem.querySelector('.gallery-item-title');
+
+    lightboxImage.src = img.src;
+    lightboxImage.alt = img.alt;
+    lightboxCaption.textContent = title ? title.textContent : '';
+
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function hideLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Zamknij lightbox
+  lightboxClose.addEventListener('click', hideLightbox);
+
+  lightbox.addEventListener('click', function(e) {
+    if (e.target === lightbox) {
+      hideLightbox();
+    }
+  });
+
+  // Nawigacja lightbox
+  lightboxPrev.addEventListener('click', function(e) {
+    e.stopPropagation();
+    currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length;
+    showLightbox();
+  });
+
+  lightboxNext.addEventListener('click', function(e) {
+    e.stopPropagation();
+    currentIndex = (currentIndex + 1) % visibleItems.length;
+    showLightbox();
+  });
+
+  // Klawiatura
+  document.addEventListener('keydown', function(e) {
+    if (!lightbox.classList.contains('active')) return;
+
+    if (e.key === 'Escape') {
+      hideLightbox();
+    } else if (e.key === 'ArrowLeft') {
+      lightboxPrev.click();
+    } else if (e.key === 'ArrowRight') {
+      lightboxNext.click();
+    }
+  });
+
+})();
+</script>
+
+<!-- ========================================
+     KONIEC GALERII
+     ======================================== -->
