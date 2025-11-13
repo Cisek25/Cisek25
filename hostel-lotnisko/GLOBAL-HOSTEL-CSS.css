@@ -1,0 +1,695 @@
+/* ============================================
+   GLOBAL HOSTEL CSS - URBAN WINGS HOSTEL
+   Kompleksowy CSS dla WSZYSTKICH podstron
+
+   Blue: #3B82F6
+   Purple: #8B5CF6
+   Amber: #F59E0B
+
+   OBEJMUJE:
+   - Strona główna (homepage)
+   - Podstrona /offers (lista pokoi)
+   - Podstrona /contact (kontakt)
+   - Podstrona /offer/ID (pojedyncze pokoje)
+   - Menu, footer, elementy wspólne
+
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --blue: #3B82F6;
+  --blue-dark: #2563EB;
+  --purple: #8B5CF6;
+  --purple-dark: #7C3AED;
+  --amber: #F59E0B;
+  --amber-dark: #D97706;
+  --gray-light: #F9FAFB;
+  --gray: #9CA3AF;
+  --gray-dark: #1F2937;
+  --white: #FFFFFF;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.16);
+}
+
+/* ===========================
+   GLOBAL STYLES
+   =========================== */
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--gray-dark);
+  line-height: 1.6;
+  background: var(--gray-light);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--gray-dark);
+}
+
+h1 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+h2 { font-size: 2rem; margin-bottom: 1.25rem; }
+h3 { font-size: 1.75rem; margin-bottom: 1rem; }
+h4 { font-size: 1.5rem; margin-bottom: 0.875rem; }
+
+p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+
+/* ===========================
+   FOOTER
+   =========================== */
+
+.footer-contact-phone a,
+.footer-contact-phone,
+.footer-phone,
+footer .phone {
+  white-space: nowrap !important;
+  display: inline-block !important;
+}
+
+.footer-contact-phone br,
+.footer-phone br,
+footer .phone br {
+  display: none !important;
+}
+
+/* ===========================
+   MENU NAWIGACYJNE
+   =========================== */
+
+.navbar-nav .nav-link {
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 1.45rem !important;
+  letter-spacing: 0.3px !important;
+  transition: all 0.3s ease !important;
+  padding: 0.75rem 1.25rem !important;
+  position: relative !important;
+}
+
+.navbar-nav .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue) 0%, var(--purple) 100%);
+  transition: transform 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--blue) !important;
+}
+
+.navbar-nav .nav-link:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* ===========================
+   BIG LABEL - Gradient line
+   =========================== */
+
+.big-label {
+  font-family: 'Poppins', sans-serif;
+  color: var(--gray-dark);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 2.5rem 0 2rem 0;
+  position: relative;
+  padding-bottom: 1.25rem;
+  display: block;
+  line-height: 1.2;
+}
+
+.big-label::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blue) 0%, var(--purple) 100%);
+  border-radius: 2px;
+}
+
+.big-label small {
+  display: none !important;
+}
+
+/* ===========================
+   BUTTONS - Global styling
+   =========================== */
+
+.btn,
+button,
+.button,
+a.btn {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+}
+
+/* ===========================
+   OFFERS PAGE - /offers
+   =========================== */
+
+/* Przyciski SZCZEGÓŁY */
+.accommodation-buttons {
+  text-align: right !important;
+  margin-top: 1.5rem !important;
+  float: none !important;
+  display: block !important;
+  min-width: auto !important;
+}
+
+.accommodation-buttons a {
+  display: inline-block !important;
+  text-decoration: none !important;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%) !important;
+  color: white !important;
+  padding: 0.65rem 1.95rem !important;
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.2px !important;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  border: none !important;
+  font-size: 1rem !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  line-height: 1 !important;
+}
+
+.accommodation-buttons a .btn,
+.accommodation-buttons a span.btn {
+  background: none !important;
+  color: inherit !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  display: inline !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  text-transform: inherit !important;
+  letter-spacing: inherit !important;
+  border-radius: 0 !important;
+  transition: none !important;
+  position: static !important;
+}
+
+.accommodation-buttons a:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4) !important;
+}
+
+.accommodation-buttons a::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.accommodation-buttons a:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Przycisk ZASTOSUJ FILTRY */
+#filter_buttons {
+  text-align: center !important;
+  padding: 1.5rem 1rem !important;
+  margin: 1.5rem 0 !important;
+}
+
+#filter_buttons button,
+#filter_buttons .btn {
+  width: auto !important;
+  min-width: 220px !important;
+  background: var(--blue) !important;
+  color: white !important;
+  border: none !important;
+  padding: 1.1rem 3rem !important;
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.2px !important;
+  cursor: pointer !important;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  display: inline-block !important;
+  margin: 0 auto !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25) !important;
+  font-size: 1rem !important;
+  text-align: center !important;
+}
+
+#filter_buttons button:hover,
+#filter_buttons .btn:hover {
+  background: var(--purple) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4) !important;
+}
+
+/* FILTRY */
+.filter_header {
+  background: transparent;
+  padding: 1rem 1.25rem;
+  border-bottom: 2px solid var(--gray-light);
+  cursor: pointer;
+  margin-bottom: 0.75rem;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px 8px 0 0;
+}
+
+.filter_header:hover {
+  border-bottom-color: var(--blue);
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.filter_header strong {
+  font-weight: 600;
+  color: var(--gray-dark);
+  font-size: 1.15rem;
+  transition: color 0.3s ease;
+}
+
+.filter_header:hover strong {
+  color: var(--blue);
+}
+
+.filter_header i {
+  transition: all 0.3s ease;
+  color: var(--gray-dark);
+  font-size: 1rem;
+}
+
+.filter_header:hover i {
+  color: var(--blue);
+  transform: scale(1.1);
+}
+
+.filter_content {
+  max-height: 450px;
+  overflow-y: auto;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1;
+  padding: 1rem 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.filter_content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.filter_content::-webkit-scrollbar-track {
+  background: var(--gray-light);
+  border-radius: 4px;
+}
+
+.filter_content::-webkit-scrollbar-thumb {
+  background: var(--blue);
+  border-radius: 4px;
+}
+
+.filter_content::-webkit-scrollbar-thumb:hover {
+  background: var(--purple);
+}
+
+/* CHECKBOXY */
+.checkbox {
+  padding: 0.65rem 1rem;
+  margin: 0.35rem 0;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.checkbox:hover {
+  background: rgba(59, 130, 246, 0.05);
+  transform: translateX(5px);
+}
+
+.checkbox label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-weight: 400;
+  color: var(--gray-dark);
+  font-size: 1.2rem !important;
+  line-height: 1.5;
+  transition: color 0.2s ease;
+}
+
+.checkbox:hover label {
+  color: var(--blue);
+}
+
+.checkbox input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  margin-right: 1rem;
+  cursor: pointer;
+  accent-color: var(--blue);
+  transition: transform 0.2s ease;
+}
+
+.checkbox input[type="checkbox"]:hover {
+  transform: scale(1.1);
+}
+
+.checkbox input[type="checkbox"]:checked + span {
+  font-weight: 600;
+  color: var(--blue);
+}
+
+/* PAYMENT INFO */
+.payment-info {
+  background: rgba(59, 130, 246, 0.05);
+  border-left: 4px solid var(--blue);
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  transition: all 0.3s ease;
+}
+
+.payment-info:hover {
+  background: rgba(59, 130, 246, 0.1);
+  box-shadow: var(--shadow-sm);
+}
+
+.payment-info h5 {
+  font-size: 1.2rem !important;
+  margin-bottom: 1rem !important;
+  font-weight: 600 !important;
+  color: var(--gray-dark) !important;
+}
+
+.payment-info p,
+.payment-info li {
+  font-size: 1.1rem !important;
+  line-height: 1.7 !important;
+  color: var(--gray-dark) !important;
+  margin-bottom: 0.75rem !important;
+}
+
+/* OFFERS CARDS */
+.offers-container,
+.accommodation-item,
+.offer-item {
+  background: var(--white);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-md);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+.offers-container:hover,
+.accommodation-item:hover,
+.offer-item:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--blue);
+}
+
+.object-icon img,
+.offer-image img,
+.accommodation-image img {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.offers-container:hover .object-icon img {
+  transform: scale(1.08);
+}
+
+.accommodation-rest h2 a,
+.offer-content h2 a {
+  color: var(--gray-dark);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.accommodation-rest h2 a:hover,
+.offer-content h2 a:hover {
+  color: var(--blue);
+}
+
+.accommodation-short-description {
+  font-size: 1.4rem !important;
+  font-weight: 500 !important;
+  color: var(--gray-dark) !important;
+  line-height: 1.6 !important;
+  margin-bottom: 1.5rem !important;
+  margin-top: 1rem !important;
+}
+
+.object-price .price,
+.accommodation-price .price {
+  color: var(--blue);
+  font-weight: 700;
+  font-size: 1.75rem;
+}
+
+/* ===========================
+   CONTACT PAGE
+   =========================== */
+
+.contact-page {
+  padding: 2rem 0;
+}
+
+.contact__label {
+  font-family: 'Poppins', sans-serif;
+  color: var(--gray-dark);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.contact__label::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue) 0%, var(--purple) 100%);
+  border-radius: 2px;
+}
+
+.contact__block strong {
+  color: var(--gray-dark);
+  font-weight: 600;
+}
+
+.contact__tel,
+.contact__email {
+  color: var(--blue);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact__tel:hover,
+.contact__email:hover {
+  color: var(--purple);
+  text-decoration: underline;
+}
+
+.contact__item {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(59, 130, 246, 0.05);
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+  border-left: 4px solid var(--blue);
+}
+
+.contact__item:hover {
+  background: rgba(59, 130, 246, 0.1);
+  box-shadow: var(--shadow-sm);
+  transform: translateX(5px);
+}
+
+.contact__item i {
+  color: var(--blue);
+  font-size: 1.5rem;
+}
+
+.contact__btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+}
+
+.contact__btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.35);
+  color: white;
+}
+
+/* ===========================
+   OFFER PAGE
+   =========================== */
+
+.offer-amenities span,
+.offer-advantages span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 20px;
+  font-size: 0.95rem;
+  color: var(--gray-dark);
+  transition: all 0.3s ease;
+}
+
+.offer-amenities span:hover,
+.offer-advantages span:hover {
+  background: var(--blue);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.offer-prices {
+  background: rgba(59, 130, 246, 0.05);
+  border-left: 4px solid var(--blue);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin: 2rem 0;
+}
+
+.offer-form .btn {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%);
+  color: white;
+  padding: 1rem 3rem;
+  border-radius: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+}
+
+.offer-form .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.35);
+}
+
+/* ===========================
+   MOBILE RESPONSIVE
+   =========================== */
+
+@media (max-width: 768px) {
+  .big-label {
+    font-size: 1.75rem;
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 1.1rem !important;
+  }
+
+  .accommodation-buttons a {
+    padding: 0.57rem 1.3rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .big-label {
+    font-size: 1.5rem;
+  }
+
+  .accommodation-buttons a {
+    padding: 0.49rem 0.98rem !important;
+  }
+}
+
+/* ===========================
+   UTILITY CLASSES
+   =========================== */
+
+.text-blue { color: var(--blue) !important; }
+.text-purple { color: var(--purple) !important; }
+.bg-blue { background-color: var(--blue) !important; }
+.bg-purple { background-color: var(--purple) !important; }
+
+#backTop {
+  background: var(--blue);
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  box-shadow: var(--shadow-md);
+}
+
+#backTop:hover {
+  background: var(--purple);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: var(--blue);
+  color: white;
+}
+
+::-moz-selection {
+  background: var(--blue);
+  color: white;
+}
+
+/* ===========================
+   END OF FILE
+   =========================== */
