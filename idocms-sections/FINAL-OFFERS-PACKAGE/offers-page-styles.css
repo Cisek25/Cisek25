@@ -1,0 +1,329 @@
+/* ============================================
+   OFFERS PAGE - FINAL CSS
+   Poprawki dla podstrony /offers - BEZPIECZNE
+
+   INSTRUKCJA WDROŻENIA:
+   Wklej ten CSS do: Custom CSS w panelu idoBooking dla podstrony /offers
+
+   CO ROBI:
+   - Footer: Telefon w jednej linii
+   - Przyciski "SZCZEGÓŁY" wyśrodkowane
+   - Przycisk "ZASTOSUJ FILTRY" wyśrodkowany
+   - Filtry: collapsible, bez dodatkowego tła
+   - Kolory: Navy + Gold (jak na głównej)
+
+   CZEGO NIE ROBI (bezpieczeństwo):
+   ❌ NIE dotyka tła strony/hero
+   ❌ NIE zmienia struktury menu
+   ❌ NIE styluje .iai-search (wyszukiwarka)
+   ❌ NIE dotyka payment-info
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+:root {
+  --navy: #1C3C5A;
+  --navy-dark: #0F2438;
+  --gold: #B8935E;
+  --gold-dark: #9A7A4A;
+  --cream: #F5F1EA;
+  --stone: #6B7280;
+}
+
+/* ===== 1. FOOTER FIX ===== */
+.footer-contact-phone a,
+.footer-contact-phone {
+  white-space: nowrap !important;
+  display: inline-block !important;
+}
+
+.footer-contact-phone br {
+  display: none !important;
+}
+
+/* ===== 2. TYPOGRAPHY ===== */
+body {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
+
+/* ===== 3. MENU - lekkie poprawki ===== */
+.navbar-nav .nav-link {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--gold);
+}
+
+/* ===== 4. PRZYCISKI "SZCZEGÓŁY" ===== */
+.accommodation-buttons {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.accommodation-buttons .btn,
+.accommodation-buttons a[class*="btn"] {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  color: white;
+  padding: 0.875rem 2.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 0.95rem;
+}
+
+.accommodation-buttons .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(184, 147, 94, 0.35);
+}
+
+/* ===== 5. PRZYCISK "ZASTOSUJ FILTRY" ===== */
+#filter_buttons {
+  text-align: center;
+  padding: 1.5rem 1rem;
+}
+
+#filter_buttons button {
+  width: auto;
+  min-width: 200px;
+  background: var(--navy);
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#filter_buttons button:hover {
+  background: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(184, 147, 94, 0.35);
+}
+
+/* ===== 6. FILTRY - BEZ dodatkowego tła! ===== */
+.filter_header {
+  background: transparent;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid var(--cream);
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  transition: border-color 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter_header:hover {
+  border-bottom-color: var(--gold);
+}
+
+.filter_header strong {
+  font-weight: 600;
+  color: var(--navy);
+  font-size: 1rem;
+}
+
+.filter_header:hover strong {
+  color: var(--gold);
+}
+
+.filter_header i {
+  transition: transform 0.3s ease, color 0.3s ease;
+  color: var(--navy);
+  font-size: 0.875rem;
+}
+
+.filter_header:hover i {
+  color: var(--gold);
+}
+
+.filter_content {
+  max-height: 400px;
+  overflow-y: auto;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  opacity: 1;
+  padding: 0.75rem 0;
+  margin-bottom: 1.5rem;
+}
+
+.filter_content.collapse:not(.show) {
+  max-height: 0;
+  opacity: 0;
+  padding: 0;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.filter_content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.filter_content::-webkit-scrollbar-track {
+  background: var(--cream);
+  border-radius: 3px;
+}
+
+.filter_content::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 3px;
+}
+
+.checkbox {
+  padding: 0.5rem 0.75rem;
+  margin: 0.25rem 0;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.checkbox:hover {
+  background: rgba(245, 241, 234, 0.5);
+}
+
+.checkbox label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-weight: 400;
+  color: #2C3E50;
+  font-size: 0.9rem;
+}
+
+.checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 0.75rem;
+  cursor: pointer;
+  accent-color: var(--gold);
+}
+
+.checkbox input[type="checkbox"]:checked + span {
+  font-weight: 500;
+  color: var(--navy);
+}
+
+/* ===== 7. OFFERS CARDS ===== */
+.offers-container {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.offers-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.offers-container:hover .object-icon img {
+  transform: scale(1.05);
+}
+
+.object-icon img {
+  transition: transform 0.5s ease;
+}
+
+.accommodation-rest h2 a {
+  color: var(--navy);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.accommodation-rest h2 a:hover {
+  color: var(--gold);
+}
+
+.object-price .price {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* ===== 8. PAGE TITLE ===== */
+.big-label {
+  font-family: 'Roboto', serif;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.big-label small {
+  color: var(--stone);
+  font-weight: 400;
+}
+
+/* ===== 9. MOBILE ===== */
+#show_filters {
+  display: none;
+  width: 100%;
+  background: var(--navy);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  border: none;
+}
+
+#show_filters:hover {
+  background: var(--gold);
+}
+
+@media (max-width: 768px) {
+  #show_filters {
+    display: block;
+  }
+
+  #menu_filter {
+    display: none;
+  }
+
+  #menu_filter.active {
+    display: block;
+  }
+
+  .accommodation-buttons .btn {
+    padding: 0.75rem 2rem;
+    font-size: 0.875rem;
+  }
+
+  #filter_buttons button {
+    min-width: 100%;
+  }
+}
+
+/* ===== 10. MISC ===== */
+#backTop {
+  background: var(--gold);
+  transition: all 0.3s ease;
+}
+
+#backTop:hover {
+  background: var(--navy);
+  transform: translateY(-3px);
+}
+
+.breadcrumb a:hover {
+  color: var(--gold);
+}
