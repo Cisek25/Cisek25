@@ -262,11 +262,15 @@ footer .phone br {
   letter-spacing: 1.2px !important;
   cursor: pointer !important;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-  display: inline-block !important;
+  display: inline-flex !important;
+  justify-content: center !important;
+  align-items: center !important;
   margin: 0 auto !important;
   box-shadow: 0 4px 12px rgba(184, 147, 94, 0.25) !important;
   font-size: 1rem !important;
   text-align: center !important;
+  vertical-align: middle !important;
+  line-height: 1 !important;
 }
 
 #filter_buttons button:hover,
@@ -424,8 +428,10 @@ footer .phone br {
   background: rgba(245, 241, 234, 0.4);
   border-left: 4px solid var(--gold);
   padding: 1.25rem 1.5rem;
+  padding-left: 2rem;
   border-radius: 8px;
   margin: 1.5rem 0;
+  margin-left: 1.5rem;
   transition: all 0.3s ease;
 }
 
@@ -992,6 +998,22 @@ a:focus,
 input:focus {
   outline: 2px solid var(--gold);
   outline-offset: 2px;
+}
+
+/* ===========================
+   HOMEPAGE FIXES
+   =========================== */
+
+/* Ukryj przycisk "Sprawdź dostępność" na stronie głównej */
+.index-info .navbar-reservation,
+body.home .navbar-reservation,
+.home-page .navbar-reservation {
+  display: none !important;
+}
+
+/* Pokaż TYLKO na innych stronach (np. offers, contact) */
+body:not(.home) .navbar-reservation {
+  display: block;
 }
 
 /* ===========================
