@@ -509,6 +509,7 @@ h4 {
   border-radius: 12px;
   box-shadow: var(--slowhop-shadow-sm);
   transition: all 0.4s ease;
+  max-height: 400px;
 }
 
 .slowhop-gallery-item:hover {
@@ -531,7 +532,7 @@ h4 {
 .slowhop-gallery-item:nth-child(1),
 .slowhop-gallery-item:nth-child(6) {
   grid-column: span 2;
-  grid-row: span 2;
+  grid-row: span 1;
 }
 
 @media (max-width: 767px) {
