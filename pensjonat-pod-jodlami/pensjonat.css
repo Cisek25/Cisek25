@@ -32,8 +32,6 @@
 
 /* RESET */
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
@@ -43,6 +41,26 @@ body {
   line-height: 1.7;
   background: var(--cream);
   overflow-x: hidden;
+}
+
+/* NAVBAR - FIX HORIZONTAL MENU */
+#navbar .navbar-nav {
+  display: flex !important;
+  flex-direction: row !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 0 !important;
+}
+
+#navbar .nav-item {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#navbar .nav-link {
+  display: block !important;
+  padding: 0.75rem 1.25rem !important;
 }
 
 /* TYPOGRAPHY - WIĘKSZE FONTY */
@@ -371,16 +389,17 @@ p {
 }
 
 .btn-primary {
-  background: var(--burgundy);
-  color: var(--white);
-  box-shadow: 0 8px 25px rgba(114, 47, 55, 0.3);
+  background: var(--burgundy) !important;
+  color: var(--white) !important;
+  box-shadow: 0 8px 25px rgba(114, 47, 55, 0.3) !important;
+  border: none !important;
 }
 
 .btn-primary:hover {
-  background: var(--burgundy-dark);
+  background: var(--burgundy-dark) !important;
   transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(114, 47, 55, 0.4);
-  color: var(--white);
+  box-shadow: 0 15px 40px rgba(114, 47, 55, 0.4) !important;
+  color: var(--white) !important;
 }
 
 .btn-gold {
@@ -487,17 +506,19 @@ p {
   }
 }
 
-/* HERO - NIE RUSZAMY (ale zostawiamy style) */
+/* HERO - NIE UKRYWAMY! */
 .hero {
   background: linear-gradient(rgba(114, 47, 55, 0.7), rgba(43, 43, 43, 0.8)),
               url('/images/pensjonat-hero.jpg') center/cover no-repeat;
   min-height: 700px;
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: white;
   padding: 5rem 2rem;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .hero h1 {
