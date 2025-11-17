@@ -506,19 +506,35 @@ p {
   }
 }
 
-/* HERO - NIE UKRYWAMY! */
-.hero {
-  background: linear-gradient(rgba(114, 47, 55, 0.7), rgba(43, 43, 43, 0.8)),
-              url('/images/pensjonat-hero.jpg') center/cover no-repeat;
-  min-height: 700px;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: white;
-  padding: 5rem 2rem;
+/* HERO - SYSTEMOWE ZDJĘCIE (NIE RUSZAĆ!) */
+/* Ukryj przycisk "Sprawdź dostępność" w index-info */
+.index-info .navbar-reservation,
+.index-info > div:has(.navbar-reservation) {
+  display: none !important;
+}
+
+/* Upewnij się że systemowe zdjęcie jest widoczne */
+.parallax-slider,
+.parallax-image,
+.slick-slide {
+  display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
+}
+
+.parallax-slider img,
+.parallax-image img {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* Style dla index-info (nagłówki) */
+.index-info {
+  position: relative;
+  z-index: 10;
 }
 
 .hero h1 {
