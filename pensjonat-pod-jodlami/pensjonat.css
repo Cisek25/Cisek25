@@ -39,7 +39,7 @@ body {
   font-family: var(--font-sans);
   color: var(--dark);
   line-height: 1.7;
-  background: var(--cream);
+  /* NIE DAJEMY background na body - zasłania systemowe HERO zdjęcie! */
   overflow-x: hidden;
 }
 
@@ -113,7 +113,12 @@ p {
 }
 
 /* ALTERNATING BACKGROUNDS */
-.fp-section:nth-child(odd) {
+/* UWAGA: Pierwsza sekcja to HERO z systemowym zdjęciem - NIE DAJEMY tła! */
+.fp-section:nth-child(1) {
+  background: transparent !important; /* HERO - musi być transparentne dla systemowego zdjęcia */
+}
+
+.fp-section:nth-child(odd):not(:first-child) {
   background: var(--white);
 }
 
