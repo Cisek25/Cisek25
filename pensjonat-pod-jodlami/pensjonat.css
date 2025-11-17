@@ -114,8 +114,19 @@ p {
 
 /* ALTERNATING BACKGROUNDS */
 /* UWAGA: Pierwsza sekcja to HERO z systemowym zdjęciem - NIE DAJEMY tła! */
-.fp-section:nth-child(1) {
-  background: transparent !important; /* HERO - musi być transparentne dla systemowego zdjęcia */
+.fp-section:nth-child(1),
+.fp-section.active:first-child,
+.fp-section:first-of-type,
+section.parallax {
+  background: none !important; /* HERO - MUSI być transparentne dla systemowego zdjęcia */
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Wyjątki - te elementy mogą mieć własne tła (wyszukiwarka, etc) */
+.fp-section:nth-child(1) .index-info,
+.fp-section:nth-child(1) .iai-search {
+  background: initial !important;
 }
 
 .fp-section:nth-child(odd):not(:first-child) {
