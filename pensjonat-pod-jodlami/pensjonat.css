@@ -1,33 +1,48 @@
 /* ============================================
-   PENSJONAT POD JODŁAMI
-   Elegancki Styl - Inspiracja Willa Barbara
+   PENSJONAT POD JODŁAMI - NOWOCZESNY PASTELOWY DESIGN
+   Inspiracja: Boutique Hotels, Scandinavian Design
 
-   KOLORY:
-   Gold: #D4AF37 | Burgundy: #722F37
-   Cream: #F5F1E8 | Dark: #2B2B2B
+   NOWE KOLORY PASTELOWE:
+   Sage: #B4C7B3 | Blush: #F4E4D7 | Rose: #D4A5A5
+   Cream: #FAF8F5 | Terracotta: #D9B5A0 | Charcoal: #2F3E46
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Raleway:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --gold: #D4AF37;
-  --gold-dark: #B8941F;
-  --gold-light: #E5C454;
+  /* Pastelowe Kolory Główne */
+  --sage: #B4C7B3;
+  --sage-dark: #8FA88E;
+  --sage-light: #D1E0D0;
 
-  --burgundy: #722F37;
-  --burgundy-dark: #5A2229;
-  --burgundy-light: #8F3D47;
+  --blush: #F4E4D7;
+  --blush-dark: #E8D2C1;
+  --blush-light: #FAF0E6;
 
-  --cream: #F5F1E8;
-  --cream-dark: #E8DFD0;
+  --rose: #D4A5A5;
+  --rose-dark: #C19A9A;
+  --rose-light: #E5C5C5;
+
+  --terracotta: #D9B5A0;
+  --terracotta-dark: #C9A590;
+
+  --cream: #FAF8F5;
+  --ivory: #F5F0E8;
   --white: #FFFFFF;
 
-  --dark: #2B2B2B;
-  --grey: #6A6A6A;
-  --grey-light: #AEAEAE;
+  --charcoal: #2F3E46;
+  --grey: #6B7280;
+  --grey-light: #D1D5DB;
 
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-sans: 'Raleway', -apple-system, sans-serif;
+  /* Typography - Elegant & Modern */
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Poppins', -apple-system, sans-serif;
+
+  /* Shadows - Soft & Subtle */
+  --shadow-sm: 0 2px 12px rgba(47, 62, 70, 0.06);
+  --shadow-md: 0 4px 24px rgba(47, 62, 70, 0.08);
+  --shadow-lg: 0 8px 40px rgba(47, 62, 70, 0.12);
+  --shadow-xl: 0 16px 60px rgba(47, 62, 70, 0.15);
 }
 
 /* RESET */
@@ -37,10 +52,11 @@
 
 body {
   font-family: var(--font-sans);
-  color: var(--dark);
-  line-height: 1.7;
-  /* NIE DAJEMY background na body - zasłania systemowe HERO zdjęcie! */
+  color: var(--charcoal);
+  line-height: 1.8;
+  font-weight: 300;
   overflow-x: hidden;
+  background: var(--cream);
 }
 
 /* NAVBAR - FIX HORIZONTAL MENU */
@@ -61,37 +77,48 @@ body {
 #navbar .nav-link {
   display: block !important;
   padding: 0.75rem 1.25rem !important;
+  color: var(--charcoal) !important;
+  font-weight: 400;
+  transition: color 0.3s ease;
 }
 
-/* TYPOGRAPHY - WIĘKSZE FONTY */
+#navbar .nav-link:hover {
+  color: var(--sage) !important;
+}
+
+/* TYPOGRAPHY - NOWOCZESNA */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);
-  color: var(--burgundy);
-  line-height: 1.2;
-  font-weight: 700;
+  color: var(--charcoal);
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 h2 {
-  font-size: 4rem;
+  font-size: 3.5rem;
   margin-bottom: 1.5rem;
-  letter-spacing: -0.02em;
+  font-weight: 600;
 }
 
 h3 {
-  font-size: 2.5rem;
-  margin-bottom: 1.25rem;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
 }
 
 h4 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
 }
 
 p {
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   line-height: 1.9;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   color: var(--grey);
+  font-weight: 300;
 }
 
 /* SECTIONS - FULL WIDTH WIĘKSZE */
@@ -112,10 +139,7 @@ p {
   padding: 0 40px;
 }
 
-/* NIE UŻYWAMY .fp-section - to psuje systemowe HERO zdjęcie!
-   Zamiast tego używamy własnych klas .section-white, .section-cream */
-
-/* BACKGROUNDS DLA SEKCJI - ELEGANCKIE */
+/* BACKGROUNDS - PASTELOWE, NOWOCZESNE */
 .section-white {
   background: var(--white);
 }
@@ -124,52 +148,64 @@ p {
   background: var(--cream);
 }
 
+.section-blush {
+  background: var(--blush);
+}
+
+.section-sage {
+  background: var(--sage-light);
+}
+
+.section-rose {
+  background: var(--rose-light);
+}
+
 .section-dark {
-  background: linear-gradient(135deg, var(--burgundy-dark) 0%, var(--dark) 100%);
+  background: var(--charcoal);
   color: var(--cream);
 }
 
 .section-dark h2,
 .section-dark h3,
 .section-dark h4 {
-  color: var(--gold);
+  color: var(--blush);
 }
 
 .section-dark p {
-  color: var(--cream);
+  color: var(--grey-light);
 }
 
-.section-gold {
-  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-light) 100%);
-  color: var(--dark);
-}
-
-/* SECTION HEADERS - WIĘKSZE */
+/* SECTION HEADERS - MINIMALISTYCZNE */
 .section-header {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 70px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .section-header h2 {
-  font-size: 4.5rem;
-  color: var(--burgundy);
-  margin-bottom: 30px;
-  font-weight: 900;
+  font-size: 3.5rem;
+  color: var(--charcoal);
+  margin-bottom: 25px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .accent-line {
-  width: 100px;
-  height: 4px;
-  background: var(--gold);
-  margin: 0 auto 30px;
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--sage), transparent);
+  margin: 0 auto 25px;
 }
 
 .section-header p {
-  font-size: 1.4rem;
+  font-size: 1.15rem;
   color: var(--grey);
-  max-width: 800px;
+  max-width: 700px;
   margin: 0 auto;
-  line-height: 2;
+  line-height: 1.9;
+  font-weight: 300;
 }
 
 /* O NAS - DUŻA SEKCJA */
@@ -200,90 +236,145 @@ p {
   color: var(--grey);
 }
 
-/* POKOJE - LUKSUSOWY LAYOUT ZAPIERAJĄCY DECH */
+/* POKOJE - NOWOCZESNY CARD DESIGN Z GLASSMORPHISM */
 .rooms-wrapper {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 60px;
-  margin-top: 80px;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  margin-top: 60px;
 }
 
 .room-card {
   position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   background: var(--white);
-  border-radius: 8px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(114, 47, 55, 0.15);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  height: 600px;
+  box-shadow: var(--shadow-lg);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 450px;
+}
+
+.room-card:nth-child(even) {
+  grid-template-columns: 1fr 1fr;
+  direction: rtl;
+}
+
+.room-card:nth-child(even) > * {
+  direction: ltr;
 }
 
 .room-card:hover {
-  transform: translateY(-20px) scale(1.02);
-  box-shadow: 0 35px 90px rgba(114, 47, 55, 0.25);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
 }
 
 .room-img-wrapper {
   position: relative;
-  height: 400px;
   overflow: hidden;
+  min-height: 450px;
 }
 
 .room-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.7s ease;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .room-card:hover .room-img {
-  transform: scale(1.15);
+  transform: scale(1.08);
 }
 
 .room-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(to bottom, transparent 0%, rgba(114, 47, 55, 0.8) 100%);
-  display: flex;
-  align-items: flex-end;
-  padding: 40px;
+  top: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 15px 25px;
+  border-radius: 40px;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transform: translateY(-10px);
+  transition: all 0.4s ease;
+  box-shadow: var(--shadow-md);
 }
 
 .room-card:hover .room-overlay {
   opacity: 1;
+  transform: translateY(0);
 }
 
 .price-tag {
-  font-size: 3rem;
-  color: var(--gold);
-  font-weight: 900;
+  font-size: 1.5rem;
+  color: var(--sage-dark);
+  font-weight: 600;
   font-family: var(--font-serif);
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  margin: 0;
+  white-space: nowrap;
 }
 
 .card-body {
-  padding: 40px;
+  padding: 50px;
   background: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--sage-dark);
+  font-weight: 600;
+  margin-bottom: 15px;
+  padding: 6px 16px;
+  background: var(--sage-light);
+  border-radius: 20px;
+  align-self: flex-start;
 }
 
 .card-title {
-  font-size: 2.8rem;
-  color: var(--burgundy);
+  font-size: 2.5rem;
+  color: var(--charcoal);
   margin-bottom: 20px;
   font-family: var(--font-serif);
-  font-weight: 700;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
 .card-text {
   color: var(--grey);
-  line-height: 2;
+  line-height: 1.8;
   margin-bottom: 30px;
-  font-size: 1.15rem;
+  font-size: 1.05rem;
+  font-weight: 300;
+}
+
+.room-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.room-feature {
+  font-size: 0.85rem;
+  color: var(--grey);
+  background: var(--blush-light);
+  padding: 8px 16px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.room-feature i {
+  color: var(--rose);
+  font-size: 0.9rem;
 }
 
 /* GALERIA - GRID 3x2 */
@@ -430,119 +521,137 @@ p {
   box-shadow: 0 20px 60px rgba(114, 47, 55, 0.15);
 }
 
-/* BUTTONS - WIĘKSZE */
+/* BUTTONS - NOWOCZESNE PASTELOWE */
 .btn {
   display: inline-block;
-  padding: 18px 45px;
-  border-radius: 4px;
+  padding: 16px 36px;
+  border-radius: 30px;
   text-decoration: none;
-  font-weight: 700;
-  font-size: 1.1rem;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   cursor: pointer;
-  text-transform: uppercase;
+  font-family: var(--font-sans);
 }
 
 .btn-primary {
-  background: var(--burgundy) !important;
+  background: var(--sage) !important;
   color: var(--white) !important;
-  box-shadow: 0 8px 25px rgba(114, 47, 55, 0.3) !important;
+  box-shadow: var(--shadow-md) !important;
   border: none !important;
 }
 
 .btn-primary:hover {
-  background: var(--burgundy-dark) !important;
-  transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(114, 47, 55, 0.4) !important;
+  background: var(--sage-dark) !important;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg) !important;
   color: var(--white) !important;
 }
 
-.btn-gold {
-  background: var(--gold);
-  color: var(--dark);
-  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+.btn-rose {
+  background: var(--rose);
+  color: var(--white);
+  box-shadow: var(--shadow-md);
 }
 
-.btn-gold:hover {
-  background: var(--gold-dark);
-  transform: translateY(-3px);
-  color: var(--dark);
+.btn-rose:hover {
+  background: var(--rose-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  color: var(--white);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--charcoal);
+  border: 2px solid var(--sage);
+}
+
+.btn-outline:hover {
+  background: var(--sage);
+  color: var(--white);
+  transform: translateY(-2px);
 }
 
 .w-100 {
   width: 100%;
 }
 
-/* TESTIMONIALS - OPINIE GOŚCI */
+/* TESTIMONIALS - NOWOCZESNE KARTY */
 .testimonials-wrapper {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 50px;
+  gap: 30px;
   margin-top: 60px;
 }
 
 .testimonial-card {
   background: var(--white);
-  padding: 50px 40px;
-  border-radius: 8px;
-  box-shadow: 0 15px 50px rgba(114, 47, 55, 0.1);
+  padding: 40px 35px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-md);
   position: relative;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
+  border-left: 4px solid var(--sage-light);
 }
 
 .testimonial-card::before {
   content: '"';
-  font-size: 8rem;
-  color: var(--gold);
-  opacity: 0.2;
+  font-size: 6rem;
+  color: var(--blush);
+  opacity: 0.3;
   position: absolute;
-  top: 20px;
-  left: 30px;
+  top: 15px;
+  left: 25px;
   font-family: var(--font-serif);
   line-height: 1;
 }
 
 .testimonial-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 25px 70px rgba(114, 47, 55, 0.15);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-left-color: var(--sage);
 }
 
 .testimonial-text {
-  font-size: 1.15rem;
-  line-height: 2;
+  font-size: 1.05rem;
+  line-height: 1.8;
   color: var(--grey);
   font-style: italic;
   margin-bottom: 30px;
   position: relative;
   z-index: 1;
+  font-weight: 300;
 }
 
 .testimonial-author {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
 }
 
 .testimonial-avatar {
-  width: 60px;
-  height: 60px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--gold);
+  border: 3px solid var(--blush);
 }
 
 .testimonial-info h4 {
-  font-size: 1.3rem;
-  color: var(--burgundy);
+  font-size: 1.1rem;
+  color: var(--charcoal);
   margin-bottom: 5px;
+  font-weight: 600;
 }
 
 .testimonial-info p {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: var(--grey);
   margin: 0;
+  font-weight: 300;
 }
 
 /* DOŚWIADCZENIA MAZURSKIE */
@@ -601,102 +710,106 @@ p {
   line-height: 1.8;
 }
 
-/* PAKIETY/OFERTY SPECJALNE */
+/* PAKIETY/OFERTY SPECJALNE - PASTELOWE */
 .packages-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 50px;
+  gap: 35px;
   margin-top: 60px;
 }
 
 .package-card {
   background: var(--white);
-  border-radius: 8px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(114, 47, 55, 0.12);
-  transition: all 0.4s ease;
-  border-top: 5px solid var(--gold);
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  border: 1px solid var(--grey-light);
 }
 
 .package-card:hover {
-  transform: translateY(-15px);
-  box-shadow: 0 30px 90px rgba(114, 47, 55, 0.2);
-  border-top-color: var(--burgundy);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--sage);
 }
 
 .package-header {
-  background: linear-gradient(135deg, var(--burgundy) 0%, var(--burgundy-dark) 100%);
-  padding: 40px;
+  background: linear-gradient(135deg, var(--sage-light) 0%, var(--blush) 100%);
+  padding: 40px 30px;
   text-align: center;
-  color: white;
 }
 
 .package-header h3 {
-  font-size: 2.5rem;
-  color: var(--gold);
+  font-size: 2rem;
+  color: var(--charcoal);
   margin-bottom: 15px;
   font-family: var(--font-serif);
+  font-weight: 600;
 }
 
 .package-price {
-  font-size: 3.5rem;
-  color: white;
-  font-weight: 900;
+  font-size: 2.8rem;
+  color: var(--charcoal);
+  font-weight: 700;
   font-family: var(--font-serif);
 }
 
 .package-price span {
-  font-size: 1.2rem;
-  font-weight: 400;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--grey);
 }
 
 .package-body {
-  padding: 50px 40px;
+  padding: 40px 35px;
 }
 
 .package-features {
   list-style: none;
-  margin-bottom: 40px;
+  margin-bottom: 35px;
 }
 
 .package-features li {
-  padding: 15px 0;
-  border-bottom: 1px solid var(--cream);
-  font-size: 1.1rem;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--grey-light);
+  font-size: 0.95rem;
   color: var(--grey);
   position: relative;
-  padding-left: 35px;
+  padding-left: 30px;
+  font-weight: 300;
 }
 
 .package-features li::before {
   content: '✓';
-  color: var(--gold);
-  font-weight: 900;
+  color: var(--sage);
+  font-weight: 700;
   position: absolute;
   left: 0;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
-/* CTA SECTION */
+/* CTA SECTION - PASTELOWA */
 .cta-section {
   text-align: center;
   padding: 100px 40px;
-  background: linear-gradient(135deg, var(--burgundy-dark) 0%, var(--dark) 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--rose-light) 0%, var(--blush) 100%);
+  color: var(--charcoal);
 }
 
 .cta-section h2 {
-  font-size: 5rem;
-  color: var(--gold);
-  margin-bottom: 30px;
+  font-size: 3.5rem;
+  color: var(--charcoal);
+  margin-bottom: 25px;
   font-family: var(--font-serif);
+  font-weight: 600;
 }
 
 .cta-section p {
-  font-size: 1.8rem;
-  color: var(--cream);
-  max-width: 900px;
-  margin: 0 auto 50px;
+  font-size: 1.2rem;
+  color: var(--grey);
+  max-width: 700px;
+  margin: 0 auto 40px;
+  font-weight: 300;
 }
 
 /* UTILITIES */
