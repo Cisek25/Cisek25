@@ -136,7 +136,7 @@
             <div class="experience-card" onclick="this.classList.toggle('flipped')">
                 <div class="experience-card-inner">
                     <div class="experience-card-front">
-                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&h=800&fit=crop" alt="Żeglarstwo" class="experience-image">
+                        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&h=800&fit=crop" alt="Żeglarstwo" class="experience-image">
                         <div class="experience-overlay">
                             <h3>Mazurskie Żagle</h3>
                             <p>Kliknij, aby odkryć więcej</p>
@@ -182,7 +182,7 @@
             <div class="experience-card" onclick="this.classList.toggle('flipped')">
                 <div class="experience-card-inner">
                     <div class="experience-card-front">
-                        <img src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=1200&h=800&fit=crop" alt="Kajakarstwo" class="experience-image">
+                        <img src="https://images.unsplash.com/photo-1476610182048-b716b8518aae?w=1200&h=800&fit=crop" alt="Kajakarstwo" class="experience-image">
                         <div class="experience-overlay">
                             <h3>Wodne Przygody</h3>
                             <p>Kliknij, aby odkryć więcej</p>
@@ -200,6 +200,29 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Lokalne Atrakcje -->
+            <div class="experience-card" onclick="this.classList.toggle('flipped')">
+                <div class="experience-card-inner">
+                    <div class="experience-card-front">
+                        <img src="https://images.unsplash.com/photo-1465056836041-7f43ac27dcb5?w=1200&h=800&fit=crop" alt="Atrakcje" class="experience-image">
+                        <div class="experience-overlay">
+                            <h3>Lokalne Atrakcje</h3>
+                            <p>Kliknij, aby odkryć więcej</p>
+                        </div>
+                    </div>
+                    <div class="experience-card-back">
+                        <h3>Lokalne Atrakcje</h3>
+                        <p>Odkryj urokliwe miejsca w okolicy pensjonatu</p>
+                        <ul>
+                            <li>Zamki krzyżackie i gotyk</li>
+                            <li>Mazurskie miasteczka</li>
+                            <li>Park Dinozaurów dla dzieci</li>
+                            <li>Lokalne jadłodajnie i karczmы</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -209,64 +232,103 @@
     <div class="container">
         <div class="section-header">
             <h2>Pakiety Wypoczynkowe</h2>
-            <p>Gotowe propozycje na każdą okazję - oszczędź czas i pieniądze wybierając jeden z naszych pakietów</p>
+            <p>Gotowe propozycje na każdą okazję - kliknij na kartę, aby zobaczyć zdjęcie</p>
         </div>
 
         <div class="packages-grid">
             <!-- Weekend Romantyczny -->
-            <div class="package-card">
-                <div class="package-header">
-                    <h3>Weekend Dla Dwojga</h3>
-                    <div class="package-price">990 zł <span>/ 2 noce</span></div>
-                </div>
-                <div class="package-body">
-                    <ul class="package-features">
-                        <li>2 noce w Romantycznym Zakątku</li>
-                        <li>Kolacja przy świecach nad jeziorem</li>
-                        <li>Masaż relaksacyjny dla dwojga (60 min)</li>
-                        <li>Butelka wina i owoce sezonowe</li>
-                        <li>Śniadania do łóżka</li>
-                        <li>Późne wymeldowanie (16:00)</li>
-                    </ul>
-                    <a href="#" class="btn btn-terracotta w-100">Wybierz Pakiet</a>
+            <div class="package-card" onclick="this.classList.toggle('flipped')">
+                <div class="package-card-inner">
+                    <div class="package-card-front">
+                        <div class="package-header">
+                            <h3>Weekend Dla Dwojga</h3>
+                            <div class="package-price">990 zł <span>/ 2 noce</span></div>
+                        </div>
+                        <div class="package-body">
+                            <ul class="package-features">
+                                <li>2 noce w Romantycznym Zakątku</li>
+                                <li>Kolacja przy świecach nad jeziorem</li>
+                                <li>Masaż relaksacyjny dla dwojga (60 min)</li>
+                                <li>Butelka wina i owoce sezonowe</li>
+                                <li>Śniadania do łóżka</li>
+                                <li>Późne wymeldowanie (16:00)</li>
+                            </ul>
+                        </div>
+                        <div class="package-cta">
+                            <a href="#" class="btn btn-primary w-100">Wybierz Pakiet</a>
+                        </div>
+                    </div>
+                    <div class="package-card-back">
+                        <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=1200&h=800&fit=crop" alt="Weekend Dla Dwojga" class="package-image">
+                        <div class="package-image-overlay">
+                            <h3>Weekend Dla Dwojga</h3>
+                            <p>Romantyczne chwile w sercu Mazur</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Rodzinna Przygoda -->
-            <div class="package-card">
-                <div class="package-header">
-                    <h3>Rodzinna Przygoda</h3>
-                    <div class="package-price">1490 zł <span>/ 3 noce</span></div>
-                </div>
-                <div class="package-body">
-                    <ul class="package-features">
-                        <li>3 noce w Mazurskim Gnieździe</li>
-                        <li>Wypożyczenie rowerów dla całej rodziny</li>
-                        <li>Całodniowy spływ kajakowy</li>
-                        <li>Wycieczka do Parku Dinozaurów</li>
-                        <li>Ognisko z pieczeniem kiełbasek</li>
-                        <li>Gry planszowe i zabawy dla dzieci</li>
-                    </ul>
-                    <a href="#" class="btn btn-terracotta w-100">Wybierz Pakiet</a>
+            <div class="package-card" onclick="this.classList.toggle('flipped')">
+                <div class="package-card-inner">
+                    <div class="package-card-front">
+                        <div class="package-header">
+                            <h3>Rodzinna Przygoda</h3>
+                            <div class="package-price">1490 zł <span>/ 3 noce</span></div>
+                        </div>
+                        <div class="package-body">
+                            <ul class="package-features">
+                                <li>3 noce w Mazurskim Gnieździe</li>
+                                <li>Wypożyczenie rowerów dla całej rodziny</li>
+                                <li>Całodniowy spływ kajakowy</li>
+                                <li>Wycieczka do Parku Dinozaurów</li>
+                                <li>Ognisko z pieczeniem kiełbasek</li>
+                                <li>Gry planszowe i zabawy dla dzieci</li>
+                            </ul>
+                        </div>
+                        <div class="package-cta">
+                            <a href="#" class="btn btn-primary w-100">Wybierz Pakiet</a>
+                        </div>
+                    </div>
+                    <div class="package-card-back">
+                        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&h=800&fit=crop" alt="Rodzinna Przygoda" class="package-image">
+                        <div class="package-image-overlay">
+                            <h3>Rodzinna Przygoda</h3>
+                            <p>Niezapomniane wakacje dla całej rodziny</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Detox Naturalny -->
-            <div class="package-card">
-                <div class="package-header">
-                    <h3>Detox Naturalny</h3>
-                    <div class="package-price">1899 zł <span>/ 5 nocy</span></div>
-                </div>
-                <div class="package-body">
-                    <ul class="package-features">
-                        <li>5 nocy w Górskim Apartamencie</li>
-                        <li>Sesje jogi o wschodzie słońca</li>
-                        <li>4 zabiegi SPA do wyboru</li>
-                        <li>Dietetyczne śniadania i kolacje</li>
-                        <li>Warsztaty mindfulness w lesie</li>
-                        <li>Dostęp do sauny i jacuzzi</li>
-                    </ul>
-                    <a href="#" class="btn btn-terracotta w-100">Wybierz Pakiet</a>
+            <!-- Mazurski Relaks -->
+            <div class="package-card" onclick="this.classList.toggle('flipped')">
+                <div class="package-card-inner">
+                    <div class="package-card-front">
+                        <div class="package-header">
+                            <h3>Mazurski Relaks</h3>
+                            <div class="package-price">1899 zł <span>/ 5 nocy</span></div>
+                        </div>
+                        <div class="package-body">
+                            <ul class="package-features">
+                                <li>5 nocy w Górskim Apartamencie</li>
+                                <li>Sesje jogi o wschodzie słońca</li>
+                                <li>Spacery z przewodnikiem po lesie</li>
+                                <li>Dietetyczne śniadania i kolacje</li>
+                                <li>Warsztaty mindfulness nad jeziorem</li>
+                                <li>Dostęp do sauny</li>
+                            </ul>
+                        </div>
+                        <div class="package-cta">
+                            <a href="#" class="btn btn-primary w-100">Wybierz Pakiet</a>
+                        </div>
+                    </div>
+                    <div class="package-card-back">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop" alt="Mazurski Relaks" class="package-image">
+                        <div class="package-image-overlay">
+                            <h3>Mazurski Relaks</h3>
+                            <p>Odpoczynek w harmonii z naturą</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -408,9 +470,9 @@
             </div>
 
             <div class="testimonial-card">
-                <p class="testimonial-text">Idealne miejsce na rodzinny wypoczynek! Dzieci były zachwycone kajakami i ogniskiem, my mogliśmy odpocząć w SPA. Wszystko było dopięte na ostatni guzik.</p>
+                <p class="testimonial-text">Idealne miejsce na rodzinny wypoczynek! Dzieci były zachwycone kajakami i ogniskiem, my mogliśmy odpocząć. Wszystko było dopięte na ostatni guzik.</p>
                 <div class="testimonial-author">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop" alt="Tomek" class="testimonial-avatar">
+                    <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=200&h=200&fit=crop" alt="Rodzina" class="testimonial-avatar">
                     <div class="testimonial-info">
                         <h4>Rodzina Nowaków</h4>
                         <p>Wrocław, Sierpień 2024</p>
