@@ -494,4 +494,133 @@
     </div>
 </section>
 
+<script>
+// ============================================
+// WZBOGACENIE SYSTEMOWYCH OFERT WYRÓŻNIONYCH
+// Dodaje badge'e, własne opisy i przyciski
+// ============================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Konfiguracja feature-tags dla różnych typów pokoi
+    const roomFeatures = {
+        'deluxe': [
+            { icon: 'fa-mountain', text: 'Widok na las' },
+            { icon: 'fa-mug-hot', text: 'Kominek' },
+            { icon: 'fa-bath', text: 'Wanna wolnostojąca' },
+            { icon: 'fa-wind', text: 'Prywatny taras' }
+        ],
+        'widok': [
+            { icon: 'fa-tree', text: 'Widok na las' },
+            { icon: 'fa-mug-hot', text: 'Ekspres do kawy' },
+            { icon: 'fa-wifi', text: 'Szybkie WiFi' },
+            { icon: 'fa-tv', text: 'Smart TV' }
+        ],
+        'rodzinny': [
+            { icon: 'fa-child', text: 'Kącik dziecięcy' },
+            { icon: 'fa-bed', text: '2 sypialnie' },
+            { icon: 'fa-gamepad', text: 'Gry planszowe' },
+            { icon: 'fa-couch', text: 'Strefa dzienna' }
+        ],
+        'wakacyjny': [
+            { icon: 'fa-home', text: 'Jak w domu' },
+            { icon: 'fa-bed', text: '2 sypialnie' },
+            { icon: 'fa-coffee', text: 'W pełni wyposażona kuchnia' },
+            { icon: 'fa-wind', text: 'Balkon z widokiem' }
+        ]
+    };
+
+    const badges = ['Popular', 'Family', 'Premium', 'Wyróżniony', 'Nowość', 'Romantic'];
+
+    // Znajdź wszystkie systemowe oferty
+    const offers = document.querySelectorAll('.offer');
+
+    offers.forEach((offer, index) => {
+        // 1. DODAJ BADGE
+        const objectIcon = offer.querySelector('.object-icon');
+        if (objectIcon && !objectIcon.querySelector('.room-badge')) {
+            const badge = document.createElement('span');
+            badge.className = 'room-badge';
+            badge.textContent = badges[index % badges.length];
+            objectIcon.appendChild(badge);
+        }
+
+        // 2. DODAJ WŁASNE FEATURE-TAGS
+        const offerTitle = offer.querySelector('h3');
+        const offerBox = offer.querySelector('.offer__box');
+
+        if (offerTitle && offerBox && !offer.querySelector('.room-features')) {
+            // Pobierz nazwę oferty (małymi literami) do identyfikacji typu
+            const offerName = offerTitle.textContent.toLowerCase();
+
+            // Wybierz odpowiednie features na podstawie nazwy
+            let selectedFeatures = [];
+            if (offerName.includes('deluxe')) {
+                selectedFeatures = roomFeatures.deluxe;
+            } else if (offerName.includes('widok') || offerName.includes('góry')) {
+                selectedFeatures = roomFeatures.widok;
+            } else if (offerName.includes('rodzinny') || offerName.includes('family')) {
+                selectedFeatures = roomFeatures.rodzinny;
+            } else if (offerName.includes('wakacyjny') || offerName.includes('willa')) {
+                selectedFeatures = roomFeatures.wakacyjny;
+            } else {
+                // Domyślne features bazowane na danych z systemu
+                const meters = offer.querySelector('.accommodation-meters');
+                const persons = offer.querySelector('.accommodation-roomspace');
+
+                if (meters) {
+                    selectedFeatures.push({
+                        icon: 'fa-expand',
+                        text: meters.textContent.replace(/\s+/g, ' ').trim().split(' ')[1] + ' m²'
+                    });
+                }
+                if (persons) {
+                    const personCount = persons.textContent.trim();
+                    selectedFeatures.push({
+                        icon: 'fa-users',
+                        text: personCount + ' ' + (personCount === '1' ? 'osoba' : 'osoby')
+                    });
+                }
+                // Dodaj 2 dodatkowe losowe features
+                selectedFeatures.push({ icon: 'fa-wifi', text: 'Bezpłatne WiFi' });
+                selectedFeatures.push({ icon: 'fa-parking', text: 'Parking' });
+            }
+
+            // Stwórz kontener z features
+            const featuresDiv = document.createElement('div');
+            featuresDiv.className = 'room-features';
+            featuresDiv.style.marginTop = '15px';
+            featuresDiv.style.marginBottom = '20px';
+
+            selectedFeatures.forEach(feature => {
+                const tag = document.createElement('span');
+                tag.className = 'feature-tag';
+                tag.innerHTML = `<i class="fas ${feature.icon}"></i> ${feature.text}`;
+                featuresDiv.appendChild(tag);
+            });
+
+            // Wstaw features między tytułem a offer__box
+            offerTitle.parentNode.insertBefore(featuresDiv, offerBox);
+        }
+
+        // 3. DODAJ PRZYCISK "ZAREZERWUJ TERAZ"
+        if (offerBox && !offer.querySelector('.btn-primary')) {
+            // Pobierz link z tytułu oferty
+            const titleLink = offer.querySelector('h3 a');
+            const offerUrl = titleLink ? titleLink.getAttribute('href') : '#';
+
+            const button = document.createElement('a');
+            button.href = offerUrl;
+            button.className = 'btn btn-primary w-100';
+            button.style.marginTop = '20px';
+            button.textContent = 'Rezerwuj Teraz';
+
+            // Dodaj przycisk po offer__box
+            offerBox.parentNode.insertBefore(button, offerBox.nextSibling);
+        }
+    });
+
+    console.log(`✅ Wzbogacono ${offers.length} ofert wyróżnionych`);
+});
+</script>
+
 </body>
