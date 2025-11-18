@@ -1497,6 +1497,23 @@ footer a:hover {
   margin: 0 !important;
 }
 
+/* Badge na obrazku oferty */
+.offer .room-badge {
+  position: absolute !important;
+  top: 20px !important;
+  right: 20px !important;
+  background: linear-gradient(135deg, var(--terracotta), var(--terracotta-dark)) !important;
+  color: var(--white) !important;
+  padding: 8px 20px !important;
+  border-radius: 30px !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+  z-index: 10 !important;
+}
+
 /* Tytuł oferty */
 .offer h3 {
   padding: 25px 30px 15px 30px !important;
@@ -1514,6 +1531,39 @@ footer a:hover {
 
 .offer h3 a:hover {
   color: var(--pine) !important;
+}
+
+/* Feature tags w systemowych ofertach */
+.offer .room-features {
+  padding: 0 30px !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  margin-top: 15px !important;
+  margin-bottom: 20px !important;
+}
+
+.offer .feature-tag {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 8px 16px !important;
+  background: var(--mint-pale) !important;
+  color: var(--forest-deep) !important;
+  border-radius: 25px !important;
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+}
+
+.offer .feature-tag:hover {
+  background: var(--mint) !important;
+  transform: translateY(-2px) !important;
+}
+
+.offer .feature-tag i {
+  color: var(--pine) !important;
+  font-size: 0.9rem !important;
 }
 
 /* Kontener z informacjami (parametry + cena) */
@@ -1576,10 +1626,12 @@ footer a:hover {
   display: block !important;
 }
 
-/* Przycisk (jeśli będzie dodany) */
+/* Przycisk (dodany przez JavaScript) */
 .offer .btn,
 .offer a.btn-primary {
-  display: inline-block !important;
+  display: block !important;
+  width: calc(100% - 60px) !important;
+  margin: 20px 30px 30px 30px !important;
   padding: 14px 30px !important;
   background: linear-gradient(135deg, var(--pine-light) 0%, var(--pine) 50%, var(--forest-medium) 100%) !important;
   color: var(--white) !important;
@@ -1595,7 +1647,23 @@ footer a:hover {
   position: relative !important;
   overflow: hidden !important;
   border: none !important;
-  margin-top: 20px !important;
+}
+
+.offer .btn::before,
+.offer a.btn-primary::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent) !important;
+  transition: left 0.5s ease !important;
+}
+
+.offer .btn:hover::before,
+.offer a.btn-primary:hover::before {
+  left: 100% !important;
 }
 
 .offer .btn:hover,
@@ -1612,12 +1680,29 @@ footer a:hover {
     height: 220px !important;
   }
 
+  .offer .room-badge {
+    top: 15px !important;
+    right: 15px !important;
+    padding: 6px 15px !important;
+    font-size: 0.75rem !important;
+  }
+
   .offer h3 {
     padding: 20px 25px 10px 25px !important;
   }
 
   .offer h3 a {
     font-size: 1.5rem !important;
+  }
+
+  .offer .room-features {
+    padding: 0 25px !important;
+    gap: 8px !important;
+  }
+
+  .offer .feature-tag {
+    padding: 6px 12px !important;
+    font-size: 0.8rem !important;
   }
 
   .offer__box {
@@ -1633,5 +1718,13 @@ footer a:hover {
 
   .offer__price .price {
     font-size: 1.6rem !important;
+  }
+
+  .offer .btn,
+  .offer a.btn-primary {
+    width: calc(100% - 50px) !important;
+    margin: 20px 25px 25px 25px !important;
+    padding: 12px 25px !important;
+    font-size: 0.9rem !important;
   }
 }
