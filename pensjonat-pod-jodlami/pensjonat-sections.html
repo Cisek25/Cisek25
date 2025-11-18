@@ -123,36 +123,81 @@
     </div>
 </section>
 
-<!-- DOŚWIADCZENIA MAZURSKIE -->
+<!-- DOŚWIADCZENIA MAZURSKIE - FLIP CARDS -->
 <section class="section section-white">
     <div class="container">
         <div class="section-header">
             <h2>Odkryj Mazury</h2>
-            <p>Region pełen naturalnego piękna, historii i niezapomnianych przeżyć czeka na Ciebie</p>
+            <p>Kliknij na kartę, aby odkryć więcej o atrakcjach naszego regionu</p>
         </div>
 
         <div class="experiences-grid">
-            <div class="experience-card">
-                <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&h=800&fit=crop" alt="Żeglarstwo" class="experience-image">
-                <div class="experience-overlay">
-                    <h3>Mazurskie Żagle</h3>
-                    <p>Wypożycz jacht lub dołącz do rejsu. Kraina Tysiąca Jezior czeka na odkrycie.</p>
+            <!-- Żeglarstwo -->
+            <div class="experience-card" onclick="this.classList.toggle('flipped')">
+                <div class="experience-card-inner">
+                    <div class="experience-card-front">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&h=800&fit=crop" alt="Żeglarstwo" class="experience-image">
+                        <div class="experience-overlay">
+                            <h3>Mazurskie Żagle</h3>
+                            <p>Kliknij, aby odkryć więcej</p>
+                        </div>
+                    </div>
+                    <div class="experience-card-back">
+                        <h3>Żeglarstwo</h3>
+                        <p>Wypożycz jacht lub dołącz do rejsu po Krainie Tysiąca Jezior</p>
+                        <ul>
+                            <li>Wypożyczalnia kajaków i łódek</li>
+                            <li>Rejsy po jeziorze Śniardwy</li>
+                            <li>Szkolenia żeglarskie</li>
+                            <li>Przystań 5 minut od pensjonatu</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
-            <div class="experience-card">
-                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=800&fit=crop" alt="Puszcza" class="experience-image">
-                <div class="experience-overlay">
-                    <h3>Leśne Szlaki</h3>
-                    <p>Rowerowe i piesze trasy przez Puszczę Piską - jeden z najpiękniejszych lasów w Polsce.</p>
+            <!-- Puszcza -->
+            <div class="experience-card" onclick="this.classList.toggle('flipped')">
+                <div class="experience-card-inner">
+                    <div class="experience-card-front">
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=800&fit=crop" alt="Puszcza" class="experience-image">
+                        <div class="experience-overlay">
+                            <h3>Leśne Szlaki</h3>
+                            <p>Kliknij, aby odkryć więcej</p>
+                        </div>
+                    </div>
+                    <div class="experience-card-back">
+                        <h3>Leśne Szlaki</h3>
+                        <p>Odkryj piękno Puszczy Piskiej na rowerze lub piechotą</p>
+                        <ul>
+                            <li>Oznakowane szlaki rowerowe</li>
+                            <li>Trasy nordic walking</li>
+                            <li>Wycieczki z przewodnikiem</li>
+                            <li>Obserwacja przyrody i ptaków</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
-            <div class="experience-card">
-                <img src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=1200&h=800&fit=crop" alt="Kajakarstwo" class="experience-image">
-                <div class="experience-overlay">
-                    <h3>Wodne Przygody</h3>
-                    <p>Spływy kajakowe malowniczymi szlakami, SUP na spokojnych jeziorach i wiele więcej.</p>
+            <!-- Wodne Przygody -->
+            <div class="experience-card" onclick="this.classList.toggle('flipped')">
+                <div class="experience-card-inner">
+                    <div class="experience-card-front">
+                        <img src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=1200&h=800&fit=crop" alt="Kajakarstwo" class="experience-image">
+                        <div class="experience-overlay">
+                            <h3>Wodne Przygody</h3>
+                            <p>Kliknij, aby odkryć więcej</p>
+                        </div>
+                    </div>
+                    <div class="experience-card-back">
+                        <h3>Wodne Przygody</h3>
+                        <p>Spływy kajakowe i letnie zabawy nad jeziorem</p>
+                        <ul>
+                            <li>Spływy kajakowe szlakami</li>
+                            <li>Stand-Up Paddle (SUP)</li>
+                            <li>Kąpielisko z pomostem</li>
+                            <li>Wędkowanie na jezioro</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -233,20 +278,14 @@
     <div class="container">
         <div class="section-header">
             <h2>Nasze Udogodnienia</h2>
-            <p>Wszystko czego potrzebujesz do idealnego wypoczynku w jednym miejscu</p>
+            <p>Wszystko czego potrzebujesz do rodzinnego wypoczynku w jednym miejscu</p>
         </div>
 
         <div class="amenities-grid">
             <div class="amenity-card">
-                <i class="fas fa-spa"></i>
-                <h4>Strefa SPA</h4>
-                <p>Sauna fińska, jacuzzi i gabinet masażu</p>
-            </div>
-
-            <div class="amenity-card">
                 <i class="fas fa-utensils"></i>
-                <h4>Restauracja</h4>
-                <p>Kuchnia mazurska i międzynarodowa</p>
+                <h4>Domowa Kuchnia</h4>
+                <p>Tradycyjne mazurskie posiłki</p>
             </div>
 
             <div class="amenity-card">
@@ -264,12 +303,12 @@
             <div class="amenity-card">
                 <i class="fas fa-bicycle"></i>
                 <h4>Rowery</h4>
-                <p>Wypożyczalnia rowerów górskich</p>
+                <p>Wypożyczalnia dla całej rodziny</p>
             </div>
 
             <div class="amenity-card">
                 <i class="fas fa-water"></i>
-                <h4>Sporty Wodne</h4>
+                <h4>Sprzęt Wodny</h4>
                 <p>Kajaki, SUP, łódki wiosłowe</p>
             </div>
 
@@ -280,7 +319,13 @@
             </div>
 
             <div class="amenity-card">
-                <i class="fas fa-mountain"></i>
+                <i class="fas fa-gamepad"></i>
+                <h4>Gry i Zabawy</h4>
+                <p>Gry planszowe i plac zabaw</p>
+            </div>
+
+            <div class="amenity-card">
+                <i class="fas fa-map-marked-alt"></i>
                 <h4>Szlaki Turystyczne</h4>
                 <p>Dostęp do oznakowanych tras</p>
             </div>
@@ -384,15 +429,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
-<!-- CTA -->
-<section class="section cta-section">
-    <div class="container">
-        <h2>Zarezerwuj Swój Pobyt</h2>
-        <p>Odkryj prawdziwy spokój w sercu Mazur. Naturalne piękno, komfort i gościnność czekają na Ciebie.</p>
-        <a href="#" class="btn btn-white" style="font-size: 1.05rem; padding: 18px 55px;">Sprawdź Dostępność</a>
     </div>
 </section>
 
