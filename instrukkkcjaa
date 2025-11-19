@@ -1,0 +1,166 @@
+Sekcja przykładowa po dodaniu automatycznie wyróznionych ofert.
+
+Są to obiekty z systemu, które możemy automatycznie w ten sposób uzyć na stronie głównej. Teraz, mamy karty pokoi dla pensjonatu/ obiektów, które zostały stworzone w ramach naszej rozmowy html i css i są w tym repzytorium.
+
+Przykład, mamy inną stronę, która ma jakiś mechanizm zrobiony, ja nie wiem dokładnie jak jest zrobiony, ale pokazuje obiekty np. tutaj określone  sekcjejako apartamenty nad samym morzem, system działa tak, że wrzuca po 3 obiekty wyróznione z panelu po kolei do danej sekcji tego typu, np dalej mamy sekcje jakies apartamenty z parkingiem, i tak jak po kolei są wyróżnione w panelu, tak pierwsze trzy wpadają do 1 sekcji,  a np. kolejne trzy do drugiej sekcji
+
+W "koniec sekcji body" jest taki kod, chyba skrypt, który jakos to robi?
+
+<script>
+const offersSectionLimits = {
+strefa1: 7, //sekcja wyrozniona
+strefa2: 6, //sekcja nad samym morzem
+strefa3: 6, //sekcja srodmiescie
+strefa4: 6, //sekcja z parkingiem w cenie
+}
+</script>
+<script type="text/javascript">
+    $(function(){
+        if($(".firstslide").length){
+            $("#parallax_topslider").after($(".firstslide").animate({top:'0'},1500));                   
+        }
+    })
+const showAllBtn = document.querySelector('.welcome__show-all');
+let showAllBox = document.querySelector('.welcome__show');
+if (showAllBtn) {
+    showAllBtn.addEventListener('click', function () {
+        showAllBox.classList.toggle('--active');
+    })
+}
+function loadScript(scriptUrl) {
+  const script = document.createElement('script');
+  script.src = scriptUrl;
+  document.body.appendChild(script);
+
+  return new Promise((res, rej) => {
+    script.onload = function() {
+      res();
+    }
+    script.onerror = function () {
+      rej();
+    }
+  });
+}
+loadScript('https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js')
+  .then(() => {
+    ($.cookie('bannerTop_clicked') === null) ?  $('#bannerTop').remove() :  $('html').addClass('--bannerTop');
+    $('.bannerTop__close').on('click' , function hidebannerTop(e) {
+      e.preventDefault();
+      let expiryDate = new Date();
+      const month = (expiryDate.getMonth() + 1) % 12;
+      expiryDate.setMonth(month);
+      $.cookie('bannerTop_clicked', true, {
+        expires: expiryDate
+      });
+      $('#bannerTop').remove();
+      $('html').removeClass('--bannerTop');
+      return false;
+    })
+    $('#bannerTop').prependTo('header')
+  })
+  .catch(() => {
+    console.error('Script loading failed! Handle this error');
+  });
+</script>
+
+
+
+
+
+Przykłąd takiej sekcji html:
+
+
+<div class="offers --zone1">
+    <h2 class="offers__header">apartamenty nad samym morzem</h2>
+    <div id="strefa2" class="offers__box">
+        <div class="item-box">
+        <div class="item">
+            <div class="item__img-box">
+                <img src="/images/frontpageGallery/pictures/large/0/0/13.webp" alt="" class="item__img">
+                <div class="item__param">
+                    <i class="icon-increase-size-option"></i>
+                    <span class="item__m2">38 m2</span>
+                    <i class="icon-user-2"></i>
+                    <span class="item__persons">Maks. osób 4</span>
+                </div>
+            </div>
+            <div class="item__body">
+                <span class="item__name">Baltic Park Plaza 1.1.6</span>
+                <p class="item__txt">Apartament zlokalizowany w najbardziej prestiżowej części pasa nadmorskiego, w uzdrowiskowej dzielnicy Świnoujścia, przy deptaku na Juliusza Słowackiego 16</p>
+                <span class="item__priceBox">cena: <span class="item__price">199 zł</span> / noc</span>
+                <a class="item__btn" href="">Zarezerwuj</a>
+            </div>
+        </div>
+        </div>
+        <div class="item-box">
+        <div class="item">
+            <div class="item__img-box">
+                <img src="/images/frontpageGallery/pictures/large/0/0/15.webp" alt="" class="item__img">
+                <div class="item__param">
+                    <i class="icon-increase-size-option"></i>
+                    <span class="item__m2">38 m2</span>
+                    <i class="icon-user-2"></i>
+                    <span class="item__persons">Maks. osób 4</span>
+                </div>
+            </div>
+            <div class="item__body">
+                <span class="item__name">Baltic Park Plaza 1.1.6</span>
+                <p class="item__txt">Apartament zlokalizowany w najbardziej prestiżowej części pasa nadmorskiego, w uzdrowiskowej dzielnicy Świnoujścia, przy deptaku na Juliusza Słowackiego 16</p>
+                <span class="item__priceBox">cena: <span class="item__price">199 zł</span> / noc</span>
+                <a class="item__btn" href="">Zarezerwuj</a>
+            </div>
+        </div>
+        </div>
+        <div class="item-box">
+        <div class="item">
+            <div class="item__img-box">
+                <img src="/images/frontpageGallery/pictures/large/0/0/16.webp" alt="" class="item__img">
+                <div class="item__param">
+                    <i class="icon-increase-size-option"></i>
+                    <span class="item__m2">38 m2</span>
+                    <i class="icon-user-2"></i>
+                    <span class="item__persons">Maks. osób 4</span>
+                </div>
+            </div>
+            <div class="item__body">
+                <span class="item__name">Baltic Park Plaza 1.1.6</span>
+                <p class="item__txt">Apartament zlokalizowany w najbardziej prestiżowej części pasa nadmorskiego, w uzdrowiskowej dzielnicy Świnoujścia, przy deptaku na Juliusza Słowackiego 16</p>
+                <span class="item__priceBox">cena: <span class="item__price">199 zł</span> / noc</span>
+                <a class="item__btn" href="">Zarezerwuj</a>
+            </div>
+        </div>
+        </div>
+        <div class="item-box">
+        <div class="item">
+            <div class="item__img-box">
+                <img src="/images/frontpageGallery/pictures/large/0/0/15.webp" alt="" class="item__img">
+                <div class="item__param">
+                    <i class="icon-increase-size-option"></i>
+                    <span class="item__m2">38 m2</span>
+                    <i class="icon-user-2"></i>
+                    <span class="item__persons">Maks. osób 4</span>
+                </div>
+            </div>
+            <div class="item__body">
+                <span class="item__name">Baltic Park Plaza 1.1.6</span>
+                <p class="item__txt">Apartament zlokalizowany w najbardziej prestiżowej części pasa nadmorskiego, w uzdrowiskowej dzielnicy Świnoujścia, przy deptaku na Juliusza Słowackiego 16</p>
+                <span class="item__priceBox">cena: <span class="item__price">199 zł</span> / noc</span>
+                <a class="item__btn" href="">Zarezerwuj</a>
+            </div>
+        </div>
+    </div>
+    </div>
+        <div class="container-svg">
+        <svg viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet">
+             
+            <path d="M0, 20 C150, 60 350,
+                0 500, 20 L500, 00 L0, 0 Z" style="stroke:none;">
+            </path>
+        </svg>
+    </div>
+</div>
+
+
+
+
+Zakładam, że to jakoś działa i właśnie prezentuje te obiekty, po 3 z wyróżnionych. 3 pierwsze to sekcja 1 itd.
