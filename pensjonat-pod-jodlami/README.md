@@ -1,47 +1,68 @@
 # 🏔️ Pensjonat Pod Jodłami - Alpine Serenity Theme
 
-Kompletny system stylizacji sekcji wyróżnionych ofert dla pensjonatu.
+Kompletny system stylizacji dla pensjonatu z motywem Alpine Serenity.
 
 ## 📁 Struktura projektu:
 
 ```
 pensjonat-pod-jodlami/
 │
-├── 📄 pensjonat-head.html                 # Fonty i FontAwesome (wklej w <head>)
-├── 🎨 pensjonat-wyroznie-css.css          # CSS dla wyróżnionych ofert (Alpine Serenity)
-├── ⚙️ pensjonat-wyroznie-script.js        # JavaScript wzbogacający oferty
+├── 📄 pensjonat-head.html          # HEAD - fonty, Bootstrap, FontAwesome (GLOBALNY)
+├── 🎨 pensjonat.css                # CSS - wszystkie sekcje (GLOBALNY - 1723 linii)
+├── ⚙️ pensjonat.js                 # JavaScript globalny
+├── 📄 pensjonat-sections.html      # Wszystkie sekcje HTML (GLOBALNE)
 │
-├── 📋 INSTRUKCJA-WDROZENIE.md             # Krok po kroku: jak wdrożyć
-├── 📋 INSTRUKCJA-OFERTY.md                # Jak działa system wyróżnionych ofert
-├── 📄 PRZYKLAD-IMPLEMENTACJI.html         # Przykład gotowej implementacji
-└── 📖 README.md                           # Ten plik
+├── wyroznie/                       # MODUŁ - tylko wyróżnione oferty
+│   ├── wyroznie-head.html          # HEAD dla modułu
+│   ├── css/
+│   │   └── wyroznie.css            # Styles tylko wyróżnionych
+│   ├── js/
+│   │   └── wyroznie.js             # Script tylko wyróżnionych
+│   ├── html/
+│   │   └── przyklad-implementacji.html
+│   └── README.md                   # Dokumentacja modułu
+│
+├── 📋 INSTRUKCJA-WDROZENIE.md      # Krok po kroku: jak wdrożyć
+├── 📋 INSTRUKCJA-OFERTY.md         # Jak działa system wyróżnionych ofert
+└── 📖 README.md                    # Ten plik
 ```
 
-## 🚀 Szybki start:
+## 🎯 Dwa sposoby użycia:
 
-### 1. Dodaj fonty (HEAD)
-Skopiuj zawartość `pensjonat-head.html` do sekcji `<head>` w systemie.
+### 1️⃣ PEŁNY PROJEKT (wszystkie sekcje):
 
-### 2. Dodaj CSS
-Skopiuj zawartość `pensjonat-wyroznie-css.css` do panelu **Custom CSS** w systemie.
+Wdróż **cały pensjonat** ze wszystkimi sekcjami:
 
-### 3. Dodaj JavaScript
-Skopiuj zawartość `pensjonat-wyroznie-script.js` i wklej przed `</body>` w systemie.
+1. **HEAD:** Skopiuj `pensjonat-head.html` do `<head>`
+2. **CSS:** Skopiuj `pensjonat.css` (1723 linii) do Custom CSS
+3. **JS:** Skopiuj `pensjonat.js` do skryptów
+4. **HTML:** Użyj `pensjonat-sections.html` jako szablon
 
-### 4. Wyróżnij pokoje
-W panelu admina zaznacz pokoje jako **wyróżnione**. System automatycznie wygeneruje sekcję.
+**Co zawiera:**
+- ✅ Sekcja "O Nas"
+- ✅ Wyróżnione Oferty (automatycznie z systemu)
+- ✅ Doświadczenia Mazurskie (flip cards)
+- ✅ Pakiety i Promocje (flip cards)
+- ✅ Charakter Rodzinny (4 kafelki)
+- ✅ Alpine Serenity design dla wszystkich sekcji
+- ✅ Pełny responsive
 
-## ✨ Funkcje:
+---
 
-✅ **Tło Alpine Serenity** - Gradient miętowy + kremowy z subtelnym pattern
-✅ **Duże karty** - 350px wysokość obrazka, minimalna wysokość 600px
-✅ **Automatyczne badge'e** - Popular, Family, Premium, Wyróżniony, Nowość, Romantic
-✅ **Feature-tags** - Automatycznie dodawane na podstawie nazwy pokoju
-✅ **Przycisk "Rezerwuj Teraz"** - Gradient zielony z animacją shine
-✅ **Hover effects** - Zoom obrazka (scale 1.1) + podniesienie karty (-10px)
-✅ **Responsive** - Działa na mobile
-✅ **Zmiana tytułu** - Automatycznie zmienia "Wyróżnione Oferty" na "Nasze Pokoje"
-✅ **Kompatybilne ze slick slider** - Działa z systemowym sliderem
+### 2️⃣ TYLKO MODUŁ WYRÓŻNIONYCH OFERT:
+
+Jeśli chcesz **tylko** sekcję wyróżnionych ofert:
+
+1. Przejdź do folderu `/wyroznie/`
+2. Postępuj według instrukcji w `/wyroznie/README.md`
+
+**Co zawiera moduł:**
+- ✅ Tylko CSS dla wyróżnionych ofert
+- ✅ Tylko JavaScript dla wyróżnionych ofert
+- ✅ Tylko HEAD dla modułu
+- ✅ Niezależny od reszty projektu
+
+---
 
 ## 🎨 Paleta kolorów Alpine Serenity:
 
@@ -53,36 +74,48 @@ W panelu admina zaznacz pokoje jako **wyróżnione**. System automatycznie wygen
 --terracotta: #C1666B;      /* Terakota - badge'e */
 ```
 
+## ✨ Funkcje PEŁNEGO PROJEKTU:
+
+✅ **Kompletny design Alpine Serenity** - wszystkie sekcje w jednym stylu
+✅ **Sekcja O Nas** - prezentacja pensjonatu z obrazkiem
+✅ **Wyróżnione Oferty** - duże karty, badge'e, feature-tags, przyciski
+✅ **Flip Cards** - interaktywne karty doświadczeń mazurskich
+✅ **Pakiety** - flip cards z promocjami (Weekend, Rodzinny, Romantyczny)
+✅ **Charakter Rodzinny** - 4 kafelki z animacjami
+✅ **Gradient backgrounds** - każda sekcja ma subtelne tło
+✅ **Smooth animations** - hover effects, transitions
+✅ **Responsive design** - działa na mobile
+
 ## 🔧 Customizacja:
 
-### Zmiana badge'y:
-Edytuj `pensjonat-wyroznie-script.js` linię 51:
-```javascript
-const badges = ['Popular', 'Family', 'Premium', 'Wyróżniony', 'Nowość', 'Romantic'];
-```
+### Zmiana kolorów (GLOBALNIE):
+Edytuj `pensjonat.css` linie 13-35 (zmienne CSS w `:root`).
 
-### Dodanie nowych feature-tags:
-Edytuj `pensjonat-wyroznie-script.js` linie 9-45:
-```javascript
-const roomFeatures = {
-    'moja-nazwa': [
-        { icon: 'fa-star', text: 'Mój Feature' },
-        ...
-    ]
-}
-```
+### Zmiana kolorów (TYLKO WYRÓŻNIONE):
+Edytuj `wyroznie/css/wyroznie.css` linie 7-26.
 
-### Zmiana kolorów:
-Edytuj `pensjonat-wyroznie-css.css` linie 8-22 (zmienne CSS).
+### Zmiana treści sekcji:
+Edytuj `pensjonat-sections.html` - znajdziesz tam wszystkie sekcje HTML.
+
+### Dodanie nowych pakietów:
+W `pensjonat-sections.html` dodaj nowy `.package-card` z flipem.
 
 ## 📚 Dokumentacja:
 
-- **INSTRUKCJA-WDROZENIE.md** - Szczegółowa instrukcja wdrożenia
+- **INSTRUKCJA-WDROZENIE.md** - Szczegółowa instrukcja wdrożenia PEŁNEGO projektu
 - **INSTRUKCJA-OFERTY.md** - Jak działa system wyróżnionych ofert
-- **PRZYKLAD-IMPLEMENTACJI.html** - Gotowy przykład do testowania
+- **wyroznie/README.md** - Dokumentacja modułu wyróżnionych ofert
 
 ## ⚡ Wymagania:
 
+### PEŁNY PROJEKT:
+- System z możliwością dodania Custom CSS
+- System z możliwością dodania Custom JavaScript
+- Bootstrap 5.3+ (ładowane automatycznie)
+- FontAwesome 6+ (ładowane automatycznie)
+- Fonty Google: Cinzel + Inter (ładowane automatycznie)
+
+### MODUŁ WYRÓŻNIONYCH:
 - System z możliwością dodania Custom CSS
 - System z możliwością dodania Custom JavaScript
 - FontAwesome 6+ (ładowane automatycznie)
@@ -90,8 +123,11 @@ Edytuj `pensjonat-wyroznie-css.css` linie 8-22 (zmienne CSS).
 
 ## 🐛 Rozwiązywanie problemów:
 
-**Problem**: Badge'e się nie pojawiają
+**Problem**: Badge'e się nie pojawiają w wyróżnionych
 ➡️ Sprawdź konsolę (F12), upewnij się że FontAwesome jest załadowany
+
+**Problem**: Flip cards nie działają
+➡️ Upewnij się że Bootstrap JS jest załadowany
 
 **Problem**: Tło nie widać
 ➡️ Upewnij się że CSS jest załadowany **po** domyślnych stylach systemu
@@ -99,18 +135,18 @@ Edytuj `pensjonat-wyroznie-css.css` linie 8-22 (zmienne CSS).
 **Problem**: JavaScript nie działa
 ➡️ Sprawdź czy skrypt jest przed `</body>`, odśwież stronę
 
-**Problem**: Karty jeden pod drugim
-➡️ To normalne dla mniej niż 3 ofert - slick slider wymaga minimum 3
-
 ## 📦 Wersja:
 
-**v1.0** - Listopad 2024
-- Pierwszy release
-- Pełna integracja Alpine Serenity
-- Automatyczne wzbogacanie ofert
-- Responsive design
+**v2.0** - Listopad 2024
+- Pełna reorganizacja projektu
+- Oddzielenie modułu wyróżnionych od pełnego projektu
+- 1723 linii CSS dla wszystkich sekcji
+- Flip cards dla doświadczeń i pakietów
+- Kafelki "Charakter Rodzinny"
+- Pełny responsive design
 
 ---
 
 **Motyw**: Alpine Serenity
 **Dla**: Pensjonat Pod Jodłami
+**Autor**: Claude Code
