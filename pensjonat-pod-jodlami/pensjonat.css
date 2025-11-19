@@ -1434,6 +1434,54 @@ footer a:hover {
    Nadpisanie styli automatycznie generowanych ofert
    ============================================ */
 
+/* Sekcja wyróżnionych ofert - tło i layout */
+.container-hotspot {
+  background: linear-gradient(135deg, var(--mint-pale) 0%, var(--cream) 100%) !important;
+  background-image:
+    linear-gradient(135deg, var(--mint-pale) 0%, var(--cream) 100%),
+    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%233A8B6A' fill-opacity='0.04'%3E%3Cpath d='M0 0h40v40H0z'/%3E%3Cpath d='M40 40h40v40H40z'/%3E%3C/g%3E%3C/svg%3E") !important;
+  padding: 100px 0 !important;
+  margin: 0 !important;
+  position: relative !important;
+}
+
+/* Tytuł sekcji */
+.container-hotspot h2.big-label {
+  text-align: center !important;
+  font-size: 3.5rem !important;
+  color: var(--forest-deep) !important;
+  margin-bottom: 60px !important;
+  font-family: var(--font-heading) !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  position: relative !important;
+  display: inline-block !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+.container-hotspot h2.big-label::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: -15px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 120px !important;
+  height: 4px !important;
+  background: linear-gradient(90deg, var(--terracotta), var(--pine), var(--terracotta)) !important;
+  border-radius: 2px !important;
+}
+
+/* Slick slider */
+.offerslist.slick-slider {
+  margin: 0 -15px !important;
+}
+
+.offerslist .slick-slide {
+  padding: 0 15px !important;
+}
+
 /* Karta oferty */
 .offer {
   background: var(--white) !important;
@@ -1445,7 +1493,7 @@ footer a:hover {
   flex-direction: column !important;
   height: 100% !important;
   border: none !important;
-  margin-bottom: 40px !important;
+  margin-bottom: 0 !important;
 }
 
 .offer:hover {
@@ -1566,64 +1614,9 @@ footer a:hover {
   font-size: 0.9rem !important;
 }
 
-/* Kontener z informacjami (parametry + cena) */
+/* UKRYJ systemowe parametry (zostaną zastąpione przez feature-tags) */
 .offer__box {
-  padding: 0 30px 30px 30px !important;
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: flex-end !important;
-  gap: 20px !important;
-}
-
-/* Parametry (powierzchnia i liczba osób) */
-.offer__info {
-  display: flex !important;
-  gap: 20px !important;
-  align-items: center !important;
-  flex-wrap: wrap !important;
-}
-
-.accommodation-meters,
-.accommodation-roomspace {
-  display: flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-  color: var(--grey) !important;
-  font-size: 0.9rem !important;
-  font-weight: 500 !important;
-}
-
-.accommodation-meters i,
-.accommodation-roomspace i,
-.icon-resize-full,
-.icon-user {
-  color: var(--pine) !important;
-  font-size: 1.1rem !important;
-}
-
-.accommodation-meters sup {
-  font-size: 0.7em !important;
-}
-
-/* Cena */
-.offer__price {
-  text-align: right !important;
-}
-
-.offer__price small {
-  display: block !important;
-  font-size: 0.85rem !important;
-  color: var(--grey) !important;
-  font-weight: 500 !important;
-  margin-bottom: 5px !important;
-}
-
-.offer__price .price {
-  font-size: 2rem !important;
-  color: var(--pine) !important;
-  font-weight: 800 !important;
-  font-family: var(--font-heading) !important;
-  display: block !important;
+  display: none !important;
 }
 
 /* Przycisk (dodany przez JavaScript) */
