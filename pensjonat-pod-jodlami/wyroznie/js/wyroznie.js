@@ -1,193 +1,226 @@
-// ============================================
-// PENSJONAT POD JODŁAMI - WZBOGACENIE OFERT
-// Dodaje badge'e, feature-tags i przyciski
-// ============================================
+/* =================================================================
+   PENSJONAT POD JODŁAMI - ALPINE SERENITY 3D CARDS
+   Ukrywa systemowe oferty i tworzy nowe karty 3D z flip effect
+   ================================================================= */
 
 (function() {
     'use strict';
 
-    // Konfiguracja feature-tags dla różnych typów pokoi
-    const roomFeatures = {
-        'leśny': [
-            { icon: 'fa-tree', text: 'Widok na las' },
-            { icon: 'fa-leaf', text: 'Otoczony przyrodą' },
-            { icon: 'fa-mug-hot', text: 'Ekspres do kawy' },
-            { icon: 'fa-wifi', text: 'Bezpłatne WiFi' }
-        ],
-        'widok': [
-            { icon: 'fa-mountain', text: 'Widok na góry' },
-            { icon: 'fa-tree', text: 'Widok na las' },
-            { icon: 'fa-wifi', text: 'Bezpłatne WiFi' },
-            { icon: 'fa-tv', text: 'Smart TV' }
-        ],
-        'rodzinny': [
-            { icon: 'fa-child', text: 'Kącik dziecięcy' },
-            { icon: 'fa-bed', text: '2 sypialnie' },
-            { icon: 'fa-gamepad', text: 'Gry planszowe' },
-            { icon: 'fa-couch', text: 'Strefa dzienna' }
-        ],
-        'wakacyjny': [
-            { icon: 'fa-home', text: 'Jak w domu' },
-            { icon: 'fa-bed', text: '2 sypialnie' },
-            { icon: 'fa-utensils', text: 'Kuchnia' },
-            { icon: 'fa-wind', text: 'Balkon z widokiem' }
-        ],
-        'apartament': [
-            { icon: 'fa-expand', text: 'Duża powierzchnia' },
-            { icon: 'fa-couch', text: 'Salon' },
-            { icon: 'fa-bath', text: 'Łazienka' },
-            { icon: 'fa-wifi', text: 'WiFi' }
-        ]
+    // Konfiguracja badge'y (Alpine Serenity)
+    const badges = ['POPULAR', 'POLECAMY', 'NOWOŚĆ', 'HIT', 'RODZINNY', 'LUKSUS'];
+
+    // Mini tagi na przód karty
+    const keyTags = {
+        'widok': 'Widok',
+        'góry': 'Góry',
+        'rodzinny': 'Rodzina',
+        'wakacyjny': 'Wakacje',
+        'las': 'Natura',
+        'leśny': 'Las',
+        'lesny': 'Las',
+        'apartament': 'Luksus',
+        'komfort': 'Komfort'
     };
 
-    const badges = ['Popular', 'Family', 'Premium', 'Wyróżniony', 'Nowość', 'Romantic'];
+    // Uruchom po załadowaniu DOM
+    setTimeout(runAlpineCards, 600);
 
-    function enhanceOffers() {
-        const offers = document.querySelectorAll('.offer');
-
-        if (offers.length === 0) {
-            console.log('⏳ Oferty jeszcze nie załadowane, czekam...');
+    function runAlpineCards() {
+        const container = document.querySelector('.cmshotspot, .container-hotspot');
+        if (!container) {
+            console.log('⏳ Kontener wyróżnionych nie znaleziony, czekam...');
             return;
         }
 
-        console.log(`🔍 Znaleziono ${offers.length} ofert do wzbogacenia`);
-
-        offers.forEach((offer, index) => {
-            // Sprawdź czy już wzbogacone
-            if (offer.classList.contains('enhanced')) {
-                return;
-            }
-
-            // Usuń inline styles (slick dodaje height)
-            const h3 = offer.querySelector('h3');
-            if (h3 && h3.hasAttribute('style')) {
-                h3.removeAttribute('style');
-            }
-
-            // 1. DODAJ BADGE
-            const objectIcon = offer.querySelector('.object-icon');
-            if (objectIcon && !objectIcon.querySelector('.room-badge')) {
-                const badge = document.createElement('span');
-                badge.className = 'room-badge';
-                badge.textContent = badges[index % badges.length];
-                objectIcon.appendChild(badge);
-                console.log(`✅ Badge "${badge.textContent}" dodany do oferty ${index + 1}`);
-            }
-
-            // 2. DODAJ FEATURE-TAGS
-            if (h3 && !offer.querySelector('.room-features')) {
-                const offerName = h3.textContent.toLowerCase().trim();
-                let selectedFeatures = [];
-
-                // Wybierz features na podstawie nazwy
-                if (offerName.includes('leśny') || offerName.includes('lesny')) {
-                    selectedFeatures = roomFeatures['leśny'];
-                } else if (offerName.includes('widok') || offerName.includes('góry') || offerName.includes('gory')) {
-                    selectedFeatures = roomFeatures.widok;
-                } else if (offerName.includes('rodzinny') || offerName.includes('family')) {
-                    selectedFeatures = roomFeatures.rodzinny;
-                } else if (offerName.includes('wakacyjny') || offerName.includes('willa')) {
-                    selectedFeatures = roomFeatures.wakacyjny;
-                } else if (offerName.includes('apartament')) {
-                    selectedFeatures = roomFeatures.apartament;
-                } else {
-                    // Domyślne features z danych systemowych
-                    const meters = offer.querySelector('.accommodation-meters');
-                    const persons = offer.querySelector('.accommodation-roomspace');
-
-                    if (meters) {
-                        const metersText = meters.textContent.replace(/\s+/g, ' ').trim();
-                        selectedFeatures.push({ icon: 'fa-expand', text: metersText });
-                    }
-                    if (persons) {
-                        const personsText = persons.textContent.replace(/\s+/g, ' ').trim();
-                        selectedFeatures.push({ icon: 'fa-users', text: personsText });
-                    }
-                    selectedFeatures.push({ icon: 'fa-wifi', text: 'Bezpłatne WiFi' });
-                    selectedFeatures.push({ icon: 'fa-parking', text: 'Parking' });
-                }
-
-                // Stwórz kontener z features
-                const featuresDiv = document.createElement('div');
-                featuresDiv.className = 'room-features';
-
-                selectedFeatures.forEach(feature => {
-                    const tag = document.createElement('span');
-                    tag.className = 'feature-tag';
-                    tag.innerHTML = `<i class="fas ${feature.icon}"></i> ${feature.text}`;
-                    featuresDiv.appendChild(tag);
-                });
-
-                // Wstaw features po h3
-                h3.parentNode.insertBefore(featuresDiv, h3.nextSibling);
-                console.log(`✅ Feature-tags dodane do oferty ${index + 1}`);
-            }
-
-            // 3. DODAJ PRZYCISK
-            if (!offer.querySelector('.btn-primary')) {
-                const titleLink = offer.querySelector('h3 a');
-                const offerUrl = titleLink ? titleLink.getAttribute('href') : '#';
-
-                const button = document.createElement('a');
-                button.href = offerUrl;
-                button.className = 'btn btn-primary';
-                button.textContent = 'Rezerwuj Teraz';
-
-                // Dodaj na końcu oferty
-                offer.appendChild(button);
-                console.log(`✅ Przycisk dodany do oferty ${index + 1}`);
-            }
-
-            // Oznacz jako wzbogacone
-            offer.classList.add('enhanced');
-        });
-
-        console.log(`🎉 Wzbogacono ${offers.length} ofert!`);
-    }
-
-    // Zmień nazwę sekcji na "Nasze Pokoje"
-    function changeTitle() {
-        const title = document.querySelector('.container-hotspot h2.big-label, .container-hotspot .big-label');
-        if (title && title.textContent.includes('Wyróżnione')) {
-            title.textContent = 'Nasze Pokoje';
-            console.log('✅ Zmieniono tytuł na "Nasze Pokoje"');
+        // 1. ZMIEŃ TYTUŁ
+        const mainH2 = container.querySelector('h2');
+        if (mainH2) {
+            mainH2.innerText = 'Nasze Pokoje';
+            mainH2.removeAttribute('style');
+            mainH2.classList.add('alpine-main-header');
         }
+
+        // 2. POBIERZ OFERTY (bez klonów slick)
+        let originalOffers = container.querySelectorAll('.slick-slide:not(.slick-cloned) .offer');
+        if (originalOffers.length === 0) {
+            originalOffers = container.querySelectorAll('.offer');
+        }
+
+        const offerList = Array.from(originalOffers);
+
+        if (offerList.length === 0) {
+            console.log('⏳ Oferty jeszcze nie załadowane');
+            return;
+        }
+
+        console.log(`🏔️ Znaleziono ${offerList.length} ofert - tworzę karty Alpine Serenity`);
+
+        // 3. UKRYJ STARĄ LISTĘ
+        const oldList = container.querySelector('.offerslist');
+        if (oldList) oldList.style.display = 'none';
+
+        const col12 = container.querySelector('.col-12') || container;
+
+        // 4. PODZIEL NA SEKCJE
+        const top3 = offerList.slice(0, 3);
+        const rest = offerList.slice(3);
+
+        // 5. RENDERUJ PIERWSZĄ SEKCJĘ (top 3)
+        const grid1 = renderGrid(top3, 0);
+        if (mainH2 && mainH2.parentNode) {
+            mainH2.parentNode.insertBefore(grid1, mainH2.nextSibling);
+        } else {
+            col12.appendChild(grid1);
+        }
+
+        // 6. JEŚLI JEST WIĘCEJ - DRUGA SEKCJA
+        if (rest.length > 0) {
+            const header2 = document.createElement('div');
+            header2.className = 'alpine-secondary-header';
+            header2.innerText = 'Pozostałe pokoje';
+            col12.appendChild(header2);
+            col12.appendChild(renderGrid(rest, 3));
+        }
+
+        console.log('✅ Karty Alpine Serenity utworzone!');
     }
 
-    // Uruchom po załadowaniu DOM
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
-            // Próbuj kilka razy (dla slick slider)
-            setTimeout(enhanceOffers, 100);
-            setTimeout(enhanceOffers, 500);
-            setTimeout(enhanceOffers, 1000);
-            setTimeout(enhanceOffers, 2000);
-            setTimeout(changeTitle, 500);
+    // --- FUNKCJA: Generuje feature-tags na tył karty ---
+    function getBackFeatures(title) {
+        const t = title.toLowerCase();
+
+        // Baza: WiFi + Parking (każdy pokój)
+        const features = [
+            { i: 'fa-wifi', t: 'WiFi Free' },
+            { i: 'fa-square-parking', t: 'Parking' }
+        ];
+
+        // Inteligentne dodawanie na podstawie nazwy
+        if (t.includes('rodzin')) {
+            features.push({ i: 'fa-child', t: 'Dla dzieci' });
+            features.push({ i: 'fa-gamepad', t: 'Plac zabaw' });
+        } else if (t.includes('willa') || t.includes('dom')) {
+            features.push({ i: 'fa-fire', t: 'Kominek' });
+            features.push({ i: 'fa-utensils', t: 'Kuchnia' });
+        } else if (t.includes('widok') || t.includes('góry')) {
+            features.push({ i: 'fa-mountain', t: 'Widok na góry' });
+            features.push({ i: 'fa-binoculars', t: 'Taras widokowy' });
+        } else if (t.includes('leśny') || t.includes('lesny') || t.includes('las')) {
+            features.push({ i: 'fa-tree', t: 'Widok na las' });
+            features.push({ i: 'fa-leaf', t: 'Ogród' });
+        } else if (t.includes('apartament') || t.includes('luksus')) {
+            features.push({ i: 'fa-couch', t: 'Salon' });
+            features.push({ i: 'fa-bath', t: 'Łazienka' });
+        } else {
+            // Domyślne
+            features.push({ i: 'fa-tv', t: 'Smart TV' });
+            features.push({ i: 'fa-mug-hot', t: 'Ekspres' });
+        }
+
+        // Generuj HTML
+        let html = '';
+        features.forEach(f => {
+            html += `<span class="alpine-feature-tag"><i class="fas ${f.i}"></i> ${f.t}</span>`;
         });
-    } else {
-        // DOM już załadowany
-        setTimeout(enhanceOffers, 100);
-        setTimeout(enhanceOffers, 500);
-        setTimeout(enhanceOffers, 1000);
-        setTimeout(changeTitle, 500);
+        return html;
     }
 
-    // Nasłuchuj na zmiany w DOM (slick może dodawać elementy dynamicznie)
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.addedNodes.length > 0) {
-                setTimeout(enhanceOffers, 200);
+    // --- FUNKCJA: Renderuje grid kart ---
+    function renderGrid(items, badgeOffset) {
+        const grid = document.createElement('div');
+        grid.className = 'alpine-cards-grid';
+
+        items.forEach((offer, idx) => {
+            // Wyciągnij dane z systemowej oferty
+            const titleElem = offer.querySelector('h3 a');
+            const title = titleElem ? titleElem.innerText.trim() : 'Pokój';
+            const href = titleElem ? titleElem.getAttribute('href') : '#';
+
+            // Obrazek
+            const img = offer.querySelector('img');
+            let src = 'https://via.placeholder.com/600x400/A8E6C5/0D3B2E?text=Pensjonat+Pod+Jodlami';
+            if (img) {
+                src = img.getAttribute('data-src') || img.getAttribute('src') || src;
             }
-        });
-    });
 
-    // Obserwuj zmiany w body
-    if (document.body) {
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
+            // Cena
+            const priceElem = offer.querySelector('.price');
+            const price = priceElem ? priceElem.innerText.trim() : 'Sprawdź cenę';
+
+            // Metry i osoby
+            let meters = '40 m²';
+            let persons = '2-4 os.';
+            const info = offer.querySelector('.offer__info');
+            if (info) {
+                const m = info.querySelector('.accommodation-meters');
+                if (m) meters = m.innerText.trim();
+                const p = info.querySelector('.accommodation-roomspace');
+                if (p) persons = p.innerText.trim() + ' os.';
+            }
+
+            // Badge
+            const badge = badges[(idx + badgeOffset) % badges.length];
+
+            // Mini tagi (przód) - max 2
+            const tLower = title.toLowerCase();
+            let tagHtml = '';
+            let count = 0;
+            for (const key in keyTags) {
+                if (tLower.includes(key) && count < 2) {
+                    tagHtml += `<span class="alpine-mini-tag">${keyTags[key]}</span>`;
+                    count++;
+                }
+            }
+            if (!tagHtml) tagHtml = '<span class="alpine-mini-tag">Komfort</span>';
+
+            // Feature-tags (tył)
+            const backFeatures = getBackFeatures(title);
+
+            // Twórz kartę 3D
+            const cardDiv = document.createElement('div');
+            cardDiv.className = 'alpine-card-scene';
+            cardDiv.setAttribute('onclick', "this.classList.toggle('is-flipped')");
+
+            cardDiv.innerHTML = `
+                <div class="alpine-card-object">
+                    <!-- PRZÓD -->
+                    <div class="alpine-card-face alpine-card-front">
+                        <div class="alpine-badge">${badge}</div>
+                        <div class="alpine-img-wrapper">
+                            <img src="${src}" class="alpine-img" alt="${title}">
+                        </div>
+                        <div class="alpine-front-content">
+                            <div class="alpine-title">${title}</div>
+                            <div class="alpine-stats">
+                                <div class="alpine-stat"><i class="fas fa-expand-arrows-alt"></i> ${meters}</div>
+                                <div class="alpine-stat"><i class="fas fa-user-friends"></i> ${persons}</div>
+                            </div>
+                            <div class="alpine-mini-tags">${tagHtml}</div>
+                            <div class="alpine-flip-hint">KLIKNIJ <i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+
+                    <!-- TYŁ -->
+                    <div class="alpine-card-face alpine-card-back">
+                        <div class="alpine-back-title">${title}</div>
+                        <span class="alpine-price-label">Cena za dobę</span>
+                        <span class="alpine-price">${price}</span>
+                        <div class="alpine-features-grid">${backFeatures}</div>
+                        <a href="${href}"
+                           class="alpine-btn-reserve"
+                           onclick="event.stopPropagation()">
+                            REZERWUJ TERAZ
+                        </a>
+                        <div class="alpine-flip-back-hint">kliknij aby obrócić</div>
+                    </div>
+                </div>
+            `;
+
+            grid.appendChild(cardDiv);
         });
+
+        return grid;
     }
 
-    console.log('🚀 Pensjonat Pod Jodłami - skrypt wzbogacania ofert załadowany');
+    console.log('🏔️ Pensjonat Pod Jodłami - Alpine Serenity 3D Cards załadowane');
 })();
