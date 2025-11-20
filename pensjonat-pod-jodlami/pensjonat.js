@@ -246,7 +246,7 @@
             html += '  </div>';
             html += '  <div class="alpine-card-face alpine-card-back">';
             html += '    <div class="alpine-back-title">' + title + '</div>';
-            html += '    <span class="alpine-price-label">Cena za dobę</span>';
+            html += '    <span class="alpine-price-label">Cena od</span>';
             html += '    <span class="alpine-price">' + price + '</span>';
             html += '    <div class="alpine-features-grid">' + backFeatures + '</div>';
             html += '    <a href="' + href + '" class="alpine-btn-reserve" onclick="event.stopPropagation()">REZERWUJ TERAZ</a>';
