@@ -44,8 +44,8 @@
 
 
 /* =================================================================
-   ALPINE SERENITY 3D CARDS - WYRÓŻNIONE OFERTY
-   Ukrywa systemowe oferty i tworzy nowe karty 3D z flip effect
+   ALPINE SERENITY CARDS - WYRÓŻNIONE OFERTY
+   Ukrywa systemowe oferty i tworzy nowe karty inspirowane Baltic Apartments
    BEZ BACKTIKÓW - kompatybilne z IdoBooking CMS
    ================================================================= */
 
@@ -131,45 +131,7 @@
         console.log('Karty Alpine Serenity utworzone!');
     }
 
-    // --- FUNKCJA: Generuje feature-tags na tył karty ---
-    function getBackFeatures(title) {
-        var t = title.toLowerCase();
-
-        // Baza: WiFi + Parking (każdy pokój)
-        var features = [
-            { i: 'fa-wifi', t: 'WiFi Free' },
-            { i: 'fa-square-parking', t: 'Parking' }
-        ];
-
-        // Inteligentne dodawanie na podstawie nazwy
-        if (t.indexOf('rodzin') > -1) {
-            features.push({ i: 'fa-child', t: 'Dla dzieci' });
-            features.push({ i: 'fa-gamepad', t: 'Plac zabaw' });
-        } else if (t.indexOf('willa') > -1 || t.indexOf('dom') > -1) {
-            features.push({ i: 'fa-fire', t: 'Kominek' });
-            features.push({ i: 'fa-utensils', t: 'Kuchnia' });
-        } else if (t.indexOf('widok') > -1 || t.indexOf('góry') > -1) {
-            features.push({ i: 'fa-mountain', t: 'Widok na góry' });
-            features.push({ i: 'fa-binoculars', t: 'Taras widokowy' });
-        } else if (t.indexOf('leśny') > -1 || t.indexOf('lesny') > -1 || t.indexOf('las') > -1) {
-            features.push({ i: 'fa-tree', t: 'Widok na las' });
-            features.push({ i: 'fa-leaf', t: 'Ogród' });
-        } else if (t.indexOf('apartament') > -1 || t.indexOf('luksus') > -1) {
-            features.push({ i: 'fa-couch', t: 'Salon' });
-            features.push({ i: 'fa-bath', t: 'Łazienka' });
-        } else {
-            // Domyślne
-            features.push({ i: 'fa-tv', t: 'Smart TV' });
-            features.push({ i: 'fa-mug-hot', t: 'Ekspres' });
-        }
-
-        // Generuj HTML
-        var html = '';
-        features.forEach(function(f) {
-            html += '<span class="alpine-feature-tag"><i class="fas ' + f.i + '"></i> ' + f.t + '</span>';
-        });
-        return html;
-    }
+    // --- Funkcja pomocnicza już nie potrzebna ---
 
     // --- FUNKCJA: Renderuje grid kart ---
     function renderGrid(items, badgeOffset) {
@@ -219,13 +181,9 @@
             }
             if (!tagHtml) tagHtml = '<span class="alpine-mini-tag">Komfort</span>';
 
-            // Feature-tags (tył)
-            var backFeatures = getBackFeatures(title);
-
-            // Twórz kartę 3D
+            // Twórz kartę (bez flip effect)
             var cardDiv = document.createElement('div');
             cardDiv.className = 'alpine-card-scene';
-            cardDiv.setAttribute('onclick', "this.classList.toggle('is-flipped')");
 
             var html = '';
             html += '<div class="alpine-card-object">';
@@ -240,17 +198,13 @@
             html += '        <div class="alpine-stat"><i class="fas fa-expand-arrows-alt"></i> ' + meters + '</div>';
             html += '        <div class="alpine-stat"><i class="fas fa-user-friends"></i> ' + persons + '</div>';
             html += '      </div>';
+            html += '      <div class="alpine-price-front">';
+            html += '        <span class="alpine-price-label-front">Cena od</span>';
+            html += '        <span class="alpine-price-value">' + price + '</span>';
+            html += '      </div>';
             html += '      <div class="alpine-mini-tags">' + tagHtml + '</div>';
-            html += '      <div class="alpine-flip-hint">KLIKNIJ <i class="fas fa-arrow-right"></i></div>';
+            html += '      <a href="' + href + '" class="alpine-btn-card">KLIKNIJ</a>';
             html += '    </div>';
-            html += '  </div>';
-            html += '  <div class="alpine-card-face alpine-card-back">';
-            html += '    <div class="alpine-back-title">' + title + '</div>';
-            html += '    <span class="alpine-price-label">Cena od</span>';
-            html += '    <span class="alpine-price">' + price + '</span>';
-            html += '    <div class="alpine-features-grid">' + backFeatures + '</div>';
-            html += '    <a href="' + href + '" class="alpine-btn-reserve" onclick="event.stopPropagation()">REZERWUJ TERAZ</a>';
-            html += '    <div class="alpine-flip-back-hint">kliknij aby obrócić</div>';
             html += '  </div>';
             html += '</div>';
 
@@ -261,5 +215,5 @@
         return grid;
     }
 
-    console.log('Pensjonat Pod Jodlami - Alpine Serenity 3D Cards zaladowane');
+    console.log('Pensjonat Pod Jodlami - Alpine Serenity Cards zaladowane');
 })();
