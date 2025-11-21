@@ -2121,8 +2121,39 @@ footer a:hover {
   background: var(--mint-pale) !important;
 }
 
+/* UKRYJ NIEPOTRZEBNE SEKCJE SYSTEMOWE (IdoBooking) */
+/* Ta reguła ukrywa puste sekcje generowane przez system CMS */
 .fp-auto-height.pb-5 {
   display: none !important;
+}
+
+/* ZAPEWNIJ WIDOCZNOŚĆ NASZYCH SEKCJI */
+/* Nawet jeśli JavaScript nie zadziała, sekcje będą widoczne */
+.section.section-white,
+.section.section-cream,
+.section.section-mint {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Zapewnij widoczność kontenerów sekcji */
+.section .container {
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Zapewnij widoczność dynamicznych sekcji Alpine Cards */
+.alpine-main-header,
+.alpine-secondary-header,
+.alpine-cards-grid {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.alpine-cards-grid {
+  display: flex !important;
 }
 
 /* WIĘKSZE KARTY DOŚWIADCZEŃ */
