@@ -68,14 +68,30 @@
         'komfort': 'Komfort'
     };
 
-    // Uruchom po załadowaniu DOM
-    setTimeout(runAlpineCards, 600);
+    // Uruchom po załadowaniu DOM z wielokrotnym retry
+    var retryCount = 0;
+    var maxRetries = 5;
+
+    function tryRunAlpineCards() {
+        retryCount++;
+        console.log('Alpine Cards: Próba ' + retryCount + '/' + maxRetries);
+
+        if (runAlpineCards()) {
+            console.log('Alpine Cards: Sukces!');
+        } else if (retryCount < maxRetries) {
+            setTimeout(tryRunAlpineCards, 400);
+        } else {
+            console.warn('Alpine Cards: Nie znaleziono kontenera po ' + maxRetries + ' próbach');
+        }
+    }
+
+    setTimeout(tryRunAlpineCards, 600);
 
     function runAlpineCards() {
         var container = document.querySelector('.cmshotspot, .container-hotspot');
         if (!container) {
             console.log('Kontener wyroznionych nie znaleziony, czekam...');
-            return;
+            return false;
         }
 
         // 1. ZMIEŃ TYTUŁ
@@ -96,7 +112,7 @@
 
         if (offerList.length === 0) {
             console.log('Oferty jeszcze nie zaladowane');
-            return;
+            return false;
         }
 
         console.log('Znaleziono ' + offerList.length + ' ofert - tworze karty Alpine Serenity');
@@ -129,6 +145,7 @@
         }
 
         console.log('Karty Alpine Serenity utworzone!');
+        return true;
     }
 
     // --- Funkcja pomocnicza już nie potrzebna ---
