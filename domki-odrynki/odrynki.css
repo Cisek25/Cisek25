@@ -1,0 +1,1074 @@
+/* ============================================
+   DOMKI W ODRYNKACH - COMPLETE STYLING
+   Duchowa atmosfera, natura Podlasia
+   Kolorystyka inspirowana prawosławiem i puszczą
+   ============================================ */
+
+/* ============================================
+   CSS VARIABLES - PODLASKIE KOLORY
+   ============================================ */
+:root {
+  /* Brand Colors - Inspirowane prawosławiem i naturą */
+  --odrynki-forest-deep: #2D5016;        /* Głęboka zieleń puszczy */
+  --odrynki-forest-medium: #4A7C2E;      /* Średnia zieleń */
+  --odrynki-forest-light: #6B9B47;       /* Jasna zieleń */
+  --odrynki-gold: #C5A572;               /* Złoto cerkiewne */
+  --odrynki-gold-dark: #A88A5D;          /* Ciemne złoto */
+  --odrynki-burgundy: #7A2E2E;           /* Bordo prawosławne */
+  --odrynki-burgundy-light: #9B4343;     /* Jasne bordo */
+  --odrynki-beige: #E8DCC8;              /* Beż naturalny */
+  --odrynki-cream: #F5F1E8;              /* Kremowy */
+  --odrynki-white: #FFFFFF;              /* Biały */
+  --odrynki-wood: #8B6F47;               /* Drewno */
+
+  /* Neutral Colors */
+  --odrynki-charcoal: #3A3A3A;
+  --odrynki-gray: #6A6A6A;
+  --odrynki-light-bg: #F9F7F2;
+
+  /* Spacing */
+  --odrynki-spacing-xs: 0.5rem;
+  --odrynki-spacing-sm: 1rem;
+  --odrynki-spacing-md: 2rem;
+  --odrynki-spacing-lg: 3rem;
+  --odrynki-spacing-xl: 4rem;
+  --odrynki-spacing-xxl: 6rem;
+
+  /* Typography */
+  --odrynki-font-display: 'Crimson Text', serif;
+  --odrynki-font-body: 'Lato', sans-serif;
+
+  /* Shadows */
+  --odrynki-shadow-sm: 0 2px 8px rgba(45, 80, 22, 0.1);
+  --odrynki-shadow-md: 0 4px 20px rgba(45, 80, 22, 0.15);
+  --odrynki-shadow-lg: 0 8px 32px rgba(45, 80, 22, 0.2);
+  --odrynki-shadow-xl: 0 12px 48px rgba(45, 80, 22, 0.25);
+}
+
+/* ============================================
+   RESET & BASE STYLES
+   ============================================ */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+.odrynki-section-title,
+.odrynki-section-title-light {
+  font-family: var(--odrynki-font-display);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  font-size: 2.8rem;
+  color: var(--odrynki-forest-deep);
+  letter-spacing: -0.01em;
+}
+
+.odrynki-section-title-light {
+  color: var(--odrynki-cream);
+}
+
+h3.odrynki-accommodation-name,
+h3.odrynki-experience-title {
+  font-family: var(--odrynki-font-display);
+  font-weight: 700;
+  font-size: 1.9rem;
+  line-height: 1.3;
+  color: var(--odrynki-forest-deep);
+  margin-bottom: 1rem;
+  letter-spacing: -0.005em;
+}
+
+h4 {
+  font-family: var(--odrynki-font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--odrynki-forest-medium);
+}
+
+.odrynki-intro-description,
+.odrynki-accommodation-description,
+.odrynki-experience-description,
+.odrynki-testimonial-text,
+.odrynki-detail-text {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--odrynki-gray);
+  margin-bottom: 1.5rem;
+}
+
+.odrynki-section-label,
+.odrynki-section-label-light {
+  display: inline-block;
+  font-family: var(--odrynki-font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--odrynki-burgundy);
+  margin-bottom: var(--odrynki-spacing-sm);
+}
+
+.odrynki-section-label-light {
+  color: var(--odrynki-gold);
+}
+
+.odrynki-lead,
+.odrynki-section-description,
+.odrynki-contact-lead {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: var(--odrynki-gray);
+  max-width: 900px;
+  margin: 0 auto 2rem;
+}
+
+/* ============================================
+   SECTION 1: INTRO / O NAS
+   ============================================ */
+.odrynki-intro-section {
+  background: linear-gradient(135deg, var(--odrynki-cream) 0%, var(--odrynki-beige) 100%);
+  padding: var(--odrynki-spacing-xxl) 0;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  border-bottom: 3px solid var(--odrynki-forest-deep);
+}
+
+.odrynki-intro-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.odrynki-intro-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--odrynki-spacing-xl);
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+  .odrynki-intro-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+}
+
+.odrynki-intro-image {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--odrynki-shadow-lg);
+  transform: translateZ(0);
+  border: 4px solid var(--odrynki-gold);
+}
+
+.odrynki-intro-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 500px;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.odrynki-intro-image:hover img {
+  transform: scale(1.05);
+}
+
+.odrynki-intro-content {
+  padding: var(--odrynki-spacing-md) 0;
+}
+
+.odrynki-intro-features {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--odrynki-spacing-md);
+  margin-top: var(--odrynki-spacing-lg);
+}
+
+@media (min-width: 576px) {
+  .odrynki-intro-features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.odrynki-intro-feature {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  background: var(--odrynki-white);
+  padding: 1.75rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: var(--odrynki-shadow-sm);
+  border-left: 4px solid var(--odrynki-forest-medium);
+}
+
+.odrynki-intro-feature:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--odrynki-shadow-lg);
+  background: linear-gradient(135deg, var(--odrynki-white) 0%, var(--odrynki-cream) 100%);
+  border-left-color: var(--odrynki-burgundy);
+}
+
+.odrynki-feature-icon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.odrynki-feature-content h4 {
+  font-family: var(--odrynki-font-display);
+  color: var(--odrynki-forest-deep);
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.odrynki-feature-content p {
+  font-size: 1.05rem;
+  color: var(--odrynki-gray);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ============================================
+   SECTION 2: ACCOMMODATIONS
+   ============================================ */
+.odrynki-accommodations-section {
+  background: linear-gradient(180deg, var(--odrynki-white) 0%, var(--odrynki-light-bg) 100%);
+  padding: var(--odrynki-spacing-xxl) 0;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  border-top: 1px solid rgba(45, 80, 22, 0.1);
+}
+
+.odrynki-accommodations-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.odrynki-accommodations-header,
+.odrynki-experiences-header,
+.odrynki-testimonials-header {
+  text-align: center;
+  margin-bottom: var(--odrynki-spacing-xl);
+}
+
+.odrynki-accommodations-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--odrynki-spacing-lg);
+}
+
+@media (min-width: 768px) {
+  .odrynki-accommodations-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+.odrynki-accommodation-card {
+  background: var(--odrynki-white);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--odrynki-shadow-md);
+  display: flex;
+  flex-direction: column;
+  border: 3px solid transparent;
+}
+
+.odrynki-accommodation-card:hover {
+  transform: translateY(-10px) scale(1.01);
+  box-shadow: 0 20px 60px rgba(45, 80, 22, 0.25);
+  border-color: var(--odrynki-gold);
+}
+
+.odrynki-accommodation-image {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+}
+
+.odrynki-accommodation-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.odrynki-accommodation-card:hover .odrynki-accommodation-image img {
+  transform: scale(1.08);
+}
+
+.odrynki-accommodation-badge {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: linear-gradient(135deg, var(--odrynki-burgundy) 0%, var(--odrynki-burgundy-light) 100%);
+  color: var(--odrynki-white);
+  padding: 0.65rem 1.25rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  box-shadow: 0 4px 15px rgba(122, 46, 46, 0.4);
+}
+
+.odrynki-accommodation-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.odrynki-accommodation-details {
+  margin: 1rem 0;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, var(--odrynki-cream) 0%, var(--odrynki-beige) 100%);
+  border-radius: 8px;
+  border-left: 3px solid var(--odrynki-forest-medium);
+}
+
+.odrynki-detail-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--odrynki-charcoal);
+  margin: 0;
+}
+
+.odrynki-accommodation-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: var(--odrynki-spacing-md);
+  padding-top: var(--odrynki-spacing-md);
+  border-top: 2px solid rgba(45, 80, 22, 0.1);
+}
+
+.odrynki-accommodation-feature {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 1rem;
+  color: var(--odrynki-gray);
+  font-weight: 500;
+}
+
+.odrynki-accommodation-feature svg {
+  color: var(--odrynki-forest-medium);
+  flex-shrink: 0;
+}
+
+.odrynki-accommodation-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--odrynki-spacing-md);
+  border-top: 2px solid rgba(45, 80, 22, 0.1);
+  margin-top: auto;
+}
+
+.odrynki-accommodation-price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.odrynki-accommodation-price span {
+  font-family: var(--odrynki-font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--odrynki-forest-deep);
+  letter-spacing: -0.02em;
+}
+
+.odrynki-accommodation-price small {
+  font-size: 1.05rem;
+  color: var(--odrynki-gray);
+  font-weight: 500;
+}
+
+.odrynki-btn-book {
+  background: linear-gradient(135deg, var(--odrynki-forest-deep) 0%, var(--odrynki-forest-medium) 100%);
+  color: var(--odrynki-white);
+  padding: 0.95rem 2rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(45, 80, 22, 0.3);
+  border: 2px solid transparent;
+}
+
+.odrynki-btn-book:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 30px rgba(45, 80, 22, 0.4);
+  background: var(--odrynki-forest-medium);
+  color: var(--odrynki-white);
+  text-decoration: none;
+  border-color: var(--odrynki-gold);
+}
+
+/* ============================================
+   SECTION 3: EXPERIENCES
+   ============================================ */
+.odrynki-experiences-section {
+  background: linear-gradient(135deg, var(--odrynki-forest-deep) 0%, #1f3910 100%);
+  padding: var(--odrynki-spacing-xxl) 0;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  box-shadow: inset 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.odrynki-experiences-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.odrynki-experiences-header .odrynki-section-title {
+  color: var(--odrynki-cream);
+}
+
+.odrynki-experiences-header .odrynki-section-description {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.odrynki-experiences-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--odrynki-spacing-lg);
+}
+
+@media (min-width: 576px) {
+  .odrynki-experiences-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .odrynki-experiences-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+.odrynki-experience-card {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  border: 3px solid rgba(197, 165, 114, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.odrynki-experience-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+  border-color: var(--odrynki-gold);
+  background: rgba(255, 255, 255, 1);
+}
+
+.odrynki-experience-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.odrynki-experience-card:hover .odrynki-experience-icon {
+  transform: scale(1.15) rotate(5deg);
+}
+
+/* ============================================
+   SECTION 4: HISTORIA - UNIQUE
+   ============================================ */
+.odrynki-history-section {
+  background: linear-gradient(135deg, var(--odrynki-burgundy) 0%, #5a2222 100%);
+  padding: var(--odrynki-spacing-xxl) 0;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  box-shadow: inset 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.odrynki-history-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.odrynki-history-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--odrynki-spacing-xl);
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+  .odrynki-history-grid {
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 4rem;
+  }
+}
+
+.odrynki-history-content {
+  color: var(--odrynki-cream);
+}
+
+.odrynki-history-timeline {
+  margin-top: var(--odrynki-spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--odrynki-spacing-md);
+}
+
+.odrynki-timeline-item {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.75rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  border-left: 4px solid var(--odrynki-gold);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.odrynki-timeline-item:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateX(10px);
+  border-left-color: var(--odrynki-beige);
+}
+
+.odrynki-timeline-year {
+  font-family: var(--odrynki-font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--odrynki-gold);
+  flex-shrink: 0;
+  width: 80px;
+}
+
+.odrynki-timeline-content h4 {
+  color: var(--odrynki-gold);
+  margin-bottom: 0.75rem;
+  font-size: 1.35rem;
+}
+
+.odrynki-timeline-content p {
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.odrynki-history-image {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--odrynki-shadow-xl);
+  border: 4px solid var(--odrynki-gold);
+}
+
+.odrynki-history-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 500px;
+  transition: transform 0.6s ease;
+}
+
+.odrynki-history-image:hover img {
+  transform: scale(1.05);
+}
+
+/* ============================================
+   SECTION 5: GALLERY
+   ============================================ */
+.odrynki-gallery-section {
+  padding: var(--odrynki-spacing-xl) 0;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: var(--odrynki-light-bg);
+}
+
+.odrynki-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .odrynki-gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .odrynki-gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+.odrynki-gallery-item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  box-shadow: var(--odrynki-shadow-md);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--odrynki-white);
+  border: 3px solid transparent;
+}
+
+.odrynki-gallery-item:hover {
+  box-shadow: var(--odrynki-shadow-xl);
+  transform: translateY(-8px);
+  border-color: var(--odrynki-gold);
+}
+
+.odrynki-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.odrynki-gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+/* ============================================
+   SECTION 6: TESTIMONIALS
+   ============================================ */
+.odrynki-testimonials-section {
+  background-color: var(--odrynki-white);
+  padding: var(--odrynki-spacing-xxl) 0 var(--odrynki-spacing-xxl);
+  margin-bottom: 0;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.odrynki-testimonials-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.odrynki-testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--odrynki-spacing-lg);
+}
+
+@media (min-width: 768px) {
+  .odrynki-testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .odrynki-testimonials-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.odrynki-testimonial-card {
+  background: linear-gradient(135deg, var(--odrynki-white) 0%, var(--odrynki-cream) 100%);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: var(--odrynki-shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: all 0.4s ease;
+  border: 3px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.odrynki-testimonial-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, var(--odrynki-forest-deep) 0%, var(--odrynki-gold) 100%);
+}
+
+.odrynki-testimonial-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 20px 50px rgba(45, 80, 22, 0.2);
+  border-color: var(--odrynki-gold);
+}
+
+.odrynki-testimonial-stars {
+  color: var(--odrynki-gold-dark);
+  font-size: 1.5rem;
+  letter-spacing: 0.3rem;
+}
+
+.odrynki-testimonial-text {
+  font-style: italic;
+  flex-grow: 1;
+  margin: 0;
+  line-height: 1.8;
+  color: var(--odrynki-charcoal);
+  font-size: 1.1rem;
+}
+
+.odrynki-testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid rgba(45, 80, 22, 0.15);
+}
+
+.odrynki-author-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: var(--odrynki-shadow-md);
+  border: 3px solid var(--odrynki-forest-medium);
+}
+
+.odrynki-author-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.odrynki-author-info h5 {
+  font-family: var(--odrynki-font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--odrynki-forest-deep);
+  margin-bottom: 0.25rem;
+}
+
+.odrynki-author-info p {
+  font-size: 1rem;
+  color: var(--odrynki-gray);
+  margin: 0;
+}
+
+/* ============================================
+   SECTION 7: CONTACT/CTA
+   ============================================ */
+.odrynki-contact-section {
+  background: linear-gradient(135deg, var(--odrynki-forest-medium) 0%, var(--odrynki-forest-deep) 100%);
+  color: var(--odrynki-white);
+  padding: var(--odrynki-spacing-xxl) 0;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  box-shadow: inset 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.odrynki-contact-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.odrynki-contact-content {
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.odrynki-contact-lead {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 800px;
+  margin: 0 auto 2.5rem;
+}
+
+.odrynki-hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  justify-content: center;
+  margin-bottom: var(--odrynki-spacing-xl);
+}
+
+.odrynki-btn {
+  display: inline-block;
+  padding: 1.1rem 2.5rem;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+  text-decoration: none;
+}
+
+.odrynki-btn-primary {
+  background-color: var(--odrynki-gold);
+  color: var(--odrynki-charcoal);
+  border-color: var(--odrynki-gold);
+  box-shadow: 0 6px 20px rgba(197, 165, 114, 0.4);
+}
+
+.odrynki-btn-primary:hover {
+  background-color: var(--odrynki-white);
+  color: var(--odrynki-forest-deep);
+  border-color: var(--odrynki-white);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+  text-decoration: none;
+}
+
+.odrynki-btn-secondary {
+  background-color: transparent;
+  color: var(--odrynki-white);
+  border-color: var(--odrynki-white);
+}
+
+.odrynki-btn-secondary:hover {
+  background-color: var(--odrynki-beige);
+  color: var(--odrynki-charcoal);
+  border-color: var(--odrynki-beige);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(232, 220, 200, 0.4);
+  text-decoration: none;
+}
+
+.odrynki-contact-info {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--odrynki-spacing-lg);
+  margin-top: var(--odrynki-spacing-xl);
+  padding-top: var(--odrynki-spacing-xl);
+  border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+@media (min-width: 768px) {
+  .odrynki-contact-info {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.odrynki-contact-item {
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.odrynki-contact-item:hover {
+  transform: translateY(-5px);
+}
+
+.odrynki-contact-item-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.odrynki-contact-item h4 {
+  font-family: var(--odrynki-font-display);
+  color: var(--odrynki-gold);
+  font-size: 1.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.odrynki-contact-item p,
+.odrynki-contact-item a {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  text-decoration: none;
+}
+
+.odrynki-contact-item a:hover {
+  color: var(--odrynki-gold);
+  text-decoration: underline;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+@media (max-width: 991px) {
+  .odrynki-section-title,
+  .odrynki-section-title-light {
+    font-size: 2rem;
+  }
+
+  h3.odrynki-accommodation-name,
+  h3.odrynki-experience-title {
+    font-size: 1.5rem;
+  }
+
+  .odrynki-intro-description,
+  .odrynki-accommodation-description,
+  .odrynki-experience-description,
+  .odrynki-testimonial-text {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .odrynki-intro-section,
+  .odrynki-accommodations-section,
+  .odrynki-experiences-section,
+  .odrynki-history-section,
+  .odrynki-testimonials-section,
+  .odrynki-contact-section {
+    padding: var(--odrynki-spacing-xl) 0;
+  }
+
+  .odrynki-intro-container,
+  .odrynki-accommodations-container,
+  .odrynki-experiences-container,
+  .odrynki-history-container,
+  .odrynki-testimonials-container,
+  .odrynki-contact-container {
+    padding: 0 1.25rem;
+  }
+
+  .odrynki-section-title,
+  .odrynki-section-title-light {
+    font-size: 1.75rem;
+  }
+
+  .odrynki-intro-image img,
+  .odrynki-history-image img {
+    min-height: 350px;
+  }
+
+  .odrynki-accommodation-image {
+    height: 260px;
+  }
+
+  .odrynki-btn,
+  .odrynki-btn-book {
+    padding: 0.85rem 1.75rem;
+    font-size: 0.95rem;
+  }
+
+  .odrynki-timeline-item {
+    flex-direction: column;
+  }
+
+  .odrynki-timeline-year {
+    width: auto;
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+.odrynki-text-center {
+  text-align: center;
+}
+
+/* ============================================
+   SMOOTH SCROLL BEHAVIOR
+   ============================================ */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ============================================
+   FIX GAPS BETWEEN SECTIONS AND FOOTER
+   ============================================ */
+body {
+  overflow-x: hidden;
+}
+
+main {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.section_sub.container {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.section.fp-auto-height {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.section.fp-auto-height.pb-5 {
+  padding-bottom: 0 !important;
+}
+
+.fp-tableCell {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.odrynki-testimonials-section {
+  margin-bottom: 0 !important;
+  padding-bottom: var(--odrynki-spacing-xxl) !important;
+}
+
+footer {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+footer .footer.container {
+  margin-top: 0 !important;
+  padding-top: 2rem !important;
+}
+
+/* ============================================
+   END OF FILE
+   ============================================ */
