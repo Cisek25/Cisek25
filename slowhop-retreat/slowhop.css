@@ -5,26 +5,26 @@
    ============================================ */
 
 /* ============================================
-   CSS VARIABLES - HOSTEL-INSPIRED WARM COLOR SCHEME
+   CSS VARIABLES - BOLD NEW COLOR SCHEME
    ============================================ */
 :root {
-  /* Brand Colors - Warm Hostel-Inspired Palette */
-  --slowhop-mustard: #CDD789;
-  --slowhop-mustard-dark: #B8C276;
-  --slowhop-terracotta: #D47853;
-  --slowhop-terracotta-dark: #C26643;
-  --slowhop-forest: #3A5F4F;
-  --slowhop-forest-light: #4D7665;
-  --slowhop-burgundy: #8B4653;
-  --slowhop-peach: #F4B89C;
-  --slowhop-sand: #F5F1E8;
-  --slowhop-cream: #FFFEF9;
+  /* Brand Colors - Modern Bold Palette */
+  --slowhop-ocean: #0D4F4F;
+  --slowhop-ocean-light: #1A7272;
+  --slowhop-ocean-dark: #083838;
+  --slowhop-amber: #D4A574;
+  --slowhop-amber-dark: #B8935F;
+  --slowhop-coral: #E17B65;
+  --slowhop-coral-dark: #C96850;
+  --slowhop-sage: #8BA888;
+  --slowhop-sand: #F7F3EF;
+  --slowhop-cream: #FFFCF8;
 
   /* Neutral Colors */
-  --slowhop-charcoal: #212121;
-  --slowhop-gray: #555555;
+  --slowhop-charcoal: #2A2A2A;
+  --slowhop-gray: #5A5A5A;
   --slowhop-white: #FFFFFF;
-  --slowhop-light-bg: #FAFAF7;
+  --slowhop-light-bg: #FAF7F3;
 
   /* Spacing - Match Apartments */
   --slowhop-spacing-xs: 0.5rem;
@@ -67,7 +67,7 @@ body {
   line-height: 1.1;
   margin-bottom: 1.5rem;
   font-size: 3rem;
-  color: var(--slowhop-charcoal);
+  color: var(--slowhop-ocean);
   letter-spacing: -0.02em;
 }
 
@@ -81,7 +81,7 @@ h3.slowhop-experience-title {
   font-weight: 700;
   font-size: 1.9rem;
   line-height: 1.2;
-  color: var(--slowhop-charcoal);
+  color: var(--slowhop-ocean);
   margin-bottom: 1rem;
   letter-spacing: -0.01em;
 }
@@ -110,12 +110,12 @@ h4 {
   font-weight: 800;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--slowhop-terracotta);
+  color: var(--slowhop-coral);
   margin-bottom: var(--slowhop-spacing-sm);
 }
 
 .slowhop-section-label-light {
-  color: var(--slowhop-mustard);
+  color: var(--slowhop-amber);
 }
 
 .slowhop-lead,
@@ -140,7 +140,7 @@ h4 {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  border-bottom: 3px solid var(--slowhop-mustard);
+  border-bottom: 3px solid var(--slowhop-ocean);
 }
 
 .slowhop-intro-container {
@@ -208,14 +208,14 @@ h4 {
   border-radius: 16px;
   transition: all 0.3s ease;
   box-shadow: var(--slowhop-shadow-sm);
-  border-left: 4px solid var(--slowhop-mustard);
+  border-left: 4px solid var(--slowhop-ocean);
 }
 
 .slowhop-intro-feature:hover {
   transform: translateY(-6px);
   box-shadow: var(--slowhop-shadow-xl);
-  background: linear-gradient(135deg, var(--slowhop-white) 0%, var(--slowhop-sand) 100%);
-  border-left-color: var(--slowhop-terracotta);
+  background: linear-gradient(135deg, var(--slowhop-white) 0%, var(--slowhop-cream) 100%);
+  border-left-color: var(--slowhop-coral);
 }
 
 .slowhop-feature-icon {
@@ -226,7 +226,7 @@ h4 {
 
 .slowhop-feature-content h4 {
   font-family: var(--slowhop-font-display);
-  color: var(--slowhop-charcoal);
+  color: var(--slowhop-ocean);
   margin-bottom: 0.5rem;
   font-size: 1.75rem;
   font-weight: 700;
@@ -251,7 +251,7 @@ h4 {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  border-top: 1px solid rgba(205, 215, 137, 0.3);
+  border-top: 1px solid rgba(13, 79, 79, 0.1);
 }
 
 .slowhop-accommodations-container {
@@ -298,8 +298,8 @@ h4 {
 
 .slowhop-accommodation-card:hover {
   transform: translateY(-12px) scale(1.02);
-  box-shadow: 0 20px 60px rgba(212, 120, 83, 0.3);
-  border-color: var(--slowhop-terracotta);
+  box-shadow: 0 20px 60px rgba(13, 79, 79, 0.25);
+  border-color: var(--slowhop-coral);
 }
 
 .slowhop-accommodation-image {
@@ -324,7 +324,7 @@ h4 {
   position: absolute;
   top: 1.25rem;
   right: 1.25rem;
-  background: linear-gradient(135deg, var(--slowhop-terracotta) 0%, var(--slowhop-terracotta-dark) 100%);
+  background: linear-gradient(135deg, var(--slowhop-coral) 0%, var(--slowhop-coral-dark) 100%);
   color: var(--slowhop-white);
   padding: 0.75rem 1.5rem;
   border-radius: 50px;
@@ -332,7 +332,7 @@ h4 {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  box-shadow: 0 4px 15px rgba(212, 120, 83, 0.4);
+  box-shadow: 0 4px 15px rgba(225, 123, 101, 0.4);
 }
 
 .slowhop-accommodation-content {
@@ -348,7 +348,7 @@ h4 {
   gap: 1rem;
   margin-bottom: var(--slowhop-spacing-md);
   padding-top: var(--slowhop-spacing-md);
-  border-top: 2px solid rgba(205, 215, 137, 0.3);
+  border-top: 2px solid rgba(13, 79, 79, 0.1);
 }
 
 .slowhop-accommodation-feature {
@@ -361,7 +361,7 @@ h4 {
 }
 
 .slowhop-accommodation-feature svg {
-  color: var(--slowhop-forest);
+  color: var(--slowhop-ocean);
   flex-shrink: 0;
 }
 
@@ -370,7 +370,7 @@ h4 {
   justify-content: space-between;
   align-items: center;
   padding-top: var(--slowhop-spacing-md);
-  border-top: 2px solid rgba(205, 215, 137, 0.3);
+  border-top: 2px solid rgba(13, 79, 79, 0.1);
   margin-top: auto;
 }
 
@@ -384,7 +384,7 @@ h4 {
   font-family: var(--slowhop-font-display);
   font-size: 2.5rem;
   font-weight: 800;
-  color: var(--slowhop-charcoal);
+  color: var(--slowhop-ocean);
   letter-spacing: -0.02em;
 }
 
@@ -395,7 +395,7 @@ h4 {
 }
 
 .slowhop-btn-book {
-  background: linear-gradient(135deg, var(--slowhop-forest) 0%, var(--slowhop-forest-light) 100%);
+  background: linear-gradient(135deg, var(--slowhop-ocean) 0%, var(--slowhop-ocean-light) 100%);
   color: var(--slowhop-white);
   padding: 1rem 2.5rem;
   border-radius: 50px;
@@ -406,24 +406,24 @@ h4 {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-block;
   text-decoration: none;
-  box-shadow: 0 6px 20px rgba(58, 95, 79, 0.35);
+  box-shadow: 0 6px 20px rgba(13, 79, 79, 0.3);
   border: 2px solid transparent;
 }
 
 .slowhop-btn-book:hover {
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 12px 30px rgba(58, 95, 79, 0.45);
-  background: var(--slowhop-burgundy);
+  box-shadow: 0 12px 30px rgba(13, 79, 79, 0.4);
+  background: var(--slowhop-ocean-light);
   color: var(--slowhop-white);
   text-decoration: none;
-  border-color: var(--slowhop-mustard);
+  border-color: var(--slowhop-amber);
 }
 
 /* ============================================
    SECTION 3: EXPERIENCES
    ============================================ */
 .slowhop-experiences-section {
-  background: linear-gradient(135deg, var(--slowhop-forest) 0%, var(--slowhop-burgundy) 100%);
+  background: linear-gradient(135deg, var(--slowhop-ocean) 0%, var(--slowhop-ocean-dark) 100%);
   padding: var(--slowhop-spacing-xxl) 0;
   width: 100vw;
   position: relative;
@@ -466,14 +466,14 @@ h4 {
   text-align: center;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  border: 3px solid rgba(205, 215, 137, 0.4);
+  border: 3px solid rgba(212, 165, 116, 0.3);
   backdrop-filter: blur(10px);
 }
 
 .slowhop-experience-card:hover {
   transform: translateY(-10px) scale(1.03);
   box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
-  border-color: var(--slowhop-mustard);
+  border-color: var(--slowhop-amber);
   background: rgba(255, 255, 255, 1);
 }
 
@@ -612,17 +612,17 @@ h4 {
   left: 0;
   width: 100%;
   height: 6px;
-  background: linear-gradient(90deg, var(--slowhop-forest) 0%, var(--slowhop-terracotta) 100%);
+  background: linear-gradient(90deg, var(--slowhop-ocean) 0%, var(--slowhop-coral) 100%);
 }
 
 .slowhop-testimonial-card:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 50px rgba(58, 95, 79, 0.25);
-  border-color: var(--slowhop-mustard);
+  box-shadow: 0 20px 50px rgba(13, 79, 79, 0.2);
+  border-color: var(--slowhop-amber);
 }
 
 .slowhop-testimonial-stars {
-  color: var(--slowhop-mustard);
+  color: var(--slowhop-amber);
   font-size: 1.6rem;
   letter-spacing: 0.4rem;
 }
@@ -640,7 +640,7 @@ h4 {
   align-items: center;
   gap: 1.25rem;
   padding-top: 1.5rem;
-  border-top: 2px solid rgba(205, 215, 137, 0.3);
+  border-top: 2px solid rgba(13, 79, 79, 0.15);
 }
 
 .slowhop-author-avatar {
@@ -650,7 +650,7 @@ h4 {
   overflow: hidden;
   flex-shrink: 0;
   box-shadow: var(--slowhop-shadow-md);
-  border: 4px solid var(--slowhop-forest);
+  border: 4px solid var(--slowhop-ocean);
 }
 
 .slowhop-author-avatar img {
@@ -663,7 +663,7 @@ h4 {
   font-family: var(--slowhop-font-display);
   font-size: 1.3rem;
   font-weight: 700;
-  color: var(--slowhop-charcoal);
+  color: var(--slowhop-ocean);
   margin-bottom: 0.35rem;
 }
 
@@ -677,7 +677,7 @@ h4 {
    SECTION 6: CONTACT/CTA
    ============================================ */
 .slowhop-contact-section {
-  background: linear-gradient(135deg, var(--slowhop-terracotta) 0%, var(--slowhop-burgundy) 100%);
+  background: linear-gradient(135deg, var(--slowhop-coral) 0%, var(--slowhop-coral-dark) 100%);
   color: var(--slowhop-white);
   padding: var(--slowhop-spacing-xxl) 0;
   width: 100vw;
@@ -730,15 +730,15 @@ h4 {
 }
 
 .slowhop-btn-primary {
-  background-color: var(--slowhop-forest);
+  background-color: var(--slowhop-ocean);
   color: var(--slowhop-white);
-  border-color: var(--slowhop-forest);
-  box-shadow: 0 6px 20px rgba(58, 95, 79, 0.4);
+  border-color: var(--slowhop-ocean);
+  box-shadow: 0 6px 20px rgba(13, 79, 79, 0.4);
 }
 
 .slowhop-btn-primary:hover {
   background-color: var(--slowhop-white);
-  color: var(--slowhop-charcoal);
+  color: var(--slowhop-ocean);
   border-color: var(--slowhop-white);
   transform: translateY(-4px) scale(1.05);
   box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
@@ -752,11 +752,11 @@ h4 {
 }
 
 .slowhop-btn-secondary:hover {
-  background-color: var(--slowhop-mustard);
+  background-color: var(--slowhop-amber);
   color: var(--slowhop-charcoal);
-  border-color: var(--slowhop-mustard);
+  border-color: var(--slowhop-amber);
   transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 10px 30px rgba(205, 215, 137, 0.4);
+  box-shadow: 0 10px 30px rgba(212, 165, 116, 0.4);
   text-decoration: none;
 }
 
@@ -806,7 +806,7 @@ h4 {
 }
 
 .slowhop-contact-item a:hover {
-  color: var(--slowhop-mustard);
+  color: var(--slowhop-amber);
   text-decoration: underline;
 }
 
