@@ -1485,10 +1485,12 @@ footer a:hover {
 /* Slick slider */
 .offerslist.slick-slider {
   margin: 0 -15px !important;
+  display: block !important;
 }
 
 .offerslist .slick-slide {
   padding: 0 15px !important;
+  display: block !important;
 }
 
 /* Karta oferty */
@@ -1764,9 +1766,9 @@ footer a:hover {
   max-width: none !important;
 }
 
-/* UKRYJ SYSTEMOWE OFERTY */
+/* Oferty systemowe - teraz widoczne */
 .offerslist {
-  display: none !important;
+  display: block !important;
 }
 
 /* 2. NAGŁÓWKI */
