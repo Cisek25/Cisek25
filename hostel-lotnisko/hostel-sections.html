@@ -52,6 +52,23 @@
     </section>
 
     <!-- ============================================
+         SECTION 2.5: WYRÓŻNIONE POKOJE (3 w rzędzie)
+         ============================================ -->
+    <section class="featured-rooms-section" id="featured-rooms" style="display: none;">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Najlepszy wybór</span>
+                <h2 class="section-title">Wyróżnione Pokoje</h2>
+                <p class="section-description">Najpopularniejsze i najlepiej oceniane przez naszych gości</p>
+            </div>
+
+            <div class="featured-rooms-grid" id="featured-rooms-grid">
+                <!-- Pokoje będą dodawane dynamicznie przez JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
          SECTION 3: POKOJE
          ============================================ -->
     <section class="rooms-section">
@@ -64,9 +81,9 @@
 
             <div class="rooms-grid">
                 <!-- Pokój 1: Dormitorium 8-osobowe -->
-                <div class="room-card">
+                <div class="room-card" data-featured="true">
                     <div class="room-image">
-                        <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=600&h=400&fit=crop&sat=-20" alt="Dormitorium 8-osobowe">
+                        <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&h=600&fit=crop" alt="Dormitorium 8-osobowe - Hostélowe łóżka piętrowe z lampkami">
                         <div class="room-badge">Najpopularniejsze</div>
                     </div>
                     <div class="room-content">
@@ -109,7 +126,7 @@
                 <!-- Pokój 2: Dormitorium 6-osobowe -->
                 <div class="room-card">
                     <div class="room-image">
-                        <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&h=400&fit=crop" alt="Dormitorium 6-osobowe">
+                        <img src="https://images.unsplash.com/photo-1596436889106-be35e843f974?w=800&h=600&fit=crop" alt="Dormitorium 6-osobowe - Nowoczesne hostelowe łóżka">
                     </div>
                     <div class="room-content">
                         <h3 class="room-name">Dormitorium 6-osobowe</h3>
@@ -151,7 +168,7 @@
                 <!-- Pokój 3: Dormitorium 4-osobowe -->
                 <div class="room-card">
                     <div class="room-image">
-                        <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&h=400&fit=crop" alt="Dormitorium 4-osobowe">
+                        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&h=600&fit=crop" alt="Dormitorium 4-osobowe - Przestronne łóżka piętrowe">
                     </div>
                     <div class="room-content">
                         <h3 class="room-name">Dormitorium 4-osobowe</h3>
@@ -191,9 +208,9 @@
                 </div>
 
                 <!-- Pokój 4: Pokój Prywatny 2-osobowy -->
-                <div class="room-card room-card-featured">
+                <div class="room-card room-card-featured" data-featured="true">
                     <div class="room-image">
-                        <img src="https://images.unsplash.com/photo-1566195992011-5f6b21e539aa?w=600&h=400&fit=crop" alt="Pokój Prywatny">
+                        <img src="https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=800&h=600&fit=crop" alt="Pokój Prywatny - Przytulny pokój z dużym łóżkiem double">
                         <div class="room-badge room-badge-premium">Premium</div>
                     </div>
                     <div class="room-content">
@@ -233,7 +250,7 @@
                 <!-- Pokój 5: Pokój Prywatny 1-osobowy -->
                 <div class="room-card">
                     <div class="room-image">
-                        <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=600&h=400&fit=crop" alt="Pokój Single">
+                        <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800&h=600&fit=crop" alt="Pokój Single - Minimalistyczny pokój z pojedynczym łóżkiem">
                     </div>
                     <div class="room-content">
                         <h3 class="room-name">Pokój Prywatny Single</h3>
@@ -270,9 +287,9 @@
                 </div>
 
                 <!-- Pokój 6: Dormitorium Damskie -->
-                <div class="room-card">
+                <div class="room-card" data-featured="true">
                     <div class="room-image">
-                        <img src="https://images.unsplash.com/photo-1595846519845-68e298c2edd8?w=600&h=400&fit=crop" alt="Dormitorium Damskie">
+                        <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800&h=600&fit=crop" alt="Dormitorium Damskie - Jasne i bezpieczne łóżka tylko dla kobiet">
                         <div class="room-badge room-badge-female">Tylko dla Kobiet</div>
                     </div>
                     <div class="room-content">
