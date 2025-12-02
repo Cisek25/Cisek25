@@ -1,6 +1,1294 @@
 <!-- HOSTEL - HEAD SECTION -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="hostel.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Urban Wings Hostel - Nowoczesny Hostel przy Lotnisku</title>
+<style>
+/* ============================================
+   ULTIMATE HOSTEL CSS - KOMPLETNY PLIK
+
+   Urban Wings Hostel - Blue + Purple theme
+
+   Zawiera WSZYSTKO:
+   - Strona główna
+   - Podstrona /offers
+   - Podstrona /contact
+   - Podstrona /offer/ID
+
+   Blue: #3B82F6 | Purple: #8B5CF6 | Amber: #F59E0B
+   ============================================ */
+/* ============================================
+   GLOBAL HOSTEL CSS - URBAN WINGS HOSTEL
+   Kompleksowy CSS dla WSZYSTKICH podstron
+
+   Blue: #3B82F6
+   Purple: #8B5CF6
+   Amber: #F59E0B
+
+   OBEJMUJE:
+   - Strona główna (homepage)
+   - Podstrona /offers (lista pokoi)
+   - Podstrona /contact (kontakt)
+   - Podstrona /offer/ID (pojedyncze pokoje)
+   - Menu, footer, elementy wspólne
+
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* ===================================
+     NOWA PROFESJONALNA PALETA - HOSTEL
+     Błękitno-granatowa z gradientami
+     Zaufanie • Pewność • Komfort
+     =================================== */
+
+  /* Primary Blues - Profesjonalne błękity */
+  --ocean-blue: #0EA5E9;        /* Sky blue - główny kolor brandu */
+  --royal-blue: #3B82F6;        /* Bright blue - akcent dynamiczny */
+  --deep-navy: #1E3A8A;         /* Navy - elegancki głęboki niebieski */
+  --midnight: #0F172A;          /* Slate 900 - premium ciemny */
+
+  /* Secondary & Accents - Świeże akcenty */
+  --cyan-bright: #06B6D4;       /* Cyan - nowoczesny akcent */
+  --aqua-fresh: #14B8A6;        /* Teal - spokojny, przyjazny */
+  --sky-light: #38BDF8;         /* Light sky - jasny akcent */
+  --indigo: #6366F1;            /* Indigo - kreatywny akcent */
+
+  /* Neutrals - Premium grays & whites */
+  --cloud: #F8FAFC;             /* Slate 50 - czyste tło */
+  --ice: #F1F5F9;               /* Slate 100 - subtelne tło */
+  --light-gray: #E2E8F0;        /* Slate 200 - delikatny kontrast */
+  --cool-gray: #CBD5E1;         /* Slate 300 - borders */
+  --silver-blue: #64748B;       /* Slate 500 - neutralny tekst */
+  --charcoal: #1E293B;          /* Slate 800 - główny tekst */
+  --graphite: #0F172A;          /* Slate 900 - nagłówki */
+  --white: #FFFFFF;             /* Pure white */
+
+  /* Legacy compatibility (mapped to new colors) */
+  --mustard: var(--ocean-blue);
+  --mustard-dark: var(--royal-blue);
+  --terracotta: var(--deep-navy);
+  --terracotta-dark: var(--midnight);
+  --teal: var(--ocean-blue);
+  --teal-dark: var(--deep-navy);
+  --coral: var(--cyan-bright);
+  --sage: var(--aqua-fresh);
+  --gray: var(--silver-blue);
+  --gray-light: var(--cloud);
+  --gray-dark: var(--charcoal);
+
+  /* Gradients - Nowoczesne gradienty */
+  --gradient-primary: linear-gradient(135deg, #0EA5E9 0%, #3B82F6 50%, #1E3A8A 100%);
+  --gradient-hero: linear-gradient(135deg, #06B6D4 0%, #0EA5E9 60%, #3B82F6 100%);
+  --gradient-accent: linear-gradient(135deg, #3B82F6 0%, #6366F1 100%);
+  --gradient-dark: linear-gradient(135deg, #1E3A8A 0%, #0F172A 100%);
+  --gradient-light: linear-gradient(180deg, #F8FAFC 0%, #E2E8F0 100%);
+  --gradient-overlay: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.85) 100%);
+
+  /* Shadows - Premium shadows z niebieskim odcieniem */
+  --shadow-sm: 0 2px 8px rgba(14, 165, 233, 0.08);
+  --shadow-md: 0 4px 16px rgba(14, 165, 233, 0.12);
+  --shadow-lg: 0 8px 24px rgba(30, 58, 138, 0.15);
+  --shadow-xl: 0 12px 32px rgba(30, 58, 138, 0.20);
+  --shadow-glow: 0 0 40px rgba(14, 165, 233, 0.3);
+}
+
+/* ===========================
+   GLOBAL STYLES
+   =========================== */
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--charcoal);
+  line-height: 1.6;
+  background: var(--cloud);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--graphite);
+}
+
+h1 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+h2 { font-size: 2rem; margin-bottom: 1.25rem; }
+h3 { font-size: 1.75rem; margin-bottom: 1rem; }
+h4 { font-size: 1.5rem; margin-bottom: 0.875rem; }
+
+p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+
+/* ===========================
+   FOOTER
+   =========================== */
+
+.footer-contact-phone a,
+.footer-contact-phone,
+.footer-phone,
+footer .phone {
+  white-space: nowrap !important;
+  display: inline-block !important;
+}
+
+.footer-contact-phone br,
+.footer-phone br,
+footer .phone br {
+  display: none !important;
+}
+
+/* ===========================
+   MENU NAWIGACYJNE
+   =========================== */
+
+.navbar-nav .nav-link {
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 1.45rem !important;
+  letter-spacing: 0.3px !important;
+  transition: all 0.3s ease !important;
+  padding: 0.75rem 1.25rem !important;
+  position: relative !important;
+}
+
+.navbar-nav .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 80%;
+  height: 3px;
+  background: var(--gradient-primary);
+  transition: transform 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--ocean-blue) !important;
+}
+
+.navbar-nav .nav-link:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* ===========================
+   BIG LABEL - Gradient line
+   =========================== */
+
+.big-label {
+  font-family: 'Poppins', sans-serif;
+  color: var(--gray-dark);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 2.5rem 0 2rem 0;
+  position: relative;
+  padding-bottom: 1.25rem;
+  display: block;
+  line-height: 1.2;
+}
+
+.big-label::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 120px;
+  height: 4px;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+  box-shadow: var(--shadow-sm);
+}
+
+.big-label small {
+  display: none !important;
+}
+
+/* ===========================
+   BUTTONS - Global styling
+   =========================== */
+
+.btn,
+button,
+.button,
+a.btn {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+}
+
+/* ===========================
+   OFFERS PAGE - /offers
+   =========================== */
+
+/* Przyciski SZCZEGÓŁY */
+.accommodation-buttons {
+  text-align: right !important;
+  margin-top: 1.5rem !important;
+  float: none !important;
+  display: block !important;
+  min-width: auto !important;
+}
+
+.accommodation-buttons a {
+  display: inline-block !important;
+  text-decoration: none !important;
+  background: var(--gradient-primary) !important;
+  color: white !important;
+  padding: 0.75rem 2.25rem !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.5px !important;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  border: none !important;
+  font-size: 1rem !important;
+  box-shadow: var(--shadow-md) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  line-height: 1 !important;
+}
+
+.accommodation-buttons a .btn,
+.accommodation-buttons a span.btn {
+  background: none !important;
+  color: inherit !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  display: inline !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  text-transform: inherit !important;
+  letter-spacing: inherit !important;
+  border-radius: 0 !important;
+  transition: none !important;
+  position: static !important;
+}
+
+.accommodation-buttons a:hover {
+  transform: translateY(-4px) scale(1.02) !important;
+  box-shadow: var(--shadow-xl) !important;
+  background: var(--gradient-hero) !important;
+}
+
+.accommodation-buttons a::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.accommodation-buttons a:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Przycisk ZASTOSUJ FILTRY */
+#filter_buttons {
+  text-align: center !important;
+  padding: 1.5rem 1rem !important;
+  margin: 1.5rem 0 !important;
+}
+
+#filter_buttons button,
+#filter_buttons .btn {
+  width: auto !important;
+  min-width: 240px !important;
+  background: var(--gradient-primary) !important;
+  color: white !important;
+  border: none !important;
+  padding: 1.2rem 3.5rem !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.5px !important;
+  cursor: pointer !important;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  display: inline-block !important;
+  margin: 0 auto !important;
+  box-shadow: var(--shadow-md) !important;
+  font-size: 1.05rem !important;
+  text-align: center !important;
+}
+
+#filter_buttons button:hover,
+#filter_buttons .btn:hover {
+  background: var(--gradient-hero) !important;
+  transform: translateY(-4px) scale(1.03) !important;
+  box-shadow: var(--shadow-xl) !important;
+}
+
+/* FILTRY */
+.filter_header {
+  background: transparent;
+  padding: 1rem 1.25rem;
+  border-bottom: 2px solid var(--gray-light);
+  cursor: pointer;
+  margin-bottom: 0.75rem;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px 8px 0 0;
+}
+
+.filter_header:hover {
+  border-bottom-color: var(--ocean-blue);
+  background: rgba(14, 165, 233, 0.06);
+}
+
+.filter_header strong {
+  font-weight: 600;
+  color: var(--charcoal);
+  font-size: 1.15rem;
+  transition: color 0.3s ease;
+}
+
+.filter_header:hover strong {
+  color: var(--ocean-blue);
+}
+
+.filter_header i {
+  transition: all 0.3s ease;
+  color: var(--silver-blue);
+  font-size: 1rem;
+}
+
+.filter_header:hover i {
+  color: var(--ocean-blue);
+  transform: scale(1.15);
+}
+
+.filter_content {
+  max-height: 450px;
+  overflow-y: auto;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1;
+  padding: 1rem 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.filter_content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.filter_content::-webkit-scrollbar-track {
+  background: var(--gray-light);
+  border-radius: 4px;
+}
+
+.filter_content::-webkit-scrollbar-thumb {
+  background: var(--gradient-primary);
+  border-radius: 4px;
+}
+
+.filter_content::-webkit-scrollbar-thumb:hover {
+  background: var(--ocean-blue);
+}
+
+/* CHECKBOXY */
+.checkbox {
+  padding: 0.65rem 1rem;
+  margin: 0.35rem 0;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.checkbox:hover {
+  background: rgba(14, 165, 233, 0.06);
+  transform: translateX(5px);
+}
+
+.checkbox label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-weight: 400;
+  color: var(--charcoal);
+  font-size: 1.2rem !important;
+  line-height: 1.5;
+  transition: color 0.2s ease;
+}
+
+.checkbox:hover label {
+  color: var(--ocean-blue);
+}
+
+.checkbox input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  margin-right: 1rem;
+  cursor: pointer;
+  accent-color: var(--ocean-blue);
+  transition: transform 0.2s ease;
+}
+
+.checkbox input[type="checkbox"]:hover {
+  transform: scale(1.15);
+}
+
+.checkbox input[type="checkbox"]:checked + span {
+  font-weight: 600;
+  color: var(--ocean-blue);
+}
+
+/* PAYMENT INFO */
+.payment-info {
+  background: rgba(14, 165, 233, 0.05);
+  border-left: 5px solid var(--ocean-blue);
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  transition: all 0.3s ease;
+}
+
+.payment-info:hover {
+  background: rgba(14, 165, 233, 0.08);
+  box-shadow: var(--shadow-md);
+  border-left-width: 7px;
+}
+
+.payment-info h5 {
+  font-size: 1.2rem !important;
+  margin-bottom: 1rem !important;
+  font-weight: 600 !important;
+  color: var(--gray-dark) !important;
+}
+
+.payment-info p,
+.payment-info li {
+  font-size: 1.1rem !important;
+  line-height: 1.7 !important;
+  color: var(--gray-dark) !important;
+  margin-bottom: 0.75rem !important;
+}
+
+/* OFFERS CARDS */
+.offers-container,
+.accommodation-item,
+.offer-item {
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-md);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid var(--light-gray);
+}
+
+.offers-container:hover,
+.accommodation-item:hover,
+.offer-item:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--ocean-blue);
+}
+
+.object-icon img,
+.offer-image img,
+.accommodation-image img {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.offers-container:hover .object-icon img {
+  transform: scale(1.08);
+}
+
+.accommodation-rest h2 a,
+.offer-content h2 a {
+  color: var(--gray-dark);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.accommodation-rest h2 a:hover,
+.offer-content h2 a:hover {
+  color: var(--ocean-blue);
+}
+
+.accommodation-short-description {
+  font-size: 1.4rem !important;
+  font-weight: 500 !important;
+  color: var(--charcoal) !important;
+  line-height: 1.6 !important;
+  margin-bottom: 1.5rem !important;
+  margin-top: 1rem !important;
+}
+
+.object-price .price,
+.accommodation-price .price {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+  font-size: 1.9rem;
+}
+
+/* ===========================
+   CONTACT PAGE
+   =========================== */
+
+.contact-page {
+  padding: 2rem 0;
+}
+
+.contact__label {
+  font-family: 'Poppins', sans-serif;
+  color: var(--gray-dark);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.contact__label::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100px;
+  height: 4px;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+}
+
+.contact__block strong {
+  color: var(--graphite);
+  font-weight: 600;
+}
+
+.contact__tel,
+.contact__email {
+  color: var(--ocean-blue);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.contact__tel:hover,
+.contact__email:hover {
+  color: var(--royal-blue);
+  text-decoration: underline;
+  transform: translateX(3px);
+}
+
+.contact__item {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.75rem 2rem;
+  background: rgba(14, 165, 233, 0.05);
+  border-radius: 14px;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+  border-left: 5px solid var(--ocean-blue);
+}
+
+.contact__item:hover {
+  background: rgba(14, 165, 233, 0.08);
+  box-shadow: var(--shadow-md);
+  transform: translateX(8px);
+  border-left-width: 7px;
+}
+
+.contact__item i {
+  color: var(--ocean-blue);
+  font-size: 1.75rem;
+}
+
+.contact__btn {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: var(--gradient-primary);
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  box-shadow: var(--shadow-md);
+}
+
+.contact__btn:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: var(--shadow-xl);
+  background: var(--gradient-hero);
+  color: white;
+}
+
+/* ===========================
+   OFFER PAGE
+   =========================== */
+
+.offer-amenities span,
+.offer-advantages span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  background: rgba(14, 165, 233, 0.08);
+  border-radius: 24px;
+  font-size: 0.95rem;
+  color: var(--charcoal);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.offer-amenities span:hover,
+.offer-advantages span:hover {
+  background: var(--ocean-blue);
+  color: white;
+  transform: translateY(-3px);
+  border-color: var(--royal-blue);
+  box-shadow: var(--shadow-sm);
+}
+
+.offer-prices {
+  background: rgba(14, 165, 233, 0.05);
+  border-left: 5px solid var(--ocean-blue);
+  padding: 2rem 2.5rem;
+  border-radius: 14px;
+  margin: 2rem 0;
+}
+
+.offer-form .btn {
+  background: var(--gradient-primary);
+  color: white;
+  padding: 1.2rem 3.5rem;
+  border-radius: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: var(--shadow-md);
+}
+
+.offer-form .btn:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: var(--shadow-xl);
+  background: var(--gradient-hero);
+}
+
+/* ===========================
+   MOBILE RESPONSIVE
+   =========================== */
+
+@media (max-width: 768px) {
+  .big-label {
+    font-size: 1.75rem;
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 1.1rem !important;
+  }
+
+  .accommodation-buttons a {
+    padding: 0.57rem 1.3rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .big-label {
+    font-size: 1.5rem;
+  }
+
+  .accommodation-buttons a {
+    padding: 0.49rem 0.98rem !important;
+  }
+}
+
+/* ===========================
+   UTILITY CLASSES
+   =========================== */
+
+.text-blue { color: var(--ocean-blue) !important; }
+.text-navy { color: var(--deep-navy) !important; }
+.bg-blue { background-color: var(--ocean-blue) !important; }
+.bg-navy { background-color: var(--deep-navy) !important; }
+
+#backTop {
+  background: var(--gradient-primary);
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  box-shadow: var(--shadow-md);
+}
+
+#backTop:hover {
+  background: var(--gradient-hero);
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: var(--shadow-glow);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: var(--ocean-blue);
+  color: white;
+}
+
+::-moz-selection {
+  background: var(--ocean-blue);
+  color: white;
+}
+
+/* ============================================
+   SEKCJA HERO - Kluczowe wartości
+   Lokalizacja • Cena • Czystość • Udogodnienia
+   ============================================ */
+.hero-values-section {
+  background: var(--gradient-dark);
+  padding: 4rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-values-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(14, 165, 233, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.hero-values-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 768px) {
+  .hero-values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-values-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.hero-value-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-value-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.hero-value-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 15px 40px rgba(14, 165, 233, 0.3);
+}
+
+.hero-value-card:hover::before {
+  opacity: 0.1;
+}
+
+.hero-value-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-value-icon svg {
+  color: var(--sky-light);
+  filter: drop-shadow(0 2px 8px rgba(14, 165, 233, 0.4));
+}
+
+.hero-value-card:hover .hero-value-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.hero-value-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 0.75rem;
+  position: relative;
+  z-index: 1;
+  letter-spacing: -0.01em;
+}
+
+.hero-value-desc {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-value-badge {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--white);
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ============================================
+   SECTION: WYRÓŻNIONE POKOJE (3 w rzędzie)
+   Featured Rooms Section
+   ============================================ */
+.featured-rooms-section {
+  background: var(--gradient-light);
+  padding: 6rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.featured-rooms-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--gradient-primary);
+}
+
+.featured-rooms-section .section-header {
+  text-align: center;
+  margin-bottom: 4.5rem;
+}
+
+.featured-rooms-section .section-label {
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ocean-blue);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.featured-rooms-section .section-title {
+  font-size: 3.25rem;
+  font-weight: 800;
+  color: var(--graphite);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.featured-rooms-section .section-description {
+  font-size: 1.3rem;
+  color: var(--silver-blue);
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.featured-rooms-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .featured-rooms-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .featured-rooms-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.featured-room-card {
+  background: var(--white);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 3px solid var(--light-gray);
+  position: relative;
+}
+
+.featured-room-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 3px;
+  background: var(--gradient-primary);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.featured-room-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: var(--shadow-glow);
+}
+
+.featured-room-card:hover::after {
+  opacity: 1;
+}
+
+/* ============================================
+   SECTION: POKOJE (Wszystkie pokoje)
+   Rooms Section
+   ============================================ */
+.rooms-section,
+.about-section,
+.amenities-section,
+.spaces-section,
+.location-section,
+.attractions-section,
+.pricing-section,
+.rules-section,
+.faq-section,
+.contact-section {
+  padding: 5rem 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-label {
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ocean-blue);
+  margin-bottom: 1rem;
+  display: block;
+  position: relative;
+}
+
+.section-title {
+  font-size: 2.9rem;
+  font-weight: 800;
+  color: var(--graphite);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.section-description {
+  font-size: 1.25rem;
+  color: var(--silver-blue);
+  max-width: 850px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ============================================
+   ROOM CARDS - Karty pokoi
+   ============================================ */
+.rooms-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .rooms-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .rooms-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.room-card {
+  background: var(--white);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid var(--light-gray);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.room-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 18px;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+.room-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--ocean-blue);
+}
+
+.room-card:hover::before {
+  opacity: 0.15;
+}
+
+.room-image {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+}
+
+.room-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.room-card:hover .room-image img {
+  transform: scale(1.1);
+}
+
+.room-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--gradient-accent);
+  color: var(--white);
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(8px);
+}
+
+.room-badge-premium {
+  background: var(--gradient-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.room-badge-female {
+  background: linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%);
+  box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+}
+
+.room-content {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.room-name {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--graphite);
+  margin-bottom: 1.25rem;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.room-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid var(--light-gray);
+}
+
+.room-feature {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--silver-blue);
+  font-weight: 500;
+}
+
+.room-feature svg {
+  color: var(--ocean-blue);
+  flex-shrink: 0;
+}
+
+.room-amenities {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+  flex-grow: 1;
+}
+
+.room-amenities li {
+  font-size: 0.95rem;
+  color: var(--gray-dark);
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;
+  line-height: 1.5;
+}
+
+.room-amenities li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--ocean-blue);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.room-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--light-gray);
+  margin-top: auto;
+}
+
+.room-price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.price-from {
+  font-size: 0.85rem;
+  color: var(--silver-blue);
+  font-weight: 500;
+}
+
+.price-amount {
+  font-size: 2.15rem;
+  font-weight: 800;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.price-period {
+  font-size: 0.95rem;
+  color: var(--silver-blue);
+  font-weight: 500;
+}
+
+.room-btn {
+  background: var(--gradient-primary);
+  color: var(--white);
+  padding: 0.95rem 2.25rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: var(--shadow-md);
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.room-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-hero);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.room-btn span {
+  position: relative;
+  z-index: 1;
+}
+
+.room-btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: var(--shadow-xl);
+  text-decoration: none;
+  color: var(--white);
+}
+
+.room-btn:hover::before {
+  opacity: 1;
+}
+
+/* ===========================
+   END OF FILE
+   =========================== */
+</style>
