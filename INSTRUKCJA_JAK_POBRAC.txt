@@ -1,0 +1,150 @@
+═══════════════════════════════════════════════════════════════
+  🏨 GENERATOR KODU IDOBOOKING - ULTRA EDITION v2.0
+  JAK POBRAĆ I URUCHOMIĆ?
+═══════════════════════════════════════════════════════════════
+
+📦 METODA 1: POBIERZ FOLDER Z GITHUB (NAJŁATWIEJSZA!)
+═══════════════════════════════════════════════════════════════
+
+1. Idź na: https://github.com/Cisek25/Cisek25
+
+2. Kliknij zielony przycisk "Code"
+   (w prawym górnym rogu, nad listą plików)
+
+3. Wybierz "Download ZIP"
+
+4. Rozpakuj pobrany plik ZIP
+
+5. Znajdź folder "generator-idobooking"
+
+6. W tym folderze kliknij DWUKROTNIE na plik: index.html
+
+7. ✅ GOTOWE! Generator otworzy się w przeglądarce
+
+
+📂 METODA 2: POBIERZ TYLKO POTRZEBNE PLIKI
+═══════════════════════════════════════════════════════════════
+
+1. Idź na: https://github.com/Cisek25/Cisek25/tree/claude/fix-funds-display-01RS9szhKaN5f6PfzFPpknJN/generator-idobooking
+
+2. Pobierz każdy plik osobno:
+   - index.html (kliknij → Raw → Ctrl+S / Cmd+S "Zapisz jako")
+   - styles.css (kliknij → Raw → Ctrl+S / Cmd+S "Zapisz jako")
+   - app.js (kliknij → Raw → Ctrl+S / Cmd+S "Zapisz jako")
+
+3. Zapisz wszystkie 3 pliki w TYM SAMYM folderze na pulpicie
+
+4. Kliknij DWUKROTNIE na index.html
+
+5. ✅ GOTOWE!
+
+
+💻 METODA 3: PRZEZ GIT (DLA ZAAWANSOWANYCH)
+═══════════════════════════════════════════════════════════════
+
+git clone https://github.com/Cisek25/Cisek25.git
+cd Cisek25/generator-idobooking
+open index.html    # MacOS
+start index.html   # Windows
+xdg-open index.html # Linux
+
+
+❓ CO JEŚLI NIE DZIAŁA?
+═══════════════════════════════════════════════════════════════
+
+PROBLEM: Widzę stare kolory / nie działa
+ROZWIĄZANIE:
+- Wyczyść cache przeglądarki (Ctrl+Shift+R lub Cmd+Shift+R)
+- Lub otwórz w trybie incognito (Ctrl+Shift+N)
+- Upewnij się że jesteś na branchu: claude/fix-funds-display-01RS9szhKaN5f6PfzFPpknJN
+
+PROBLEM: Kod na dole strony się "sypie"
+ROZWIĄZANIE:
+- To była STARA wersja (code-generator.html)
+- Użyj NOWEJ wersji (folder generator-idobooking/)
+- NOWA wersja = 4 osobne pliki, nie 1 wielki plik!
+
+PROBLEM: Nie mogę pobrać z GitHub
+ROZWIĄZANIE:
+- Sprawdź połączenie internetowe
+- Spróbuj innej przeglądarki
+- Wyłącz blokadę reklam / antywirus tymczasowo
+
+
+🎯 CO OTRZYMUJESZ?
+═══════════════════════════════════════════════════════════════
+
+✅ 17 gotowych szablonów do wyboru
+✅ 72+ udogodnienia (w 4 kategoriach)
+✅ 12 palet kolorów (one-click)
+✅ 6 parametrów obiektu
+✅ Generuje 5 bloków kodu:
+   1. Kod do <head>
+   2. Hero section
+   3. Sekcja CMS
+   4. JavaScript
+   5. CSS
+
+✅ Przycisk "Kopiuj" dla każdego bloku
+✅ Działa OFFLINE (bez internetu!)
+✅ Żadnych instalacji / zależności
+✅ Responsywny design
+
+
+📝 JAK UŻYWAĆ GENERATORA?
+═══════════════════════════════════════════════════════════════
+
+1. Otwórz index.html
+
+2. OPCJA A: Wybierz gotowy szablon z listy
+   (np. "Luksusowy apartament górski")
+   → Wszystko wypełni się automatycznie!
+
+3. OPCJA B: Wypełnij ręcznie:
+   - Nazwa obiektu (WYMAGANE)
+   - Opisy (krótki i długi)
+   - Parametry (powierzchnia, cena, etc.)
+   - Kolory (kliknij paletę lub ustaw własne)
+   - Zdjęcia (dodaj linki URL)
+   - Udogodnienia (zaznacz co oferujesz)
+
+4. Kliknij "🚀 Generuj kod HTML/CSS"
+
+5. Skopiuj każdy blok kodu (przycisk "Kopiuj")
+
+6. Wklej w odpowiednie miejsca w systemie idobooking
+
+7. ✅ GOTOWE!
+
+
+📁 STRUKTURA PLIKÓW
+═══════════════════════════════════════════════════════════════
+
+generator-idobooking/
+├── index.html      ← OTWÓRZ TEN PLIK!
+├── styles.css      ← Style (musi być w tym samym folderze)
+├── app.js          ← Logika (musi być w tym samym folderze)
+└── README.md       ← Dokumentacja
+
+
+⚠️ WAŻNE!
+═══════════════════════════════════════════════════════════════
+
+❌ NIE używaj starego pliku "code-generator.html"
+   (był bugowany, teraz zastąpiony przez ULTRA Edition)
+
+✅ UŻYWAJ nowego folderu "generator-idobooking/"
+   (4 pliki, działa 100%)
+
+
+🆘 POTRZEBUJESZ POMOCY?
+═══════════════════════════════════════════════════════════════
+
+- Otwórz README.md w folderze generator-idobooking
+- Lub zapytaj na GitHubie
+- Lub skontaktuj się z supportem idobooking
+
+
+═══════════════════════════════════════════════════════════════
+  MIŁEGO GENEROWANIA! 🚀
+═══════════════════════════════════════════════════════════════
