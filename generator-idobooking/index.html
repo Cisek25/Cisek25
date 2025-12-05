@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Kodu idobooking - ULTRA Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div>
+                <h1>🏨 Generator Kodu idobooking</h1>
+                <p>ULTRA Edition - Profesjonalne narzędzie z 72+ udogodnieniami i 12+ szablonami</p>
+            </div>
+            <div class="version">v2.0 ULTRA</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="templates-section">
+                <label for="template" class="section-label">⚡ Szybki start - Szablon:</label>
+                <select id="template" class="select-field" onchange="loadTemplate()">
+                    <option value="">-- Wybierz szablon --</option>
+                    <optgroup label="🏔️ Górskie">
+                        <option value="luxury-mountain">Luksusowy apartament górski</option>
+                        <option value="mountain-chalet">Chalet w Alpach</option>
+                        <option value="ski-resort">Ośrodek narciarski</option>
+                    </optgroup>
+                    <optgroup label="🏖️ Nadmorskie">
+                        <option value="beach-resort">Resort nad morzem</option>
+                        <option value="beach-villa">Willa z widokiem na ocean</option>
+                        <option value="lighthouse">Latarnia morska - boutique</option>
+                    </optgroup>
+                    <optgroup label="🏙️ Miejskie">
+                        <option value="city-hostel">Hostel miejski</option>
+                        <option value="boutique-hotel">Boutique hotel</option>
+                        <option value="loft">Loft w centrum</option>
+                    </optgroup>
+                    <optgroup label="🌲 Wiejskie">
+                        <option value="cottage">Domek w lesie</option>
+                        <option value="farm-stay">Agroturystyka</option>
+                        <option value="vineyard">Winnica z noclegiem</option>
+                    </optgroup>
+                    <optgroup label="💆 Wellness">
+                        <option value="spa">Wellness & SPA</option>
+                        <option value="yoga-retreat">Yoga Retreat</option>
+                    </optgroup>
+                    <optgroup label="🏰 Premium">
+                        <option value="castle">Zamek</option>
+                        <option value="mansion">Rezydencja</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="scroll-content">
+                <section class="form-section">
+                    <h3 class="section-title">📝 Podstawowe dane</h3>
+                    <div class="field">
+                        <label>Typ obiektu</label>
+                        <select id="type" class="select-field">
+                            <option>Apartament</option>
+                            <option>Hostel</option>
+                            <option>Pensjonat</option>
+                            <option>Domek</option>
+                            <option>Hotel</option>
+                            <option>Resort</option>
+                            <option>Willa</option>
+                            <option>Chalet</option>
+                            <option>Loft</option>
+                            <option>Zamek</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Nazwa obiektu *</label>
+                        <input type="text" id="name" placeholder="np. Villa Sunrise">
+                    </div>
+                    <div class="field">
+                        <label>Opis krótki (meta)</label>
+                        <textarea id="short" rows="2" placeholder="Krótki opis (max 160 znaków)"></textarea>
+                    </div>
+                    <div class="field">
+                        <label>Opis długi</label>
+                        <textarea id="long" rows="4" placeholder="Pełny opis obiektu..."></textarea>
+                    </div>
+                </section>
+
+                <section class="form-section">
+                    <h3 class="section-title">📊 Parametry</h3>
+                    <div class="grid-2">
+                        <div class="field">
+                            <label>Powierzchnia (m²)</label>
+                            <input type="number" id="area" placeholder="45">
+                        </div>
+                        <div class="field">
+                            <label>Cena od (zł)</label>
+                            <input type="number" id="price" placeholder="250">
+                        </div>
+                        <div class="field">
+                            <label>Liczba gości</label>
+                            <input type="number" id="guests" placeholder="4">
+                        </div>
+                        <div class="field">
+                            <label>Liczba pokoi</label>
+                            <input type="number" id="rooms" placeholder="2">
+                        </div>
+                        <div class="field">
+                            <label>Liczba łóżek</label>
+                            <input type="number" id="beds" placeholder="2">
+                        </div>
+                        <div class="field">
+                            <label>Łazienki</label>
+                            <input type="number" id="bathrooms" placeholder="1">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form-section">
+                    <h3 class="section-title">🎨 Kolory (12 palet)</h3>
+                    <div class="palettes-grid">
+                        <button class="palette-btn" onclick="setColors('#3B82F6','#10B981')">Ocean</button>
+                        <button class="palette-btn" onclick="setColors('#8B5CF6','#EC4899')">Purple</button>
+                        <button class="palette-btn" onclick="setColors('#F59E0B','#EF4444')">Sunset</button>
+                        <button class="palette-btn" onclick="setColors('#10B981','#059669')">Forest</button>
+                        <button class="palette-btn" onclick="setColors('#2C3E50','#34495E')">Dark</button>
+                        <button class="palette-btn" onclick="setColors('#E74C3C','#C0392B')">Red</button>
+                        <button class="palette-btn" onclick="setColors('#16A085','#1ABC9C')">Teal</button>
+                        <button class="palette-btn" onclick="setColors('#E67E22','#D35400')">Orange</button>
+                        <button class="palette-btn" onclick="setColors('#9B59B6','#8E44AD')">Violet</button>
+                        <button class="palette-btn" onclick="setColors('#34495E','#2C3E50')">Navy</button>
+                        <button class="palette-btn" onclick="setColors('#F39C12','#E67E22')">Gold</button>
+                        <button class="palette-btn" onclick="setColors('#1ABC9C','#16A085')">Mint</button>
+                    </div>
+                    <div class="grid-2" style="margin-top: 16px;">
+                        <div class="field">
+                            <label>Główny</label>
+                            <div class="color-picker">
+                                <input type="color" id="col1" value="#3B82F6">
+                                <input type="text" id="col1t" value="#3B82F6">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Akcent</label>
+                            <div class="color-picker">
+                                <input type="color" id="col2" value="#10B981">
+                                <input type="text" id="col2t" value="#10B981">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form-section">
+                    <h3 class="section-title">📷 Zdjęcia</h3>
+                    <div id="images"></div>
+                    <button class="btn-add" onclick="addImg()">+ Dodaj zdjęcie</button>
+                </section>
+
+                <section class="form-section">
+                    <h3 class="section-title">✨ Udogodnienia (72+)</h3>
+                    <div class="amenities-tabs">
+                        <button class="tab-btn active" onclick="showTab('basic')">Podstawowe</button>
+                        <button class="tab-btn" onclick="showTab('premium')">Premium</button>
+                        <button class="tab-btn" onclick="showTab('outdoor')">Outdoor</button>
+                        <button class="tab-btn" onclick="showTab('other')">Inne</button>
+                    </div>
+                    <div id="amenities-basic" class="amenities-tab active"></div>
+                    <div id="amenities-premium" class="amenities-tab"></div>
+                    <div id="amenities-outdoor" class="amenities-tab"></div>
+                    <div id="amenities-other" class="amenities-tab"></div>
+                </section>
+
+                <button class="btn-generate" onclick="generate()">🚀 Generuj kod HTML/CSS</button>
+            </div>
+        </aside>
+
+        <main class="output" id="output">
+            <div class="empty-state">
+                <div class="empty-icon">📝</div>
+                <h2>Gotowy do generowania</h2>
+                <p>Wypełnij formularz po lewej i kliknij "Generuj kod"</p>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
