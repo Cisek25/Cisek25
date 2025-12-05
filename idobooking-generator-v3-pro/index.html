@@ -47,9 +47,14 @@
                         <section class="section">
                             <div class="section-header">
                                 <h3>📦 Obiekty/Pokoje</h3>
-                                <button class="btn-add" onclick="addObject()">+ Dodaj obiekt</button>
+                                <button class="btn-add" id="addObjectBtn">+ Dodaj obiekt</button>
                             </div>
-                            <div id="objectsList" class="objects-list"></div>
+                            <div id="objectsList" class="objects-list">
+                                <div class="empty-state-small">
+                                    <p>Nie dodano jeszcze żadnych pokoi/obiektów.</p>
+                                    <p class="hint">Kliknij "+ Dodaj obiekt" aby rozpocząć</p>
+                                </div>
+                            </div>
                         </section>
 
                         <!-- USTAWIENIA GLOBALNE -->
@@ -57,46 +62,65 @@
                             <h3>⚙️ Ustawienia globalne</h3>
 
                             <div class="field">
-                                <label>Nazwa obiektu głównego</label>
-                                <input type="text" id="siteName" placeholder="np. Hotel Górski">
+                                <label>Wybierz gotowy szablon (opcjonalnie)</label>
+                                <select id="templateSelect">
+                                    <option value="">Nie wybieraj szablonu (własne ustawienia)</option>
+                                </select>
+                                <span class="hint">Szablony automatycznie ustawiają kolory, fonty i layout</span>
                             </div>
 
                             <div class="field">
-                                <label>Kolory (auto-dobrane)</label>
+                                <label>Nazwa obiektu głównego</label>
+                                <input type="text" id="propertyName" placeholder="np. Hotel Górski">
+                            </div>
+
+                            <div class="field">
+                                <label>Kolory (auto-dobrane lub własne)</label>
                                 <div class="colors-grid">
                                     <div class="color-item">
-                                        <input type="color" id="colorPrimary">
+                                        <input type="color" id="colorPrimary" value="#2C3E50">
                                         <span>Główny</span>
                                     </div>
                                     <div class="color-item">
-                                        <input type="color" id="colorSecondary">
+                                        <input type="color" id="colorSecondary" value="#ECF0F1">
                                         <span>Drugorzędny</span>
                                     </div>
                                     <div class="color-item">
-                                        <input type="color" id="colorAccent">
+                                        <input type="color" id="colorAccent" value="#CDD789">
                                         <span>Akcent</span>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="field">
-                                <label>Fonty</label>
+                                <label>Czcionka nagłówków</label>
                                 <select id="fontHeading">
                                     <option value="Cinzel">Cinzel (elegancki)</option>
                                     <option value="Playfair Display">Playfair Display</option>
                                     <option value="Montserrat">Montserrat (nowoczesny)</option>
                                     <option value="Poppins">Poppins</option>
+                                    <option value="Raleway">Raleway</option>
+                                    <option value="Oswald">Oswald</option>
+                                    <option value="Great Vibes">Great Vibes (romantyczny)</option>
+                                    <option value="Bebas Neue">Bebas Neue (bold)</option>
                                 </select>
+                            </div>
+
+                            <div class="field">
+                                <label>Czcionka tekstu</label>
                                 <select id="fontBody">
                                     <option value="Inter">Inter</option>
                                     <option value="Open Sans">Open Sans</option>
                                     <option value="Lato">Lato</option>
+                                    <option value="Roboto">Roboto</option>
+                                    <option value="Nunito">Nunito</option>
+                                    <option value="Source Sans Pro">Source Sans Pro</option>
                                 </select>
                             </div>
                         </section>
 
                         <!-- GENERUJ -->
-                        <button class="btn btn-generate" onclick="generateCode()">
+                        <button class="btn btn-generate" id="generateBtn">
                             🚀 Generuj kod HTML/CSS
                         </button>
                     </div>

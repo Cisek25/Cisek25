@@ -693,3 +693,323 @@ input, select, textarea {
         width: 100%;
     }
 }
+
+/* ========================================
+   MODAL
+   ======================================== */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: var(--z-modal);
+    display: none;
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+}
+
+.modal-content {
+    position: relative;
+    background: white;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-2xl);
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: slideInUp var(--transition-base);
+}
+
+.modal-large .modal-content {
+    max-width: 1200px;
+}
+
+.modal-header {
+    padding: var(--space-lg);
+    border-bottom: 1px solid var(--gray-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: var(--text-2xl);
+}
+
+.btn-close {
+    background: transparent;
+    border: none;
+    font-size: var(--text-2xl);
+    cursor: pointer;
+    color: var(--gray-600);
+    transition: color var(--transition-fast);
+}
+
+.btn-close:hover {
+    color: var(--danger);
+}
+
+.modal-body {
+    flex: 1;
+    padding: var(--space-lg);
+    overflow-y: auto;
+}
+
+.modal-footer {
+    padding: var(--space-lg);
+    border-top: 1px solid var(--gray-200);
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-md);
+}
+
+/* ========================================
+   OBJECT CARDS
+   ======================================== */
+
+.objects-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.empty-state-small {
+    text-align: center;
+    padding: var(--space-lg);
+    color: var(--gray-600);
+}
+
+.empty-state-small p {
+    margin-bottom: var(--space-sm);
+    font-size: var(--text-sm);
+}
+
+.object-card {
+    background: white;
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    transition: all var(--transition-fast);
+}
+
+.object-card:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+}
+
+.object-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-sm);
+}
+
+.object-card-header h4 {
+    margin: 0;
+    font-size: var(--text-lg);
+}
+
+.object-actions {
+    display: flex;
+    gap: var(--space-xs);
+}
+
+.btn-icon {
+    background: transparent;
+    border: 1px solid var(--gray-300);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: var(--text-sm);
+}
+
+.btn-icon:hover {
+    background: var(--gray-100);
+    border-color: var(--gray-400);
+}
+
+.btn-icon.btn-danger:hover {
+    background: var(--danger);
+    border-color: var(--danger);
+    color: white;
+}
+
+.object-card-content {
+    font-size: var(--text-sm);
+}
+
+.object-description {
+    color: var(--gray-700);
+    margin-bottom: var(--space-sm);
+}
+
+.object-price {
+    font-weight: var(--font-semibold);
+    color: var(--primary);
+    margin-bottom: var(--space-sm);
+}
+
+.object-meta {
+    display: flex;
+    gap: var(--space-md);
+    color: var(--gray-600);
+    font-size: var(--text-xs);
+}
+
+/* ========================================
+   AMENITIES SELECTOR
+   ======================================== */
+
+.amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.amenity-checkbox {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.amenity-checkbox:hover {
+    background: var(--gray-50);
+    border-color: var(--primary-light);
+}
+
+.amenity-checkbox input[type="checkbox"] {
+    cursor: pointer;
+}
+
+.amenity-checkbox input[type="checkbox"]:checked + span {
+    font-weight: var(--font-semibold);
+    color: var(--primary);
+}
+
+/* ========================================
+   CUSTOM FIELDS
+   ======================================== */
+
+.custom-field-row {
+    display: flex;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+}
+
+.custom-field-row input {
+    flex: 1;
+}
+
+.field-key {
+    min-width: 150px;
+}
+
+/* ========================================
+   CODE DISPLAY
+   ======================================== */
+
+.code-section {
+    margin-bottom: var(--space-2xl);
+}
+
+.code-section h4 {
+    margin-bottom: var(--space-md);
+}
+
+.code-actions {
+    display: flex;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.code-section pre {
+    background: var(--gray-900);
+    color: #f8f8f2;
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.code-section code {
+    font-family: inherit;
+}
+
+.info-box {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+    border: 2px solid var(--primary-light);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-top: var(--space-xl);
+}
+
+.info-box h4 {
+    margin-bottom: var(--space-md);
+    color: var(--primary);
+}
+
+.info-box ol {
+    list-style: decimal;
+    padding-left: var(--space-lg);
+}
+
+.info-box li {
+    margin-bottom: var(--space-sm);
+    color: var(--gray-700);
+}
+
+.info-box strong {
+    color: var(--primary);
+}
+
+/* ========================================
+   HINTS & HELPERS
+   ======================================== */
+
+.hint {
+    font-size: var(--text-xs);
+    color: var(--gray-500);
+    font-style: italic;
+    margin-top: var(--space-xs);
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
