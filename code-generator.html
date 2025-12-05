@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Kodu idobooking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 450px 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .form-panel {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 20px;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+
+        .form-panel h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .images-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .image-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .image-input-group input {
+            flex: 1;
+        }
+
+        .btn-remove {
+            padding: 12px 16px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn-add {
+            padding: 12px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .btn-add:hover {
+            background: #5568d3;
+        }
+
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .amenity-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .btn-generate {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .output-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .code-block {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .code-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .code-block-header h3 {
+            color: #667eea;
+            font-size: 1.3rem;
+        }
+
+        .btn-copy {
+            padding: 10px 20px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-copy:hover {
+            background: #059669;
+        }
+
+        .btn-copy.copied {
+            background: #6366f1;
+        }
+
+        .code-content {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .code-content pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .color-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .color-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .color-input-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .color-input-wrapper input[type="color"] {
+            width: 60px;
+            height: 45px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .color-input-wrapper input[type="text"] {
+            flex: 1;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-panel {
+                position: relative;
+                max-height: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏨 Generator Kodu idobooking</h1>
+            <p>Wprowadź dane, wygeneruj gotowy kod do wklejenia</p>
+        </div>
+
+        <div class="main-grid">
+            <!-- Panel formularza -->
+            <div class="form-panel">
+                <h2>📝 Dane obiektu</h2>
+
+                <div class="form-group">
+                    <label for="objectType">Typ obiektu</label>
+                    <select id="objectType">
+                        <option value="apartment">Apartament</option>
+                        <option value="hostel">Hostel</option>
+                        <option value="guesthouse">Pensjonat</option>
+                        <option value="cottage">Domek</option>
+                        <option value="retreat">Retreat/Wellness</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="objectName">Nazwa obiektu</label>
+                    <input type="text" id="objectName" placeholder="np. Apartamenty Górskie">
+                </div>
+
+                <div class="form-group">
+                    <label for="shortDesc">Opis krótki (1-2 zdania)</label>
+                    <textarea id="shortDesc" placeholder="Krótki, zachęcający opis..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="longDesc">Opis długi</label>
+                    <textarea id="longDesc" placeholder="Pełny opis obiektu..." style="min-height: 120px;"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="area">Powierzchnia (m²)</label>
+                    <input type="number" id="area" placeholder="np. 45">
+                </div>
+
+                <div class="form-group">
+                    <label for="priceFrom">Cena od (zł)</label>
+                    <input type="number" id="priceFrom" placeholder="np. 250">
+                </div>
+
+                <div class="form-group">
+                    <label for="guests">Liczba gości (max)</label>
+                    <input type="number" id="guests" placeholder="np. 4">
+                </div>
+
+                <div class="form-group">
+                    <label>Kolory motywu</label>
+                    <div class="color-inputs">
+                        <div class="color-input-group">
+                            <label style="font-size: 0.85rem; font-weight: normal;">Kolor główny</label>
+                            <div class="color-input-wrapper">
+                                <input type="color" id="colorPrimary" value="#3B82F6">
+                                <input type="text" id="colorPrimaryText" value="#3B82F6">
+                            </div>
+                        </div>
+                        <div class="color-input-group">
+                            <label style="font-size: 0.85rem; font-weight: normal;">Kolor akcent</label>
+                            <div class="color-input-wrapper">
+                                <input type="color" id="colorAccent" value="#8B5CF6">
+                                <input type="text" id="colorAccentText" value="#8B5CF6">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Zdjęcia (linki URL)</label>
+                    <div id="imagesContainer" class="images-container">
+                        <div class="image-input-group">
+                            <input type="text" class="image-url" placeholder="https://...">
+                            <button type="button" class="btn-remove" onclick="removeImage(this)">✕</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-add" onclick="addImageInput()">+ Dodaj zdjęcie</button>
+                </div>
+
+                <div class="form-group">
+                    <label>Udogodnienia</label>
+                    <div class="amenities-grid">
+                        <div class="amenity-item">
+                            <input type="checkbox" id="wifi" value="WiFi">
+                            <label for="wifi" style="font-weight: normal; margin: 0;">WiFi</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="parking" value="Parking">
+                            <label for="parking" style="font-weight: normal; margin: 0;">Parking</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="kitchen" value="Kuchnia">
+                            <label for="kitchen" style="font-weight: normal; margin: 0;">Kuchnia</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="tv" value="TV">
+                            <label for="tv" style="font-weight: normal; margin: 0;">TV</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="aircon" value="Klimatyzacja">
+                            <label for="aircon" style="font-weight: normal; margin: 0;">Klimatyzacja</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="breakfast" value="Śniadanie">
+                            <label for="breakfast" style="font-weight: normal; margin: 0;">Śniadanie</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="pets" value="Zwierzęta">
+                            <label for="pets" style="font-weight: normal; margin: 0;">Zwierzęta</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="pool" value="Basen">
+                            <label for="pool" style="font-weight: normal; margin: 0;">Basen</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-generate" onclick="generateCode()">🚀 Generuj kod</button>
+            </div>
+
+            <!-- Panel wyników -->
+            <div class="output-panel" id="outputPanel">
+                <div class="code-block hidden" id="headBlock">
+                    <div class="code-block-header">
+                        <h3>📄 Kod do &lt;head&gt;</h3>
+                        <button class="btn-copy" onclick="copyCode('headCode')">Kopiuj</button>
+                    </div>
+                    <div class="code-content">
+                        <pre id="headCode"></pre>
+                    </div>
+                </div>
+
+                <div class="code-block hidden" id="bodyStartBlock">
+                    <div class="code-block-header">
+                        <h3>🔝 Kod na początek &lt;body&gt;</h3>
+                        <button class="btn-copy" onclick="copyCode('bodyStartCode')">Kopiuj</button>
+                    </div>
+                    <div class="code-content">
+                        <pre id="bodyStartCode"></pre>
+                    </div>
+                </div>
+
+                <div class="code-block hidden" id="cmsBlock">
+                    <div class="code-block-header">
+                        <h3>🎨 Sekcja CMS (główna treść)</h3>
+                        <button class="btn-copy" onclick="copyCode('cmsCode')">Kopiuj</button>
+                    </div>
+                    <div class="code-content">
+                        <pre id="cmsCode"></pre>
+                    </div>
+                </div>
+
+                <div class="code-block hidden" id="bodyEndBlock">
+                    <div class="code-block-header">
+                        <h3>🔚 Kod na koniec &lt;body&gt;</h3>
+                        <button class="btn-copy" onclick="copyCode('bodyEndCode')">Kopiuj</button>
+                    </div>
+                    <div class="code-content">
+                        <pre id="bodyEndCode"></pre>
+                    </div>
+                </div>
+
+                <div class="code-block hidden" id="cssBlock">
+                    <div class="code-block-header">
+                        <h3>🎨 Arkusz stylów CSS</h3>
+                        <button class="btn-copy" onclick="copyCode('cssCode')">Kopiuj</button>
+                    </div>
+                    <div class="code-content">
+                        <pre id="cssCode"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Synchronizacja color picker z text input
+        document.getElementById('colorPrimary').addEventListener('input', (e) => {
+            document.getElementById('colorPrimaryText').value = e.target.value;
+        });
+        document.getElementById('colorPrimaryText').addEventListener('input', (e) => {
+            document.getElementById('colorPrimary').value = e.target.value;
+        });
+        document.getElementById('colorAccent').addEventListener('input', (e) => {
+            document.getElementById('colorAccentText').value = e.target.value;
+        });
+        document.getElementById('colorAccentText').addEventListener('input', (e) => {
+            document.getElementById('colorAccent').value = e.target.value;
+        });
+
+        function addImageInput() {
+            const container = document.getElementById('imagesContainer');
+            const div = document.createElement('div');
+            div.className = 'image-input-group';
+            div.innerHTML = `
+                <input type="text" class="image-url" placeholder="https://...">
+                <button type="button" class="btn-remove" onclick="removeImage(this)">✕</button>
+            `;
+            container.appendChild(div);
+        }
+
+        function removeImage(btn) {
+            const container = document.getElementById('imagesContainer');
+            if (container.children.length > 1) {
+                btn.parentElement.remove();
+            }
+        }
+
+        function getSelectedAmenities() {
+            const amenities = [];
+            const checkboxes = document.querySelectorAll('.amenity-item input[type="checkbox"]:checked');
+            checkboxes.forEach(cb => amenities.push(cb.value));
+            return amenities;
+        }
+
+        function getImageUrls() {
+            const urls = [];
+            document.querySelectorAll('.image-url').forEach(input => {
+                if (input.value.trim()) {
+                    urls.push(input.value.trim());
+                }
+            });
+            return urls;
+        }
+
+        function generateCode() {
+            // Pobierz dane z formularza
+            const data = {
+                type: document.getElementById('objectType').value,
+                name: document.getElementById('objectName').value,
+                shortDesc: document.getElementById('shortDesc').value,
+                longDesc: document.getElementById('longDesc').value,
+                area: document.getElementById('area').value,
+                priceFrom: document.getElementById('priceFrom').value,
+                guests: document.getElementById('guests').value,
+                colorPrimary: document.getElementById('colorPrimaryText').value,
+                colorAccent: document.getElementById('colorAccentText').value,
+                images: getImageUrls(),
+                amenities: getSelectedAmenities()
+            };
+
+            // Generuj kod dla każdej sekcji
+            generateHeadCode(data);
+            generateBodyStartCode(data);
+            generateCMSCode(data);
+            generateBodyEndCode(data);
+            generateCSSCode(data);
+
+            // Pokaż wszystkie bloki
+            document.querySelectorAll('.code-block').forEach(block => {
+                block.classList.remove('hidden');
+            });
+
+            // Scroll do wyników
+            document.getElementById('outputPanel').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function generateHeadCode(data) {
+            const code = `<!-- Meta tagi i fonty -->
+<meta name="description" content="${data.shortDesc}">
+<meta property="og:title" content="${data.name}">
+<meta property="og:description" content="${data.shortDesc}">
+${data.images[0] ? `<meta property="og:image" content="${data.images[0]}">` : ''}
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Link do CSS (dodaj na końcu head) -->
+<link rel="stylesheet" href="custom-styles.css">`;
+
+            document.getElementById('headCode').textContent = code;
+        }
+
+        function generateBodyStartCode(data) {
+            const code = `<!-- Hero Section -->
+<section class="hero-section" style="background: linear-gradient(135deg, ${data.colorPrimary} 0%, ${data.colorAccent} 100%);">
+    <div class="hero-content">
+        <h1 class="hero-title">${data.name}</h1>
+        <p class="hero-subtitle">${data.shortDesc}</p>
+        <div class="hero-badges">
+            ${data.area ? `<span class="badge">📏 ${data.area} m²</span>` : ''}
+            ${data.guests ? `<span class="badge">👥 Do ${data.guests} osób</span>` : ''}
+            ${data.priceFrom ? `<span class="badge">💰 Od ${data.priceFrom} zł/noc</span>` : ''}
+        </div>
+        <a href="#rezerwacja" class="hero-cta">Zarezerwuj teraz</a>
+    </div>
+</section>`;
+
+            document.getElementById('bodyStartCode').textContent = code;
+        }
+
+        function generateCMSCode(data) {
+            let amenitiesHTML = '';
+            if (data.amenities.length > 0) {
+                amenitiesHTML = `
+    <div class="amenities-section">
+        <h3>✨ Udogodnienia</h3>
+        <div class="amenities-grid">
+            ${data.amenities.map(a => `<div class="amenity-badge">${a}</div>`).join('\n            ')}
+        </div>
+    </div>`;
+            }
+
+            let galleryHTML = '';
+            if (data.images.length > 0) {
+                galleryHTML = `
+    <div class="gallery-section">
+        <h3>📸 Galeria</h3>
+        <div class="gallery-grid">
+            ${data.images.map(img => `<div class="gallery-item">
+                <img src="${img}" alt="${data.name}" loading="lazy">
+            </div>`).join('\n            ')}
+        </div>
+    </div>`;
+            }
+
+            const code = `<!-- Główna sekcja treści -->
+<section class="main-content-section">
+    <div class="content-container">
+        <div class="content-description">
+            <h2>O obiekcie</h2>
+            <p>${data.longDesc}</p>
+        </div>
+${amenitiesHTML}${galleryHTML}
+        <div class="booking-section">
+            <h3>📅 Rezerwacja</h3>
+            <p>Sprawdź dostępność i zarezerwuj pobyt w ${data.name}</p>
+            <a href="#rezerwacja" class="btn-booking">Sprawdź dostępność</a>
+        </div>
+    </div>
+</section>`;
+
+            document.getElementById('cmsCode').textContent = code;
+        }
+
+        function generateBodyEndCode(data) {
+            const code = `<!-- Skrypty na koniec body -->
+<script>
+    // Smooth scroll dla linków
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Lazy loading dla obrazów
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src || img.src;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+</script>`;
+
+            document.getElementById('bodyEndCode').textContent = code;
+        }
+
+        function generateCSSCode(data) {
+            const code = `/* Custom Styles dla ${data.name} */
+:root {
+    --color-primary: ${data.colorPrimary};
+    --color-accent: ${data.colorAccent};
+    --color-text: #1a202c;
+    --color-text-light: #4a5568;
+    --color-bg: #ffffff;
+    --color-bg-light: #f7fafc;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 120px 20px 80px;
+    text-align: center;
+    color: white;
+}
+
+.hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    margin-bottom: 30px;
+    opacity: 0.95;
+}
+
+.hero-badges {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.badge {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.hero-cta {
+    display: inline-block;
+    background: white;
+    color: var(--color-primary);
+    padding: 18px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.hero-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Main Content Section */
+.main-content-section {
+    padding: 80px 20px;
+    background: var(--color-bg-light);
+}
+
+.content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.content-description {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.content-description h2 {
+    color: var(--color-primary);
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+}
+
+.content-description p {
+    font-size: 1.1rem;
+    color: var(--color-text-light);
+    line-height: 1.8;
+}
+
+/* Amenities Section */
+.amenities-section {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.amenities-section h3 {
+    color: var(--color-primary);
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+}
+
+.amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.amenity-badge {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    color: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* Gallery Section */
+.gallery-section {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.gallery-section h3 {
+    color: var(--color-primary);
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.gallery-item {
+    border-radius: 15px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.gallery-item:hover {
+    transform: scale(1.03);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Booking Section */
+.booking-section {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    color: white;
+    padding: 50px 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.booking-section h3 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.booking-section p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    opacity: 0.95;
+}
+
+.btn-booking {
+    display: inline-block;
+    background: white;
+    color: var(--color-primary);
+    padding: 18px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-booking:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 80px 20px 60px;
+    }
+
+    .hero-badges {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .content-description,
+    .amenities-section,
+    .gallery-section,
+    .booking-section {
+        padding: 30px 20px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}`;
+
+            document.getElementById('cssCode').textContent = code;
+        }
+
+        function copyCode(elementId) {
+            const code = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Skopiowano!';
+                btn.classList.add('copied');
+
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
