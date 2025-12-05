@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator Kodu idobooking</title>
+    <title>Generator Kodu idobooking - Professional</title>
     <style>
         * {
             margin: 0;
@@ -12,102 +12,142 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f8f9fa;
             min-height: 100vh;
-            padding: 20px;
+            padding: 0;
+        }
+
+        .top-bar {
+            background: #1f2937;
+            color: white;
+            padding: 20px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .top-bar h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .top-bar p {
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
-        }
-
-        .header {
-            text-align: center;
-            color: white;
-            margin-bottom: 40px;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+            padding: 30px;
         }
 
         .main-grid {
             display: grid;
-            grid-template-columns: 450px 1fr;
-            gap: 20px;
+            grid-template-columns: 420px 1fr;
+            gap: 30px;
             align-items: start;
         }
 
         .form-panel {
             background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid #e5e7eb;
             position: sticky;
-            top: 20px;
-            max-height: calc(100vh - 40px);
+            top: 30px;
+            max-height: calc(100vh - 60px);
             overflow-y: auto;
         }
 
-        .form-panel h2 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
+        .form-section {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: #333;
+            margin-bottom: 6px;
+            color: #374151;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.875rem;
         }
 
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            transition: border-color 0.3s;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            font-family: inherit;
         }
 
         .form-group input:focus,
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
         .form-group textarea {
-            min-height: 80px;
+            min-height: 70px;
             resize: vertical;
+        }
+
+        .template-select {
+            background: #f3f4f6;
+            border: 2px dashed #9ca3af;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .template-select label {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .template-select select {
+            background: white;
         }
 
         .images-container {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .image-input-group {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .image-input-group input {
@@ -115,67 +155,115 @@
         }
 
         .btn-remove {
-            padding: 12px 16px;
-            background: #ff4757;
+            padding: 10px 14px;
+            background: #ef4444;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .btn-remove:hover {
+            background: #dc2626;
         }
 
         .btn-add {
-            padding: 12px 20px;
-            background: #667eea;
+            padding: 10px 16px;
+            background: #10b981;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 0.95rem;
-            margin-top: 10px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-top: 8px;
             width: 100%;
+            transition: background 0.2s;
         }
 
         .btn-add:hover {
-            background: #5568d3;
+            background: #059669;
         }
 
         .amenities-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            gap: 8px;
         }
 
         .amenity-item {
             display: flex;
             align-items: center;
             gap: 8px;
+            padding: 6px 8px;
+            background: #f9fafb;
+            border-radius: 6px;
         }
 
         .amenity-item input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             cursor: pointer;
+        }
+
+        .amenity-item label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin: 0 !important;
+            cursor: pointer;
+        }
+
+        .color-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .color-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .color-input-wrapper {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .color-input-wrapper input[type="color"] {
+            width: 50px;
+            height: 40px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .color-input-wrapper input[type="text"] {
+            flex: 1;
         }
 
         .btn-generate {
             width: 100%;
             padding: 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #1f2937;
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
             cursor: pointer;
+            transition: all 0.2s;
             margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-            transition: transform 0.2s;
         }
 
         .btn-generate:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            background: #111827;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         .output-panel {
@@ -186,51 +274,55 @@
 
         .code-block {
             background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid #e5e7eb;
         }
 
         .code-block-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f3f4f6;
         }
 
         .code-block-header h3 {
-            color: #667eea;
-            font-size: 1.3rem;
+            color: #1f2937;
+            font-size: 1.1rem;
+            font-weight: 700;
         }
 
         .btn-copy {
-            padding: 10px 20px;
-            background: #10b981;
+            padding: 8px 18px;
+            background: #3b82f6;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             font-weight: 600;
-            transition: background 0.3s;
+            transition: background 0.2s;
         }
 
         .btn-copy:hover {
-            background: #059669;
+            background: #2563eb;
         }
 
         .btn-copy.copied {
-            background: #6366f1;
+            background: #10b981;
         }
 
         .code-content {
             background: #1e293b;
             color: #e2e8f0;
-            padding: 20px;
-            border-radius: 10px;
+            padding: 16px;
+            border-radius: 8px;
             overflow-x: auto;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 0.85rem;
             line-height: 1.6;
             max-height: 500px;
             overflow-y: auto;
@@ -242,38 +334,52 @@
             word-wrap: break-word;
         }
 
-        .color-inputs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .color-input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .color-input-wrapper {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .color-input-wrapper input[type="color"] {
-            width: 60px;
-            height: 45px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .color-input-wrapper input[type="text"] {
-            flex: 1;
-        }
-
         .hidden {
             display: none;
+        }
+
+        .input-hint {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        .quick-fill {
+            background: #eff6ff;
+            border: 1px solid #3b82f6;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .quick-fill-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 8px;
+        }
+
+        .quick-fill-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .btn-quick-fill {
+            padding: 6px 12px;
+            background: white;
+            color: #1e40af;
+            border: 1px solid #3b82f6;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-quick-fill:hover {
+            background: #3b82f6;
+            color: white;
         }
 
         @media (max-width: 1200px) {
@@ -286,63 +392,138 @@
                 max-height: none;
             }
         }
+
+        /* Scrollbar styling */
+        .form-panel::-webkit-scrollbar,
+        .code-content::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .form-panel::-webkit-scrollbar-track,
+        .code-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .form-panel::-webkit-scrollbar-thumb,
+        .code-content::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        .form-panel::-webkit-scrollbar-thumb:hover,
+        .code-content::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🏨 Generator Kodu idobooking</h1>
-            <p>Wprowadź dane, wygeneruj gotowy kod do wklejenia</p>
-        </div>
+    <div class="top-bar">
+        <h1>Generator Kodu idobooking</h1>
+        <p>Profesjonalne narzędzie do generowania kodu HTML/CSS dla systemu rezerwacji</p>
+    </div>
 
+    <div class="container">
         <div class="main-grid">
             <!-- Panel formularza -->
             <div class="form-panel">
-                <h2>📝 Dane obiektu</h2>
 
-                <div class="form-group">
-                    <label for="objectType">Typ obiektu</label>
-                    <select id="objectType">
-                        <option value="apartment">Apartament</option>
-                        <option value="hostel">Hostel</option>
-                        <option value="guesthouse">Pensjonat</option>
-                        <option value="cottage">Domek</option>
-                        <option value="retreat">Retreat/Wellness</option>
+                <!-- Szybkie szablony -->
+                <div class="template-select">
+                    <label for="quickTemplate">⚡ Szybki start - wybierz szablon:</label>
+                    <select id="quickTemplate" onchange="loadTemplate()">
+                        <option value="">-- Wybierz szablon --</option>
+                        <option value="luxury-apartment">Luksusowy apartament górski</option>
+                        <option value="budget-hostel">Hostel miejski - budżetowy</option>
+                        <option value="family-guesthouse">Pensjonat rodzinny</option>
+                        <option value="mountain-cottage">Domek w górach</option>
+                        <option value="spa-retreat">Wellness & SPA</option>
+                        <option value="beach-resort">Resort nadmorski</option>
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="objectName">Nazwa obiektu</label>
-                    <input type="text" id="objectName" placeholder="np. Apartamenty Górskie">
+                <!-- Podstawowe dane -->
+                <div class="form-section">
+                    <div class="section-title">📋 Podstawowe informacje</div>
+
+                    <div class="form-group">
+                        <label for="objectType">Typ obiektu</label>
+                        <select id="objectType">
+                            <option value="apartment">Apartament</option>
+                            <option value="hostel">Hostel</option>
+                            <option value="guesthouse">Pensjonat</option>
+                            <option value="cottage">Domek</option>
+                            <option value="retreat">Retreat/Wellness</option>
+                            <option value="hotel">Hotel</option>
+                            <option value="resort">Resort</option>
+                            <option value="villa">Willa</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="objectName">Nazwa obiektu *</label>
+                        <input type="text" id="objectName" placeholder="np. Apartamenty Tatrzańskie">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shortDesc">Opis krótki (nagłówek)</label>
+                        <textarea id="shortDesc" placeholder="Krótki, zachęcający opis..."></textarea>
+                        <div class="input-hint">1-2 zdania, maksymalnie 160 znaków</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="longDesc">Opis długi (szczegółowy)</label>
+                        <textarea id="longDesc" placeholder="Pełny opis obiektu..." style="min-height: 100px;"></textarea>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="shortDesc">Opis krótki (1-2 zdania)</label>
-                    <textarea id="shortDesc" placeholder="Krótki, zachęcający opis..."></textarea>
+                <!-- Parametry -->
+                <div class="form-section">
+                    <div class="section-title">📊 Parametry</div>
+
+                    <div class="form-group">
+                        <label for="area">Powierzchnia (m²)</label>
+                        <input type="number" id="area" placeholder="np. 45">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priceFrom">Cena od (zł/noc)</label>
+                        <input type="number" id="priceFrom" placeholder="np. 250">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="guests">Liczba gości (max)</label>
+                        <input type="number" id="guests" placeholder="np. 4">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rooms">Liczba pokoi</label>
+                        <input type="number" id="rooms" placeholder="np. 2">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="beds">Liczba łóżek</label>
+                        <input type="number" id="beds" placeholder="np. 2">
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="longDesc">Opis długi</label>
-                    <textarea id="longDesc" placeholder="Pełny opis obiektu..." style="min-height: 120px;"></textarea>
-                </div>
+                <!-- Kolory -->
+                <div class="form-section">
+                    <div class="section-title">🎨 Kolory motywu</div>
 
-                <div class="form-group">
-                    <label for="area">Powierzchnia (m²)</label>
-                    <input type="number" id="area" placeholder="np. 45">
-                </div>
+                    <div class="quick-fill">
+                        <div class="quick-fill-title">Predefiniowane palety:</div>
+                        <div class="quick-fill-buttons">
+                            <button class="btn-quick-fill" onclick="setColors('#3B82F6', '#10B981')">Ocean Blue</button>
+                            <button class="btn-quick-fill" onclick="setColors('#8B5CF6', '#EC4899')">Purple</button>
+                            <button class="btn-quick-fill" onclick="setColors('#F59E0B', '#EF4444')">Sunset</button>
+                            <button class="btn-quick-fill" onclick="setColors('#10B981', '#059669')">Forest</button>
+                            <button class="btn-quick-fill" onclick="setColors('#1F2937', '#374151')">Dark</button>
+                            <button class="btn-quick-fill" onclick="setColors('#DC2626', '#991B1B')">Red</button>
+                        </div>
+                    </div>
 
-                <div class="form-group">
-                    <label for="priceFrom">Cena od (zł)</label>
-                    <input type="number" id="priceFrom" placeholder="np. 250">
-                </div>
-
-                <div class="form-group">
-                    <label for="guests">Liczba gości (max)</label>
-                    <input type="number" id="guests" placeholder="np. 4">
-                </div>
-
-                <div class="form-group">
-                    <label>Kolory motywu</label>
                     <div class="color-inputs">
                         <div class="color-input-group">
                             <label style="font-size: 0.85rem; font-weight: normal;">Kolor główny</label>
@@ -354,15 +535,16 @@
                         <div class="color-input-group">
                             <label style="font-size: 0.85rem; font-weight: normal;">Kolor akcent</label>
                             <div class="color-input-wrapper">
-                                <input type="color" id="colorAccent" value="#8B5CF6">
-                                <input type="text" id="colorAccentText" value="#8B5CF6">
+                                <input type="color" id="colorAccent" value="#10B981">
+                                <input type="text" id="colorAccentText" value="#10B981">
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Zdjęcia (linki URL)</label>
+                <!-- Zdjęcia -->
+                <div class="form-section">
+                    <div class="section-title">📷 Zdjęcia (linki URL)</div>
                     <div id="imagesContainer" class="images-container">
                         <div class="image-input-group">
                             <input type="text" class="image-url" placeholder="https://...">
@@ -372,45 +554,159 @@
                     <button type="button" class="btn-add" onclick="addImageInput()">+ Dodaj zdjęcie</button>
                 </div>
 
-                <div class="form-group">
-                    <label>Udogodnienia</label>
-                    <div class="amenities-grid">
+                <!-- Udogodnienia -->
+                <div class="form-section">
+                    <div class="section-title">✨ Udogodnienia</div>
+                    <div class="amenities-grid" id="amenitiesGrid">
+                        <!-- Basic -->
                         <div class="amenity-item">
-                            <input type="checkbox" id="wifi" value="WiFi">
-                            <label for="wifi" style="font-weight: normal; margin: 0;">WiFi</label>
+                            <input type="checkbox" id="wifi" value="📶 WiFi">
+                            <label for="wifi">WiFi</label>
                         </div>
                         <div class="amenity-item">
-                            <input type="checkbox" id="parking" value="Parking">
-                            <label for="parking" style="font-weight: normal; margin: 0;">Parking</label>
+                            <input type="checkbox" id="parking" value="🅿️ Parking">
+                            <label for="parking">Parking</label>
                         </div>
                         <div class="amenity-item">
-                            <input type="checkbox" id="kitchen" value="Kuchnia">
-                            <label for="kitchen" style="font-weight: normal; margin: 0;">Kuchnia</label>
+                            <input type="checkbox" id="kitchen" value="🍳 Kuchnia">
+                            <label for="kitchen">Kuchnia</label>
                         </div>
                         <div class="amenity-item">
-                            <input type="checkbox" id="tv" value="TV">
-                            <label for="tv" style="font-weight: normal; margin: 0;">TV</label>
+                            <input type="checkbox" id="tv" value="📺 TV">
+                            <label for="tv">TV</label>
                         </div>
                         <div class="amenity-item">
-                            <input type="checkbox" id="aircon" value="Klimatyzacja">
-                            <label for="aircon" style="font-weight: normal; margin: 0;">Klimatyzacja</label>
+                            <input type="checkbox" id="aircon" value="❄️ Klimatyzacja">
+                            <label for="aircon">Klimatyzacja</label>
                         </div>
                         <div class="amenity-item">
-                            <input type="checkbox" id="breakfast" value="Śniadanie">
-                            <label for="breakfast" style="font-weight: normal; margin: 0;">Śniadanie</label>
+                            <input type="checkbox" id="heating" value="🔥 Ogrzewanie">
+                            <label for="heating">Ogrzewanie</label>
                         </div>
                         <div class="amenity-item">
-                            <input type="checkbox" id="pets" value="Zwierzęta">
-                            <label for="pets" style="font-weight: normal; margin: 0;">Zwierzęta</label>
+                            <input type="checkbox" id="breakfast" value="🥐 Śniadanie">
+                            <label for="breakfast">Śniadanie</label>
                         </div>
                         <div class="amenity-item">
-                            <input type="checkbox" id="pool" value="Basen">
-                            <label for="pool" style="font-weight: normal; margin: 0;">Basen</label>
+                            <input type="checkbox" id="restaurant" value="🍽️ Restauracja">
+                            <label for="restaurant">Restauracja</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="pets" value="🐾 Zwierzęta">
+                            <label for="pets">Zwierzęta</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="pool" value="🏊 Basen">
+                            <label for="pool">Basen</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="spa" value="💆 SPA">
+                            <label for="spa">SPA</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="sauna" value="🧖 Sauna">
+                            <label for="sauna">Sauna</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="gym" value="💪 Siłownia">
+                            <label for="gym">Siłownia</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="jacuzzi" value="🛁 Jacuzzi">
+                            <label for="jacuzzi">Jacuzzi</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="balcony" value="🌆 Balkon">
+                            <label for="balcony">Balkon</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="terrace" value="☀️ Taras">
+                            <label for="terrace">Taras</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="garden" value="🌳 Ogród">
+                            <label for="garden">Ogród</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="bbq" value="🔥 Grill">
+                            <label for="bbq">Grill</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="fireplace" value="🪵 Kominek">
+                            <label for="fireplace">Kominek</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="washer" value="🧺 Pralka">
+                            <label for="washer">Pralka</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="dryer" value="👕 Suszarka">
+                            <label for="dryer">Suszarka</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="dishwasher" value="🍽️ Zmywarka">
+                            <label for="dishwasher">Zmywarka</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="microwave" value="📟 Mikrofalówka">
+                            <label for="microwave">Mikrofalówka</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="coffee" value="☕ Ekspres">
+                            <label for="coffee">Ekspres</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="reception24" value="🕐 Recepcja 24h">
+                            <label for="reception24">Recepcja 24h</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="security" value="🔒 Ochrona">
+                            <label for="security">Ochrona</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="elevator" value="🛗 Winda">
+                            <label for="elevator">Winda</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="disabled" value="♿ Dla niepełnosprawnych">
+                            <label for="disabled">Dostępność</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="laundry" value="🧼 Pralnia">
+                            <label for="laundry">Pralnia</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="iron" value="👔 Żelazko">
+                            <label for="iron">Żelazko</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="hair" value="💇 Suszarka do włosów">
+                            <label for="hair">Suszarka</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="safe" value="🔐 Sejf">
+                            <label for="safe">Sejf</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="smoking" value="🚭 Dla niepalących">
+                            <label for="smoking">Dla niepalących</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="soundproof" value="🔇 Dźwiękoszczelne">
+                            <label for="soundproof">Dźwiękoszczelne</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="desk" value="💼 Biurko">
+                            <label for="desk">Biurko</label>
+                        </div>
+                        <div class="amenity-item">
+                            <input type="checkbox" id="wardrobe" value="👗 Szafa">
+                            <label for="wardrobe">Szafa</label>
                         </div>
                     </div>
                 </div>
 
-                <button class="btn-generate" onclick="generateCode()">🚀 Generuj kod</button>
+                <button class="btn-generate" onclick="generateCode()">Generuj kod HTML/CSS</button>
             </div>
 
             <!-- Panel wyników -->
@@ -418,7 +714,7 @@
                 <div class="code-block hidden" id="headBlock">
                     <div class="code-block-header">
                         <h3>📄 Kod do &lt;head&gt;</h3>
-                        <button class="btn-copy" onclick="copyCode('headCode')">Kopiuj</button>
+                        <button class="btn-copy" onclick="copyCode('headCode', this)">Kopiuj</button>
                     </div>
                     <div class="code-content">
                         <pre id="headCode"></pre>
@@ -428,7 +724,7 @@
                 <div class="code-block hidden" id="bodyStartBlock">
                     <div class="code-block-header">
                         <h3>🔝 Kod na początek &lt;body&gt;</h3>
-                        <button class="btn-copy" onclick="copyCode('bodyStartCode')">Kopiuj</button>
+                        <button class="btn-copy" onclick="copyCode('bodyStartCode', this)">Kopiuj</button>
                     </div>
                     <div class="code-content">
                         <pre id="bodyStartCode"></pre>
@@ -438,7 +734,7 @@
                 <div class="code-block hidden" id="cmsBlock">
                     <div class="code-block-header">
                         <h3>🎨 Sekcja CMS (główna treść)</h3>
-                        <button class="btn-copy" onclick="copyCode('cmsCode')">Kopiuj</button>
+                        <button class="btn-copy" onclick="copyCode('cmsCode', this)">Kopiuj</button>
                     </div>
                     <div class="code-content">
                         <pre id="cmsCode"></pre>
@@ -448,7 +744,7 @@
                 <div class="code-block hidden" id="bodyEndBlock">
                     <div class="code-block-header">
                         <h3>🔚 Kod na koniec &lt;body&gt;</h3>
-                        <button class="btn-copy" onclick="copyCode('bodyEndCode')">Kopiuj</button>
+                        <button class="btn-copy" onclick="copyCode('bodyEndCode', this)">Kopiuj</button>
                     </div>
                     <div class="code-content">
                         <pre id="bodyEndCode"></pre>
@@ -458,7 +754,7 @@
                 <div class="code-block hidden" id="cssBlock">
                     <div class="code-block-header">
                         <h3>🎨 Arkusz stylów CSS</h3>
-                        <button class="btn-copy" onclick="copyCode('cssCode')">Kopiuj</button>
+                        <button class="btn-copy" onclick="copyCode('cssCode', this)">Kopiuj</button>
                     </div>
                     <div class="code-content">
                         <pre id="cssCode"></pre>
@@ -469,7 +765,125 @@
     </div>
 
     <script>
-        // Synchronizacja color picker z text input
+        // Templates data
+        const templates = {
+            'luxury-apartment': {
+                type: 'apartment',
+                name: 'Luksusowe Apartamenty Tatrzańskie',
+                shortDesc: 'Ekskluzywne apartamenty z widokiem na Tatry, wyposażone w najwyższej klasy sprzęt i udogodnienia dla najbardziej wymagających gości.',
+                longDesc: 'Nasze luksusowe apartamenty położone są w sercu Zakopanego, oferując zapierające dech w piersiach widoki na Tatry. Każdy apartament został zaprojektowany z myślą o maksymalnym komforcie i elegancji, wyposażony w najnowocześniejszy sprzęt AGD, klimatyzację, system Smart Home oraz ekskluzywne meble. Goście mają do dyspozycji prywatny parking, całodobową recepcję oraz dostęp do strefy wellness z sauną i jacuzzi.',
+                area: 85,
+                priceFrom: 650,
+                guests: 6,
+                rooms: 3,
+                beds: 3,
+                colorPrimary: '#1F2937',
+                colorAccent: '#F59E0B',
+                amenities: ['wifi', 'parking', 'kitchen', 'tv', 'aircon', 'heating', 'balcony', 'jacuzzi', 'sauna', 'elevator', 'reception24', 'dishwasher', 'coffee', 'safe']
+            },
+            'budget-hostel': {
+                type: 'hostel',
+                name: 'Hostel City Center',
+                shortDesc: 'Przytulny hostel w centrum miasta. Idealne miejsce dla backpackerów i podróżników. Świetna lokalizacja, niskie ceny, przyjazna atmosfera.',
+                longDesc: 'Nasz hostel znajduje się w samym sercu miasta, w odległości spaceru od głównych atrakcji turystycznych. Oferujemy czyste i wygodne pokoje, w pełni wyposażoną kuchnię, bezpłatne WiFi oraz wspólną przestrzeń do spotkań. Idealne miejsce dla młodych podróżników szukających taniego, ale komfortowego noclegu w świetnej lokalizacji.',
+                area: 25,
+                priceFrom: 45,
+                guests: 4,
+                rooms: 1,
+                beds: 4,
+                colorPrimary: '#3B82F6',
+                colorAccent: '#10B981',
+                amenities: ['wifi', 'kitchen', 'heating', 'reception24', 'laundry', 'smoking', 'security']
+            },
+            'family-guesthouse': {
+                type: 'guesthouse',
+                name: 'Pensjonat Pod Jodłami',
+                shortDesc: 'Rodzinny pensjonat w górach. Ciepła atmosfera, domowa kuchnia, piękne widoki. Idealny na rodzinny wypoczynek.',
+                longDesc: 'Nasz pensjonat to idealne miejsce na rodzinny wypoczynek z dala od miejskiego zgiełku. Oferujemy przytulne pokoje, domowe wyżywienie, w tym śniadania i obiady serwowane w naszej restauracji. Dla dzieci przygotowaliśmy plac zabaw, a dorośli mogą zrelaksować się w saunie. W okolicy liczne szlaki turystyczne i atrakcje dla całej rodziny.',
+                area: 35,
+                priceFrom: 180,
+                guests: 4,
+                rooms: 2,
+                beds: 2,
+                colorPrimary: '#059669',
+                colorAccent: '#F59E0B',
+                amenities: ['wifi', 'parking', 'tv', 'heating', 'breakfast', 'restaurant', 'sauna', 'garden', 'bbq', 'pets']
+            },
+            'mountain-cottage': {
+                type: 'cottage',
+                name: 'Domki Górskie Lesny Zakątek',
+                shortDesc: 'Drewniane domki w lesie. Kominek, prywatność, spokój. Ucieknij od codzienności w objęcia natury.',
+                longDesc: 'Nasze drewniane domki położone są w malowniczym lesie, z dala od zgiełku miasta. Każdy domek wyposażony jest w kominek, w pełni wyposażoną kuchnię, taras z meblami ogrodowymi oraz prywatny grill. To idealne miejsce dla osób szukających spokoju, kontaktu z naturą i niezapomnianych chwil przy ognisku pod gwiazdami.',
+                area: 55,
+                priceFrom: 320,
+                guests: 5,
+                rooms: 2,
+                beds: 2,
+                colorPrimary: '#92400E',
+                colorAccent: '#16A34A',
+                amenities: ['wifi', 'parking', 'kitchen', 'heating', 'fireplace', 'terrace', 'garden', 'bbq', 'pets', 'washer']
+            },
+            'spa-retreat': {
+                type: 'retreat',
+                name: 'Wellness Retreat & SPA',
+                shortDesc: 'Luksusowy ośrodek wellness. SPA, masaże, joga, medytacja. Zadbaj o ciało i umysł w harmonijnym otoczeniu.',
+                longDesc: 'Nasz ekskluzywny ośrodek wellness oferuje kompleksową regenerację ciała i umysłu. Do dyspozycji gości: profesjonalne SPA z szeroką gamą zabiegów, basen, sauna, jacuzzi, siłownia, zajęcia jogi i medytacji. Serwujemy zdrową, ekologiczną kuchnię. Położenie w spokojnej okolicy sprzyja relaksowi i odprężeniu.',
+                area: 45,
+                priceFrom: 550,
+                guests: 2,
+                rooms: 1,
+                beds: 1,
+                colorPrimary: '#8B5CF6',
+                colorAccent: '#EC4899',
+                amenities: ['wifi', 'parking', 'breakfast', 'restaurant', 'pool', 'spa', 'sauna', 'jacuzzi', 'gym', 'garden', 'reception24', 'elevator']
+            },
+            'beach-resort': {
+                type: 'resort',
+                name: 'Seaside Resort',
+                shortDesc: 'Luksusowy resort nad morzem. Prywatna plaża, basen, restauracja. All inclusive z widokiem na ocean.',
+                longDesc: 'Nasz resort położony jest bezpośrednio przy piaszczystej plaży, oferując gościom niezapomniany wypoczynek nad morzem. W cenie pobytu: dostęp do prywatnej plaży, basen z wodą morską, all inclusive w naszych restauracjach, animacje dla dzieci i dorosłych, dostęp do strefy wellness. Każdy pokój z balkonem i widokiem na morze.',
+                area: 50,
+                priceFrom: 780,
+                guests: 3,
+                rooms: 2,
+                beds: 2,
+                colorPrimary: '#0EA5E9',
+                colorAccent: '#F59E0B',
+                amenities: ['wifi', 'parking', 'breakfast', 'restaurant', 'pool', 'spa', 'gym', 'balcony', 'reception24', 'elevator', 'security', 'disabled']
+            }
+        };
+
+        // Load template
+        function loadTemplate() {
+            const templateId = document.getElementById('quickTemplate').value;
+            if (!templateId) return;
+
+            const template = templates[templateId];
+            if (!template) return;
+
+            // Fill basic info
+            document.getElementById('objectType').value = template.type;
+            document.getElementById('objectName').value = template.name;
+            document.getElementById('shortDesc').value = template.shortDesc;
+            document.getElementById('longDesc').value = template.longDesc;
+
+            // Fill parameters
+            document.getElementById('area').value = template.area;
+            document.getElementById('priceFrom').value = template.priceFrom;
+            document.getElementById('guests').value = template.guests;
+            document.getElementById('rooms').value = template.rooms || '';
+            document.getElementById('beds').value = template.beds || '';
+
+            // Set colors
+            setColors(template.colorPrimary, template.colorAccent);
+
+            // Check amenities
+            document.querySelectorAll('.amenity-item input[type="checkbox"]').forEach(cb => {
+                cb.checked = template.amenities.includes(cb.id);
+            });
+        }
+
+        // Color synchronization
         document.getElementById('colorPrimary').addEventListener('input', (e) => {
             document.getElementById('colorPrimaryText').value = e.target.value;
         });
@@ -482,6 +896,13 @@
         document.getElementById('colorAccentText').addEventListener('input', (e) => {
             document.getElementById('colorAccent').value = e.target.value;
         });
+
+        function setColors(primary, accent) {
+            document.getElementById('colorPrimary').value = primary;
+            document.getElementById('colorPrimaryText').value = primary;
+            document.getElementById('colorAccent').value = accent;
+            document.getElementById('colorAccentText').value = accent;
+        }
 
         function addImageInput() {
             const container = document.getElementById('imagesContainer');
@@ -518,44 +939,61 @@
             return urls;
         }
 
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
         function generateCode() {
-            // Pobierz dane z formularza
+            // Validate
+            const name = document.getElementById('objectName').value.trim();
+            if (!name) {
+                alert('Proszę wypełnić nazwę obiektu!');
+                return;
+            }
+
+            // Gather data
             const data = {
                 type: document.getElementById('objectType').value,
-                name: document.getElementById('objectName').value,
-                shortDesc: document.getElementById('shortDesc').value,
-                longDesc: document.getElementById('longDesc').value,
+                name: name,
+                shortDesc: document.getElementById('shortDesc').value.trim(),
+                longDesc: document.getElementById('longDesc').value.trim(),
                 area: document.getElementById('area').value,
                 priceFrom: document.getElementById('priceFrom').value,
                 guests: document.getElementById('guests').value,
+                rooms: document.getElementById('rooms').value,
+                beds: document.getElementById('beds').value,
                 colorPrimary: document.getElementById('colorPrimaryText').value,
                 colorAccent: document.getElementById('colorAccentText').value,
                 images: getImageUrls(),
                 amenities: getSelectedAmenities()
             };
 
-            // Generuj kod dla każdej sekcji
+            // Generate code
             generateHeadCode(data);
             generateBodyStartCode(data);
             generateCMSCode(data);
             generateBodyEndCode(data);
             generateCSSCode(data);
 
-            // Pokaż wszystkie bloki
+            // Show blocks
             document.querySelectorAll('.code-block').forEach(block => {
                 block.classList.remove('hidden');
             });
 
-            // Scroll do wyników
-            document.getElementById('outputPanel').scrollIntoView({ behavior: 'smooth' });
+            // Scroll to output
+            setTimeout(() => {
+                document.getElementById('outputPanel').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
         }
 
         function generateHeadCode(data) {
             const code = `<!-- Meta tagi i fonty -->
-<meta name="description" content="${data.shortDesc}">
-<meta property="og:title" content="${data.name}">
-<meta property="og:description" content="${data.shortDesc}">
-${data.images[0] ? `<meta property="og:image" content="${data.images[0]}">` : ''}
+<meta name="description" content="${escapeHtml(data.shortDesc)}">
+<meta property="og:title" content="${escapeHtml(data.name)}">
+<meta property="og:description" content="${escapeHtml(data.shortDesc)}">
+${data.images.length > 0 ? `<meta property="og:image" content="${data.images[0]}">` : ''}
 
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -569,15 +1007,20 @@ ${data.images[0] ? `<meta property="og:image" content="${data.images[0]}">` : ''
         }
 
         function generateBodyStartCode(data) {
+            let badges = '';
+            if (data.area) badges += `<span class="badge">📏 ${data.area} m²</span>\n            `;
+            if (data.guests) badges += `<span class="badge">👥 Do ${data.guests} osób</span>\n            `;
+            if (data.rooms) badges += `<span class="badge">🚪 ${data.rooms} pokoje</span>\n            `;
+            if (data.beds) badges += `<span class="badge">🛏️ ${data.beds} łóżka</span>\n            `;
+            if (data.priceFrom) badges += `<span class="badge">💰 Od ${data.priceFrom} zł/noc</span>`;
+
             const code = `<!-- Hero Section -->
 <section class="hero-section" style="background: linear-gradient(135deg, ${data.colorPrimary} 0%, ${data.colorAccent} 100%);">
     <div class="hero-content">
-        <h1 class="hero-title">${data.name}</h1>
-        <p class="hero-subtitle">${data.shortDesc}</p>
+        <h1 class="hero-title">${escapeHtml(data.name)}</h1>
+        <p class="hero-subtitle">${escapeHtml(data.shortDesc)}</p>
         <div class="hero-badges">
-            ${data.area ? `<span class="badge">📏 ${data.area} m²</span>` : ''}
-            ${data.guests ? `<span class="badge">👥 Do ${data.guests} osób</span>` : ''}
-            ${data.priceFrom ? `<span class="badge">💰 Od ${data.priceFrom} zł/noc</span>` : ''}
+            ${badges}
         </div>
         <a href="#rezerwacja" class="hero-cta">Zarezerwuj teraz</a>
     </div>
@@ -589,24 +1032,32 @@ ${data.images[0] ? `<meta property="og:image" content="${data.images[0]}">` : ''
         function generateCMSCode(data) {
             let amenitiesHTML = '';
             if (data.amenities.length > 0) {
+                const amenitiesList = data.amenities.map(a =>
+                    `<div class="amenity-badge">${escapeHtml(a)}</div>`
+                ).join('\n            ');
+
                 amenitiesHTML = `
     <div class="amenities-section">
         <h3>✨ Udogodnienia</h3>
         <div class="amenities-grid">
-            ${data.amenities.map(a => `<div class="amenity-badge">${a}</div>`).join('\n            ')}
+            ${amenitiesList}
         </div>
     </div>`;
             }
 
             let galleryHTML = '';
             if (data.images.length > 0) {
+                const imagesList = data.images.map(img =>
+                    `<div class="gallery-item">
+                <img src="${img}" alt="${escapeHtml(data.name)}" loading="lazy">
+            </div>`
+                ).join('\n            ');
+
                 galleryHTML = `
     <div class="gallery-section">
         <h3>📸 Galeria</h3>
         <div class="gallery-grid">
-            ${data.images.map(img => `<div class="gallery-item">
-                <img src="${img}" alt="${data.name}" loading="lazy">
-            </div>`).join('\n            ')}
+            ${imagesList}
         </div>
     </div>`;
             }
@@ -616,12 +1067,12 @@ ${data.images[0] ? `<meta property="og:image" content="${data.images[0]}">` : ''
     <div class="content-container">
         <div class="content-description">
             <h2>O obiekcie</h2>
-            <p>${data.longDesc}</p>
+            <p>${escapeHtml(data.longDesc)}</p>
         </div>
 ${amenitiesHTML}${galleryHTML}
         <div class="booking-section">
             <h3>📅 Rezerwacja</h3>
-            <p>Sprawdź dostępność i zarezerwuj pobyt w ${data.name}</p>
+            <p>Sprawdź dostępność i zarezerwuj pobyt w ${escapeHtml(data.name)}</p>
             <a href="#rezerwacja" class="btn-booking">Sprawdź dostępność</a>
         </div>
     </div>
@@ -661,13 +1112,13 @@ ${amenitiesHTML}${galleryHTML}
             imageObserver.observe(img);
         });
     }
-</script>`;
+<\/script>`;
 
             document.getElementById('bodyEndCode').textContent = code;
         }
 
         function generateCSSCode(data) {
-            const code = `/* Custom Styles dla ${data.name} */
+            const code = `/* Custom Styles dla ${escapeHtml(data.name)} */
 :root {
     --color-primary: ${data.colorPrimary};
     --color-accent: ${data.colorAccent};
@@ -910,23 +1361,28 @@ body {
     .gallery-grid {
         grid-template-columns: 1fr;
     }
+
+    .amenities-grid {
+        grid-template-columns: 1fr;
+    }
 }`;
 
             document.getElementById('cssCode').textContent = code;
         }
 
-        function copyCode(elementId) {
+        function copyCode(elementId, btnElement) {
             const code = document.getElementById(elementId).textContent;
             navigator.clipboard.writeText(code).then(() => {
-                const btn = event.target;
-                const originalText = btn.textContent;
-                btn.textContent = '✓ Skopiowano!';
-                btn.classList.add('copied');
+                const originalText = btnElement.textContent;
+                btnElement.textContent = '✓ Skopiowano!';
+                btnElement.classList.add('copied');
 
                 setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.classList.remove('copied');
+                    btnElement.textContent = originalText;
+                    btnElement.classList.remove('copied');
                 }, 2000);
+            }).catch(err => {
+                alert('Błąd kopiowania. Proszę skopiować ręcznie.');
             });
         }
     </script>
