@@ -1,0 +1,29 @@
+<!-- ============================================
+     HOTEL ELEGANCE - KONIEC SEKCJI BODY
+     
+     Wklej w panelu CMS → Koniec sekcji body
+     Zawiera JavaScript dla lightbox galerii
+     ============================================ -->
+
+<script>
+    // Lightbox - powiększanie zdjęć w galerii
+    function openLightbox(element) {
+        var img = element.querySelector('img');
+        var lightbox = document.getElementById('lightbox');
+        var lightboxImg = document.getElementById('lightbox-img');
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        var lightbox = document.getElementById('lightbox');
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Zamknij lightbox klawiszem Escape
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeLightbox();
+    });
+</script>

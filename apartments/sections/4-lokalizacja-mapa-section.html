@@ -1,0 +1,205 @@
+<!-- ========================================
+     SEKCJA 4: LOKALIZACJA Z MAPĄ GOOGLE - SPLIT
+
+     INSTRUKCJA WKLEJANIA:
+     1. Panel CMS idoBooking → Nowa sekcja CMS
+     2. Nazwa sekcji: "Lokalizacja"
+     3. Poziom: Body
+     4. Wklej poniższy kod
+     5. Zapisz
+
+     DO PERSONALIZACJI:
+     - Zmień adres
+     - Dostosuj dystanse i czasy (obecnie realne od Górna 22c)
+     - Zmień punkty POI (Points of Interest)
+     - Zaktualizuj link do Google Maps nawigacji
+     - Opcjonalnie: stylizuj mapę (Google Maps Styling API)
+
+     WAŻNE:
+     - Mapa jest prawdziwa (Google Maps iframe)
+     - Na mobile sekcja układa się pionowo
+     - Karta info pojawia się nad mapą
+     - Link "Nawiguj" otwiera się w nowej karcie
+     ======================================== -->
+
+<section class="location-split-section" id="lokalizacja" aria-labelledby="location-title">
+  <div class="location-split-container">
+
+    <!-- Left Side: Content -->
+    <div class="location-content-side">
+      <div class="location-content">
+
+        <!-- Badge -->
+        <div class="location-badge">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+          Idealna Lokalizacja
+        </div>
+
+        <!-- Title -->
+        <h2 class="location-title" id="location-title">
+          W Sercu Szklarskiej Poręby
+        </h2>
+
+        <!-- Description -->
+        <p class="location-description">
+          Nasze apartamenty znajdują się w doskonałej lokalizacji przy ulicy Górna 22c -
+          wystarczy 5 minut spaceru do tętniącego życiem centrum miasta,
+          a jednocześnie jesteś w pobliżu najpiękniejszych szlaków górskich
+          i atrakcji Karkonoszy.
+        </p>
+
+        <!-- Stats -->
+        <div class="location-stats">
+          <div class="stat-box">
+            <span class="stat-number">5 min</span>
+            <span class="stat-label">Do centrum pieszo</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">12 min</span>
+            <span class="stat-label">Do wyciągu autem</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">3 km</span>
+            <span class="stat-label">Do szlaków</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">15 min</span>
+            <span class="stat-label">Do wodospadów</span>
+          </div>
+        </div>
+
+        <!-- Points of Interest -->
+        <div class="location-poi-list">
+
+          <!-- POI 1: Promenada -->
+          <div class="poi-item">
+            <div class="poi-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+              </svg>
+            </div>
+            <div class="poi-info">
+              <div class="poi-name">Promenada</div>
+              <div class="poi-distance">2 km • 25 min pieszo / 5 min autem</div>
+            </div>
+          </div>
+
+          <!-- POI 2: Sklepy & Restauracje -->
+          <div class="poi-item">
+            <div class="poi-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
+            </div>
+            <div class="poi-info">
+              <div class="poi-name">Sklepy &amp; Restauracje</div>
+              <div class="poi-distance">2 km • 5 min autem</div>
+            </div>
+          </div>
+
+          <!-- POI 3: Wodospad Szklarki -->
+          <div class="poi-item">
+            <div class="poi-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+              </svg>
+            </div>
+            <div class="poi-info">
+              <div class="poi-name">Wodospad Szklarki</div>
+              <div class="poi-distance">3.5 km • 8 min autem + 20 min pieszo</div>
+            </div>
+          </div>
+
+          <!-- POI 4: Kolej Gondolowa -->
+          <div class="poi-item">
+            <div class="poi-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"></path>
+              </svg>
+            </div>
+            <div class="poi-info">
+              <div class="poi-name">Kolej Gondolowa</div>
+              <div class="poi-distance">5 km • 12 min autem</div>
+            </div>
+          </div>
+
+        </div><!-- /.location-poi-list -->
+
+      </div><!-- /.location-content -->
+    </div><!-- /.location-content-side -->
+
+    <!-- Right Side: Map -->
+    <div class="location-map-side">
+      <!--
+        PRAWDZIWA MAPA GOOGLE - Górna 22c, Szklarska Poręba
+
+        JAK ZAKTUALIZOWAĆ MAPĘ:
+        1. Idź na https://google.com/maps
+        2. Wyszukaj swój adres
+        3. Kliknij "Share" / "Udostępnij"
+        4. Wybierz "Embed a map" / "Osadź mapę"
+        5. Skopiuj kod iframe i wklej poniżej
+      -->
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3562.344076634697!2d15.542407299999999!3d50.8454852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470edb49907544fd%3A0xd7fa83b6e06c2bc9!2sG%C3%B3rna%2022c%2C%2058-580%20Szklarska%20Por%C4%99ba!5e1!3m2!1spl!2spl!4v1762348039942!5m2!1spl!2spl"
+        class="location-map"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Mapa lokalizacji apartamentów przy ulicy Górna 22c w Szklarskiej Porębie"
+        aria-label="Interaktywna mapa Google pokazująca lokalizację apartamentów"
+        allowfullscreen
+      ></iframe>
+
+      <!-- Map Info Card (Overlay) -->
+      <div class="map-info-card">
+        <h3 class="map-card-title">Znajdź Nas</h3>
+
+        <div class="map-card-address">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+          <span>
+            ul. Górna 22c<br>
+            58-580 Szklarska Poręba
+          </span>
+        </div>
+
+        <!-- Link do Nawigacji -->
+        <a
+          href="https://maps.app.goo.gl/2cwQiudmDvJ9RvBD7"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="map-card-btn"
+          aria-label="Otwórz nawigację w Google Maps"
+        >
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+          </svg>
+          Nawiguj
+        </a>
+      </div><!-- /.map-info-card -->
+
+    </div><!-- /.location-map-side -->
+
+  </div><!-- /.location-split-container -->
+</section><!-- /.location-split-section -->
+
+<!--
+  INSTRUKCJA STYLIZACJI MAPY GOOGLE (OPCJONALNE):
+
+  Google Maps pozwala na custom styling mapy.
+  Możesz zmienić kolory, aby pasowały do twojej kolorystyki.
+
+  1. Idź na: https://mapstyle.withgoogle.com/
+  2. Stwórz swój styl mapy (zmień kolory na nasze: #B8935E, #1C3C5A, #F5F1EA)
+  3. Skopiuj JSON ze stylami
+  4. Użyj Google Maps JavaScript API z parametrem "styles"
+  5. Zamień iframe na dynamiczną mapę z customowymi stylami
+
+  UWAGA: To wymaga klucza API Google Maps i więcej kodu JavaScript.
+  Dla prostoty pozostawiamy standardowy iframe.
+-->

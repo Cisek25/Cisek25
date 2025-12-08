@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator idobooking v3.0 PRO - Wizard Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app">
+        <!-- WIZARD MODE -->
+        <div id="wizardMode" class="mode active">
+            <div class="wizard-container">
+                <div class="wizard-header">
+                    <h1>🧙‍♂️ Kreator Strony idobooking</h1>
+                    <p>Odpowiedz na kilka pytań, a system automatycznie dobierze najlepszy motyw i kolory</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="step-indicator">Pytanie <span id="currentStep">1</span> z <span id="totalSteps">8</span></div>
+                </div>
+
+                <div class="wizard-content" id="wizardContent">
+                    <!-- Pytania będą dodawane dynamicznie przez JS -->
+                </div>
+
+                <div class="wizard-navigation">
+                    <button class="btn btn-secondary" id="prevBtn" disabled>← Wstecz</button>
+                    <button class="btn btn-primary" id="nextBtn">Dalej →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- BUILDER MODE -->
+        <div id="builderMode" class="mode">
+            <div class="builder-layout">
+                <aside class="sidebar">
+                    <div class="sidebar-header">
+                        <button class="btn-back" onclick="backToWizard()">← Wróć do kreatora</button>
+                        <h2>🎨 Twój projekt</h2>
+                        <div class="suggested-theme" id="suggestedTheme"></div>
+                    </div>
+
+                    <div class="sidebar-content">
+                        <!-- OBIEKTY -->
+                        <section class="section">
+                            <div class="section-header">
+                                <h3>📦 Obiekty/Pokoje</h3>
+                                <button class="btn-add" id="addObjectBtn">+ Dodaj obiekt</button>
+                            </div>
+                            <div id="objectsList" class="objects-list">
+                                <div class="empty-state-small">
+                                    <p>Nie dodano jeszcze żadnych pokoi/obiektów.</p>
+                                    <p class="hint">Kliknij "+ Dodaj obiekt" aby rozpocząć</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- USTAWIENIA GLOBALNE -->
+                        <section class="section">
+                            <h3>⚙️ Ustawienia globalne</h3>
+
+                            <div class="field">
+                                <label>Wybierz gotowy szablon (opcjonalnie)</label>
+                                <select id="templateSelect">
+                                    <option value="">Nie wybieraj szablonu (własne ustawienia)</option>
+                                </select>
+                                <span class="hint">Szablony automatycznie ustawiają kolory, fonty i layout</span>
+                            </div>
+
+                            <div class="field">
+                                <label>Nazwa obiektu głównego</label>
+                                <input type="text" id="propertyName" placeholder="np. Hotel Górski">
+                            </div>
+
+                            <div class="field">
+                                <label>Kolory (auto-dobrane lub własne)</label>
+                                <div class="colors-grid">
+                                    <div class="color-item">
+                                        <input type="color" id="colorPrimary" value="#2C3E50">
+                                        <span>Główny</span>
+                                    </div>
+                                    <div class="color-item">
+                                        <input type="color" id="colorSecondary" value="#ECF0F1">
+                                        <span>Drugorzędny</span>
+                                    </div>
+                                    <div class="color-item">
+                                        <input type="color" id="colorAccent" value="#CDD789">
+                                        <span>Akcent</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label>Czcionka nagłówków</label>
+                                <select id="fontHeading">
+                                    <option value="Cinzel">Cinzel (elegancki)</option>
+                                    <option value="Playfair Display">Playfair Display</option>
+                                    <option value="Montserrat">Montserrat (nowoczesny)</option>
+                                    <option value="Poppins">Poppins</option>
+                                    <option value="Raleway">Raleway</option>
+                                    <option value="Oswald">Oswald</option>
+                                    <option value="Great Vibes">Great Vibes (romantyczny)</option>
+                                    <option value="Bebas Neue">Bebas Neue (bold)</option>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label>Czcionka tekstu</label>
+                                <select id="fontBody">
+                                    <option value="Inter">Inter</option>
+                                    <option value="Open Sans">Open Sans</option>
+                                    <option value="Lato">Lato</option>
+                                    <option value="Roboto">Roboto</option>
+                                    <option value="Nunito">Nunito</option>
+                                    <option value="Source Sans Pro">Source Sans Pro</option>
+                                </select>
+                            </div>
+                        </section>
+
+                        <!-- GENERUJ -->
+                        <button class="btn btn-generate" id="generateBtn">
+                            🚀 Generuj kod HTML/CSS
+                        </button>
+                    </div>
+                </aside>
+
+                <main class="main-content">
+                    <div id="outputArea" class="output-area">
+                        <div class="empty-state">
+                            <div class="empty-icon">📝</div>
+                            <h3>Skonfiguruj obiekty i kliknij "Generuj kod"</h3>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <script src="wizard/questions.js"></script>
+    <script src="wizard/wizard.js"></script>
+    <script src="templates/templates-data.js"></script>
+    <script src="css-engine/css-generator.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

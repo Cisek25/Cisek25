@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IdoBooking AI Generator v4.0</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Generator UI CSS -->
+    <link rel="stylesheet" href="css/generator-ui.css">
+</head>
+
+<body>
+    <!-- ============================================
+         HEADER
+         ============================================ -->
+    <header class="app-header">
+        <div class="header-brand">
+            <i class="fas fa-wand-magic-sparkles"></i>
+            <span>IdoBooking <strong>AI Generator</strong></span>
+            <span class="version-badge">v4.0</span>
+        </div>
+        <nav class="header-nav">
+            <button class="nav-btn" id="btn-new"><i class="fas fa-plus"></i> Nowy projekt</button>
+            <button class="nav-btn" id="btn-help"><i class="fas fa-question-circle"></i> Pomoc</button>
+        </nav>
+    </header>
+
+    <!-- ============================================
+         MAIN CONTAINER
+         ============================================ -->
+    <main class="app-main">
+        <!-- WIZARD PANEL -->
+        <section class="wizard-panel" id="wizard-panel">
+            <!-- Progress Bar -->
+            <div class="wizard-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-steps" id="progress-steps"></div>
+            </div>
+
+            <!-- Wizard Content -->
+            <div class="wizard-content" id="wizard-content">
+                <!-- Steps będą dynamicznie ładowane -->
+            </div>
+
+            <!-- Wizard Navigation -->
+            <div class="wizard-nav">
+                <button class="btn btn-secondary" id="btn-prev" disabled>
+                    <i class="fas fa-arrow-left"></i> Wstecz
+                </button>
+                <div class="wizard-nav-right">
+                    <button class="btn btn-ghost" id="btn-skip" onclick="skipWizard()">
+                        <i class="fas fa-forward"></i> Pomiń wizard
+                    </button>
+                    <button class="btn btn-primary" id="btn-next">
+                        Dalej <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BUILDER PANEL (po wizardzie) -->
+        <section class="builder-panel hidden" id="builder-panel">
+            <div class="builder-sidebar">
+                <div class="sidebar-header">
+                    <h3><i class="fas fa-cog"></i> Konfiguracja</h3>
+                </div>
+
+                <!-- AI Recommendation -->
+                <div class="ai-recommendation" id="ai-recommendation">
+                    <div class="ai-badge"><i class="fas fa-robot"></i> AI Sugeruje</div>
+                    <h4 id="ai-template-name">Ładowanie...</h4>
+                    <p id="ai-template-desc"></p>
+                    <button class="btn btn-sm btn-accent" id="btn-apply-ai" onclick="applyAISuggestion()">
+                        <i class="fas fa-magic"></i> Zastosuj sugestię
+                    </button>
+                    <div class="ai-applied-msg hidden" id="ai-applied-msg">
+                        <i class="fas fa-check-circle"></i> Zastosowano!
+                    </div>
+                </div>
+
+                <!-- AI Gemini Chat -->
+                <div class="settings-section ai-chat-section">
+                    <h4>
+                        <i class="fas fa-brain"></i> Gemini AI Chat
+                        <button class="help-btn" onclick="showAIHelp()" title="Pomoc">
+                            <i class="fas fa-question-circle"></i>
+                        </button>
+                    </h4>
+
+                    <div class="ai-api-key-wrapper">
+                        <label>Klucz API Gemini</label>
+                        <div class="api-key-input-group">
+                            <input type="password" id="gemini-api-key" value="AIzaSyAS-cWUZFngR_YScZhihVzWJCBfo4tfodg"
+                                placeholder="Wklej klucz z Google AI Studio">
+                            <button class="btn btn-icon" onclick="toggleApiKeyVisibility()" title="Pokaż/ukryj">
+                                <i class="fas fa-eye" id="api-key-toggle-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="ai-token-counter">
+                        <span><i class="fas fa-coins"></i> Użyte tokeny:</span>
+                        <strong id="token-count">0</strong> / 1,000,000
+                        <div class="token-bar">
+                            <div class="token-bar-fill" id="token-bar-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="ai-prompt-wrapper">
+                        <label>Opisz co chcesz zmienić</label>
+                        <textarea id="ai-prompt" rows="3"
+                            placeholder="np. Zmień kolory na cieplejsze, dodaj więcej informacji o SPA, napisz opis pokoju deluxe..."></textarea>
+                    </div>
+
+                    <button class="btn btn-ai-generate" onclick="generateWithGemini()">
+                        <i class="fas fa-sparkles"></i> Generuj z AI
+                    </button>
+
+                    <div class="ai-response-wrapper hidden" id="ai-response-wrapper">
+                        <label>Odpowiedź AI:</label>
+                        <div class="ai-response" id="ai-response"></div>
+                        <button class="btn btn-sm btn-accent" onclick="applyAIResponse()">
+                            <i class="fas fa-check"></i> Zastosuj zmiany
+                        </button>
+                    </div>
+
+                    <div class="ai-loading hidden" id="ai-loading">
+                        <i class="fas fa-spinner fa-spin"></i> Generuję...
+                    </div>
+                </div>
+
+                <!-- AI Help Modal -->
+                <div class="ai-help-modal hidden" id="ai-help-modal">
+                    <div class="ai-help-content">
+                        <button class="close-btn" onclick="hideAIHelp()"><i class="fas fa-times"></i></button>
+                        <h3><i class="fas fa-question-circle"></i> Jak zmienić klucz API</h3>
+                        <ol>
+                            <li>Wejdź na <a href="https://aistudio.google.com/apikey" target="_blank">Google AI
+                                    Studio</a></li>
+                            <li>Zaloguj się kontem Google</li>
+                            <li>Kliknij "Create API Key"</li>
+                            <li>Skopiuj klucz i wklej powyżej</li>
+                        </ol>
+                        <p><strong>Limit:</strong> 1 milion tokenów/miesiąc za darmo. <br>Możesz utworzyć nowy klucz w
+                            nowym projekcie jeśli wyczerpiesz limit.</p>
+                    </div>
+                </div>
+
+                <!-- Template Gallery -->
+                <div class="settings-section">
+                    <h4><i class="fas fa-swatchbook"></i> Wybierz szablon</h4>
+                    <div class="templates-gallery" id="templates-gallery">
+                        <!-- Dynamicznie generowane -->
+                    </div>
+                </div>
+
+                <!-- Global Settings -->
+                <div class="settings-section">
+                    <h4><i class="fas fa-palette"></i> Kolory</h4>
+                    <div class="color-pickers">
+                        <div class="color-picker-item">
+                            <label>Primary</label>
+                            <input type="color" id="color-primary" value="#1A365D">
+                        </div>
+                        <div class="color-picker-item">
+                            <label>Secondary</label>
+                            <input type="color" id="color-secondary" value="#C9A227">
+                        </div>
+                        <div class="color-picker-item">
+                            <label>Accent</label>
+                            <input type="color" id="color-accent" value="#00B894">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h4><i class="fas fa-font"></i> Czcionki</h4>
+                    <div class="form-group">
+                        <label>Nagłówki</label>
+                        <select id="font-heading">
+                            <option value="Playfair Display">Playfair Display (elegancki)</option>
+                            <option value="Montserrat">Montserrat (nowoczesny)</option>
+                            <option value="Poppins">Poppins (przyjazny)</option>
+                            <option value="Raleway">Raleway (lekki)</option>
+                            <option value="Oswald">Oswald (bold)</option>
+                            <option value="Cinzel">Cinzel (luksusowy)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tekst</label>
+                        <select id="font-body">
+                            <option value="Inter">Inter (czytelny)</option>
+                            <option value="Open Sans">Open Sans (neutralny)</option>
+                            <option value="Lato">Lato (ciepły)</option>
+                            <option value="Roboto">Roboto (techniczny)</option>
+                            <option value="Nunito">Nunito (zaokrąglony)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h4><i class="fas fa-puzzle-piece"></i> Sekcje</h4>
+                    <div class="sections-checklist" id="sections-checklist">
+                        <!-- Dynamicznie generowane -->
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h4><i class="fas fa-map-marker-alt"></i> Lokalizacja</h4>
+                    <div class="form-group">
+                        <label>Adres obiektu</label>
+                        <input type="text" id="location-address" placeholder="np. ul. Przykładowa 123, Warszawa"
+                            oninput="updateAddress(this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label>Nazwa obiektu</label>
+                        <input type="text" id="property-name" placeholder="np. Hotel Panorama"
+                            oninput="updatePropertyName(this.value)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="builder-main">
+                <!-- Rooms/Objects Editor -->
+                <div class="objects-panel">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-bed"></i> Pokoje / Obiekty</h3>
+                        <button class="btn btn-primary" id="btn-add-object">
+                            <i class="fas fa-plus"></i> Dodaj pokój
+                        </button>
+                    </div>
+                    <div class="objects-grid" id="objects-grid">
+                        <!-- Dynamicznie generowane karty pokoi -->
+                    </div>
+                </div>
+
+                <!-- FAQ Editor -->
+                <div class="faq-editor-panel">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-question-circle"></i> Edytor FAQ</h3>
+                        <button class="btn btn-primary" onclick="addFaqItem()">
+                            <i class="fas fa-plus"></i> Dodaj pytanie
+                        </button>
+                    </div>
+                    <div class="faq-items-list" id="faq-items-list">
+                        <!-- Dynamicznie generowane pytania -->
+                    </div>
+                </div>
+
+                <!-- Generate Button -->
+                <div class="generate-section">
+                    <button class="btn btn-generate" id="btn-generate">
+                        <i class="fas fa-rocket"></i> Generuj kod dla IdoBooking
+                    </button>
+                </div>
+            </div>
+
+            <div class="builder-preview" id="builder-preview">
+                <div class="preview-header">
+                    <h3><i class="fas fa-eye"></i> Podgląd</h3>
+                    <div class="preview-controls">
+                        <button class="preview-btn active" data-view="desktop"><i class="fas fa-desktop"></i></button>
+                        <button class="preview-btn" data-view="tablet"><i class="fas fa-tablet-alt"></i></button>
+                        <button class="preview-btn" data-view="mobile"><i class="fas fa-mobile-alt"></i></button>
+                        <button class="preview-btn preview-fullscreen" id="btn-fullscreen" title="Pełny ekran"><i
+                                class="fas fa-expand"></i></button>
+                    </div>
+                </div>
+                <div class="preview-frame" id="preview-frame">
+                    <iframe id="preview-iframe" src="about:blank"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPORT MODAL -->
+        <div class="modal hidden" id="export-modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content modal-xl">
+                <div class="modal-header">
+                    <h2><i class="fas fa-download"></i> Eksport kodu dla IdoBooking</h2>
+                    <button class="modal-close" id="close-export">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Tabs -->
+                    <div class="export-tabs">
+                        <button class="export-tab active" data-tab="head">
+                            <i class="fas fa-code"></i> head.html
+                        </button>
+                        <button class="export-tab" data-tab="sections">
+                            <i class="fas fa-layer-group"></i> sections.html
+                        </button>
+                        <button class="export-tab" data-tab="styles">
+                            <i class="fas fa-paint-brush"></i> styles.css
+                        </button>
+                        <button class="export-tab" data-tab="scripts">
+                            <i class="fas fa-terminal"></i> scripts.html
+                        </button>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="export-content">
+                        <div class="export-pane active" id="pane-head">
+                            <div class="code-header">
+                                <span>Wklej w CMS → HEAD</span>
+                                <div class="code-actions">
+                                    <button class="btn btn-sm" onclick="copyCode('head')"><i class="fas fa-copy"></i>
+                                        Kopiuj</button>
+                                    <button class="btn btn-sm" onclick="downloadCode('head.html', 'head')"><i
+                                            class="fas fa-download"></i> Pobierz</button>
+                                </div>
+                            </div>
+                            <pre class="code-block"><code id="code-head"></code></pre>
+                        </div>
+                        <div class="export-pane" id="pane-sections">
+                            <div class="code-header">
+                                <span>Wklej w CMS → Sekcje BODY</span>
+                                <div class="code-actions">
+                                    <button class="btn btn-sm" onclick="copyCode('sections')"><i
+                                            class="fas fa-copy"></i> Kopiuj</button>
+                                    <button class="btn btn-sm" onclick="downloadCode('sections.html', 'sections')"><i
+                                            class="fas fa-download"></i> Pobierz</button>
+                                </div>
+                            </div>
+                            <pre class="code-block"><code id="code-sections"></code></pre>
+                        </div>
+                        <div class="export-pane" id="pane-styles">
+                            <div class="code-header">
+                                <span>Wklej w CMS → Custom CSS</span>
+                                <div class="code-actions">
+                                    <button class="btn btn-sm" onclick="copyCode('styles')"><i class="fas fa-copy"></i>
+                                        Kopiuj</button>
+                                    <button class="btn btn-sm" onclick="downloadCode('styles.css', 'styles')"><i
+                                            class="fas fa-download"></i> Pobierz</button>
+                                </div>
+                            </div>
+                            <pre class="code-block"><code id="code-styles"></code></pre>
+                        </div>
+                        <div class="export-pane" id="pane-scripts">
+                            <div class="code-header">
+                                <span>Wklej w CMS → Koniec sekcji body</span>
+                                <div class="code-actions">
+                                    <button class="btn btn-sm" onclick="copyCode('scripts')"><i class="fas fa-copy"></i>
+                                        Kopiuj</button>
+                                    <button class="btn btn-sm" onclick="downloadCode('scripts.html', 'scripts')"><i
+                                            class="fas fa-download"></i> Pobierz</button>
+                                </div>
+                            </div>
+                            <pre class="code-block"><code id="code-scripts"></code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Download All -->
+                    <div class="export-footer">
+                        <button class="btn btn-primary btn-lg" id="btn-download-all">
+                            <i class="fas fa-file-archive"></i> Pobierz wszystkie pliki (ZIP)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OBJECT EDITOR MODAL -->
+        <div class="modal hidden" id="object-modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="object-modal-title"><i class="fas fa-bed"></i> Edytuj pokój</h2>
+                    <button class="modal-close" id="close-object">&times;</button>
+                </div>
+                <div class="modal-body" id="object-modal-body">
+                    <!-- Dynamicznie generowany formularz -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Section Editor Modal -->
+    <div class="modal-overlay hidden" id="section-editor-modal">
+        <div class="modal section-editor-content">
+            <div class="modal-header">
+                <h3 id="section-editor-title">Edytuj sekcję</h3>
+                <button class="btn-close" onclick="closeSectionEditor()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="section-editor-form">
+                <!-- Dynamicznie generowany formularz -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeSectionEditor()">Anuluj</button>
+                <button class="btn btn-primary" onclick="saveSectionContent()">
+                    <i class="fas fa-save"></i> Zapisz zmiany
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         SCRIPTS
+         ============================================ -->
+    <script src="data/templates.js"></script>
+    <script src="data/sections.js"></script>
+    <script src="data/amenities.js"></script>
+    <script src="js/ai-engine.js"></script>
+    <script src="js/wizard.js"></script>
+    <script src="js/template-engine.js"></script>
+    <script src="js/css-engine.js"></script>
+    <script src="js/preview.js"></script>
+    <script src="js/gemini-api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

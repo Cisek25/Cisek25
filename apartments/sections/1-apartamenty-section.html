@@ -1,0 +1,553 @@
+<!-- ========================================
+     SEKCJA 1: APARTAMENTY PREMIUM (8 OBIEKTÓW)
+
+     INSTRUKCJA WKLEJANIA:
+     1. Panel CMS idoBooking → Nowa sekcja CMS
+     2. Nazwa sekcji: "Apartamenty Premium"
+     3. Poziom: Body
+     4. Wklej poniższy kod
+     5. Zapisz
+
+     DO PERSONALIZACJI:
+     - Zmień nazwy apartamentów
+     - Wstaw własne URL-e zdjęć
+     - Dostosuj ceny (obecnie przykładowe)
+     - Zmień opisy apartamentów
+     - Dostosuj liczby osób/pokoi/łazienek
+     - Link rezerwacji: https://engine55004.idobooking.com/
+
+     WAŻNE:
+     - Ta sekcja NIE UŻYWA systemu "wyróżnionych ofert"
+     - Apartamenty są zakodowane na sztywno w HTML
+     - Łatwiej kontrolować kolejność i prezentację
+     ======================================== -->
+
+<section class="apartments-premium-section" id="apartamenty" aria-labelledby="apartments-title">
+  <div class="apartments-container">
+
+    <!-- Nagłówek Sekcji -->
+    <div class="apartments-header">
+      <span class="apartments-super" role="text">Nasza Oferta</span>
+      <h2 class="apartments-title" id="apartments-title">Ekskluzywne Apartamenty</h2>
+      <p class="apartments-subtitle">
+        Wybierz spośród starannie zaprojektowanych apartamentów w sercu Karkonoszy.
+        Każdy z unikalnym charakterem, pełnym wyposażeniem i zapierającymi dech w piersiach widokami na góry.
+      </p>
+    </div>
+
+    <!-- Siatka Apartamentów -->
+    <div class="apartments-grid">
+
+      <!-- APARTAMENT 1: Apartament Górski Widok -->
+      <article class="apartment-card">
+        <div class="apartment-image">
+          <!--
+            ZMIEŃ URL ZDJĘCIA:
+            Wstaw swoje zdjęcie apartamentu
+          -->
+          <img
+            src="https://client55004.idosell.com/images/objects/pictures/large/1/0/27.jpg"
+            alt="Apartament Górski Widok - widok wnętrza z panoramicznymi oknami na góry"
+            loading="lazy"
+          >
+          <span class="apartment-badge" aria-label="Szczególnie polecany">TOP</span>
+        </div>
+
+        <div class="apartment-content">
+          <!-- Nazwa apartamentu - DO ZMIANY -->
+          <h3 class="apartment-name">Apartament Górski Widok</h3>
+
+          <!-- Opis - DO ZMIANY -->
+          <p class="apartment-description">
+            Przestronny apartament z panoramicznymi oknami i tarasem z widokiem na Karkonosze.
+            Idealne miejsce dla rodzin i grup przyjaciół szukających komfortu i luksusu.
+          </p>
+
+          <!-- Cechy apartamentu - DO ZMIANY -->
+          <div class="apartment-features">
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">👥</span>
+              <span class="feature-value">6</span>
+              <span class="feature-label">Osób</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">🛏️</span>
+              <span class="feature-value">3</span>
+              <span class="feature-label">Sypialnie</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">🚿</span>
+              <span class="feature-value">2</span>
+              <span class="feature-label">Łazienki</span>
+            </div>
+          </div>
+
+          <!-- Stopka z ceną i przyciskiem -->
+          <div class="apartment-footer">
+            <div class="apartment-price">
+              <span class="price-from">Od</span>
+              <span class="price-amount">450 zł</span>
+              <span class="price-period">/ noc</span>
+            </div>
+            <a
+              href="https://engine55004.idobooking.com/"
+              class="apartment-cta"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Rezerwuj Apartament Górski Widok"
+            >
+              Rezerwuj
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- APARTAMENT 2: Apartament Szklarska Perła -->
+      <article class="apartment-card">
+        <div class="apartment-image">
+          <img
+            src="https://client55004.idosell.com/images/objects/pictures/large/1/0/32.jpg"
+            alt="Apartament Szklarska Perła - eleganckie wnętrze w stylu górskim"
+            loading="lazy"
+          >
+          <span class="apartment-badge" aria-label="Nowość">NOWE</span>
+        </div>
+
+        <div class="apartment-content">
+          <h3 class="apartment-name">Apartament Szklarska Perła</h3>
+
+          <p class="apartment-description">
+            Nowocześnie urządzony apartament łączący nowoczesny design z tradycyjnym górskim klimatem.
+            Doskonały dla par i małych rodzin poszukujących komfortu i prywatności.
+          </p>
+
+          <div class="apartment-features">
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">👥</span>
+              <span class="feature-value">4</span>
+              <span class="feature-label">Osoby</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">🛏️</span>
+              <span class="feature-value">2</span>
+              <span class="feature-label">Sypialnie</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">🚿</span>
+              <span class="feature-value">1</span>
+              <span class="feature-label">Łazienka</span>
+            </div>
+          </div>
+
+          <div class="apartment-footer">
+            <div class="apartment-price">
+              <span class="price-from">Od</span>
+              <span class="price-amount">380 zł</span>
+              <span class="price-period">/ noc</span>
+            </div>
+            <a
+              href="https://engine55004.idobooking.com/"
+              class="apartment-cta"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Rezerwuj Apartament Szklarska Perła"
+            >
+              Rezerwuj
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- APARTAMENT 3: Studio Karkonoskie -->
+      <article class="apartment-card">
+        <div class="apartment-image">
+          <img
+            src="https://client55004.idosell.com/images/objects/pictures/large/1/0/32.jpg"
+            alt="Studio Karkonoskie - przytulne wnętrze studia"
+            loading="lazy"
+          >
+        </div>
+
+        <div class="apartment-content">
+          <h3 class="apartment-name">Studio Karkonoskie</h3>
+
+          <p class="apartment-description">
+            Przytulne studio idealne dla par. Kompaktowe, ale doskonale wyposażone,
+            z balkonem i wszystkimi niezbędnymi udogodnieniami dla komfortowego pobytu.
+          </p>
+
+          <div class="apartment-features">
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">👥</span>
+              <span class="feature-value">2</span>
+              <span class="feature-label">Osoby</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">🛏️</span>
+              <span class="feature-value">1</span>
+              <span class="feature-label">Sypialnia</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">🚿</span>
+              <span class="feature-value">1</span>
+              <span class="feature-label">Łazienka</span>
+            </div>
+          </div>
+
+          <div class="apartment-footer">
+            <div class="apartment-price">
+              <span class="price-from">Od</span>
+              <span class="price-amount">280 zł</span>
+              <span class="price-period">/ noc</span>
+            </div>
+            <a
+              href="https://engine55004.idobooking.com/"
+              class="apartment-cta"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Rezerwuj Studio Karkonoskie"
+            >
+              Rezerwuj
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- APARTAMENT 4: Loft Premium Plus -->
+      <article class="apartment-card">
+        <div class="apartment-image">
+          <img
+            src="https://client55004.idosell.com/images/objects/pictures/large/1/0/36.jpg"
+            alt="Loft Premium Plus - luksusowy loft z antresolą"
+            loading="lazy"
+          >
+          <span class="apartment-badge" aria-label="Luksusowy">LUX</span>
+        </div>
+
+        <div class="apartment-content">
+          <h3 class="apartment-name">Loft Premium Plus</h3>
+
+          <p class="apartment-description">
+            Najbardziej ekskluzywny apartament w naszej ofercie. Dwupoziomowy loft z designerskim
+            wnętrzem, jacuzzi i sauną. Dla najbardziej wymagających gości.
+          </p>
+
+          <div class="apartment-features">
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">👥</span>
+              <span class="feature-value">8</span>
+              <span class="feature-label">Osób</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">🛏️</span>
+              <span class="feature-value">4</span>
+              <span class="feature-label">Sypialnie</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">🚿</span>
+              <span class="feature-value">3</span>
+              <span class="feature-label">Łazienki</span>
+            </div>
+          </div>
+
+          <div class="apartment-footer">
+            <div class="apartment-price">
+              <span class="price-from">Od</span>
+              <span class="price-amount">680 zł</span>
+              <span class="price-period">/ noc</span>
+            </div>
+            <a
+              href="https://engine55004.idobooking.com/"
+              class="apartment-cta"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Rezerwuj Loft Premium Plus"
+            >
+              Rezerwuj
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- APARTAMENT 5: Apartament Karkonoski Komfort -->
+      <article class="apartment-card">
+        <div class="apartment-image">
+          <img
+            src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop"
+            alt="Apartament Karkonoski Komfort - nowoczesne wnętrze z kominkiem"
+            loading="lazy"
+          >
+        </div>
+
+        <div class="apartment-content">
+          <h3 class="apartment-name">Apartament Karkonoski Komfort</h3>
+
+          <p class="apartment-description">
+            Komfortowy apartament z kominkiem i przestronnym salonem. Idealny dla rodzin
+            ceniących przytulną atmosferę i domowy klimat w górach.
+          </p>
+
+          <div class="apartment-features">
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">👥</span>
+              <span class="feature-value">5</span>
+              <span class="feature-label">Osób</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">🛏️</span>
+              <span class="feature-value">2</span>
+              <span class="feature-label">Sypialnie</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">🚿</span>
+              <span class="feature-value">2</span>
+              <span class="feature-label">Łazienki</span>
+            </div>
+          </div>
+
+          <div class="apartment-footer">
+            <div class="apartment-price">
+              <span class="price-from">Od</span>
+              <span class="price-amount">410 zł</span>
+              <span class="price-period">/ noc</span>
+            </div>
+            <a
+              href="https://engine55004.idobooking.com/"
+              class="apartment-cta"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Rezerwuj Apartament Karkonoski Komfort"
+            >
+              Rezerwuj
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- APARTAMENT 6: Apartament Szrenica View -->
+      <article class="apartment-card">
+        <div class="apartment-image">
+          <img
+            src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop"
+            alt="Apartament Szrenica View - apartament z widokiem na Szrenicę"
+            loading="lazy"
+          >
+          <span class="apartment-badge" aria-label="Polecany">HIT</span>
+        </div>
+
+        <div class="apartment-content">
+          <h3 class="apartment-name">Apartament Szrenica View</h3>
+
+          <p class="apartment-description">
+            Przepiękny apartament z panoramicznym widokiem na Szrenicę. Duży taras,
+            nowoczesne wyposażenie i bliskość szlaków turystycznych.
+          </p>
+
+          <div class="apartment-features">
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">👥</span>
+              <span class="feature-value">4</span>
+              <span class="feature-label">Osoby</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">🛏️</span>
+              <span class="feature-value">2</span>
+              <span class="feature-label">Sypialnie</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">🚿</span>
+              <span class="feature-value">1</span>
+              <span class="feature-label">Łazienka</span>
+            </div>
+          </div>
+
+          <div class="apartment-footer">
+            <div class="apartment-price">
+              <span class="price-from">Od</span>
+              <span class="price-amount">395 zł</span>
+              <span class="price-period">/ noc</span>
+            </div>
+            <a
+              href="https://engine55004.idobooking.com/"
+              class="apartment-cta"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Rezerwuj Apartament Szrenica View"
+            >
+              Rezerwuj
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- APARTAMENT 7: Studio Premium -->
+      <article class="apartment-card">
+        <div class="apartment-image">
+          <img
+            src="https://images.unsplash.com/photo-1556912167-f556f1f39faa?w=800&h=600&fit=crop"
+            alt="Studio Premium - nowoczesne studio z aneksem kuchennym"
+            loading="lazy"
+          >
+        </div>
+
+        <div class="apartment-content">
+          <h3 class="apartment-name">Studio Premium</h3>
+
+          <p class="apartment-description">
+            Eleganckie studio z w pełni wyposażonym aneksem kuchennym. Doskonały wybór
+            dla par szukających intymności i komfortu w sercu Karkonoszy.
+          </p>
+
+          <div class="apartment-features">
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">👥</span>
+              <span class="feature-value">2</span>
+              <span class="feature-label">Osoby</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">🛏️</span>
+              <span class="feature-value">1</span>
+              <span class="feature-label">Sypialnia</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">🚿</span>
+              <span class="feature-value">1</span>
+              <span class="feature-label">Łazienka</span>
+            </div>
+          </div>
+
+          <div class="apartment-footer">
+            <div class="apartment-price">
+              <span class="price-from">Od</span>
+              <span class="price-amount">290 zł</span>
+              <span class="price-period">/ noc</span>
+            </div>
+            <a
+              href="https://engine55004.idobooking.com/"
+              class="apartment-cta"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Rezerwuj Studio Premium"
+            >
+              Rezerwuj
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- APARTAMENT 8: Apartament Family Deluxe -->
+      <article class="apartment-card">
+        <div class="apartment-image">
+          <img
+            src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800&h=600&fit=crop"
+            alt="Apartament Family Deluxe - przestronny apartament rodzinny"
+            loading="lazy"
+          >
+          <span class="apartment-badge" aria-label="Rodzinny">RODZINNY</span>
+        </div>
+
+        <div class="apartment-content">
+          <h3 class="apartment-name">Apartament Family Deluxe</h3>
+
+          <p class="apartment-description">
+            Przestronny apartament rodzinny z trzema sypialniami. Duża kuchnia, salon z jadalnią
+            i dwie łazienki. Idealny dla większych rodzin lub grup przyjaciół.
+          </p>
+
+          <div class="apartment-features">
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">👥</span>
+              <span class="feature-value">7</span>
+              <span class="feature-label">Osób</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">🛏️</span>
+              <span class="feature-value">3</span>
+              <span class="feature-label">Sypialnie</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">🚿</span>
+              <span class="feature-value">2</span>
+              <span class="feature-label">Łazienki</span>
+            </div>
+          </div>
+
+          <div class="apartment-footer">
+            <div class="apartment-price">
+              <span class="price-from">Od</span>
+              <span class="price-amount">520 zł</span>
+              <span class="price-period">/ noc</span>
+            </div>
+            <a
+              href="https://engine55004.idobooking.com/"
+              class="apartment-cta"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Rezerwuj Apartament Family Deluxe"
+            >
+              Rezerwuj
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- APARTAMENT 9: Apartament Exclusive Panorama -->
+      <article class="apartment-card">
+        <div class="apartment-image">
+          <img
+            src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop&q=80"
+            alt="Apartament Exclusive Panorama - nowoczesny apartament z panoramicznymi oknami"
+            loading="lazy"
+          >
+          <span class="apartment-badge apartment-badge-new" aria-label="Nowość">NOWOŚĆ</span>
+        </div>
+
+        <div class="apartment-content">
+          <h3 class="apartment-name">Apartament Exclusive Panorama</h3>
+
+          <p class="apartment-description">
+            Najnowszy apartament w naszej ofercie! Nowoczesny design, wysokiej klasy wyposażenie
+            i spektakularne widoki na Szrenicę. Dla wymagających gości ceniących luksus i wygodę.
+          </p>
+
+          <div class="apartment-features">
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">👥</span>
+              <span class="feature-value">5</span>
+              <span class="feature-label">Osób</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">🛏️</span>
+              <span class="feature-value">2</span>
+              <span class="feature-label">Sypialnie</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon" aria-hidden="true">🚿</span>
+              <span class="feature-value">1</span>
+              <span class="feature-label">Łazienka</span>
+            </div>
+          </div>
+
+          <div class="apartment-footer">
+            <div class="apartment-price">
+              <span class="price-from">Od</span>
+              <span class="price-amount">380 zł</span>
+              <span class="price-period">/ noc</span>
+            </div>
+            <a
+              href="https://engine55004.idobooking.com/"
+              class="apartment-cta"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Rezerwuj Apartament Exclusive Panorama"
+            >
+              Rezerwuj
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /.apartments-grid -->
+
+  </div><!-- /.apartments-container -->
+</section><!-- /.apartments-premium-section -->
