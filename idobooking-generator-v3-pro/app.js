@@ -476,13 +476,21 @@ function generateCode() {
 function generateHTML() {
     const propertyName = appState.globalSettings.propertyName || 'Nasz Obiekt';
 
+    // Zbierz wszystkie unikalne amenities ze wszystkich pokoi
+    const allAmenities = [...new Set(appState.objects.flatMap(obj => obj.amenities))];
+
+    // Zbierz wszystkie zdjęcia ze wszystkich pokoi
+    const allImages = appState.objects.flatMap(obj => obj.images).filter(img => img);
+
     let html = `<!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${propertyName}</title>
+    <title>${propertyName} - Rezerwacja online</title>
+    <meta name="description" content="Zarezerwuj pobyt w ${propertyName}. Komfortowe pokoje, doskonała lokalizacja.">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=${appState.globalSettings.fontHeading.replace(' ', '+')}:wght@300;400;500;600;700&family=${appState.globalSettings.fontBody.replace(' ', '+')}:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- HEADER -->
@@ -491,43 +499,333 @@ function generateHTML() {
             <a href="#" class="site-logo">${propertyName}</a>
             <nav class="main-nav">
                 <ul>
+                    <li><a href="#o-nas">O nas</a></li>
                     <li><a href="#pokoje">Pokoje</a></li>
                     <li><a href="#udogodnienia">Udogodnienia</a></li>
                     <li><a href="#galeria">Galeria</a></li>
+                    <li><a href="#opinie">Opinie</a></li>
                     <li><a href="#kontakt">Kontakt</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- BODY (HERO) -->
+    <!-- HERO -->
     <section class="hero">
         <div class="hero-content">
             <h1>${propertyName}</h1>
-            <p>Witamy w naszym obiekcie</p>
+            <p class="lead">Odkryj wyjątkowe miejsce na Twój wypoczynek</p>
             <div class="hero-buttons">
-                <a href="#pokoje" class="btn btn-primary">Zobacz pokoje</a>
-                <a href="#kontakt" class="btn btn-secondary">Kontakt</a>
+                <a href="#pokoje" class="btn btn-primary btn-lg">Zobacz pokoje</a>
+                <a href="#kontakt" class="btn btn-secondary btn-lg">Zarezerwuj teraz</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- O NAS -->
+    <section id="o-nas" class="section section-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>O Nas</h2>
+                <p>Poznaj naszą historię</p>
+            </div>
+
+            <div class="section-description">
+                <h3>Witamy w ${propertyName}</h3>
+                <p>Jesteśmy dumni, że możemy gościć naszych gości w komfortowych warunkach. Nasz obiekt oferuje ${appState.objects.length} ${appState.objects.length === 1 ? 'pokój' : appState.objects.length < 5 ? 'pokoje' : 'pokoi'}, każdy z unikalnym charakterem i pełnym wyposażeniem.</p>
+                <p>Stawiamy na indywidualne podejście do każdego gościa, dbając o każdy szczegół Państwa pobytu. Nasze doświadczenie i pasja do gościnności sprawiają, że pobyt u nas pozostawi niezapomniane wspomnienia.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏠</div>
+                    <h4>Komfortowe Pokoje</h4>
+                    <p>${appState.objects.length} ${appState.objects.length === 1 ? 'pokój' : 'pokoi'} do wyboru, każdy z unikalnym charakterem</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⭐</div>
+                    <h4>Wysoka Jakość</h4>
+                    <p>Dbałość o każdy szczegół i najwyższe standardy obsługi</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <h4>Doskonała Lokalizacja</h4>
+                    <p>Idealne położenie blisko głównych atrakcji</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- POKOJE -->
-    <section id="pokoje" class="section section-light">
+    <section id="pokoje" class="section section-alt">
         <div class="container">
             <div class="section-title">
-                <h2>Nasze Pokoje</h2>
-                <p>Wybierz idealny pokój dla siebie</p>
+                <h2>Nasze Pokoje i Apartamenty</h2>
+                <p>Wybierz idealny pokój dla siebie - mamy ${appState.objects.length} ${appState.objects.length === 1 ? 'opcję' : 'opcje'} do wyboru</p>
             </div>
 
-            <div class="grid grid-cols-3">
+            <div class="grid grid-cols-${appState.objects.length >= 3 ? '3' : appState.objects.length === 2 ? '2' : '1'}">
                 ${appState.objects.map(obj => generateRoomCard(obj)).join('\n')}
             </div>
         </div>
     </section>
 
-    <!-- END OF BODY (SCRIPTS) -->
-    <script src="app.js"></script>
+    <!-- UDOGODNIENIA -->
+    <section id="udogodnienia" class="section section-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Udogodnienia</h2>
+                <p>Wszystko czego potrzebujesz dla komfortowego pobytu</p>
+            </div>
+
+            ${allAmenities.length > 0 ? `
+            <div class="amenities-grid">
+                ${allAmenities.map(amenity => `
+                <div class="amenity-item">
+                    <span class="amenity-icon">${amenity.split(' ')[0]}</span>
+                    <span class="amenity-label">${amenity.substring(amenity.indexOf(' ') + 1)}</span>
+                </div>`).join('')}
+            </div>
+            ` : `
+            <div class="amenities-grid">
+                <div class="amenity-item">
+                    <span class="amenity-icon">📶</span>
+                    <span class="amenity-label">Bezpłatne WiFi</span>
+                </div>
+                <div class="amenity-item">
+                    <span class="amenity-icon">🅿️</span>
+                    <span class="amenity-label">Parking</span>
+                </div>
+                <div class="amenity-item">
+                    <span class="amenity-icon">🍳</span>
+                    <span class="amenity-label">Śniadanie</span>
+                </div>
+                <div class="amenity-item">
+                    <span class="amenity-icon">🛏️</span>
+                    <span class="amenity-label">Czyste pościele</span>
+                </div>
+                <div class="amenity-item">
+                    <span class="amenity-icon">🚿</span>
+                    <span class="amenity-label">Łazienki</span>
+                </div>
+                <div class="amenity-item">
+                    <span class="amenity-icon">📺</span>
+                    <span class="amenity-label">Telewizja</span>
+                </div>
+            </div>
+            `}
+        </div>
+    </section>
+
+    <!-- GALERIA -->
+    <section id="galeria" class="section section-alt">
+        <div class="container">
+            <div class="section-title">
+                <h2>Galeria</h2>
+                <p>Zobacz jak wygląda nasz obiekt</p>
+            </div>
+
+            ${allImages.length > 0 ? `
+            <div class="gallery">
+                ${allImages.slice(0, 6).map((image, index) => `
+                <div class="gallery-item">
+                    <img src="${image}" alt="Zdjęcie ${index + 1}">
+                    <div class="gallery-caption">
+                        <h4>${propertyName}</h4>
+                        <p>Galeria zdjęć</p>
+                    </div>
+                </div>`).join('')}
+            </div>
+            ` : `
+            <p style="text-align: center; color: #6B7280;">Dodaj zdjęcia w edytorze pokoi, aby wyświetlić galerię</p>
+            `}
+        </div>
+    </section>
+
+    <!-- OPINIE -->
+    <section id="opinie" class="section section-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Opinie Gości</h2>
+                <p>Co mówią o nas nasi goście</p>
+            </div>
+
+            <div class="grid grid-cols-3">
+                <div class="card">
+                    <div class="card-content">
+                        <div style="color: #F59E0B; margin-bottom: 1rem; font-size: 1.5rem;">⭐⭐⭐⭐⭐</div>
+                        <p class="card-description">"Wspaniałe miejsce! Czysty pokój, miła obsługa, polecam!"</p>
+                        <p style="font-weight: 600; margin-top: 1rem;">- Anna K.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div style="color: #F59E0B; margin-bottom: 1rem; font-size: 1.5rem;">⭐⭐⭐⭐⭐</div>
+                        <p class="card-description">"Rewelacyjna lokalizacja i komfortowe warunki. Na pewno wrócimy!"</p>
+                        <p style="font-weight: 600; margin-top: 1rem;">- Piotr M.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div style="color: #F59E0B; margin-bottom: 1rem; font-size: 1.5rem;">⭐⭐⭐⭐⭐</div>
+                        <p class="card-description">"Piękny obiekt, czysto i przytulnie. Gorąco polecam!"</p>
+                        <p style="font-weight: 600; margin-top: 1rem;">- Katarzyna W.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOKALIZACJA -->
+    <section id="lokalizacja" class="section section-alt">
+        <div class="container">
+            <div class="section-title">
+                <h2>Lokalizacja</h2>
+                <p>Znajdź nas łatwo</p>
+            </div>
+
+            <div class="grid grid-cols-2">
+                <div>
+                    <h3>Jak do nas trafić?</h3>
+                    <p>Nasz obiekt znajduje się w doskonałej lokalizacji, z łatwym dojazdem zarówno samochodem jak i komunikacją miejską.</p>
+                    <div style="margin-top: 2rem;">
+                        <h4 style="margin-bottom: 1rem;">Dojazd:</h4>
+                        <ul style="list-style: disc; padding-left: 1.5rem;">
+                            <li style="margin-bottom: 0.5rem;">🚗 Parking dla gości</li>
+                            <li style="margin-bottom: 0.5rem;">🚌 Przystanek autobusowy 200m</li>
+                            <li style="margin-bottom: 0.5rem;">🚂 Dworzec kolejowy 2km</li>
+                            <li style="margin-bottom: 0.5rem;">✈️ Lotnisko 15km</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div style="background: #E5E7EB; border-radius: 1rem; padding: 3rem; text-align: center; height: 100%; display: flex; align-items: center; justify-content: center;">
+                        <div>
+                            <p style="font-size: 3rem; margin-bottom: 1rem;">📍</p>
+                            <p style="font-weight: 600;">Tutaj umieść mapę Google Maps</p>
+                            <p style="font-size: 0.875rem; color: #6B7280; margin-top: 0.5rem;">Dodaj kod iframe mapy w idobooking</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KONTAKT -->
+    <section id="kontakt" class="section section-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Kontakt i Rezerwacja</h2>
+                <p>Skontaktuj się z nami lub zarezerwuj pobyt</p>
+            </div>
+
+            <div class="grid grid-cols-2">
+                <div>
+                    <h3>Dane kontaktowe</h3>
+                    <div style="margin-top: 2rem;">
+                        <div style="margin-bottom: 1.5rem;">
+                            <strong>📧 Email:</strong><br>
+                            <a href="mailto:kontakt@example.com" style="color: var(--color-primary);">kontakt@example.com</a>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <strong>📱 Telefon:</strong><br>
+                            <a href="tel:+48123456789" style="color: var(--color-primary);">+48 123 456 789</a>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <strong>📍 Adres:</strong><br>
+                            ul. Przykładowa 123<br>
+                            00-000 Miasto
+                        </div>
+                        <div>
+                            <strong>🕐 Godziny przyjazdu:</strong><br>
+                            Zameldowanie: 14:00<br>
+                            Wymeldowanie: 11:00
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>Formularz kontaktowy</h3>
+                    <form class="contact-form" style="margin-top: 2rem;">
+                        <div class="form-group">
+                            <label class="form-label">Imię i nazwisko</label>
+                            <input type="text" class="form-input" placeholder="Jan Kowalski">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-input" placeholder="jan@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Wiadomość</label>
+                            <textarea class="form-textarea" placeholder="Twoja wiadomość..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Wyślij wiadomość</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>${propertyName}</h4>
+                    <p>Twoje miejsce na wyjątkowy wypoczynek. Zapraszamy do rezerwacji!</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Linki</h4>
+                    <div class="footer-links">
+                        <a href="#o-nas">O nas</a>
+                        <a href="#pokoje">Pokoje</a>
+                        <a href="#udogodnienia">Udogodnienia</a>
+                        <a href="#galeria">Galeria</a>
+                        <a href="#kontakt">Kontakt</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Kontakt</h4>
+                    <div class="footer-links">
+                        <a href="mailto:kontakt@example.com">📧 kontakt@example.com</a>
+                        <a href="tel:+48123456789">📱 +48 123 456 789</a>
+                        <a href="#">📍 ul. Przykładowa 123</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; ${new Date().getFullYear()} ${propertyName}. Wszystkie prawa zastrzeżone.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.site-header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 </html>`;
 
