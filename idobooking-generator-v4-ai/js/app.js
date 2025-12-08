@@ -33,6 +33,63 @@ const appState = {
             { question: 'Czy jest możliwość anulowania rezerwacji?', answer: 'Tak, bezpłatna anulacja możliwa do 48h przed przyjazdem.' }
         ]
     },
+    // ============================================
+    // EFFECTS SETTINGS - Mega opcje efektów
+    // ============================================
+    effectsSettings: {
+        // Gradienty
+        useGradients: true,
+        gradientType: 'linear', // 'linear' | 'radial' | 'conic'
+        gradientAngle: 135,
+        gradientPreset: 'sunset', // 'sunset', 'aurora', 'ocean', 'forest', 'royal', 'custom'
+
+        // Efekty Hover
+        hoverEffects: {
+            cards: true,           // Hover na kartach pokoi
+            buttons: true,         // Hover na przyciskach
+            images: true,          // Hover na obrazkach (zoom)
+            links: true,           // Hover na linkach
+            flipCards: false       // Karty obracane 3D
+        },
+
+        // Animacje
+        animations: {
+            fadeIn: true,          // Animacja wejścia
+            slideUp: true,         // Wsuwanie od dołu
+            parallax: false,       // Efekt parallax
+            smoothScroll: true,    // Płynne przewijanie
+            countUp: true          // Animacja liczników
+        },
+
+        // Rozmiary czcionek (skalowanie %)
+        fontScale: {
+            headings: 100,         // Nagłówki (50-150%)
+            body: 100,             // Tekst główny (50-150%)
+            labels: 100            // Etykiety (50-150%)
+        },
+
+        // Style kart
+        cardStyle: 'elevated',    // 'flat' | 'elevated' | 'bordered' | 'glass'
+        borderRadius: 'medium',   // 'none' | 'small' | 'medium' | 'large' | 'full'
+        shadowIntensity: 'medium' // 'none' | 'light' | 'medium' | 'strong'
+    },
+    // ============================================
+    // ROOMS DISPLAY SETTINGS
+    // ============================================
+    roomsSettings: {
+        displayMode: 'grid',      // 'grid' | 'slider' | 'masonry'
+        showCategories: true,     // Pokazuj kategorie
+        categories: [
+            { id: 'sea-view', name: 'Z widokiem na morze', icon: 'fa-water' },
+            { id: 'mountain', name: 'Z widokiem na góry', icon: 'fa-mountain' },
+            { id: 'garden', name: 'Z widokiem na ogród', icon: 'fa-leaf' },
+            { id: 'standard', name: 'Pokoje standardowe', icon: 'fa-bed' },
+            { id: 'premium', name: 'Premium & Suite', icon: 'fa-crown' }
+        ],
+        itemsPerRow: 3,
+        showPrices: true,
+        showAmenities: true
+    },
     // Edytowalne treści sekcji
     sectionContent: {
         intro: {
@@ -664,54 +721,84 @@ function addDefaultObjects() {
             name: 'Pokój Standard',
             description: 'Przytulny pokój z wszystkim, czego potrzebujesz na komfortowy wypoczynek.',
             price: '199 zł',
-            images: ['https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=600'],
+            images: [
+                'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=600',
+                'https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=600',
+                'https://images.pexels.com/photos/210265/pexels-photo-210265.jpeg?auto=compress&cs=tinysrgb&w=600'
+            ],
             amenities: ['wifi', 'tv', 'air-conditioning', 'private-bathroom'],
-            badge: 'Popularny'
+            badge: 'Popularny',
+            category: 'standard'
         },
         {
             id: appState.nextObjectId++,
-            name: 'Pokój Comfort',
-            description: 'Większy pokój z dodatkowym wyposażeniem i widokiem na okolicę.',
-            price: '279 zł',
-            images: ['https://images.pexels.com/photos/1743231/pexels-photo-1743231.jpeg?auto=compress&cs=tinysrgb&w=600'],
-            amenities: ['wifi', 'tv', 'air-conditioning', 'private-bathroom', 'minibar', 'safe'],
-            badge: ''
+            name: 'Pokój z Widokiem na Morze',
+            description: 'Piękny pokój z panoramicznym widokiem na morze. Idealne miejsce aby podziwiać wschody i zachody słońca.',
+            price: '349 zł',
+            images: [
+                'https://images.pexels.com/photos/1578253/pexels-photo-1578253.jpeg?auto=compress&cs=tinysrgb&w=600',
+                'https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?auto=compress&cs=tinysrgb&w=600',
+                'https://images.pexels.com/photos/276671/pexels-photo-276671.jpeg?auto=compress&cs=tinysrgb&w=600'
+            ],
+            amenities: ['wifi', 'tv', 'air-conditioning', 'private-bathroom', 'balcony', 'sea-view'],
+            badge: 'Widok na morze',
+            category: 'sea-view'
         },
         {
             id: appState.nextObjectId++,
-            name: 'Pokój Deluxe',
-            description: 'Przestronny pokój klasy premium z wysokiej jakości wyposażeniem.',
+            name: 'Pokój Deluxe Górski',
+            description: 'Przestronny pokój z widokiem na góry. Doskonały dla miłośników natury.',
             price: '399 zł',
-            images: ['https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=600'],
-            amenities: ['wifi', 'tv', 'air-conditioning', 'private-bathroom', 'minibar', 'safe', 'bathrobe', 'coffee-maker'],
-            badge: 'Luksusowy'
+            images: [
+                'https://images.pexels.com/photos/1743231/pexels-photo-1743231.jpeg?auto=compress&cs=tinysrgb&w=600',
+                'https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=600',
+                'https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?auto=compress&cs=tinysrgb&w=600'
+            ],
+            amenities: ['wifi', 'tv', 'air-conditioning', 'private-bathroom', 'minibar', 'safe', 'mountain-view'],
+            badge: 'Widok na góry',
+            category: 'mountain'
         },
         {
             id: appState.nextObjectId++,
             name: 'Apartament Family',
             description: 'Dwupokojowy apartament idealny dla rodzin z dziećmi, z aneksem kuchennym.',
             price: '499 zł',
-            images: ['https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600'],
+            images: [
+                'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600',
+                'https://images.pexels.com/photos/1571468/pexels-photo-1571468.jpeg?auto=compress&cs=tinysrgb&w=600',
+                'https://images.pexels.com/photos/276583/pexels-photo-276583.jpeg?auto=compress&cs=tinysrgb&w=600'
+            ],
             amenities: ['wifi', 'tv', 'air-conditioning', 'private-bathroom', 'kitchen', 'washing-machine'],
-            badge: 'Dla rodzin'
+            badge: 'Dla rodzin',
+            category: 'standard'
         },
         {
             id: appState.nextObjectId++,
             name: 'Suite Romantyczny',
             description: 'Elegancki apartament dla par z wanną wolnostojącą i romantycznym wystrojem.',
             price: '599 zł',
-            images: ['https://images.pexels.com/photos/3773575/pexels-photo-3773575.jpeg?auto=compress&cs=tinysrgb&w=600'],
+            images: [
+                'https://images.pexels.com/photos/3773575/pexels-photo-3773575.jpeg?auto=compress&cs=tinysrgb&w=600',
+                'https://images.pexels.com/photos/3754595/pexels-photo-3754595.jpeg?auto=compress&cs=tinysrgb&w=600',
+                'https://images.pexels.com/photos/3634741/pexels-photo-3634741.jpeg?auto=compress&cs=tinysrgb&w=600'
+            ],
             amenities: ['wifi', 'tv', 'air-conditioning', 'private-bathroom', 'bathtub', 'champagne', 'bathrobe'],
-            badge: 'Dla par'
+            badge: 'Dla par',
+            category: 'premium'
         },
         {
             id: appState.nextObjectId++,
             name: 'Penthouse VIP',
             description: 'Ekskluzywny apartament z tarasem, jacuzzi i panoramicznym widokiem.',
             price: '899 zł',
-            images: ['https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=600'],
+            images: [
+                'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=600',
+                'https://images.pexels.com/photos/1329711/pexels-photo-1329711.jpeg?auto=compress&cs=tinysrgb&w=600',
+                'https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg?auto=compress&cs=tinysrgb&w=600'
+            ],
             amenities: ['wifi', 'tv', 'air-conditioning', 'private-bathroom', 'jacuzzi', 'terrace', 'butler', 'champagne'],
-            badge: 'VIP'
+            badge: 'VIP',
+            category: 'premium'
         }
     ];
 
@@ -1235,6 +1322,64 @@ window.updateFaqItem = updateFaqItem;
 window.deleteFaqItem = deleteFaqItem;
 window.renderFaqList = renderFaqList;
 window.renderTemplateGallery = renderTemplateGallery;
+
+// ============================================
+// EFFECTS FUNCTIONS - Mega opcje efektów
+// ============================================
+
+function updateFontScale(type, value) {
+    if (!appState.effectsSettings) return;
+    appState.effectsSettings.fontScale[type] = parseInt(value);
+    document.getElementById(`${type === 'headings' ? 'heading' : 'body'}-scale-value`).textContent = value + '%';
+    Preview.debouncedRender();
+}
+
+function setGradient(preset) {
+    if (!appState.effectsSettings) return;
+    appState.effectsSettings.gradientPreset = preset;
+    appState.effectsSettings.useGradients = preset !== 'none';
+
+    // Update UI
+    document.querySelectorAll('.gradient-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.gradient === preset);
+    });
+    Preview.debouncedRender();
+}
+
+function toggleEffect(path, value) {
+    if (!appState.effectsSettings) return;
+    const parts = path.split('.');
+    let obj = appState.effectsSettings;
+    for (let i = 0; i < parts.length - 1; i++) {
+        obj = obj[parts[i]];
+    }
+    obj[parts[parts.length - 1]] = value;
+    Preview.debouncedRender();
+}
+
+function setRoomsDisplayMode(mode) {
+    if (!appState.roomsSettings) return;
+    appState.roomsSettings.displayMode = mode;
+
+    // Update UI
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === mode);
+    });
+    Preview.debouncedRender();
+}
+
+function toggleRoomCategories(show) {
+    if (!appState.roomsSettings) return;
+    appState.roomsSettings.showCategories = show;
+    Preview.debouncedRender();
+}
+
+// Eksport funkcji efektów
+window.updateFontScale = updateFontScale;
+window.setGradient = setGradient;
+window.toggleEffect = toggleEffect;
+window.setRoomsDisplayMode = setRoomsDisplayMode;
+window.toggleRoomCategories = toggleRoomCategories;
 
 // Setup fullscreen button listener
 document.addEventListener('DOMContentLoaded', () => {

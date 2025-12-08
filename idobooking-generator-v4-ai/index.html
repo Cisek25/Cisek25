@@ -211,6 +211,147 @@
                     </div>
                 </div>
 
+                <!-- ============================================
+                     MEGA PANEL EFEKTÓW
+                     ============================================ -->
+                <div class="settings-section effects-panel">
+                    <h4><i class="fas fa-magic"></i> Efekty i Style</h4>
+
+                    <!-- Suwaki rozmiaru czcionek -->
+                    <div class="effect-group">
+                        <label class="effect-label">
+                            <i class="fas fa-text-height"></i> Rozmiar nagłówków
+                            <span class="slider-value" id="heading-scale-value">100%</span>
+                        </label>
+                        <input type="range" id="heading-scale" min="70" max="150" value="100"
+                            oninput="updateFontScale('headings', this.value)">
+                    </div>
+
+                    <div class="effect-group">
+                        <label class="effect-label">
+                            <i class="fas fa-font"></i> Rozmiar tekstu
+                            <span class="slider-value" id="body-scale-value">100%</span>
+                        </label>
+                        <input type="range" id="body-scale" min="70" max="150" value="100"
+                            oninput="updateFontScale('body', this.value)">
+                    </div>
+
+                    <!-- Presety gradientów -->
+                    <div class="effect-group">
+                        <label class="effect-label"><i class="fas fa-fill-drip"></i> Gradient</label>
+                        <div class="gradient-presets">
+                            <button class="gradient-btn active" data-gradient="none" onclick="setGradient('none')"
+                                title="Brak">
+                                <span style="background:#666"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="sunset" onclick="setGradient('sunset')"
+                                title="Zachód słońca">
+                                <span style="background:linear-gradient(135deg,#FF6B6B,#FFA502,#FFD93D)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="aurora" onclick="setGradient('aurora')"
+                                title="Aurora">
+                                <span style="background:linear-gradient(135deg,#667EEA,#764BA2,#F093FB)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="ocean" onclick="setGradient('ocean')"
+                                title="Ocean">
+                                <span style="background:linear-gradient(135deg,#0277BD,#4FC3F7,#00BCD4)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="forest" onclick="setGradient('forest')"
+                                title="Las">
+                                <span style="background:linear-gradient(135deg,#134E5E,#71B280,#38EF7D)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="royal" onclick="setGradient('royal')"
+                                title="Królewski">
+                                <span style="background:linear-gradient(135deg,#141E30,#243B55,#D4AF37)"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Toggle efektów hover -->
+                <div class="settings-section hover-effects-panel">
+                    <h4><i class="fas fa-hand-pointer"></i> Efekty Hover</h4>
+                    <div class="toggles-grid">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="hover-cards" checked
+                                onchange="toggleEffect('hoverEffects.cards', this.checked)">
+                            <span class="toggle-switch"></span>
+                            <span>Karty</span>
+                        </label>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="hover-buttons" checked
+                                onchange="toggleEffect('hoverEffects.buttons', this.checked)">
+                            <span class="toggle-switch"></span>
+                            <span>Przyciski</span>
+                        </label>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="hover-images" checked
+                                onchange="toggleEffect('hoverEffects.images', this.checked)">
+                            <span class="toggle-switch"></span>
+                            <span>Zoom zdjęć</span>
+                        </label>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="flip-cards"
+                                onchange="toggleEffect('hoverEffects.flipCards', this.checked)">
+                            <span class="toggle-switch"></span>
+                            <span>Flip 3D</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Animacje -->
+                <div class="settings-section animations-panel">
+                    <h4><i class="fas fa-film"></i> Animacje</h4>
+                    <div class="toggles-grid">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="anim-fadeIn" checked
+                                onchange="toggleEffect('animations.fadeIn', this.checked)">
+                            <span class="toggle-switch"></span>
+                            <span>Fade In</span>
+                        </label>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="anim-slideUp" checked
+                                onchange="toggleEffect('animations.slideUp', this.checked)">
+                            <span class="toggle-switch"></span>
+                            <span>Slide Up</span>
+                        </label>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="anim-parallax"
+                                onchange="toggleEffect('animations.parallax', this.checked)">
+                            <span class="toggle-switch"></span>
+                            <span>Parallax</span>
+                        </label>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="anim-countUp" checked
+                                onchange="toggleEffect('animations.countUp', this.checked)">
+                            <span class="toggle-switch"></span>
+                            <span>Liczniki</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Tryb wyświetlania pokoi -->
+                <div class="settings-section rooms-display-panel">
+                    <h4><i class="fas fa-th-large"></i> Wyświetlanie pokoi</h4>
+                    <div class="display-mode-btns">
+                        <button class="mode-btn active" data-mode="grid" onclick="setRoomsDisplayMode('grid')">
+                            <i class="fas fa-th"></i> Grid
+                        </button>
+                        <button class="mode-btn" data-mode="slider" onclick="setRoomsDisplayMode('slider')">
+                            <i class="fas fa-arrows-left-right"></i> Slider
+                        </button>
+                        <button class="mode-btn" data-mode="masonry" onclick="setRoomsDisplayMode('masonry')">
+                            <i class="fas fa-grip"></i> Masonry
+                        </button>
+                    </div>
+                    <label class="toggle-label" style="margin-top:var(--space-3)">
+                        <input type="checkbox" id="show-categories" checked
+                            onchange="toggleRoomCategories(this.checked)">
+                        <span class="toggle-switch"></span>
+                        <span>Pokaż kategorie pokoi</span>
+                    </label>
+                </div>
+
                 <div class="settings-section">
                     <h4><i class="fas fa-puzzle-piece"></i> Sekcje</h4>
                     <div class="sections-checklist" id="sections-checklist">
