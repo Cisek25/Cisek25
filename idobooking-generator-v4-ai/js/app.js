@@ -194,7 +194,27 @@ const appState = {
     },
     objects: [],
     enabledSections: ['intro', 'rooms', 'amenities', 'gallery', 'location', 'testimonials', 'faq', 'cta'],
-    nextObjectId: 1
+    nextObjectId: 1,
+    // Section background settings - each section can have: 'white', 'light', 'gradient', 'dark', 'pattern'
+    sectionBackgrounds: {
+        intro: 'light',
+        rooms: 'white',
+        amenities: 'gradient',
+        gallery: 'white',
+        location: 'light',
+        attractions: 'white',
+        testimonials: 'light',
+        faq: 'white',
+        dining: 'white',
+        pricing: 'light',
+        spa: 'gradient',
+        events: 'white',
+        transport: 'light',
+        rules: 'white',
+        cta: 'gradient',
+        social: 'light',
+        partners: 'white'
+    }
 };
 
 // ============================================
@@ -287,6 +307,12 @@ function initBuilder(recommendation) {
     document.getElementById('font-heading').value = appState.globalSettings.fonts.heading;
     document.getElementById('font-body').value = appState.globalSettings.fonts.body;
 
+    // Synchronize gradient buttons with effectsSettings (from wizard palette)
+    const currentGradient = appState.effectsSettings.gradientPreset || 'none';
+    document.querySelectorAll('.gradient-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.gradient === currentGradient);
+    });
+
     // Render sections checklist
     renderSectionsChecklist();
 
@@ -318,6 +344,7 @@ function renderSectionsChecklist() {
         const enabledIndex = appState.enabledSections.indexOf(section.id);
         const canMoveUp = isEnabled && enabledIndex > 0;
         const canMoveDown = isEnabled && enabledIndex < appState.enabledSections.length - 1;
+        const currentBg = appState.sectionBackgrounds[section.id] || section.defaultBackground || 'white';
 
         return `
         <div class="section-check ${isEnabled ? 'enabled' : ''}" data-section-id="${section.id}" draggable="${isEnabled}">
@@ -332,6 +359,15 @@ function renderSectionsChecklist() {
                 <i class="fas ${section.icon}"></i> ${section.name}
             </label>
             ${isEnabled ? `
+            <div class="section-bg-controls">
+                <select class="section-bg-select" onchange="changeSectionBackground('${section.id}', this.value)">
+                    <option value="white" ${currentBg === 'white' ? 'selected' : ''}>⬜ Białe</option>
+                    <option value="light" ${currentBg === 'light' ? 'selected' : ''}>◻️ Jasne</option>
+                    <option value="gradient" ${currentBg === 'gradient' ? 'selected' : ''}>🌈 Gradient</option>
+                    <option value="dark" ${currentBg === 'dark' ? 'selected' : ''}>⬛ Ciemne</option>
+                    <option value="pattern" ${currentBg === 'pattern' ? 'selected' : ''}>🔲 Wzór</option>
+                </select>
+            </div>
             <div class="section-order-controls">
                 <button class="order-btn edit-btn" onclick="editSectionContent('${section.id}')" title="Edytuj treść">
                     <i class="fas fa-pen"></i>
@@ -433,6 +469,12 @@ function toggleSection(sectionId) {
     renderSectionsChecklist();
     Preview.debouncedRender();
 }
+
+function changeSectionBackground(sectionId, backgroundType) {
+    appState.sectionBackgrounds[sectionId] = backgroundType;
+    Preview.debouncedRender();
+}
+
 
 // ============================================
 // SECTION CONTENT EDITOR
@@ -778,9 +820,9 @@ function addDefaultObjects() {
             description: 'Elegancki apartament dla par z wanną wolnostojącą i romantycznym wystrojem.',
             price: '599 zł',
             images: [
-                'https://images.pexels.com/photos/3773575/pexels-photo-3773575.jpeg?auto=compress&cs=tinysrgb&w=600',
-                'https://images.pexels.com/photos/3754595/pexels-photo-3754595.jpeg?auto=compress&cs=tinysrgb&w=600',
-                'https://images.pexels.com/photos/3634741/pexels-photo-3634741.jpeg?auto=compress&cs=tinysrgb&w=600'
+                'https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=600',
+                'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=600',
+                'https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg?auto=compress&cs=tinysrgb&w=600'
             ],
             amenities: ['wifi', 'tv', 'air-conditioning', 'private-bathroom', 'bathtub', 'champagne', 'bathrobe'],
             badge: 'Dla par',
@@ -1041,21 +1083,29 @@ function toggleFullscreen() {
 // CODE GENERATION
 // ============================================
 function generateCode() {
-    const settings = appState.globalSettings;
+    // Collect data
     const objects = appState.objects;
     const enabledSections = appState.enabledSections;
 
     // Generate all parts
+    const settings = {
+        ...appState.globalSettings,
+        propertyName: appState.globalSettings.propertyName || 'Nazwa Obiektu'
+    };
     const head = TemplateEngine.generateHead(settings);
     const sections = TemplateEngine.generateSections(settings, objects, enabledSections);
-    const styles = CSSEngine.generate(settings);
+    const styles = CSSEngine.generate(settings, appState.effectsSettings, appState.sectionBackgrounds);
     const scripts = generateScriptsFile();
+
+    // Generate subpage (body-only content)
+    const subpage = generateSubpageCode(settings, objects, enabledSections, styles, scripts);
 
     // Display in modal
     document.getElementById('code-head').textContent = head;
     document.getElementById('code-sections').textContent = sections;
     document.getElementById('code-styles').textContent = styles;
     document.getElementById('code-scripts').textContent = scripts;
+    document.getElementById('code-subpage').textContent = subpage;
 
     // Show modal
     document.getElementById('export-modal').classList.remove('hidden');
@@ -1125,7 +1175,7 @@ function downloadCode(filename, type) {
 }
 
 // ============================================
-// MODALS
+// MODAL CONTROLS
 // ============================================
 function closeExportModal() {
     document.getElementById('export-modal').classList.add('hidden');
@@ -1134,6 +1184,64 @@ function closeExportModal() {
 function closeObjectModal() {
     document.getElementById('object-modal').classList.add('hidden');
 }
+
+// ============================================
+// SUBPAGE CREATOR
+// ============================================
+function openSubpageModal() {
+    document.getElementById('subpage-modal').classList.remove('hidden');
+}
+
+function closeSubpageModal() {
+    document.getElementById('subpage-modal').classList.add('hidden');
+}
+
+function generateSubpage() {
+    // Get selected sections
+    const checkboxes = document.querySelectorAll('.subpage-section-checkbox:checked');
+    const selectedSections = Array.from(checkboxes).map(cb => cb.value);
+
+    if (selectedSections.length === 0) {
+        alert('Wybierz przynajmniej jedną sekcję!');
+        return;
+    }
+
+    console.log('Generating subpage for sections:', selectedSections);
+
+    // Generate HTML for selected sections
+    const bodyHTML = TemplateEngine.generateSections(selectedSections);
+
+    // Generate CSS
+    const css = CSSEngine.generate(appState.globalSettings, appState.effectsSettings, appState.sectionBackgrounds);
+
+    // Create head styles (inline)
+    const headStyles = `<style>\n${css}\n</style>`;
+
+    // Update code blocks
+    document.getElementById('subpage-body-html').textContent = bodyHTML;
+    document.getElementById('subpage-head-styles').textContent = headStyles;
+    document.getElementById('subpage-css-styles').textContent = css;
+
+    console.log('✅ Subpage code generated');
+}
+
+function copySubpageCode(type) {
+    const elementId = `subpage-${type}`;
+    const codeElement = document.getElementById(elementId);
+
+    if (!codeElement || !codeElement.textContent) {
+        alert('Najpierw wygeneruj kod podstrony!');
+        return;
+    }
+
+    navigator.clipboard.writeText(codeElement.textContent).then(() => {
+        alert('Kod skopiowany!');
+    }).catch(err => {
+        console.error('Copy failed:', err);
+        alert('Błąd podczas kopiowania');
+    });
+}
+
 
 // ============================================
 // RESET
@@ -1205,9 +1313,10 @@ function renderTemplateGallery() {
 
     const templates = Object.values(TEMPLATES);
 
-    container.innerHTML = templates.slice(0, 8).map(template => `
+    container.innerHTML = templates.slice(0, 20).map(template => `
         <div class="template-card ${appState.selectedTemplate?.id === template.id ? 'selected' : ''}" 
              onclick="selectTemplate('${template.id}')"
+             title="${template.description}"
              style="--tpl-primary: ${template.colors.primary}; --tpl-secondary: ${template.colors.secondary}">
             <div class="template-colors">
                 <span style="background: ${template.colors.primary}"></span>
@@ -1334,18 +1443,58 @@ function updateFontScale(type, value) {
     Preview.debouncedRender();
 }
 
-function setGradient(preset) {
-    if (!appState.effectsSettings) return;
-    appState.effectsSettings.gradientPreset = preset;
-    appState.effectsSettings.useGradients = preset !== 'none';
-
-    // Update UI
-    document.querySelectorAll('.gradient-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.gradient === preset);
+// ============================================
+// GRADIENT CATEGORY SWITCHING
+// ============================================
+function switchGradientCategory(category) {
+    // Update active tab
+    document.querySelectorAll('.gradient-category-tab').forEach(tab => {
+        tab.classList.remove('active');
+        if (tab.dataset.category === category) {
+            tab.classList.add('active');
+        }
     });
-    Preview.debouncedRender();
+
+    // Show/hide gradient grids
+    document.querySelectorAll('.gradients-grid').forEach(grid => {
+        if (grid.dataset.category === category) {
+            grid.classList.remove('hidden');
+        } else {
+            grid.classList.add('hidden');
+        }
+    });
 }
 
+// ============================================
+// GRADIENT CONTROLS
+// ============================================
+function setGradient(preset) {
+    appState.effectsSettings.gradientPreset = preset;
+    appState.effectsSettings.useGradients = (preset !== 'none');
+
+    console.log('✅ Gradient preset set:', preset);
+    console.log('Current effectsSettings:', appState.effectsSettings);
+
+    // Update active button
+    document.querySelectorAll('.gradient-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.gradient === preset) {
+            btn.classList.add('active');
+        }
+    });
+
+    // Regenerate CSS and preview IMMEDIATELY
+    const css = CSSEngine.generate(appState.globalSettings, appState.effectsSettings, appState.sectionBackgrounds);
+    console.log('Generated CSS length:', css.length);
+
+    // Force immediate preview render
+    if (window.Preview) {
+        console.log('Calling Preview.render()...');
+        Preview.render();
+    } else {
+        console.error('Preview object not found!');
+    }
+}
 function toggleEffect(path, value) {
     if (!appState.effectsSettings) return;
     const parts = path.split('.');
@@ -1374,14 +1523,78 @@ function toggleRoomCategories(show) {
     Preview.debouncedRender();
 }
 
+// ============================================
+// SLIDER FUNCTIONS - Nawigacja sliderem pokoi
+// ============================================
+let currentSlide = 0;
+
+function slideRooms(direction) {
+    const preview = document.getElementById('preview-frame');
+    if (!preview?.contentDocument) return;
+
+    const track = preview.contentDocument.querySelector('.rooms-slider-track');
+    const cards = preview.contentDocument.querySelectorAll('.rooms-slider .room-card');
+    const dots = preview.contentDocument.querySelectorAll('.slider-dot');
+
+    if (!track || cards.length === 0) return;
+
+    currentSlide += direction;
+    if (currentSlide < 0) currentSlide = cards.length - 1;
+    if (currentSlide >= cards.length) currentSlide = 0;
+
+    const cardWidth = cards[0].offsetWidth + 24; // gap
+    track.style.transform = `translateX(-${currentSlide * cardWidth}px)`;
+
+    // Update dots
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlide);
+    });
+}
+
+function goToSlide(index) {
+    const preview = document.getElementById('preview-frame');
+    if (!preview?.contentDocument) return;
+
+    const track = preview.contentDocument.querySelector('.rooms-slider-track');
+    const cards = preview.contentDocument.querySelectorAll('.rooms-slider .room-card');
+    const dots = preview.contentDocument.querySelectorAll('.slider-dot');
+
+    if (!track || cards.length === 0) return;
+
+    currentSlide = index;
+    const cardWidth = cards[0].offsetWidth + 24;
+    track.style.transform = `translateX(-${currentSlide * cardWidth}px)`;
+
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlide);
+    });
+}
+
 // Eksport funkcji efektów
 window.updateFontScale = updateFontScale;
 window.setGradient = setGradient;
 window.toggleEffect = toggleEffect;
 window.setRoomsDisplayMode = setRoomsDisplayMode;
 window.toggleRoomCategories = toggleRoomCategories;
+window.slideRooms = slideRooms;
+window.goToSlide = goToSlide;
 
-// Setup fullscreen button listener
+// ============================================
+// COLLAPSIBLE SECTIONS
+// ============================================
+function initCollapsibleSections() {
+    const collapsibles = document.querySelectorAll('.settings-section.collapsible h4');
+    collapsibles.forEach(header => {
+        header.addEventListener('click', (e) => {
+            e.preventDefault();
+            const section = header.parentElement;
+            section.classList.toggle('collapsed');
+        });
+    });
+}
+
+// Setup fullscreen button listener and collapsible sections
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-fullscreen')?.addEventListener('click', toggleFullscreen);
+    initCollapsibleSections();
 });

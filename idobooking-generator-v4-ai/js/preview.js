@@ -52,7 +52,9 @@ const Preview = {
         // Generate HTML
         const head = TemplateEngine.generateHead(settings);
         const body = TemplateEngine.generateSections(settings, objects, enabledSections);
-        const css = CSSEngine.generate(settings);
+        const effectsSettings = window.appState?.effectsSettings || {};
+        const sectionBackgrounds = window.appState?.sectionBackgrounds || {};
+        const css = CSSEngine.generate(settings, effectsSettings, sectionBackgrounds);
         const scripts = this.generateScripts();
 
         const html = `<!DOCTYPE html>

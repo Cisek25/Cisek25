@@ -1,10 +1,61 @@
-// ============================================
-// CSS-ENGINE.JS - Generowanie CSS 2500+ linii
-// ============================================
-
 const CSSEngine = {
 
-    generate(settings) {
+    // Gradient presets definitions - Expanded to 45+ gradients
+    gradientPresets: {
+        none: null,
+
+        // ===== WARM GRADIENTS =====
+        sunset: 'linear-gradient(135deg, #FF6B6B 0%, #FFA502 50%, #FFD93D 100%)',
+        coral: 'linear-gradient(135deg, #FF9A9E 0%, #FECFEF 50%, #A8EDEA 100%)',
+        'rose-gold': 'linear-gradient(135deg, #b76e79 0%, #e8b5ce 50%, #f1c40f 100%)',
+        volcano: 'linear-gradient(135deg, #cc2b5e 0%, #753a88 50%, #ff416c 100%)',
+        sahara: 'linear-gradient(135deg, #c99a65 0%, #e6c79f 50%, #8b5a2b 100%)',
+        terracotta: 'linear-gradient(135deg, #bc6c25 0%, #dda15e 50%, #283618 100%)',
+        coffee: 'linear-gradient(135deg, #2c1810 0%, #6f4e37 50%, #c9a66b 100%)',
+        copper: 'linear-gradient(135deg, #b87333 0%, #cd7f32 50%, #e8a87c 100%)',
+        peach: 'linear-gradient(135deg, #ffb199 0%, #ff0844 50%, #ffb199 100%)',
+        amber: 'linear-gradient(135deg, #ff9966 0%, #ff5e62 50%, #ff6e7f 100%)',
+
+        // ===== COOL GRADIENTS =====
+        ocean: 'linear-gradient(135deg, #0277BD 0%, #4FC3F7 50%, #00BCD4 100%)',
+        arctic: 'linear-gradient(135deg, #74ebd5 0%, #ACB6E5 50%, #ffffff 100%)',
+        midnight: 'linear-gradient(135deg, #0F2027 0%, #203A43 50%, #2C5364 100%)',
+        twilight: 'linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)',
+        marine: 'linear-gradient(135deg, #1e3a5f 0%, #3d5a80 50%, #98c1d9 100%)',
+        peacock: 'linear-gradient(135deg, #0a4d4a 0%, #137a7f 50%, #00b4d8 100%)',
+        steel: 'linear-gradient(135deg, #485563 0%, #29323c 50%, #667085 100%)',
+        ice: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 50%, #ffffff 100%)',
+        azure: 'linear-gradient(135deg, #36D1DC 0%, #5B86E5 50%, #667eea 100%)',
+        neptune: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7597de 100%)',
+
+        // ===== NATURAL GRADIENTS =====
+        forest: 'linear-gradient(135deg, #134E5E 0%, #71B280 50%, #38EF7D 100%)',
+        tropical: 'linear-gradient(135deg, #11998e 0%, #38ef7d 50%, #f5af19 100%)',
+        emerald: 'linear-gradient(135deg, #1d976c 0%, #93f9b9 50%, #2c3e50 100%)',
+        spring: 'linear-gradient(135deg, #f8cdda 0%, #1d976c 50%, #f9d423 100%)',
+        moss: 'linear-gradient(135deg, #606c38 0%, #283618 50%, #fefae0 100%)',
+        meadow: 'linear-gradient(135deg, #74c69d 0%, #52b788 50%, #40916c 100%)',
+        sage: 'linear-gradient(135deg, #b7b7a4 0%, #a5a58d 50%, #6b705c 100%)',
+        bamboo: 'linear-gradient(135deg, #718355 0%, #87986a 50%, #c8d2b8 100%)',
+        earth: 'linear-gradient(135deg, #8b4513 0%, #a0522d 50%, #cd853f 100%)',
+        desert: 'linear-gradient(135deg, #d4a373 0%, #e6bc8f 50%, #f4e4c1 100%)',
+
+        // ===== DRAMATIC GRADIENTS =====
+        aurora: 'linear-gradient(135deg, #667EEA 0%, #764BA2 50%, #F093FB 100%)',
+        royal: 'linear-gradient(135deg, #141E30 0%, #243B55 50%, #D4AF37 100%)',
+        lavender: 'linear-gradient(135deg, #834d9b 0%, #d04ed6 50%, #e8b5ce 100%)',
+        champagne: 'linear-gradient(135deg, #f7e7ce 0%, #d4af37 50%, #8b7355 100%)',
+        cyberpunk: 'linear-gradient(135deg, #00d4ff 0%, #ff00ff 50%, #7b00ff 100%)',
+        wine: 'linear-gradient(135deg, #722f37 0%, #a93545 50%, #f4d0d5 100%)',
+        neon: 'linear-gradient(135deg, #00ff87 0%, #60efff 50%, #ff00ff 100%)',
+        candy: 'linear-gradient(135deg, #ff6fd8 0%, #3813c2 50%, #92fe9d 100%)',
+        galaxy: 'linear-gradient(135deg, #2c3e50 0%, #3498db 50%, #9b59b6 100%)',
+        noir: 'linear-gradient(135deg, #000000 0%, #434343 50%, #000000 100%)',
+        velvet: 'linear-gradient(135deg, #5f0a87 0%, #a4508b 50%, #ff6f91 100%)',
+        plum: 'linear-gradient(135deg, #5a189a 0%, #9d4edd 50%, #e0aaff 100%)'
+    },
+
+    generate(settings, effectsSettings = {}, sectionBackgrounds = {}) {
         const colors = settings.colors || {
             primary: '#1A365D',
             secondary: '#C9A227',
@@ -15,6 +66,49 @@ const CSSEngine = {
             heading: 'Playfair Display',
             body: 'Inter'
         };
+
+        // Get gradient preset
+        const gradientPreset = effectsSettings.gradientPreset || 'none';
+        const useGradients = effectsSettings.useGradients !== false && gradientPreset !== 'none';
+        const gradientValue = this.gradientPresets[gradientPreset] || this.gradientPresets['sunset'];
+
+        // Generate per-section backgrounds
+        const sectionBgCSS = this.generateSectionBackgrounds(sectionBackgrounds, gradientValue);
+
+        // Generate gradient CSS overrides (deprecated in favor of per-section backgrounds)
+        const gradientOverrides = useGradients ? `
+/* ============================================
+   GRADIENT OVERRIDES - ${gradientPreset}
+   ============================================ */
+.section-amenities,
+.section-cta {
+    background: ${gradientValue} !important;
+}
+
+.hero-section,
+.gradient-hero {
+    background: ${gradientValue} !important;
+}
+
+.btn-primary,
+.room-cta,
+.room-badge {
+    background: ${gradientValue} !important;
+    color: #fff !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.amenity-icon {
+    background: rgba(255,255,255,0.2) !important;
+    color: #fff !important;
+}
+
+.section-header-light .section-title,
+.section-amenities .section-title,
+.section-cta .section-title {
+    color: #fff !important;
+}
+` : '';
 
         return `/* ============================================
    ${settings.propertyName || 'Nazwa Obiektu'} - STYLES
@@ -49,6 +143,7 @@ const CSSEngine = {
     /* Gradienty */
     --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
     --gradient-secondary: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-light) 100%);
+    ${useGradients ? `--gradient-custom: ${gradientValue};` : ''}
     
     /* Typografia */
     --font-heading: '${fonts.heading}', Georgia, serif;
@@ -93,6 +188,10 @@ const CSSEngine = {
     --transition-fast: 150ms ease;
     --transition-base: 300ms ease;
 }
+
+${gradientOverrides}
+
+${sectionBgCSS}
 
 /* ============================================
    RESET & BASE
@@ -458,6 +557,157 @@ a {
 .room-cta:hover {
     transform: scale(1.05);
     box-shadow: var(--shadow-md);
+}
+
+/* ============================================
+   ROOMS SLIDER MODE
+   ============================================ */
+.rooms-slider-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.rooms-slider {
+    overflow: hidden;
+    flex: 1;
+}
+
+.rooms-slider-track {
+    display: flex;
+    gap: var(--space-6);
+    transition: transform 0.5s ease;
+}
+
+.rooms-slider .room-card {
+    min-width: 350px;
+    max-width: 350px;
+    flex-shrink: 0;
+}
+
+.slider-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    color: var(--color-primary);
+    font-size: 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+    flex-shrink: 0;
+}
+
+.slider-btn:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    transform: scale(1.1);
+}
+
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2);
+    margin-top: var(--space-6);
+}
+
+.slider-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-gray-light);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.slider-dot:hover,
+.slider-dot.active {
+    background: var(--color-secondary);
+    transform: scale(1.2);
+}
+
+/* ============================================
+   ROOMS CATEGORIES
+   ============================================ */
+.rooms-category {
+    margin-bottom: var(--space-12);
+}
+
+.rooms-category:last-child {
+    margin-bottom: 0;
+}
+
+.category-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    color: var(--color-primary);
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-3);
+    border-bottom: 2px solid var(--color-secondary);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.category-title i {
+    color: var(--color-secondary);
+}
+
+/* ============================================
+   ROOMS MASONRY MODE
+   ============================================ */
+.rooms-masonry {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+    grid-auto-rows: minmax(200px, auto);
+}
+
+.rooms-masonry .room-card:nth-child(3n+1) {
+    grid-row: span 2;
+}
+
+.rooms-masonry .room-card:nth-child(3n+1) .room-image {
+    height: 320px;
+}
+
+@media (max-width: 1024px) {
+    .rooms-masonry {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .rooms-masonry .room-card:nth-child(3n+1) {
+        grid-row: span 1;
+    }
+    .rooms-slider .room-card {
+        min-width: 300px;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 640px) {
+    .rooms-masonry {
+        grid-template-columns: 1fr;
+    }
+    .rooms-slider-wrapper {
+        flex-direction: column;
+    }
+    .slider-btn {
+        display: none;
+    }
+    .rooms-slider-track {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+    }
+    .rooms-slider .room-card {
+        scroll-snap-align: start;
+        min-width: 85vw;
+        max-width: 85vw;
+    }
 }
 
 /* ============================================
@@ -1597,6 +1847,92 @@ a {
         const G = Math.max(0, ((num >> 8) & 0x00FF) - amt);
         const B = Math.max(0, (num & 0x0000FF) - amt);
         return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+    },
+
+    // Generate per-section background CSS
+    generateSectionBackgrounds(sectionBackgrounds, gradientValue) {
+        let css = `
+/* ============================================
+   CUSTOM SECTION BACKGROUNDS
+   ============================================ */
+`;
+
+        Object.entries(sectionBackgrounds).forEach(([sectionId, bgType]) => {
+            if (!bgType || bgType === 'white') return; // Default white, no extra CSS needed
+
+            const sectionClass = `.section-${sectionId}`;
+
+            switch (bgType) {
+                case 'light':
+                    css += `
+${sectionClass} {
+    background: var(--color-light) !important;
+}
+`;
+                    break;
+
+                case 'gradient':
+                    css += `
+${sectionClass} {
+    background: ${gradientValue} !important;
+}
+
+${sectionClass} .section-title,
+${sectionClass} .section-label,
+${sectionClass} .section-desc {
+    color: #fff !important;
+}
+
+${sectionClass} .amenity-card {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+${sectionClass} .amenity-card h3 {
+    color: #fff !important;
+}
+`;
+                    break;
+
+                case 'dark':
+                    css += `
+${sectionClass} {
+    background: var(--color-dark) !important;
+}
+
+${sectionClass} .section-title,
+${sectionClass} .section-label,
+${sectionClass} .section-desc,
+${sectionClass} h1, ${sectionClass} h2, ${sectionClass} h3,
+${sectionClass} h4, ${sectionClass} h5, ${sectionClass} h6,
+${sectionClass} p, ${sectionClass} li {
+    color: #fff !important;
+}
+
+${sectionClass} .section-label {
+    color: var(--color-secondary-light) !important;
+}
+`;
+                    break;
+
+                case 'pattern':
+                    css += `
+${sectionClass} {
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            var(--color-light),
+            var(--color-light) 10px,
+            var(--color-white) 10px,
+            var(--color-white) 20px
+        ) !important;
+}
+`;
+                    break;
+            }
+        });
+
+        return css;
     }
 };
 

@@ -79,7 +79,7 @@
                 </div>
 
                 <!-- AI Recommendation -->
-                <div class="ai-recommendation" id="ai-recommendation">
+                <div class="ai-recommendation hidden" id="ai-recommendation">
                     <div class="ai-badge"><i class="fas fa-robot"></i> AI Sugeruje</div>
                     <h4 id="ai-template-name">Ładowanie...</h4>
                     <p id="ai-template-desc"></p>
@@ -91,8 +91,434 @@
                     </div>
                 </div>
 
-                <!-- AI Gemini Chat -->
-                <div class="settings-section ai-chat-section">
+
+                <!-- Template Gallery -->
+                <div class="settings-section collapsible collapsed">
+                    <h4><i class="fas fa-swatchbook"></i> Wybierz szablon</h4>
+                    <div class="settings-section-content">
+                        <div class="templates-gallery" id="templates-gallery">
+                            <!-- Dynamicznie generowane -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Global Settings -->
+                <div class="settings-section collapsible collapsed">
+                    <h4><i class="fas fa-palette"></i> Kolory</h4>
+                    <div class="settings-section-content">
+                        <div class="color-pickers">
+                            <div class="color-picker-item">
+                                <label>Primary</label>
+                                <input type="color" id="color-primary" value="#1A365D">
+                            </div>
+                            <div class="color-picker-item">
+                                <label>Secondary</label>
+                                <input type="color" id="color-secondary" value="#C9A227">
+                            </div>
+                            <div class="color-picker-item">
+                                <label>Accent</label>
+                                <input type="color" id="color-accent" value="#00B894">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section collapsible collapsed">
+                    <h4><i class="fas fa-font"></i> Czcionki</h4>
+                    <div class="settings-section-content">
+                        <div class="form-group">
+                            <label>Nagłówki</label>
+                            <select id="font-heading" onchange="updateFont('heading', this.value)">
+                                <option value="Playfair Display">Playfair Display</option>
+                                <option value="Montserrat">Montserrat</option>
+                                <option value="Poppins">Poppins</option>
+                                <option value="Raleway">Raleway</option>
+                                <option value="Oswald">Oswald</option>
+                                <option value="Cinzel">Cinzel</option>
+                                <option value="Lora">Lora</option>
+                                <option value="Merriweather">Merriweather</option>
+                                <option value="Bebas Neue">Bebas Neue</option>
+                                <option value="Archivo Black">Archivo Black</option>
+                                <option value="Cormorant Garamond">Cormorant Garamond</option>
+                                <option value="Crimson Text">Crimson Text</option>
+                                <option value="DM Serif Display">DM Serif Display</option>
+                                <option value="Abril Fatface">Abril Fatface</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Tekst</label>
+                            <select id="font-body" onchange="updateFont('body', this.value)">
+                                <option value="Inter">Inter</option>
+                                <option value="Open Sans">Open Sans</option>
+                                <option value="Roboto">Roboto</option>
+                                <option value="Lato">Lato</option>
+                                <option value="Nunito">Nunito</option>
+                                <option value="Source Sans Pro">Source Sans Pro</option>
+                                <option value="Karla">Karla</option>
+                                <option value="Work Sans">Work Sans</option>
+                                <option value="Manrope">Manrope</option>
+                                <option value="Plus Jakarta Sans">Plus Jakarta Sans</option>
+                                <option value="IBM Plex Sans">IBM Plex Sans</option>
+                                <option value="Lexend">Lexend</option>
+                                <option value="Outfit">Outfit</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================
+                     MEGA PANEL EFEKTÓW
+                     ============================================ -->
+                <div class="settings-section effects-panel collapsible collapsed">
+                    <h4><i class="fas fa-magic"></i> Efekty i Style</h4>
+                    <div class="settings-section-content">
+                        <!-- Suwaki rozmiaru czcionek -->
+                        <div class="effect-group">
+                            <label class="effect-label">
+                                <i class="fas fa-text-height"></i> Rozmiar nagłówków
+                                <span class="slider-value" id="heading-scale-value">100%</span>
+                            </label>
+                            <input type="range" id="heading-scale" min="70" max="150" value="100"
+                                oninput="updateFontScale('headings', this.value)">
+                        </div>
+
+                        <div class="effect-group">
+                            <label class="effect-label">
+                                <i class="fas fa-font"></i> Rozmiar tekstu
+                                <span class="slider-value" id="body-scale-value">100%</span>
+                            </label>
+                            <input type="range" id="body-scale" min="70" max="150" value="100"
+                                oninput="updateFontScale('body', this.value)">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Presety gradientów -->
+                <div class="settings-section gradients-panel collapsible">
+                    <h4><i class="fas fa-palette"></i> Presety gradientów</h4>
+                    <div class="settings-section-content">
+                        <!-- Category Tabs -->
+                        <div class="gradient-categories">
+                            <button class="gradient-category-tab active" data-category="warm"
+                                onclick="switchGradientCategory('warm')">
+                                <i class="fas fa-fire"></i> Ciepłe
+                            </button>
+                            <button class="gradient-category-tab" data-category="cool"
+                                onclick="switchGradientCategory('cool')">
+                                <i class="fas fa-snowflake"></i> Chłodne
+                            </button>
+                            <button class="gradient-category-tab" data-category="natural"
+                                onclick="switchGradientCategory('natural')">
+                                <i class="fas fa-leaf"></i> Naturalne
+                            </button>
+                            <button class="gradient-category-tab" data-category="luxury"
+                                onclick="switchGradientCategory('luxury')">
+                                <i class="fas fa-crown"></i> Luksusowe
+                            </button>
+                        </div>
+
+                        <!-- Warm Gradients -->
+                        <div class="gradients-grid" data-category="warm">
+                            <button class="gradient-btn" data-gradient="sunset" onclick="setGradient('sunset')"
+                                title="Zachód słońca">
+                                <span style="background:linear-gradient(135deg,#FF6B6B,#FFA502,#FFD93D)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="coral" onclick="setGradient('coral')"
+                                title="Koralowa">
+                                <span style="background:linear-gradient(135deg,#FF9A9E,#FECFEF,#A8EDEA)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="rose-gold" onclick="setGradient('rose-gold')"
+                                title="Różowe złoto">
+                                <span style="background:linear-gradient(135deg,#b76e79,#e8b5ce,#f1c40f)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="volcano" onclick="setGradient('volcano')"
+                                title="Wulkan">
+                                <span style="background:linear-gradient(135deg,#cc2b5e,#753a88,#ff416c)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="sahara" onclick="setGradient('sahara')"
+                                title="Sahara">
+                                <span style="background:linear-gradient(135deg,#c99a65,#e6c79f,#8b5a2b)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="terracotta" onclick="setGradient('terracotta')"
+                                title="Terakota">
+                                <span style="background:linear-gradient(135deg,#bc6c25,#dda15e,#283618)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="coffee" onclick="setGradient('coffee')"
+                                title="Kawowy">
+                                <span style="background:linear-gradient(135deg,#2c1810,#6f4e37,#c9a66b)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="copper" onclick="setGradient('copper')"
+                                title="Miedziany">
+                                <span style="background:linear-gradient(135deg,#b87333,#cd7f32,#e8a87c)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="peach" onclick="setGradient('peach')"
+                                title="Brzoskwinia">
+                                <span style="background:linear-gradient(135deg,#ffb199,#ff0844,#ffb199)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="amber" onclick="setGradient('amber')"
+                                title="Bursztyn">
+                                <span style="background:linear-gradient(135deg,#ff9966,#ff5e62,#ff6e7f)"></span>
+                            </button>
+                        </div>
+
+                        <!-- Cool Gradients -->
+                        <div class="gradients-grid hidden" data-category="cool">
+                            <button class="gradient-btn" data-gradient="ocean" onclick="setGradient('ocean')"
+                                title="Ocean">
+                                <span style="background:linear-gradient(135deg,#0277BD,#4FC3F7,#00BCD4)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="arctic" onclick="setGradient('arctic')"
+                                title="Arktyczny">
+                                <span style="background:linear-gradient(135deg,#74ebd5,#ACB6E5,#ffffff)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="midnight" onclick="setGradient('midnight')"
+                                title="Północ">
+                                <span style="background:linear-gradient(135deg,#0F2027,#203A43,#2C5364)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="twilight" onclick="setGradient('twilight')"
+                                title="Zmierzch">
+                                <span style="background:linear-gradient(135deg,#0f0c29,#302b63,#24243e)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="marine" onclick="setGradient('marine')"
+                                title="Marynarski">
+                                <span style="background:linear-gradient(135deg,#1e3a5f,#3d5a80,#98c1d9)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="peacock" onclick="setGradient('peacock')"
+                                title="Pawi">
+                                <span style="background:linear-gradient(135deg,#0a4d4a,#137a7f,#00b4d8)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="steel" onclick="setGradient('steel')"
+                                title="Stalowy">
+                                <span style="background:linear-gradient(135deg,#485563,#29323c,#667085)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="ice" onclick="setGradient('ice')" title="Lód">
+                                <span style="background:linear-gradient(135deg,#a8edea,#fed6e3,#ffffff)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="azure" onclick="setGradient('azure')"
+                                title="Lazur">
+                                <span style="background:linear-gradient(135deg,#36D1DC,#5B86E5,#667eea)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="neptune" onclick="setGradient('neptune')"
+                                title="Neptun">
+                                <span style="background:linear-gradient(135deg,#1e3c72,#2a5298,#7597de)"></span>
+                            </button>
+                        </div>
+
+                        <!-- Natural Gradients -->
+                        <div class="gradients-grid hidden" data-category="natural">
+                            <button class="gradient-btn" data-gradient="forest" onclick="setGradient('forest')"
+                                title="Las">
+                                <span style="background:linear-gradient(135deg,#134E5E,#71B280,#38EF7D)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="tropical" onclick="setGradient('tropical')"
+                                title="Tropikalny">
+                                <span style="background:linear-gradient(135deg,#11998e,#38ef7d,#f5af19)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="emerald" onclick="setGradient('emerald')"
+                                title="Szmaragdowy">
+                                <span style="background:linear-gradient(135deg,#1d976c,#93f9b9,#2c3e50)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="spring" onclick="setGradient('spring')"
+                                title="Wiosenny">
+                                <span style="background:linear-gradient(135deg,#f8cdda,#1d976c,#f9d423)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="moss" onclick="setGradient('moss')"
+                                title="Mech">
+                                <span style="background:linear-gradient(135deg,#606c38,#283618,#fefae0)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="meadow" onclick="setGradient('meadow')"
+                                title="Łąka">
+                                <span style="background:linear-gradient(135deg,#74c69d,#52b788,#40916c)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="sage" onclick="setGradient('sage')"
+                                title="Szałwia">
+                                <span style="background:linear-gradient(135deg,#b7b7a4,#a5a58d,#6b705c)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="bamboo" onclick="setGradient('bamboo')"
+                                title="Bambus">
+                                <span style="background:linear-gradient(135deg,#718355,#87986a,#c8d2b8)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="earth" onclick="setGradient('earth')"
+                                title="Ziemia">
+                                <span style="background:linear-gradient(135deg,#8b4513,#a0522d,#cd853f)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="desert" onclick="setGradient('desert')"
+                                title="Pustynia">
+                                <span style="background:linear-gradient(135deg,#d4a373,#e6bc8f,#f4e4c1)"></span>
+                            </button>
+                        </div>
+
+                        <!-- Luxury Gradients -->
+                        <div class="gradients-grid hidden" data-category="luxury">
+                            <button class="gradient-btn" data-gradient="aurora" onclick="setGradient('aurora')"
+                                title="Aurora">
+                                <span style="background:linear-gradient(135deg,#667EEA,#764BA2,#F093FB)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="royal" onclick="setGradient('royal')"
+                                title="Królewski">
+                                <span style="background:linear-gradient(135deg,#141E30,#243B55,#D4AF37)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="lavender" onclick="setGradient('lavender')"
+                                title="Lawendowy">
+                                <span style="background:linear-gradient(135deg,#834d9b,#d04ed6,#e8b5ce)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="champagne" onclick="setGradient('champagne')"
+                                title="Szampan">
+                                <span style="background:linear-gradient(135deg,#f7e7ce,#d4af37,#8b7355)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="wine" onclick="setGradient('wine')"
+                                title="Wino">
+                                <span style="background:linear-gradient(135deg,#722f37,#a93545,#f4d0d5)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="velvet" onclick="setGradient('velvet')"
+                                title="Aksamit">
+                                <span style="background:linear-gradient(135deg,#5f0a87,#a4508b,#ff6f91)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="plum" onclick="setGradient('plum')"
+                                title="Śliwka">
+                                <span style="background:linear-gradient(135deg,#5a189a,#9d4edd,#e0aaff)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="galaxy" onclick="setGradient('galaxy')"
+                                title="Galaktyka">
+                                <span style="background:linear-gradient(135deg,#2c3e50,#3498db,#9b59b6)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="noir" onclick="setGradient('noir')"
+                                title="Noir">
+                                <span style="background:linear-gradient(135deg,#000000,#434343,#000000)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="candy" onclick="setGradient('candy')"
+                                title="Cukierkowy">
+                                <span style="background:linear-gradient(135deg,#ff6fd8,#3813c2,#92fe9d)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="cyberpunk" onclick="setGradient('cyberpunk')"
+                                title="Cyberpunk">
+                                <span style="background:linear-gradient(135deg,#00d4ff,#ff00ff,#7b00ff)"></span>
+                            </button>
+                            <button class="gradient-btn" data-gradient="neon" onclick="setGradient('neon')"
+                                title="Neonowy">
+                                <span style="background:linear-gradient(135deg,#00ff87,#60efff,#ff00ff)"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Toggle efektów hover -->
+                <div class="settings-section hover-effects-panel collapsible collapsed">
+                    <h4><i class="fas fa-hand-pointer"></i> Efekty Hover</h4>
+                    <div class="settings-section-content">
+                        <div class="toggles-grid">
+                            <label class="toggle-label">
+                                <input type="checkbox" id="hover-cards" checked
+                                    onchange="toggleEffect('hoverEffects.cards', this.checked)">
+                                <span class="toggle-switch"></span>
+                                <span>Karty</span>
+                            </label>
+                            <label class="toggle-label">
+                                <input type="checkbox" id="hover-buttons" checked
+                                    onchange="toggleEffect('hoverEffects.buttons', this.checked)">
+                                <span class="toggle-switch"></span>
+                                <span>Przyciski</span>
+                            </label>
+                            <label class="toggle-label">
+                                <input type="checkbox" id="hover-images" checked
+                                    onchange="toggleEffect('hoverEffects.images', this.checked)">
+                                <span class="toggle-switch"></span>
+                                <span>Zoom zdjęć</span>
+                            </label>
+                            <label class="toggle-label">
+                                <input type="checkbox" id="flip-cards"
+                                    onchange="toggleEffect('hoverEffects.flipCards', this.checked)">
+                                <span class="toggle-switch"></span>
+                                <span>Flip 3D</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Animacje -->
+                <div class="settings-section animations-panel collapsible collapsed">
+                    <h4><i class="fas fa-film"></i> Animacje</h4>
+                    <div class="settings-section-content">
+                        <div class="toggles-grid">
+                            <label class="toggle-label">
+                                <input type="checkbox" id="anim-fadeIn" checked
+                                    onchange="toggleEffect('animations.fadeIn', this.checked)">
+                                <span class="toggle-switch"></span>
+                                <span>Fade In</span>
+                            </label>
+                            <label class="toggle-label">
+                                <input type="checkbox" id="anim-slideUp" checked
+                                    onchange="toggleEffect('animations.slideUp', this.checked)">
+                                <span class="toggle-switch"></span>
+                                <span>Slide Up</span>
+                            </label>
+                            <label class="toggle-label">
+                                <input type="checkbox" id="anim-parallax"
+                                    onchange="toggleEffect('animations.parallax', this.checked)">
+                                <span class="toggle-switch"></span>
+                                <span>Parallax</span>
+                            </label>
+                            <label class="toggle-label">
+                                <input type="checkbox" id="anim-countUp" checked
+                                    onchange="toggleEffect('animations.countUp', this.checked)">
+                                <span class="toggle-switch"></span>
+                                <span>Liczniki</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tryb wyświetlania pokoi -->
+                <div class="settings-section rooms-display-panel collapsible collapsed">
+                    <h4><i class="fas fa-th-large"></i> Wyświetlanie pokoi</h4>
+                    <div class="settings-section-content">
+                        <div class="display-mode-btns">
+                            <button class="mode-btn active" data-mode="grid" onclick="setRoomsDisplayMode('grid')">
+                                <i class="fas fa-th"></i> Grid
+                            </button>
+                            <button class="mode-btn" data-mode="slider" onclick="setRoomsDisplayMode('slider')">
+                                <i class="fas fa-arrows-left-right"></i> Slider
+                            </button>
+                            <button class="mode-btn" data-mode="masonry" onclick="setRoomsDisplayMode('masonry')">
+                                <i class="fas fa-grip"></i> Masonry
+                            </button>
+                        </div>
+                        <label class="toggle-label" style="margin-top:var(--space-3)">
+                            <input type="checkbox" id="show-categories" checked
+                                onchange="toggleRoomCategories(this.checked)">
+                            <span class="toggle-switch"></span>
+                            <span>Pokaż kategorie pokoi</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-section collapsible">
+                    <h4><i class="fas fa-puzzle-piece"></i> Sekcje</h4>
+                    <div class="settings-section-content">
+                        <div class="sections-checklist" id="sections-checklist">
+                            <!-- Dynamicznie generowane -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section collapsible collapsed">
+                    <h4><i class="fas fa-map-marker-alt"></i> Lokalizacja</h4>
+                    <div class="settings-section-content">
+                        <div class="form-group">
+                            <label>Adres obiektu</label>
+                            <input type="text" id="location-address" placeholder="np. ul. Przykładowa 123, Warszawa"
+                                oninput="updateAddress(this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Nazwa obiektu</label>
+                            <input type="text" id="property-name" placeholder="np. Hotel Panorama"
+                                oninput="updatePropertyName(this.value)">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Gemini Chat (bottom-left) -->
+                <div class="settings-section ai-chat-section ai-config-bottom collapsible collapsed">
                     <h4>
                         <i class="fas fa-brain"></i> Gemini AI Chat
                         <button class="help-btn" onclick="showAIHelp()" title="Pomoc">
@@ -100,45 +526,48 @@
                         </button>
                     </h4>
 
-                    <div class="ai-api-key-wrapper">
-                        <label>Klucz API Gemini</label>
-                        <div class="api-key-input-group">
-                            <input type="password" id="gemini-api-key" value="AIzaSyAS-cWUZFngR_YScZhihVzWJCBfo4tfodg"
-                                placeholder="Wklej klucz z Google AI Studio">
-                            <button class="btn btn-icon" onclick="toggleApiKeyVisibility()" title="Pokaż/ukryj">
-                                <i class="fas fa-eye" id="api-key-toggle-icon"></i>
+                    <div class="settings-section-content">
+                        <div class="ai-api-key-wrapper">
+                            <label>Klucz API Gemini</label>
+                            <div class="api-key-input-group">
+                                <input type="password" id="gemini-api-key"
+                                    value="AIzaSyAS-cWUZFngR_YScZhihVzWJCBfo4tfodg"
+                                    placeholder="Wklej klucz z Google AI Studio">
+                                <button class="btn btn-icon" onclick="toggleApiKeyVisibility()" title="Pokaż/ukryj">
+                                    <i class="fas fa-eye" id="api-key-toggle-icon"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="ai-token-counter">
+                            <span><i class="fas fa-coins"></i> Użyte tokeny:</span>
+                            <strong id="token-count">0</strong> / 1,000,000
+                            <div class="token-bar">
+                                <div class="token-bar-fill" id="token-bar-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="ai-prompt-wrapper">
+                            <label>Opisz co chcesz zmienić</label>
+                            <textarea id="ai-prompt" rows="3"
+                                placeholder="np. Zmień kolory na cieplejsze, dodaj więcej informacji o SPA, napisz opis pokoju deluxe..."></textarea>
+                        </div>
+
+                        <button class="btn btn-ai-generate" onclick="generateWithGemini()">
+                            <i class="fas fa-sparkles"></i> Generuj z AI
+                        </button>
+
+                        <div class="ai-response-wrapper hidden" id="ai-response-wrapper">
+                            <label>Odpowiedź AI:</label>
+                            <div class="ai-response" id="ai-response"></div>
+                            <button class="btn btn-sm btn-accent" onclick="applyAIResponse()">
+                                <i class="fas fa-check"></i> Zastosuj zmiany
                             </button>
                         </div>
-                    </div>
 
-                    <div class="ai-token-counter">
-                        <span><i class="fas fa-coins"></i> Użyte tokeny:</span>
-                        <strong id="token-count">0</strong> / 1,000,000
-                        <div class="token-bar">
-                            <div class="token-bar-fill" id="token-bar-fill" style="width: 0%"></div>
+                        <div class="ai-loading hidden" id="ai-loading">
+                            <i class="fas fa-spinner fa-spin"></i> Generuję...
                         </div>
-                    </div>
-
-                    <div class="ai-prompt-wrapper">
-                        <label>Opisz co chcesz zmienić</label>
-                        <textarea id="ai-prompt" rows="3"
-                            placeholder="np. Zmień kolory na cieplejsze, dodaj więcej informacji o SPA, napisz opis pokoju deluxe..."></textarea>
-                    </div>
-
-                    <button class="btn btn-ai-generate" onclick="generateWithGemini()">
-                        <i class="fas fa-sparkles"></i> Generuj z AI
-                    </button>
-
-                    <div class="ai-response-wrapper hidden" id="ai-response-wrapper">
-                        <label>Odpowiedź AI:</label>
-                        <div class="ai-response" id="ai-response"></div>
-                        <button class="btn btn-sm btn-accent" onclick="applyAIResponse()">
-                            <i class="fas fa-check"></i> Zastosuj zmiany
-                        </button>
-                    </div>
-
-                    <div class="ai-loading hidden" id="ai-loading">
-                        <i class="fas fa-spinner fa-spin"></i> Generuję...
                     </div>
                 </div>
 
@@ -154,224 +583,12 @@
                             <li>Kliknij "Create API Key"</li>
                             <li>Skopiuj klucz i wklej powyżej</li>
                         </ol>
-                        <p><strong>Limit:</strong> 1 milion tokenów/miesiąc za darmo. <br>Możesz utworzyć nowy klucz w
+                        <p><strong>Limit:</strong> 1 milion tokenów/miesiąc za darmo. <br>Możesz utworzyć nowy klucz
+                            w
                             nowym projekcie jeśli wyczerpiesz limit.</p>
                     </div>
                 </div>
-
-                <!-- Template Gallery -->
-                <div class="settings-section">
-                    <h4><i class="fas fa-swatchbook"></i> Wybierz szablon</h4>
-                    <div class="templates-gallery" id="templates-gallery">
-                        <!-- Dynamicznie generowane -->
-                    </div>
-                </div>
-
-                <!-- Global Settings -->
-                <div class="settings-section">
-                    <h4><i class="fas fa-palette"></i> Kolory</h4>
-                    <div class="color-pickers">
-                        <div class="color-picker-item">
-                            <label>Primary</label>
-                            <input type="color" id="color-primary" value="#1A365D">
-                        </div>
-                        <div class="color-picker-item">
-                            <label>Secondary</label>
-                            <input type="color" id="color-secondary" value="#C9A227">
-                        </div>
-                        <div class="color-picker-item">
-                            <label>Accent</label>
-                            <input type="color" id="color-accent" value="#00B894">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="settings-section">
-                    <h4><i class="fas fa-font"></i> Czcionki</h4>
-                    <div class="form-group">
-                        <label>Nagłówki</label>
-                        <select id="font-heading">
-                            <option value="Playfair Display">Playfair Display (elegancki)</option>
-                            <option value="Montserrat">Montserrat (nowoczesny)</option>
-                            <option value="Poppins">Poppins (przyjazny)</option>
-                            <option value="Raleway">Raleway (lekki)</option>
-                            <option value="Oswald">Oswald (bold)</option>
-                            <option value="Cinzel">Cinzel (luksusowy)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Tekst</label>
-                        <select id="font-body">
-                            <option value="Inter">Inter (czytelny)</option>
-                            <option value="Open Sans">Open Sans (neutralny)</option>
-                            <option value="Lato">Lato (ciepły)</option>
-                            <option value="Roboto">Roboto (techniczny)</option>
-                            <option value="Nunito">Nunito (zaokrąglony)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- ============================================
-                     MEGA PANEL EFEKTÓW
-                     ============================================ -->
-                <div class="settings-section effects-panel">
-                    <h4><i class="fas fa-magic"></i> Efekty i Style</h4>
-
-                    <!-- Suwaki rozmiaru czcionek -->
-                    <div class="effect-group">
-                        <label class="effect-label">
-                            <i class="fas fa-text-height"></i> Rozmiar nagłówków
-                            <span class="slider-value" id="heading-scale-value">100%</span>
-                        </label>
-                        <input type="range" id="heading-scale" min="70" max="150" value="100"
-                            oninput="updateFontScale('headings', this.value)">
-                    </div>
-
-                    <div class="effect-group">
-                        <label class="effect-label">
-                            <i class="fas fa-font"></i> Rozmiar tekstu
-                            <span class="slider-value" id="body-scale-value">100%</span>
-                        </label>
-                        <input type="range" id="body-scale" min="70" max="150" value="100"
-                            oninput="updateFontScale('body', this.value)">
-                    </div>
-
-                    <!-- Presety gradientów -->
-                    <div class="effect-group">
-                        <label class="effect-label"><i class="fas fa-fill-drip"></i> Gradient</label>
-                        <div class="gradient-presets">
-                            <button class="gradient-btn active" data-gradient="none" onclick="setGradient('none')"
-                                title="Brak">
-                                <span style="background:#666"></span>
-                            </button>
-                            <button class="gradient-btn" data-gradient="sunset" onclick="setGradient('sunset')"
-                                title="Zachód słońca">
-                                <span style="background:linear-gradient(135deg,#FF6B6B,#FFA502,#FFD93D)"></span>
-                            </button>
-                            <button class="gradient-btn" data-gradient="aurora" onclick="setGradient('aurora')"
-                                title="Aurora">
-                                <span style="background:linear-gradient(135deg,#667EEA,#764BA2,#F093FB)"></span>
-                            </button>
-                            <button class="gradient-btn" data-gradient="ocean" onclick="setGradient('ocean')"
-                                title="Ocean">
-                                <span style="background:linear-gradient(135deg,#0277BD,#4FC3F7,#00BCD4)"></span>
-                            </button>
-                            <button class="gradient-btn" data-gradient="forest" onclick="setGradient('forest')"
-                                title="Las">
-                                <span style="background:linear-gradient(135deg,#134E5E,#71B280,#38EF7D)"></span>
-                            </button>
-                            <button class="gradient-btn" data-gradient="royal" onclick="setGradient('royal')"
-                                title="Królewski">
-                                <span style="background:linear-gradient(135deg,#141E30,#243B55,#D4AF37)"></span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Toggle efektów hover -->
-                <div class="settings-section hover-effects-panel">
-                    <h4><i class="fas fa-hand-pointer"></i> Efekty Hover</h4>
-                    <div class="toggles-grid">
-                        <label class="toggle-label">
-                            <input type="checkbox" id="hover-cards" checked
-                                onchange="toggleEffect('hoverEffects.cards', this.checked)">
-                            <span class="toggle-switch"></span>
-                            <span>Karty</span>
-                        </label>
-                        <label class="toggle-label">
-                            <input type="checkbox" id="hover-buttons" checked
-                                onchange="toggleEffect('hoverEffects.buttons', this.checked)">
-                            <span class="toggle-switch"></span>
-                            <span>Przyciski</span>
-                        </label>
-                        <label class="toggle-label">
-                            <input type="checkbox" id="hover-images" checked
-                                onchange="toggleEffect('hoverEffects.images', this.checked)">
-                            <span class="toggle-switch"></span>
-                            <span>Zoom zdjęć</span>
-                        </label>
-                        <label class="toggle-label">
-                            <input type="checkbox" id="flip-cards"
-                                onchange="toggleEffect('hoverEffects.flipCards', this.checked)">
-                            <span class="toggle-switch"></span>
-                            <span>Flip 3D</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Animacje -->
-                <div class="settings-section animations-panel">
-                    <h4><i class="fas fa-film"></i> Animacje</h4>
-                    <div class="toggles-grid">
-                        <label class="toggle-label">
-                            <input type="checkbox" id="anim-fadeIn" checked
-                                onchange="toggleEffect('animations.fadeIn', this.checked)">
-                            <span class="toggle-switch"></span>
-                            <span>Fade In</span>
-                        </label>
-                        <label class="toggle-label">
-                            <input type="checkbox" id="anim-slideUp" checked
-                                onchange="toggleEffect('animations.slideUp', this.checked)">
-                            <span class="toggle-switch"></span>
-                            <span>Slide Up</span>
-                        </label>
-                        <label class="toggle-label">
-                            <input type="checkbox" id="anim-parallax"
-                                onchange="toggleEffect('animations.parallax', this.checked)">
-                            <span class="toggle-switch"></span>
-                            <span>Parallax</span>
-                        </label>
-                        <label class="toggle-label">
-                            <input type="checkbox" id="anim-countUp" checked
-                                onchange="toggleEffect('animations.countUp', this.checked)">
-                            <span class="toggle-switch"></span>
-                            <span>Liczniki</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Tryb wyświetlania pokoi -->
-                <div class="settings-section rooms-display-panel">
-                    <h4><i class="fas fa-th-large"></i> Wyświetlanie pokoi</h4>
-                    <div class="display-mode-btns">
-                        <button class="mode-btn active" data-mode="grid" onclick="setRoomsDisplayMode('grid')">
-                            <i class="fas fa-th"></i> Grid
-                        </button>
-                        <button class="mode-btn" data-mode="slider" onclick="setRoomsDisplayMode('slider')">
-                            <i class="fas fa-arrows-left-right"></i> Slider
-                        </button>
-                        <button class="mode-btn" data-mode="masonry" onclick="setRoomsDisplayMode('masonry')">
-                            <i class="fas fa-grip"></i> Masonry
-                        </button>
-                    </div>
-                    <label class="toggle-label" style="margin-top:var(--space-3)">
-                        <input type="checkbox" id="show-categories" checked
-                            onchange="toggleRoomCategories(this.checked)">
-                        <span class="toggle-switch"></span>
-                        <span>Pokaż kategorie pokoi</span>
-                    </label>
-                </div>
-
-                <div class="settings-section">
-                    <h4><i class="fas fa-puzzle-piece"></i> Sekcje</h4>
-                    <div class="sections-checklist" id="sections-checklist">
-                        <!-- Dynamicznie generowane -->
-                    </div>
-                </div>
-
-                <div class="settings-section">
-                    <h4><i class="fas fa-map-marker-alt"></i> Lokalizacja</h4>
-                    <div class="form-group">
-                        <label>Adres obiektu</label>
-                        <input type="text" id="location-address" placeholder="np. ul. Przykładowa 123, Warszawa"
-                            oninput="updateAddress(this.value)">
-                    </div>
-                    <div class="form-group">
-                        <label>Nazwa obiektu</label>
-                        <input type="text" id="property-name" placeholder="np. Hotel Panorama"
-                            oninput="updatePropertyName(this.value)">
-                    </div>
-                </div>
+            </div>
             </div>
 
             <div class="builder-main">
@@ -406,6 +623,9 @@
                     <button class="btn btn-generate" id="btn-generate">
                         <i class="fas fa-rocket"></i> Generuj kod dla IdoBooking
                     </button>
+                    <button class="btn btn-primary" onclick="openSubpageModal()" style="margin-top: var(--space-3);">
+                        <i class="fas fa-file-alt"></i> Utwórz nową podstronę
+                    </button>
                 </div>
             </div>
 
@@ -438,16 +658,19 @@
                     <!-- Tabs -->
                     <div class="export-tabs">
                         <button class="export-tab active" data-tab="head">
-                            <i class="fas fa-code"></i> head.html
+                            <i class="fas fa-code"></i> Strona główna HEAD
                         </button>
                         <button class="export-tab" data-tab="sections">
-                            <i class="fas fa-layer-group"></i> sections.html
+                            <i class="fas fa-layer-group"></i> Sekcje do tekstu/obrazków
                         </button>
                         <button class="export-tab" data-tab="styles">
-                            <i class="fas fa-paint-brush"></i> styles.css
+                            <i class="fas fa-palette"></i> Arkusz stylów CSS
                         </button>
                         <button class="export-tab" data-tab="scripts">
-                            <i class="fas fa-terminal"></i> scripts.html
+                            <i class="fas fa-file-code"></i> Koniec sekcji body
+                        </button>
+                        <button class="export-tab" data-tab="subpage">
+                            <i class="fas fa-file-alt"></i> Nowa podstrona
                         </button>
                     </div>
 
@@ -501,6 +724,24 @@
                             </div>
                             <pre class="code-block"><code id="code-scripts"></code></pre>
                         </div>
+                        <div class="export-pane" id="pane-subpage">
+                            <div class="code-header">
+                                <span>Kod gotowy dla nowej podstrony (tylko zawartość BODY)</span>
+                                <div class="code-actions">
+                                    <button class="btn btn-sm" onclick="copyCode('subpage')"><i class="fas fa-copy"></i>
+                                        Kopiuj</button>
+                                    <button class="btn btn-sm" onclick="downloadCode('subpage.html', 'subpage')"><i
+                                            class="fas fa-download"></i> Pobierz</button>
+                                </div>
+                            </div>
+                            <div class="subpage-info">
+                                <i class="fas fa-info-circle"></i>
+                                <p>Ten kod zawiera tylko zawartość sekcji bez nagłówka i stopki. Idealny do tworzenia
+                                    nowych podstron w systemie CMS, gdzie nagłówek i stopka są wspólne dla wszystkich
+                                    stron.</p>
+                            </div>
+                            <pre class="code-block"><code id="code-subpage"></code></pre>
+                        </div>
                     </div>
 
                     <!-- Download All -->
@@ -523,6 +764,118 @@
                 </div>
                 <div class="modal-body" id="object-modal-body">
                     <!-- Dynamicznie generowany formularz -->
+                </div>
+            </div>
+        </div>
+
+        <!-- SUBPAGE CREATOR MODAL -->
+        <div class="modal hidden" id="subpage-modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content modal-xl">
+                <div class="modal-header">
+                    <h2><i class="fas fa-file-alt"></i> Kreator Podstrony</h2>
+                    <button class="modal-close" onclick="closeSubpageModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <p style="margin-bottom: var(--space-4); color: var(--text-secondary);">
+                        <i class="fas fa-info-circle"></i> Wybierz sekcje, które chcesz umieścić na nowej podstronie.
+                        Kod będzie zawierał tylko wybrane sekcje <strong>bez nagłówka i stopki</strong>.
+                    </p>
+
+                    <!-- Section Checkboxes -->
+                    <div class="subpage-sections">
+                        <h4 style="margin-bottom: var(--space-3);">Wybierz sekcje:</h4>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3); margin-bottom: var(--space-5);">
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="subpage-section-checkbox" value="intro" checked>
+                                <span><i class="fas fa-home"></i> Sekcja wprowadzająca</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="subpage-section-checkbox" value="amenities">
+                                <span><i class="fas fa-concierge-bell"></i> Udogodnienia</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="subpage-section-checkbox" value="rooms">
+                                <span><i class="fas fa-bed"></i> Pokoje</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="subpage-section-checkbox" value="gallery">
+                                <span><i class="fas fa-images"></i> Galeria</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="subpage-section-checkbox" value="testimonials">
+                                <span><i class="fas fa-star"></i> Opinie</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="subpage-section-checkbox" value="faq">
+                                <span><i class="fas fa-question-circle"></i> FAQ</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="subpage-section-checkbox" value="location">
+                                <span><i class="fas fa-map-marker-alt"></i> Lokalizacja</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="subpage-section-checkbox" value="cta">
+                                <span><i class="fas fa-phone"></i> Call to Action</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Generated Code Preview -->
+                    <div class="export-tabs" style="margin-bottom: var(--space-3);">
+                        <button class="export-tab active" data-tab="body-html">
+                            <i class="fas fa-code"></i> Kod BODY
+                        </button>
+                        <button class="export-tab" data-tab="head-styles">
+                            <i class="fas fa-palette"></i> Style HEAD
+                        </button>
+                        <button class="export-tab" data-tab="css-styles">
+                            <i class="fas fa-file-code"></i> CSS
+                        </button>
+                    </div>
+
+                    <div class="export-content">
+                        <div class="export-pane active" id="pane-body-html">
+                            <div class="code-header">
+                                <span>Wklej w sekcji BODY (bez header/footer)</span>
+                                <div class="code-actions">
+                                    <button class="btn btn-sm" onclick="copySubpageCode('body-html')">
+                                        <i class="fas fa-copy"></i> Kopiuj
+                                    </button>
+                                </div>
+                            </div>
+                            <pre class="code-block"><code id="subpage-body-html"></code></pre>
+                        </div>
+                        <div class="export-pane" id="pane-head-styles">
+                            <div class="code-header">
+                                <span>Wklej w HEAD (style inline)</span>
+                                <div class="code-actions">
+                                    <button class="btn btn-sm" onclick="copySubpageCode('head-styles')">
+                                        <i class="fas fa-copy"></i> Kopiuj
+                                    </button>
+                                </div>
+                            </div>
+                            <pre class="code-block"><code id="subpage-head-styles"></code></pre>
+                        </div>
+                        <div class="export-pane" id="pane-css-styles">
+                            <div class="code-header">
+                                <span>Arkusz CSS</span>
+                                <div class="code-actions">
+                                    <button class="btn btn-sm" onclick="copySubpageCode('css-styles')">
+                                        <i class="fas fa-copy"></i> Kopiuj
+                                    </button>
+                                </div>
+                            </div>
+                            <pre class="code-block"><code id="subpage-css-styles"></code></pre>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: var(--space-4); text-align: right;">
+                        <button class="btn btn-primary btn-lg" onclick="generateSubpage()">
+                            <i class="fas fa-code"></i> Generuj kod podstrony
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

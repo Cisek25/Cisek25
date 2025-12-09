@@ -163,7 +163,60 @@ const TemplateEngine = {
             return `<!-- SEKCJA: POKOJE - brak pokoi do wygenerowania -->\n\n`;
         }
 
-        let roomCards = objects.map(obj => this.generateRoomCard(obj)).join('\n');
+        const roomsSettings = window.appState?.roomsSettings || {};
+        const effectsSettings = window.appState?.effectsSettings || {};
+        const displayMode = roomsSettings.displayMode || 'grid';
+        const showCategories = roomsSettings.showCategories !== false;
+
+        // Group by category if enabled
+        let roomsHtml = '';
+
+        if (showCategories && displayMode !== 'slider') {
+            const categories = roomsSettings.categories || [];
+            const groupedRooms = {};
+
+            objects.forEach(obj => {
+                const cat = obj.category || 'standard';
+                if (!groupedRooms[cat]) groupedRooms[cat] = [];
+                groupedRooms[cat].push(obj);
+            });
+
+            Object.keys(groupedRooms).forEach(catId => {
+                const catInfo = categories.find(c => c.id === catId) || { name: catId, icon: 'fa-bed' };
+                const categoryRooms = groupedRooms[catId].map(obj => this.generateRoomCard(obj, effectsSettings)).join('\n');
+
+                roomsHtml += `
+        <div class="rooms-category">
+            <h3 class="category-title"><i class="fas ${catInfo.icon}"></i> ${catInfo.name}</h3>
+            <div class="rooms-grid ${displayMode === 'masonry' ? 'rooms-masonry' : ''}">
+${categoryRooms}
+            </div>
+        </div>`;
+            });
+        } else if (displayMode === 'slider') {
+            // Slider mode
+            const roomCards = objects.map(obj => this.generateRoomCard(obj, effectsSettings)).join('\n');
+            roomsHtml = `
+        <div class="rooms-slider-wrapper">
+            <button class="slider-btn slider-prev" onclick="parent.slideRooms(-1)"><i class="fas fa-chevron-left"></i></button>
+            <div class="rooms-slider">
+                <div class="rooms-slider-track">
+${roomCards}
+                </div>
+            </div>
+            <button class="slider-btn slider-next" onclick="parent.slideRooms(1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="slider-dots">
+            ${objects.map((_, i) => `<span class="slider-dot${i === 0 ? ' active' : ''}" onclick="parent.goToSlide(${i})"></span>`).join('')}
+        </div>`;
+        } else {
+            // Default grid mode
+            const roomCards = objects.map(obj => this.generateRoomCard(obj, effectsSettings)).join('\n');
+            roomsHtml = `
+        <div class="rooms-grid">
+${roomCards}
+        </div>`;
+        }
 
         return `<!-- SEKCJA: POKOJE -->
 <section class="section-rooms" id="pokoje">
@@ -173,9 +226,7 @@ const TemplateEngine = {
             <h2 class="section-title">Znajdź Swój Pokój</h2>
             <p class="section-desc">Wybierz idealne zakwaterowanie dla siebie</p>
         </div>
-        <div class="rooms-grid">
-${roomCards}
-        </div>
+        ${roomsHtml}
     </div>
 </section>
 
