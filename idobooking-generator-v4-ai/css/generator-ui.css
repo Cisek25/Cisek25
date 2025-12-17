@@ -2337,7 +2337,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
     text-align: left;
     box-shadow: var(--shadow-lg);
     border: 1px solid var(--border-primary);
-    z-index: 10000;
+    z-index: 10001;
     margin-bottom: var(--space-2);
     pointer-events: none;
 }
@@ -2580,10 +2580,25 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 @keyframes fadeInOut {
-    0% { opacity: 0; transform: translateY(10px); }
-    20% { opacity: 1; transform: translateY(0); }
-    80% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-10px); }
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    20% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    80% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
 }
 
 /* Recovery notification */
@@ -2605,8 +2620,15 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 @keyframes slideDown {
-    from { opacity: 0; transform: translate(-50%, -20px); }
-    to { opacity: 1; transform: translate(-50%, 0); }
+    from {
+        opacity: 0;
+        transform: translate(-50%, -20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
 }
 
 .recovery-notification button {
@@ -2626,7 +2648,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 .recovery-notification .dismiss-btn {
     background: transparent;
-    color: rgba(255,255,255,0.7);
+    color: rgba(255, 255, 255, 0.7);
     padding: var(--space-2);
 }
 

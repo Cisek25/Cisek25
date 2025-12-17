@@ -867,12 +867,63 @@ ${effectsSettings.hoverEffects?.flipCards ? '' : `
     display: flex;
     gap: var(--space-6);
     transition: transform 0.5s ease;
+    padding: 10px 0; /* Prevent shadow clipping */
 }
 
 .rooms-slider .room-card {
-    min-width: calc((100% - 2 * var(--space-6)) / 3); /* Show 3 complete cards */
+    min-width: calc((100% - 2 * var(--space-6)) / 3);
     max-width: calc((100% - 2 * var(--space-6)) / 3);
     flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+/* AMENITIES SLIDER */
+.amenities-slider-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.amenities-slider {
+    overflow: hidden;
+    flex: 1;
+    width: 100%;
+}
+
+.amenities-slider-track {
+    display: flex;
+    gap: var(--space-6);
+    transition: transform 0.5s ease;
+    padding: 10px 0;
+}
+
+.amenities-slider .amenity-card {
+    min-width: calc((100% - 3 * var(--space-6)) / 4); /* Show 4 items by default */
+    max-width: calc((100% - 3 * var(--space-6)) / 4);
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+@media (max-width: 1200px) {
+    .amenities-slider .amenity-card {
+        min-width: calc((100% - 2 * var(--space-6)) / 3);
+        max-width: calc((100% - 2 * var(--space-6)) / 3);
+    }
+}
+
+@media (max-width: 900px) {
+    .amenities-slider .amenity-card {
+        min-width: calc((100% - var(--space-6)) / 2);
+        max-width: calc((100% - var(--space-6)) / 2);
+    }
+}
+
+@media (max-width: 600px) {
+    .amenities-slider .amenity-card {
+        min-width: 100%;
+        max-width: 100%;
+    }
 }
 
 @media (max-width: 1200px) {

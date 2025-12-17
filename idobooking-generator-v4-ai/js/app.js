@@ -870,52 +870,41 @@ function closeSectionEditor() {
 // ============================================
 function addDefaultObjects() {
     // Get property type from wizard data
-    let propertyType = 'hotel-3star'; // default
-
-    if (appState.wizardData) {
-        // Map wizard property-type answers to preset keys
-        const typeMapping = {
-            'hotel-3': 'hotel-3star',
-            'hotel-4': 'hotel-4star',
-            'hotel-5': 'hotel-5star',
-            'boutique': 'boutique',
-            'pension': 'pension',
-            'hostel': 'hostel',
-            'apartments': 'apartments',
-            'resort': 'resort',
-            'glamping': 'glamping',
-            'bnb': 'pension',           // B&B -> Pensjonat preset
-            'motel': 'hostel',          // Motel -> Hostel preset (budget)
-            'villa': 'boutique',        // Willa -> Boutique preset
-            'chalet': 'gorski',         // Domek górski -> Górski preset
-            'cottage': 'agroturystyka', // Domek letniskowy -> Agro preset
-            'farm-stay': 'agroturystyka' // Agroturystyka
-        };
-
-        const wizardType = appState.wizardData['property-type'];
-        if (wizardType && typeMapping[wizardType]) {
-            propertyType = typeMapping[wizardType];
-        }
+    let wizardType = 'hotel-3';
+    if (appState.wizardData && appState.wizardData['property-type']) {
+        wizardType = appState.wizardData['property-type'];
     }
 
-    // Get rooms from presets
-    let presetRooms = [];
-    if (window.ROOM_PRESETS && window.ROOM_PRESETS[propertyType]) {
-        presetRooms = window.ROOM_PRESETS[propertyType].rooms;
-    } else {
-        // Fallback to hotel-3star if preset not found
-        presetRooms = window.ROOM_PRESETS?.['hotel-3star']?.rooms || [];
+    console.log('Generating objects for type:', wizardType);
+
+    // Use functionality from data/room-presets.js if available
+    let presets = [];
+    if (window.getRoomPresets) {
+        presets = window.getRoomPresets(wizardType);
     }
 
-    // Add rooms with unique IDs
-    presetRooms.forEach(room => {
-        appState.objects.push({
-            ...room,
-            id: appState.nextObjectId++
-        });
-    });
+    // Fallback if no presets or script not loaded
+    if (!presets || presets.length === 0) {
+        console.warn('No presets found, using default hotel rooms');
+        presets = [
+            { name: 'Pokój Standard', type: 'room', price: 250, personCount: 2, image: 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800', description: 'Komfortowy pokój z łóżkiem typu King-size.' },
+            { name: 'Pokój Deluxe', type: 'room', price: 350, personCount: 2, image: 'https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800', description: 'Większy metraż i widok na ogród.' },
+            { name: 'Apartament', type: 'suite', price: 500, personCount: 4, image: 'https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=800', description: 'Przestronny apartament z aneksem kuchennym.' }
+        ];
+    }
 
-    console.log(`✅ Loaded ${presetRooms.length} rooms from preset: ${propertyType}`);
+    // Convert presets to objects
+    appState.objects = presets.map((p, index) => ({
+        id: index + 1,
+        name: p.name,
+        type: p.type,
+        price: p.price,
+        persons: p.personCount,
+        image: p.image,
+        description: p.description
+    }));
+
+    appState.nextObjectId = appState.objects.length + 1;
     renderObjectsGrid();
 }
 
@@ -996,10 +985,10 @@ function renderAmenitiesSelector(selectedAmenities) {
 
         category.items.forEach(item => {
             const isSelected = selectedAmenities.includes(item.id);
-            html += `<label class="amenity-label ${isSelected ? 'selected' : ''}" 
+            html += `<label class="amenity-label ${isSelected ? 'selected' : ''}"
                             data-id="${item.id}"
                             onclick="toggleAmenity(this, '${item.id}')">
-                <input type="checkbox" value="${item.id}" ${isSelected ? 'checked' : ''} 
+                <input type="checkbox" value="${item.id}" ${isSelected ? 'checked' : ''}
                        style="display: none;" class="amenity-checkbox">
                 <i class="fas ${item.icon}"></i>
                 <span>${item.name}</span>

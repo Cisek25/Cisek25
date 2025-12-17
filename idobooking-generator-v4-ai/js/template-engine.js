@@ -225,25 +225,24 @@ ${categoryRooms}
             const roomCards = objects.map(obj => this.generateRoomCard(obj, effectsSettings));
 
             // Create infinite loop by duplicating cards
-            // Add last cards at beginning, first cards at end
-            const numClones = Math.min(3, objects.length); // Clone up to 3 cards for smooth infinite effect
-            const startClones = roomCards.slice(-numClones); // Last N cards
-            const endClones = roomCards.slice(0, numClones);   // First N cards
+            const numClones = Math.min(3, objects.length);
+            const startClones = roomCards.slice(-numClones);
+            const endClones = roomCards.slice(0, numClones);
 
             const allCards = [...startClones, ...roomCards, ...endClones].join('\n');
 
             roomsHtml = `
         <div class="rooms-slider-wrapper">
-            <button class="slider-btn slider-prev" onclick="slideRooms(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-btn slider-prev" onclick="slide('rooms-slider', -1)"><i class="fas fa-chevron-left"></i></button>
             <div class="rooms-slider">
-                <div class="rooms-slider-track" data-total-rooms="${objects.length}" data-clone-count="${numClones}">
+                <div class="rooms-slider-track" data-total-items="${objects.length}" data-clone-count="${numClones}">
                     ${allCards}
                 </div>
             </div>
-            <button class="slider-btn slider-next" onclick="slideRooms(1)"><i class="fas fa-chevron-right"></i></button>
+            <button class="slider-btn slider-next" onclick="slide('rooms-slider', 1)"><i class="fas fa-chevron-right"></i></button>
         </div>
-        <div class="slider-dots">
-            ${objects.map((_, i) => `<span class="slider-dot${i === 0 ? ' active' : ''}" onclick="goToSlide(${i})"></span>`).join('')}
+        <div class="slider-dots amenities-slider-dots" data-slider-target="rooms-slider">
+            ${objects.map((_, i) => `<span class="slider-dot${i === 0 ? ' active' : ''}" onclick="goToSlide('rooms-slider', ${i})"></span>`).join('')}
         </div>`;
         } else {
             // Default grid mode
@@ -301,7 +300,7 @@ ${roomCards}
                             </div>
                             <div class="room-footer">
                                 <span class="room-price">od <strong>${obj.price || '199 zł'}</strong>/noc</span>
-                                <a href="#rezerwacja" class="room-cta">Rezerwuj</a>
+                                <a href="${settings.bookingUrl || '#'}" target="_blank" rel="noopener noreferrer" class="room-cta">Rezerwuj</a>
                             </div>
                         </div>
                     </div>
@@ -315,7 +314,7 @@ ${roomCards}
                                     ${amenitiesListBack}
                                 </ul>
                             </div>
-                            <a href="#rezerwacja" class="room-cta room-cta-large">
+                            <a href="${settings.bookingUrl || '#'}" target="_blank" rel="noopener noreferrer" class="room-cta room-cta-large">
                                 <i class="fas fa-calendar-check"></i> Zarezerwuj teraz
                             </a>
                         </div>
@@ -342,7 +341,7 @@ ${roomCards}
                     </ul>
                     <div class="room-footer">
                         <span class="room-price">od <strong>${obj.price || '199 zł'}</strong>/noc</span>
-                        <a href="#rezerwacja" class="room-cta">Rezerwuj</a>
+                        <a href="${settings.bookingUrl || '#'}" target="_blank" rel="noopener noreferrer" class="room-cta">Rezerwuj</a>
                     </div>
                 </div>
             </article>`;
@@ -362,6 +361,9 @@ ${roomCards}
     // ============================================
     // AMENITIES SECTION
     // ============================================
+    // ============================================
+    // AMENITIES SECTION
+    // ============================================
     generateAmenitiesSection(settings, objects) {
         // Collect unique amenities from all objects
         const allAmenities = new Set();
@@ -369,29 +371,50 @@ ${roomCards}
             (obj.amenities || []).forEach(a => allAmenities.add(a));
         });
 
-        const amenityCards = Array.from(allAmenities).slice(0, 8).map(id => {
+        const uniqueAmenitiesIds = Array.from(allAmenities);
+        const amenityCards = uniqueAmenitiesIds.map(id => {
             const amenity = this.findAmenity(id);
-            if (!amenity) return '';
-            return `            <div class="amenity-card">
+            if (!amenity) return null;
+            return `<div class="amenity-card slider-item">
                 <div class="amenity-icon"><i class="fas ${amenity.icon}"></i></div>
                 <h3>${amenity.name}</h3>
             </div>`;
-        }).filter(Boolean).join('\n');
+        }).filter(Boolean);
 
-        return `<!-- SEKCJA: UDOGODNIENIA -->
+        // Cloning logic for slider
+        const totalItems = amenityCards.length;
+        // Default to slider if we have enough items
+        if (totalItems > 0) {
+            const numClones = Math.min(4, totalItems);
+            const startClones = amenityCards.slice(-numClones);
+            const endClones = amenityCards.slice(0, numClones);
+            const allCards = [...startClones, ...amenityCards, ...endClones].join('\n');
+
+            return `<!-- SEKCJA: UDOGODNIENIA -->
 <section class="section-amenities" id="udogodnienia">
     <div class="container">
         <div class="section-header section-header-light">
             <span class="section-label section-label-light"><i class="fas fa-concierge-bell"></i> Udogodnienia</span>
             <h2 class="section-title">Wszystko w Cenie</h2>
         </div>
-        <div class="amenities-grid">
-${amenityCards}
+        
+        <div class="amenities-slider-wrapper">
+            <button class="slider-btn slider-prev" onclick="slide('amenities-slider', -1)"><i class="fas fa-chevron-left"></i></button>
+            <div class="amenities-slider">
+                <div class="amenities-slider-track" data-total-items="${totalItems}" data-clone-count="${numClones}">
+                    ${allCards}
+                </div>
+            </div>
+            <button class="slider-btn slider-next" onclick="slide('amenities-slider', 1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="slider-dots amenities-slider-dots" data-slider-target="amenities-slider">
+            ${uniqueAmenitiesIds.map((_, i) => `<span class="slider-dot${i === 0 ? ' active' : ''}" onclick="goToSlide('amenities-slider', ${i})"></span>`).join('')}
         </div>
     </div>
-</section>
+</section>`;
+        }
 
-`;
+        return '';
     },
 
     // ============================================

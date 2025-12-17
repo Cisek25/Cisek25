@@ -441,48 +441,69 @@ document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeLightbox();
 });
 
-// Room Slider functions - INFINITE SCROLL
-var currentSlide = 0;
-var isTransitioning = false;
+// GENERIC SLIDER LOGIC
+var sliderStates = {};
 
-function slideRooms(direction) {
-    if (isTransitioning) return; // Prevent multiple clicks during transition
+function initSlider(id) {
+    if (!sliderStates[id]) {
+        sliderStates[id] = {
+            currentSlide: 0,
+            isTransitioning: false
+        };
+    }
     
-    var track = document.querySelector('.rooms-slider-track');
-    var cards = document.querySelectorAll('.rooms-slider .room-card');
-    var dots = document.querySelectorAll('.slider-dot');
+    var track = document.querySelector('.' + id + '-track');
     
-    if (!track || !cards.length) return;
-    
-    var totalRooms = parseInt(track.dataset.totalRooms) || cards.length;
-    var cloneCount = parseInt(track.dataset.cloneCount) || 0;
-    
-    isTransitioning = true;
-    currentSlide += direction;
-    
-    updateSliderPosition(track, cards, dots, totalRooms, cloneCount, true);
+    if (track) {
+         var cloneCount = parseInt(track.dataset.cloneCount) || 0;
+         sliderStates[id].currentSlide = cloneCount; 
+         updateSliderPosition(id, false);
+    }
 }
 
-function goToSlide(index) {
-    var track = document.querySelector('.rooms-slider-track');
-    var cards = document.querySelectorAll('.rooms-slider .room-card');
-    var dots = document.querySelectorAll('.slider-dot');
+function slide(id, direction) {
+    if (!sliderStates[id]) initSlider(id);
+    var state = sliderStates[id];
     
-    if (!track || !cards.length) return;
+    if (state.isTransitioning) return;
     
-    var totalRooms = parseInt(track.dataset.totalRooms) || cards.length;
-    var cloneCount = parseInt(track.dataset.cloneCount) || 0;
+    var track = document.querySelector('.' + id + '-track');
+    if (!track) return;
     
-    currentSlide = cloneCount + index; // Account for clones at start
-    updateSliderPosition(track, cards, dots, totalRooms, cloneCount, true);
+    var cards = track.children;
+    if (!cards.length) return;
+    
+    state.isTransitioning = true;
+    state.currentSlide += direction;
+    
+    updateSliderPosition(id, true);
 }
 
-function updateSliderPosition(track, cards, dots, totalRooms, cloneCount, animate) {
+function goToSlide(id, index) {
+    if (!sliderStates[id]) initSlider(id);
+    var state = sliderStates[id];
+    var track = document.querySelector('.' + id + '-track');
+    if (!track) return;
+    
+    var cloneCount = parseInt(track.dataset.cloneCount) || 0;
+    state.currentSlide = cloneCount + index;
+    updateSliderPosition(id, true);
+}
+
+function updateSliderPosition(id, animate) {
+    var state = sliderStates[id];
+    var track = document.querySelector('.' + id + '-track');
+    if (!track) return;
+    
+    var cards = track.children;
+    if (!cards.length) return;
+    
     var cardWidth = cards[0].offsetWidth;
-    var gap = 32;
-    var offset = -(currentSlide * (cardWidth + gap));
+    var style = window.getComputedStyle(track);
+    var gap = parseFloat(style.gap) || 32;
     
-    // Apply transition if animating
+    var offset = -(state.currentSlide * (cardWidth + gap));
+    
     if (animate) {
         track.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
     } else {
@@ -491,56 +512,64 @@ function updateSliderPosition(track, cards, dots, totalRooms, cloneCount, animat
     
     track.style.transform = 'translateX(' + offset + 'px)';
     
-    // Handle infinite loop - reset position after animation
+    // Infinite Scroll Reset Logic
     if (animate) {
-        setTimeout(function() {
-            var needsReset = false;
-            var newPosition = currentSlide;
-            
-            // If we're at or past the end clones, jump back to real start
-            if (currentSlide >= cloneCount + totalRooms) {
-                newPosition = cloneCount;
-                needsReset = true;
-            }
-            // If we're at or before the start clones, jump to real end
-            else if (currentSlide < cloneCount) {
-                newPosition = cloneCount + totalRooms - 1;
-                needsReset = true;
-            }
-            
-            if (needsReset) {
-                currentSlide = newPosition;
-                updateSliderPosition(track, cards, dots, totalRooms, cloneCount, false);
-            }
-            
-            isTransitioning = false;
-        }, 400); // Match transition duration
+        var totalItems = parseInt(track.dataset.totalItems) || cards.length;
+        var cloneCount = parseInt(track.dataset.cloneCount) || 0;
+        
+        if (cloneCount > 0) {
+            setTimeout(function() {
+                var needsReset = false;
+                var newPosition = state.currentSlide;
+                
+                if (state.currentSlide >= cloneCount + totalItems) {
+                    newPosition = cloneCount;
+                    needsReset = true;
+                } else if (state.currentSlide < cloneCount) {
+                    newPosition = cloneCount + totalItems - 1;
+                    needsReset = true;
+                }
+                
+                if (needsReset) {
+                    state.currentSlide = newPosition;
+                    updateSliderPosition(id, false);
+                }
+                
+                state.isTransitioning = false;
+            }, 400);
+        } else {
+             setTimeout(function() { state.isTransitioning = false; }, 400);
+        }
     }
     
-    // Update dots (only for real slides, not clones)
-    var realIndex = ((currentSlide - cloneCount) % totalRooms + totalRooms) % totalRooms;
-    dots.forEach(function(dot, i) {
-        dot.classList.toggle('active', i === realIndex);
-    });
+    // Update dots
+    // Selector using concatenation to avoid backtick nesting hell
+    var dots = document.querySelectorAll('[data-slider-target="' + id + '"] .slider-dot');
+    
+    if (dots.length && track.dataset.totalItems) {
+         var totalItems = parseInt(track.dataset.totalItems);
+         var cloneCount = parseInt(track.dataset.cloneCount) || 0;
+         var realIndex = ((state.currentSlide - cloneCount) % totalItems + totalItems) % totalItems;
+         
+         dots.forEach(function(dot, i) {
+             dot.classList.toggle('active', i === realIndex);
+         });
+    }
 }
 
-// Initialize slider position on load
+// Auto Init
 document.addEventListener('DOMContentLoaded', function() {
-    var track = document.querySelector('.rooms-slider-track');
-    if (track) {
-        var cards = document.querySelectorAll('.rooms-slider .room-card');
-        var dots = document.querySelectorAll('.slider-dot');
-        var cloneCount = parseInt(track.dataset.cloneCount) || 0;
-        var totalRooms = parseInt(track.dataset.totalRooms) || cards.length;
-        
-        // Start at first real slide (after clones)
-        currentSlide = cloneCount;
-        updateSliderPosition(track, cards, dots, totalRooms, cloneCount, false);
-    }
+    var tracks = document.querySelectorAll('[class$="-slider-track"]');
+    tracks.forEach(function(track) {
+        var classList = Array.from(track.classList);
+        var trackClass = classList.find(function(c) { return c.endsWith('-slider-track'); });
+        if (trackClass) {
+            var id = trackClass.replace('-track', '');
+            initSlider(id);
+        }
+    });
 });
-
-
-</script>`;
+<\/script>`;
     },
 
     // Debounced render for performance

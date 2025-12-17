@@ -284,66 +284,50 @@ const VisualEffects = {
     // ============================================
     initStorm() {
         this.initRain();
-        if (this.intensity > 1.2) {
-            this.ctx.lineWidth = 2;
-        }
         this.lightningTimer = 0;
-        this.nextLightning = Math.random() * 400 + 200;
-        this.isFlashing = false;
-        this.flashOpacity = 0;
-        this.lightningX = 0;
-        this.lightningY = 0;
+        this.nextLightning = Math.random() * 300 + 100;
     },
 
     drawStorm() {
         this.drawRain();
 
-        // Localized lightning - only flashes a small area, not the entire screen
         this.lightningTimer++;
         if (this.lightningTimer > this.nextLightning) {
-            this.isFlashing = true;
-            this.flashOpacity = 0.6 * (Math.min(this.intensity, 1.0));
+            this.triggerLightning();
             this.lightningTimer = 0;
-            this.nextLightning = (Math.random() * 800 + 500) / this.intensity;
-            // Random position for localized flash
-            this.lightningX = Math.random() * this.canvas.width;
-            this.lightningY = 0;
+            this.nextLightning = (Math.random() * 400 + 200) / this.intensity;
+        }
+    },
+
+    triggerLightning() {
+        // Draw lightning bolt without full screen flash
+        const startX = Math.random() * this.canvas.width;
+        const startY = 0;
+
+        this.ctx.beginPath();
+        this.ctx.moveTo(startX, startY);
+
+        let x = startX;
+        let y = startY;
+
+        while (y < this.canvas.height) {
+            x += (Math.random() - 0.5) * 50;
+            y += Math.random() * 20 + 10;
+            this.ctx.lineTo(x, y);
         }
 
-        if (this.isFlashing) {
-            // Draw localized lightning bolt area instead of full screen flash
-            const lightningRadius = 200 + Math.random() * 100;
-            const gradient = this.ctx.createRadialGradient(
-                this.lightningX, this.lightningY, 0,
-                this.lightningX, this.lightningY + 150, lightningRadius
-            );
-            gradient.addColorStop(0, `rgba(255, 255, 255, ${this.flashOpacity})`);
-            gradient.addColorStop(0.3, `rgba(200, 200, 255, ${this.flashOpacity * 0.5})`);
-            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-            
-            this.ctx.fillStyle = gradient;
-            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.strokeStyle = `rgba(255, 255, 255, ${0.4 + Math.random() * 0.4})`;
+        this.ctx.lineWidth = 2 + Math.random() * 3;
+        this.ctx.shadowBlur = 20;
+        this.ctx.shadowColor = 'rgba(255, 255, 255, 0.8)';
+        this.ctx.stroke();
 
-            // Draw lightning bolt line
-            if (this.flashOpacity > 0.3) {
-                this.ctx.beginPath();
-                this.ctx.moveTo(this.lightningX, 0);
-                let y = 0;
-                while (y < this.canvas.height * 0.6) {
-                    y += 20 + Math.random() * 30;
-                    const offsetX = (Math.random() - 0.5) * 40;
-                    this.ctx.lineTo(this.lightningX + offsetX, y);
-                }
-                this.ctx.strokeStyle = `rgba(255, 255, 255, ${this.flashOpacity})`;
-                this.ctx.lineWidth = 2;
-                this.ctx.stroke();
-            }
+        // Reset shadow
+        this.ctx.shadowBlur = 0;
 
-            this.flashOpacity -= 0.05;
-            if (this.flashOpacity <= 0) {
-                this.isFlashing = false;
-            }
-        }
+        // Subtle sky flash (very low opacity)
+        this.ctx.fillStyle = `rgba(255, 255, 255, ${0.1 + Math.random() * 0.1})`;
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     },
 
     // ============================================
@@ -385,12 +369,12 @@ const VisualEffects = {
             const gradient = this.ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius * 2);
             gradient.addColorStop(0, `rgba(200, 215, 235, ${p.opacity})`);
             gradient.addColorStop(1, 'rgba(200, 215, 235, 0)');
-            
+
             this.ctx.fillStyle = gradient;
             this.ctx.beginPath();
             this.ctx.ellipse(p.x, p.y, p.radius, p.radius * 4, 0, 0, Math.PI * 2);
             this.ctx.fill();
-            
+
             // Core drop (brighter)
             this.ctx.fillStyle = `rgba(220, 230, 245, ${p.opacity * 0.8})`;
             this.ctx.beginPath();
@@ -408,69 +392,57 @@ const VisualEffects = {
     },
 
     // ============================================
-    // SUNRAYS EFFECT ☀️ (Subtle edge glow instead of explicit sun)
+    // SUNRAYS EFFECT ☀️ (God Rays from top right)
     // ============================================
     initSunrays() {
-        this.sunTime = 0;
-        this.edgeGlows = [
-            { side: 'top', offset: 0, intensity: 0.15 },
-            { side: 'top-right', offset: 0, intensity: 0.2 },
-            { side: 'right', offset: 0, intensity: 0.1 }
-        ];
+        this.rays = [];
+        const rayCount = 8;
+        for (let i = 0; i < rayCount; i++) {
+            this.rays.push({
+                angle: (Math.PI / 4) + (Math.random() - 0.5) * 0.5, // Around 45 degrees
+                width: Math.random() * 100 + 50,
+                length: Math.random() * this.canvas.height * 1.5 + this.canvas.height, // Very long
+                speed: (Math.random() - 0.5) * 0.002,
+                opacity: Math.random() * 0.2 + 0.1
+            });
+        }
     },
 
     drawSunrays() {
-        this.sunTime += 1;
-        
-        // Subtle pulsing brightness animation
-        const pulse = (Math.sin(this.sunTime * 0.02) + 1) / 2;
-        const baseOpacity = 0.08 + pulse * 0.04;
-        
-        // Top edge warm glow
-        const topGradient = this.ctx.createLinearGradient(0, 0, 0, this.canvas.height * 0.3);
-        topGradient.addColorStop(0, `rgba(255, 240, 200, ${baseOpacity * this.intensity})`);
-        topGradient.addColorStop(0.3, `rgba(255, 220, 150, ${baseOpacity * 0.5 * this.intensity})`);
-        topGradient.addColorStop(1, 'rgba(255, 200, 100, 0)');
-        this.ctx.fillStyle = topGradient;
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height * 0.4);
-        
-        // Right edge warm glow  
-        const rightGradient = this.ctx.createLinearGradient(this.canvas.width, 0, this.canvas.width * 0.7, 0);
-        rightGradient.addColorStop(0, `rgba(255, 230, 180, ${baseOpacity * 0.8 * this.intensity})`);
-        rightGradient.addColorStop(0.4, `rgba(255, 210, 140, ${baseOpacity * 0.3 * this.intensity})`);
-        rightGradient.addColorStop(1, 'rgba(255, 200, 100, 0)');
-        this.ctx.fillStyle = rightGradient;
-        this.ctx.fillRect(this.canvas.width * 0.6, 0, this.canvas.width * 0.4, this.canvas.height * 0.5);
-        
-        // Subtle corner brightening (top-right corner)
-        const cornerGradient = this.ctx.createRadialGradient(
-            this.canvas.width, 0, 0,
-            this.canvas.width, 0, this.canvas.width * 0.5
-        );
-        cornerGradient.addColorStop(0, `rgba(255, 245, 220, ${baseOpacity * 1.2 * this.intensity})`);
-        cornerGradient.addColorStop(0.3, `rgba(255, 230, 180, ${baseOpacity * 0.5 * this.intensity})`);
-        cornerGradient.addColorStop(1, 'rgba(255, 220, 150, 0)');
-        this.ctx.fillStyle = cornerGradient;
+        const cx = this.canvas.width + 100; // Source from top right, offscreen
+        const cy = -100;
+
+        this.ctx.save();
+        this.ctx.translate(cx, cy);
+
+        this.rays.forEach(ray => {
+            this.ctx.rotate(ray.angle);
+
+            // Draw ray
+            const gradient = this.ctx.createLinearGradient(0, 0, 0, ray.length);
+            gradient.addColorStop(0, `rgba(255, 220, 150, ${ray.opacity * this.intensity})`);
+            gradient.addColorStop(0.5, `rgba(255, 240, 200, ${ray.opacity * 0.5 * this.intensity})`);
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+            this.ctx.fillStyle = gradient;
+            this.ctx.fillRect(-ray.width / 2, 0, ray.width, ray.length);
+
+            this.ctx.rotate(-ray.angle); // Rotate back for next ray logic
+
+            // Animate
+            ray.angle += ray.speed;
+        });
+
+        this.ctx.restore();
+
+        // Add a glow at the source
+        const glow = this.ctx.createRadialGradient(cx, cy, 0, cx, cy, 400);
+        glow.addColorStop(0, `rgba(255, 200, 100, ${0.4 * this.intensity})`);
+        glow.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        this.ctx.fillStyle = glow;
         this.ctx.beginPath();
-        this.ctx.arc(this.canvas.width, 0, this.canvas.width * 0.5, 0, Math.PI * 2);
+        this.ctx.arc(cx, cy, 400, 0, Math.PI * 2);
         this.ctx.fill();
-        
-        // Very subtle floating light particles
-        const particleCount = Math.floor(5 * this.intensity);
-        for (let i = 0; i < particleCount; i++) {
-            const x = this.canvas.width * 0.7 + Math.sin(this.sunTime * 0.01 + i) * 100;
-            const y = this.canvas.height * 0.1 + Math.cos(this.sunTime * 0.015 + i * 2) * 50 + i * 30;
-            const size = 3 + Math.sin(this.sunTime * 0.03 + i) * 2;
-            const opacity = 0.15 + Math.sin(this.sunTime * 0.02 + i) * 0.1;
-            
-            const particleGradient = this.ctx.createRadialGradient(x, y, 0, x, y, size * 3);
-            particleGradient.addColorStop(0, `rgba(255, 250, 220, ${opacity * this.intensity})`);
-            particleGradient.addColorStop(1, 'rgba(255, 240, 200, 0)');
-            this.ctx.fillStyle = particleGradient;
-            this.ctx.beginPath();
-            this.ctx.arc(x, y, size * 3, 0, Math.PI * 2);
-            this.ctx.fill();
-        }
     },
 
     // ============================================
