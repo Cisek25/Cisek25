@@ -52,8 +52,61 @@ const CSSEngine = {
         galaxy: 'linear-gradient(135deg, #2c3e50 0%, #3498db 50%, #9b59b6 100%)',
         noir: 'linear-gradient(135deg, #000000 0%, #434343 50%, #000000 100%)',
         velvet: 'linear-gradient(135deg, #5f0a87 0%, #a4508b 50%, #ff6f91 100%)',
-        plum: 'linear-gradient(135deg, #5a189a 0%, #9d4edd 50%, #e0aaff 100%)'
+        plum: 'linear-gradient(135deg, #5a189a 0%, #9d4edd 50%, #e0aaff 100%)',
+
+        // ===== WINTER / COLD GRADIENTS (10) =====
+        'arctic-frost': 'linear-gradient(135deg, #e0f7fa 0%, #80deea 50%, #4dd0e1 100%)',
+        'polar-night': 'linear-gradient(135deg, #0a1628 0%, #1a3a5c 50%, #3f7cac 100%)',
+        'frozen-lake': 'linear-gradient(135deg, #a8d8ea 0%, #aa96da 50%, #fcbad3 100%)',
+        'winter-forest': 'linear-gradient(135deg, #1e3d31 0%, #2e5848 50%, #a8d5ba 100%)',
+        'nordic-lights': 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
+        'snowstorm': 'linear-gradient(135deg, #e6e9f0 0%, #c1c8d4 50%, #9ba4b5 100%)',
+        'ice-cave': 'linear-gradient(135deg, #00d4ff 0%, #0099cc 50%, #007acc 100%)',
+        'frosty-morning': 'linear-gradient(135deg, #e8f4fc 0%, #d1e8ff 50%, #b8d4f0 100%)',
+        'glacial': 'linear-gradient(135deg, #134e5e 0%, #71b280 50%, #88d8b0 100%)',
+        'christmas': 'linear-gradient(135deg, #c41e3a 0%, #1a472a 50%, #d4af37 100%)',
+        'midnight-city': 'linear-gradient(135deg, #2b32b2 0%, #1488cc 50%, #000000 100%)',
+
+        // ===== ADDITIONAL SEASONAL GRADIENTS (12) =====
+        'autumn-leaves': 'linear-gradient(135deg, #d4521e 0%, #bf820d 50%, #6b4423 100%)',
+        'harvest': 'linear-gradient(135deg, #f4a020 0%, #e67e22 50%, #d35400 100%)',
+        'spring-bloom': 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ee9ca7 100%)',
+        'summer-sunset': 'linear-gradient(135deg, #fa709a 0%, #fee140 50%, #ff9a8b 100%)',
+        'tropical-paradise': 'linear-gradient(135deg, #00c9ff 0%, #92fe9d 50%, #ffeb3b 100%)',
+        'mountain-dawn': 'linear-gradient(135deg, #654ea3 0%, #eaafc8 50%, #ff9966 100%)',
+        'ocean-breeze': 'linear-gradient(135deg, #2193b0 0%, #6dd5ed 50%, #a8edea 100%)',
+        'forest-mist': 'linear-gradient(135deg, #5d8a66 0%, #96bb98 50%, #c8e6c9 100%)',
+        'desert-dusk': 'linear-gradient(135deg, #d4a373 0%, #bc6c25 50%, #1a1a2e 100%)',
+        'lavender-fields': 'linear-gradient(135deg, #e8d5e8 0%, #c8a2c8 50%, #9966cc 100%)',
+        'rainy-day': 'linear-gradient(135deg, #616161 0%, #9bc5c3 50%, #c5e1e7 100%)',
+        'golden-hour': 'linear-gradient(135deg, #f7971e 0%, #ffd200 50%, #ff8c00 100%)',
+
+        // ===== NEW EXPANDED GRADIENTS =====
+        'sunset-vibes': 'linear-gradient(to right, #ff5f6d, #ffc371)',
+        'morning-dew': 'linear-gradient(to right, #00b09b, #96c93d)',
+        'sandy-gold': 'linear-gradient(to right, #eecda3, #ef629f)',
+        'deep-ocean': 'linear-gradient(to right, #2b5876, #4e4376)',
+        'mystic-mauve': 'linear-gradient(to right, #42275a, #734b6d)',
+        'cherry-blossom': 'linear-gradient(to right, #ff9a9e, #fecfef)',
+        'mountain-mist': 'linear-gradient(to right, #606c88, #3f4c6b)',
+        'desert-gold': 'linear-gradient(to right, #CAC531, #F3F9A7)',
+        'northern-lights': 'linear-gradient(to right, #43cea2, #185a9d)',
+        'urban-night': 'linear-gradient(to right, #232526, #414345)',
+        'tropical-jungle': 'linear-gradient(to right, #11998e, #38ef7d)',
+        'dark-volcano': 'linear-gradient(to right, #870000, #190a05)',
+        'mystic-river': 'linear-gradient(to right, #4facfe, #00f2fe)',
+        'golden-sands': 'linear-gradient(to right, #e65c00, #F9D423)',
+        'silver-lining': 'linear-gradient(to right, #bdc3c7, #2c3e50)',
+        'bronze': 'linear-gradient(to right, #603813, #b29f94)',
+        'autumn-glow': 'linear-gradient(to right, #e52d27, #b31217)',
+        'winter-blues': 'linear-gradient(to right, #2980b9, #6dd5fa, #ffffff)',
+        'summer-heat': 'linear-gradient(to right, #f12711, #f5af19)',
+        'midnight-bloom': 'linear-gradient(to right, #2b5876, #4e4376)',
+        'blush': 'linear-gradient(to right, #B24592, #F15F79)',
+        'aqua-splash': 'linear-gradient(to right, #13547a, #80d0c7)',
+        'berry-juice': 'linear-gradient(to right, #8E2DE2, #4A00E0)'
     },
+
 
     generate(settings, effectsSettings = {}, sectionBackgrounds = {}) {
         const colors = settings.colors || {
@@ -74,6 +127,36 @@ const CSSEngine = {
 
         // Generate per-section backgrounds
         const sectionBgCSS = this.generateSectionBackgrounds(sectionBackgrounds, gradientValue);
+
+        // Global Text Contrast Override
+        const textContrast = effectsSettings.textContrast || 'auto';
+        let contrastCSS = '';
+        if (textContrast === 'light') {
+            contrastCSS = `
+            /* Forced Light Text */
+            body, p, h1, h2, h3, h4, h5, h6, li, span, div, strong, em, b, i, .section-title, .section-desc {
+                color: #ffffff !important;
+            }
+            .section-label { color: var(--color-secondary-light) !important; }
+            .amenity-card, .stat-item, .feature-card, .room-card, .testimonial-card {
+                background: rgba(255, 255, 255, 0.1) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                backdrop-filter: blur(10px);
+            }
+            `;
+        } else if (textContrast === 'dark') {
+            contrastCSS = `
+            /* Forced Dark Text */
+            body, p, h1, h2, h3, h4, h5, h6, li, span, div, strong, em, b, i, .section-title, .section-desc {
+                color: #1A202C !important;
+            }
+            .section-label { color: var(--color-secondary) !important; }
+            .amenity-card, .stat-item, .feature-card, .room-card, .testimonial-card {
+                background: #ffffff !important;
+                border: 1px solid var(--color-border) !important;
+            }
+            `;
+        }
 
         // Generate gradient CSS overrides (deprecated in favor of per-section backgrounds)
         const gradientOverrides = useGradients ? `
@@ -193,6 +276,8 @@ ${gradientOverrides}
 
 ${sectionBgCSS}
 
+${contrastCSS}
+
 /* ============================================
    RESET & BASE
    ============================================ */
@@ -243,7 +328,14 @@ a {
 .section-location,
 .section-testimonials,
 .section-faq,
-.section-cta {
+.section-cta,
+.section-attractions,
+.section-dining,
+.section-pricing,
+.section-spa,
+.section-events,
+.section-transport,
+.section-rules {
     width: 100vw;
     max-width: 100vw;
     margin-left: calc(-50vw + 50%);
@@ -413,17 +505,32 @@ a {
 }
 
 .intro-image {
-    position: relative;
-    border-radius: var(--radius-xl);
+    border-radius: var(--radius-md);
     overflow: hidden;
     box-shadow: var(--shadow-xl);
+    ${effectsSettings.imageSlowZoom ? 'position: relative;' : ''}
 }
 
 .intro-image img {
     width: 100%;
-    height: 500px;
+    height: 100%;
     object-fit: cover;
+    display: block;
+    ${effectsSettings.imageSlowZoom ? `
+    animation: slowZoom 20s ease-in-out infinite alternate;
+    ` : ''}
 }
+
+${effectsSettings.imageSlowZoom ? `
+@keyframes slowZoom {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.1);
+    }
+}
+` : ''}
 
 /* ============================================
    SECTION: ROOMS
@@ -435,24 +542,203 @@ a {
 
 .rooms-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 400px));
     gap: var(--space-6);
+    justify-content: center;
 }
 
+/* Room card base styles */
 .room-card {
     background: var(--color-white);
     border-radius: var(--radius-lg);
-    overflow: hidden;
+    overflow: visible;
     box-shadow: var(--shadow-md);
     transition: all var(--transition-base);
     border: 1px solid var(--color-border);
 }
 
+${effectsSettings.hoverEffects?.flipCards ? `
+/* 3D FLIP CARD STYLES */
+.room-card-flip {
+    perspective: 1000px;
+    height: 420px;
+}
+
+.room-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.room-card-flip:hover .room-card-inner {
+    transform: rotateY(180deg);
+}
+
+.room-card-front,
+.room-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.room-card-front {
+    background: var(--color-white);
+    display: flex;
+    flex-direction: column;
+}
+
+.room-card-front .room-image {
+    height: 200px;
+    flex-shrink: 0;
+}
+
+.room-card-front .room-content {
+    flex: 1;
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+}
+
+.room-card-front .room-content h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-2);
+}
+
+/* Amenity icons on front */
+.room-amenities-icons {
+    display: flex;
+    gap: var(--space-2);
+    align-items: center;
+    margin-bottom: var(--space-3);
+    flex-wrap: wrap;
+}
+
+.amenity-icon-small {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-light);
+    border-radius: var(--radius-sm);
+    color: var(--color-primary);
+    font-size: 0.9rem;
+    transition: all var(--transition-fast);
+}
+
+.amenity-icon-small:hover {
+    background: var(--color-secondary);
+    color: var(--color-white);
+}
+
+.amenity-more {
+    font-size: 0.75rem;
+    color: var(--color-gray);
+    padding: var(--space-1) var(--space-2);
+    background: var(--color-light);
+    border-radius: var(--radius-sm);
+}
+
+.room-card-front .room-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border);
+}
+
+/* Back side styles */
+.room-card-back {
+    background: var(--gradient-primary);
+    color: var(--color-white);
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.room-back-content {
+    padding: var(--space-5);
+    text-align: center;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.room-card-back h3 {
+    color: var(--color-white);
+    margin-bottom: var(--space-3);
+    font-size: var(--text-xl);
+}
+
+.room-description {
+    color: rgba(255,255,255,0.9);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    margin-bottom: var(--space-4);
+}
+
+.room-back-features h4 {
+    color: var(--color-secondary-light);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+}
+
+.room-features-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+}
+
+.room-features-list li {
+    color: rgba(255,255,255,0.9);
+    font-size: var(--text-xs);
+    background: rgba(255,255,255,0.15);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.room-features-list li i {
+    color: var(--color-secondary);
+}
+
+.room-cta-large {
+    background: var(--color-white) !important;
+    color: var(--color-primary) !important;
+    padding: var(--space-3) var(--space-6) !important;
+    font-size: var(--text-base) !important;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.room-cta-large:hover {
+    background: var(--color-secondary) !important;
+    color: var(--color-dark) !important;
+}
+` : `
+/* Standard hover effect (no flip) */
 .room-card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-8px);
     box-shadow: var(--shadow-xl);
     border-color: var(--color-secondary);
 }
+`}
 
 .room-image {
     position: relative;
@@ -467,9 +753,11 @@ a {
     transition: transform var(--transition-base);
 }
 
+${effectsSettings.hoverEffects?.flipCards ? '' : `
 .room-card:hover .room-image img {
     transform: scale(1.05);
 }
+`}
 
 .room-badge {
     position: absolute;
@@ -572,6 +860,7 @@ a {
 .rooms-slider {
     overflow: hidden;
     flex: 1;
+    width: 100%;
 }
 
 .rooms-slider-track {
@@ -581,9 +870,23 @@ a {
 }
 
 .rooms-slider .room-card {
-    min-width: 350px;
-    max-width: 350px;
+    min-width: calc((100% - 2 * var(--space-6)) / 3); /* Show 3 complete cards */
+    max-width: calc((100% - 2 * var(--space-6)) / 3);
     flex-shrink: 0;
+}
+
+@media (max-width: 1200px) {
+    .rooms-slider .room-card {
+        min-width: calc((100% - var(--space-6)) / 2); /* Show 2 complete cards */
+        max-width: calc((100% - var(--space-6)) / 2);
+    }
+}
+
+@media (max-width: 768px) {
+    .rooms-slider .room-card {
+        min-width: 100%; /* Show 1 complete card */
+        max-width: 100%;
+    }
 }
 
 .slider-btn {
@@ -1830,8 +2133,606 @@ a {
 `;
     },
 
+    // Generate CSS for /offers subpage
+    generateOffersPageCSS(settings, effectsSettings = {}, offersSettings = {}) {
+        // Defensive color handling - ensure all colors are valid
+        const defaultColors = {
+            primary: '#1A365D',
+            secondary: '#C9A227',
+            accent: '#00B894'
+        };
+        const colors = {
+            primary: (settings.colors && settings.colors.primary) || defaultColors.primary,
+            secondary: (settings.colors && settings.colors.secondary) || defaultColors.secondary,
+            accent: (settings.colors && settings.colors.accent) || defaultColors.accent
+        };
+
+        if (!offersSettings || !offersSettings.enabled) return '';
+
+        const gradientPreset = effectsSettings.gradientPreset || 'none';
+        const useGradients = effectsSettings.useGradients !== false && gradientPreset !== 'none';
+        const gradientValue = this.gradientPresets[gradientPreset] || this.gradientPresets['sunset'];
+
+        let css = `
+/* ============================================
+   IDOBOOKING /OFFERS PAGE STYLES
+   Wklej w panelu CMS → Custom CSS
+   (działa globalnie dla całej strony)
+   Wygenerowano przez IdoBooking AI Generator v4.0
+   ============================================ */
+
+/* --- CSS Variables for /offers --- */
+body {
+    --offers-primary: ${colors.primary};
+    --offers-primary-light: ${this.lighten(colors.primary, 15)};
+    --offers-secondary: ${colors.secondary};
+    --offers-accent: ${colors.accent};
+    --offers-radius: ${offersSettings.cardsRounded !== false ? '12px' : '4px'};
+    --offers-shadow: ${offersSettings.cardsShadow !== false ? '0 4px 20px rgba(0,0,0,0.1)' : 'none'};
+}
+`;
+
+        // Background styles
+        if (offersSettings.background === 'light') {
+            css += `
+/* Page Background - Light */
+body {
+    background: #f8f9fa !important;
+}
+`;
+        } else if (offersSettings.background === 'gradient' && useGradients) {
+            css += `
+/* Page Background - Gradient */
+body {
+    background: linear-gradient(180deg, #ffffff 0%, ${this.lighten(colors.primary, 45)} 100%) !important;
+    min-height: 100vh;
+}
+`;
+        } else if (offersSettings.background === 'pattern') {
+            css += `
+/* Page Background - Pattern */
+body {
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            #f8f9fa,
+            #f8f9fa 10px,
+            #ffffff 10px,
+            #ffffff 20px
+        ) !important;
+}
+`;
+        }
+
+        // Modern filter styles
+        if (offersSettings.filtersModern !== false) {
+            css += `
+/* ============================================
+   MODERN FILTER PANEL
+   ============================================ */
+
+/* Filter section container */
+[class*="filter"], 
+.sidebar,
+form[action*="offers"] {
+    background: #ffffff;
+    border-radius: var(--offers-radius);
+    padding: 20px;
+    box-shadow: var(--offers-shadow);
+    margin-bottom: 20px;
+}
+
+/* Filter headings */
+h3, h4, .filter-title,
+[class*="filter"] h3,
+[class*="filter"] h4 {
+    color: var(--offers-primary);
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--offers-secondary);
+}
+
+/* Checkbox styling */
+.checkbox,
+div[role="checkbox"],
+input[type="checkbox"] + label,
+.checkbox label {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    margin: 4px 0;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    background: #f8f9fa;
+}
+
+.checkbox:hover,
+div[role="checkbox"]:hover {
+    background: ${this.lighten(colors.primary, 45)};
+    transform: translateX(4px);
+}
+
+.checkbox[aria-checked="true"],
+div[role="checkbox"][aria-checked="true"],
+.checkbox.active {
+    background: ${this.lighten(colors.secondary, 30)} !important;
+    border-left: 3px solid var(--offers-secondary);
+}
+
+/* Custom checkbox appearance */
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--offers-primary);
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+input[type="checkbox"]:checked {
+    background: var(--offers-secondary);
+    border-color: var(--offers-secondary);
+}
+
+input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+`;
+        }
+
+        // Collapsible filters
+        if (offersSettings.filtersCollapsible) {
+            css += `
+/* ============================================
+   COLLAPSIBLE FILTER SECTIONS
+   ============================================ */
+
+/* Filter panel and UDOGODNIENIA - make collapsible */
+.filter-section,
+[class*="filter-group"],
+.checkbox-group,
+[class*="panel-filter"],
+[class*="accordion"] {
+    position: relative;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    background: #fff;
+}
+
+/* Clickable header for collapse */
+.filter-section h4,
+.filter-section h3,
+[class*="panel-filter"] > div:first-child,
+.checkbox-group > h3,
+.checkbox-group > h4,
+[class*="accordion-header"],
+.accordion-button {
+    cursor: pointer;
+    padding: 14px 18px;
+    margin: 0;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.filter-section h4:hover,
+[class*="panel-filter"] > div:first-child:hover {
+    background: #f1f3f5;
+}
+
+.filter-section h4::after,
+[class*="panel-filter"] > div:first-child::after {
+    content: "\\f078";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    transition: transform 0.3s;
+}
+
+/* Hide content helper */
+.filter-content,
+[class*="panel-filter"] > div:nth-child(2),
+.checkbox-group > div {
+    padding: 15px;
+    max-height: 400px;
+    overflow-y: auto;
+    transition: max-height 0.3s ease-in-out;
+}
+
+/* Collapsed state (optional class to trigger via JS or default if structured) */
+.filter-collapsed .filter-content {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+}
+
+/* Amenities Scroll Fix */
+.amenities-list,
+.filter-amenities {
+    max-height: 300px;
+    overflow-y: auto;
+}
+`;
+
+        }
+
+        // Button Corrections
+        css += `
+/* ============================================
+   BUTTON CORRECTIONS
+   ============================================ */
+.btn, .button, input[type="submit"], button, .offer_button {
+    min-height: 48px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    vertical-align: middle !important;
+    line-height: normal !important;
+}
+`;
+
+
+        // Card hover effects
+        if (offersSettings.cardsHover !== false) {
+            css += `
+    /* ============================================
+       OFFER CARDS - HOVER EFFECTS
+       ============================================ */
+
+    /* Offer card container */
+    .object - icon,
+.offer - card,
+.offer - item,
+    [class*= "offer"],
+    [class*= "object-preview"],
+    a[href *= "/offers/"] {
+    transition: all 0.3s cubic - bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card images - simple styling, no border/outline */
+.object - icon img,
+.offer - card img,
+    [class*= "offer"] img {
+    border - radius: 0!important;
+    transition: transform 0.4s ease;
+    border: none!important;
+    outline: none!important;
+    box - shadow: none!important;
+}
+
+.object - icon:hover img,
+.offer - card:hover img,
+    [class*= "offer"]:hover img {
+    transform: scale(1.01);
+}
+
+/* Card content containers */
+.offer - details,
+.offer - content,
+.offer - info {
+    padding: 15px;
+    background: #ffffff;
+    border - radius: 0 0 var(--offers - radius) var(--offers - radius);
+}
+
+/* Hover lift effect on whole cards */
+[class*= "col-"][class*= "offer"],
+    [class*= "col-md-"] > [class*= "offer"] {
+    transition: transform 0.3s ease, box - shadow 0.3s ease;
+}
+
+[class*= "col-"][class*= "offer"]: hover,
+    [class*= "col-md-"] > [class*= "offer"]:hover {
+    transform: translateY(-8px);
+}
+`;
+        }
+
+        // Card styling
+        if (offersSettings.cardsRounded !== false || offersSettings.cardsShadow !== false) {
+            css += `
+    /* ============================================
+       OFFER CARDS - GENERAL STYLING
+       ============================================ */
+
+    /* Card containers - NO BORDER/OUTLINE */
+    .offer - card,
+.object - card,
+    [class*= "offer-item"],
+.offers - container {
+    background: #ffffff;
+    border - radius: var(--offers - radius);
+    box - shadow: var(--offers - shadow);
+    overflow: hidden;
+    border: none!important;
+    outline: none!important;
+}
+
+/* Price styling */
+.price,
+.offer - price,
+    [class*= "price"] {
+    color: var(--offers - primary);
+    font - weight: 700;
+    font - size: 1.25em;
+}
+
+/* Price label */
+.price - label,
+.from - price {
+    color: #6c757d;
+    font - size: 0.85em;
+}
+
+/* Offer title links */
+.offer - title,
+.offer - name,
+    a[href *= "/offers/"] h3,
+        a[href *= "/offers/"] h4 {
+    color: var(--offers - primary);
+    font - weight: 600;
+    transition: color 0.2s ease;
+}
+
+.offer - title: hover,
+    a[href *= "/offers/"]:hover h3,
+        a[href *= "/offers/"]:hover h4 {
+    color: var(--offers - secondary);
+}
+
+/* RESET h2 titles - remove any background/outline */
+.offers - container h2,
+.offers - container h2 a,
+.accommodation - rest h2,
+.accommodation - rest h2 a,
+    h2 a[href *= "/offer/"] {
+    background: transparent!important;
+    border: none!important;
+    outline: none!important;
+    box - shadow: none!important;
+    padding: 0!important;
+    color: inherit;
+    text - decoration: none;
+}
+`;
+        }
+
+        // Button styling
+        css += `
+    /* ============================================
+       BUTTONS - FIXED FOR IDOBOOKING STRUCTURE
+       Structure: <a><span class="btn">SZCZEGÓŁY</span></a>
+       ============================================ */
+
+    /* RESET outer link wrapper - make transparent */
+    .accommodation - buttons a,
+        a[aria - label*= "szczegóły"],
+a[aria - label*= "Szczegóły"],
+a[href *= "/offer/"] {
+    background: transparent!important;
+    border: none!important;
+    outline: none!important;
+    box - shadow: none!important;
+    padding: 0!important;
+    text - decoration: none!important;
+    display: inline - block;
+}
+
+/* Style ONLY the inner .btn span - single color */
+.accommodation - buttons.btn,
+.accommodation - buttons span.btn,
+    a[aria - label*= "szczegóły"] .btn,
+        a[aria - label*= "Szczegóły"] .btn,
+            a[href *= "/offer/"].btn,
+            span.btn {
+    ${offersSettings.buttonsRounded !== false ? 'border-radius: 25px !important;' : 'border-radius: 4px !important;'}
+    padding: 12px 24px!important;
+    font - weight: 600!important;
+    text - transform: uppercase;
+    letter - spacing: 0.5px;
+    font - size: 0.85em;
+    transition: all 0.3s ease;
+    border: none!important;
+    outline: none!important;
+    cursor: pointer;
+    display: inline - block;
+    ${offersSettings.buttonsGradient && useGradients
+                ? `background: ${gradientValue} !important;`
+                : `background: var(--offers-primary) !important;`
+            }
+    color: #ffffff!important;
+    box - shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover on the span.btn only */
+.accommodation - buttons a: hover.btn,
+    a[aria - label*= "szczegóły"]: hover.btn,
+        a[aria - label*= "Szczegóły"]: hover.btn,
+            a[href *= "/offer/"]: hover.btn,
+                span.btn:hover {
+    transform: translateY(-2px);
+    box - shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    ${offersSettings.buttonsGradient
+                ? 'filter: brightness(1.1);'
+                : `background: var(--offers-secondary) !important; color: #1a1a1a !important;`
+            }
+}
+
+/* General button styling for forms */
+button[type = "submit"],
+    input[type = "submit"],
+    #filters_submit {
+    ${offersSettings.buttonsRounded !== false ? 'border-radius: 25px !important;' : 'border-radius: 4px !important;'}
+    padding: 12px 24px!important;
+    font - weight: 600!important;
+    border: none!important;
+    outline: none!important;
+    cursor: pointer;
+    ${offersSettings.buttonsGradient && useGradients
+                ? `background: ${gradientValue} !important;`
+                : `background: var(--offers-primary) !important;`
+            }
+    color: #ffffff!important;
+    transition: all 0.3s ease;
+}
+
+button[type = "submit"]: hover,
+    #filters_submit:hover {
+    transform: translateY(-2px);
+    ${offersSettings.buttonsGradient
+                ? 'filter: brightness(1.1);'
+                : `background: var(--offers-secondary) !important; color: #1a1a1a !important;`
+            }
+}
+`;
+
+        // Navigation styling
+        css += `
+    /* ============================================
+       NAVIGATION - CONSISTENT WITH MAIN PAGE
+       ============================================ */
+
+    /* Logo - remove shadow/outline */
+    .navbar - brand img,
+.logo img,
+    header img[alt *= "logo"],
+        header img[alt *= "Logo"] {
+    box - shadow: none!important;
+    border: none!important;
+    background: transparent!important;
+    filter: none!important;
+    transition: transform 0.3s ease;
+}
+
+.navbar - brand:hover img {
+    transform: scale(1.05);
+}
+
+.nav - link {
+    color: var(--offers - primary);
+    font - weight: 500;
+    transition: color 0.2s ease;
+    position: relative;
+}
+
+.nav - link:hover {
+    color: var(--offers - secondary);
+}
+
+.nav - link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--offers - secondary);
+    transition: width 0.3s ease;
+}
+
+.nav - link: hover::after {
+    width: 100 %;
+}
+`;
+
+        // Map container styling - simple, don't break original
+        css += `
+/* ============================================
+   MAP CONTAINER
+   ============================================ */
+
+#map_container,
+.leaflet - container {
+    border - radius: var(--offers - radius);
+    overflow: hidden;
+    margin: 20px 0;
+}
+`;
+
+        // Footer enhancements
+        css += `
+/* ============================================
+   FOOTER ENHANCEMENTS
+   ============================================ */
+
+#backTop {
+    background: var(--offers - primary);
+    color: #ffffff;
+    border - radius: 50 %;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align - items: center;
+    justify - content: center;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    box - shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z - index: 1000;
+}
+
+#backTop:hover {
+    background: var(--offers - secondary);
+    transform: translateY(-4px);
+}
+`;
+
+        // Responsive improvements
+        css += `
+/* ============================================
+   RESPONSIVE IMPROVEMENTS
+   ============================================ */
+
+@media(max - width: 768px) {
+    .checkbox,
+        div[role = "checkbox"] {
+        padding: 12px;
+    }
+    
+    .btn,
+        #filters_submit {
+        width: 100 %;
+        padding: 14px;
+    }
+
+    [class*= "offer"] img {
+        /* On mobile, cards may stack vertically so round top corners */
+        border - radius: var(--offers - radius) var(--offers - radius) 0 0!important;
+    }
+}
+`;
+
+        return css;
+    },
+
     // Color utilities
     lighten(hex, percent) {
+        if (!hex || typeof hex !== 'string') {
+            console.warn('lighten called with invalid hex:', hex);
+            return '#ffffff';
+        }
         const num = parseInt(hex.replace('#', ''), 16);
         const amt = Math.round(2.55 * percent);
         const R = Math.min(255, (num >> 16) + amt);
@@ -1841,6 +2742,10 @@ a {
     },
 
     darken(hex, percent) {
+        if (!hex || typeof hex !== 'string') {
+            console.warn('darken called with invalid hex:', hex);
+            return '#000000';
+        }
         const num = parseInt(hex.replace('#', ''), 16);
         const amt = Math.round(2.55 * percent);
         const R = Math.max(0, (num >> 16) - amt);
@@ -1852,21 +2757,21 @@ a {
     // Generate per-section background CSS
     generateSectionBackgrounds(sectionBackgrounds, gradientValue) {
         let css = `
-/* ============================================
-   CUSTOM SECTION BACKGROUNDS
-   ============================================ */
-`;
+    /* ============================================
+       CUSTOM SECTION BACKGROUNDS
+       ============================================ */
+    `;
 
         Object.entries(sectionBackgrounds).forEach(([sectionId, bgType]) => {
             if (!bgType || bgType === 'white') return; // Default white, no extra CSS needed
 
-            const sectionClass = `.section-${sectionId}`;
+            const sectionClass = `.section - ${sectionId} `;
 
             switch (bgType) {
                 case 'light':
                     css += `
 ${sectionClass} {
-    background: var(--color-light) !important;
+    background: var(--color - light)!important;
 }
 `;
                     break;
@@ -1877,19 +2782,35 @@ ${sectionClass} {
     background: ${gradientValue} !important;
 }
 
-${sectionClass} .section-title,
-${sectionClass} .section-label,
-${sectionClass} .section-desc {
-    color: #fff !important;
+${sectionClass} .section - title,
+    ${sectionClass} .section - label,
+        ${sectionClass} .section - desc {
+    color: #fff!important;
 }
 
-${sectionClass} .amenity-card {
-    background: rgba(255, 255, 255, 0.15) !important;
-    border-color: rgba(255, 255, 255, 0.25) !important;
+${sectionClass} .amenity - card {
+    background: rgba(255, 255, 255, 0.15)!important;
+    border - color: rgba(255, 255, 255, 0.25)!important;
 }
 
-${sectionClass} .amenity-card h3 {
-    color: #fff !important;
+${sectionClass} .amenity - card h3 {
+    color: #fff!important;
+}
+
+/* Fix visibility for stats and features on gradient background */
+${sectionClass} .stat - item,
+    ${sectionClass} .feature - card {
+    background: rgba(255, 255, 255, 0.15)!important;
+    backdrop - filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2)!important;
+}
+
+${sectionClass} .stat - number,
+    ${sectionClass} .stat - label,
+        ${sectionClass} .feature - icon i,
+            ${sectionClass} .feature - title,
+                ${sectionClass} .feature - desc {
+    color: #fff!important;
 }
 `;
                     break;
@@ -1897,34 +2818,70 @@ ${sectionClass} .amenity-card h3 {
                 case 'dark':
                     css += `
 ${sectionClass} {
-    background: var(--color-dark) !important;
+    background: var(--color - dark)!important;
 }
 
-${sectionClass} .section-title,
-${sectionClass} .section-label,
-${sectionClass} .section-desc,
-${sectionClass} h1, ${sectionClass} h2, ${sectionClass} h3,
-${sectionClass} h4, ${sectionClass} h5, ${sectionClass} h6,
-${sectionClass} p, ${sectionClass} li {
-    color: #fff !important;
+${sectionClass} .section - title,
+    ${sectionClass} .section - label,
+        ${sectionClass} .section - desc,
+            ${sectionClass} h1, ${sectionClass} h2, ${sectionClass} h3,
+                ${sectionClass} h4, ${sectionClass} h5, ${sectionClass} h6,
+                    ${sectionClass} p, ${sectionClass} li {
+    color: #fff!important;
 }
 
-${sectionClass} .section-label {
-    color: var(--color-secondary-light) !important;
+${sectionClass} .section - label {
+    color: var(--color - secondary - light)!important;
 }
+
+/* Ensure ALL text elements in dark sections are white */
+${sectionClass} span,
+    ${sectionClass} div,
+        ${sectionClass} .stat - number,
+            ${sectionClass} .stat - label,
+                ${sectionClass} .room - price strong,
+                    ${sectionClass} .room - price {
+    color: #fff!important;
+}
+
+/* Make cards semi-transparent white on dark to keep contrast? 
+   Or keep them white and let text be dark? 
+   If card has white background, text inside should be dark.
+   CSS Cascade: .section-dark p { color: #fff } might override .card p { color: #333 }
+   We need to protect internal card text if card is white.
+*/
+${sectionClass} .room - card,
+    ${sectionClass} .testimonial - card,
+        ${sectionClass} .pricing - card,
+            ${sectionClass} .attraction - card,
+                ${sectionClass} .stat - item {
+    background: var(--color - white)!important;
+    /* Reset text color inside white cards */
+}
+
+${sectionClass} .room - card *,
+    ${sectionClass} .testimonial - card *,
+        ${sectionClass} .pricing - card *,
+            ${sectionClass} .attraction - card *,
+                ${sectionClass} .stat - item * {
+                    color: initial; /* Reset to inherit from card, or specific dark color */
+                }
+
+${sectionClass} .stat - number { color: var(--color - primary)!important; }
+${sectionClass} .stat - label { color: var(--color - gray)!important; }
 `;
                     break;
 
                 case 'pattern':
                     css += `
 ${sectionClass} {
-    background: 
-        repeating-linear-gradient(
-            45deg,
-            var(--color-light),
-            var(--color-light) 10px,
-            var(--color-white) 10px,
-            var(--color-white) 20px
+    background:
+    repeating - linear - gradient(
+        45deg,
+            var(--color - light),
+            var(--color - light) 10px,
+            var(--color - white) 10px,
+            var(--color - white) 20px
         ) !important;
 }
 `;

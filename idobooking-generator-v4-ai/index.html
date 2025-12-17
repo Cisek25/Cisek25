@@ -31,6 +31,12 @@
             <span class="version-badge">v4.0</span>
         </div>
         <nav class="header-nav">
+            <button class="nav-btn" id="btn-save" onclick="saveProject()" title="Zapisz projekt do pliku JSON">
+                <i class="fas fa-save"></i> Zapisz
+            </button>
+            <button class="nav-btn" id="btn-load" onclick="loadProject()" title="Wczytaj projekt z pliku JSON">
+                <i class="fas fa-folder-open"></i> Wczytaj
+            </button>
             <button class="nav-btn" id="btn-new"><i class="fas fa-plus"></i> Nowy projekt</button>
             <button class="nav-btn" id="btn-help"><i class="fas fa-question-circle"></i> Pomoc</button>
         </nav>
@@ -93,6 +99,36 @@
 
 
                 <!-- Template Gallery -->
+                <!-- Treść Główna -->
+                <div class="settings-section main-content-panel collapsible">
+                    <h4><i class="fas fa-pen-to-square"></i> Treść Główna</h4>
+                    <div class="settings-section-content">
+                        <div class="form-group">
+                            <label>Tytuł Główny</label>
+                            <input type="text" id="hero-title" placeholder="Np. Luksusowy Wypoczynek"
+                                oninput="updateHeroContent('title', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Podtytuł</label>
+                            <input type="text" id="hero-subtitle" placeholder="Np. W sercu gór"
+                                oninput="updateHeroContent('subtitle', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Opis Obiektu</label>
+                            <textarea id="property-desc" rows="4" placeholder="Opisz swój obiekt..."
+                                oninput="updateHeroContent('description', this.value)"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Zdjęcie tła (URL)</label>
+                            <input type="text" id="hero-image" placeholder="https://..."
+                                onchange="updateHeroContent('image', this.value)">
+                            <div class="image-preview-box" id="hero-image-preview"
+                                style="height: 100px; background-color: #eee; margin-top: 5px; background-size: cover; background-position: center; border-radius: 4px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="settings-section collapsible collapsed">
                     <h4><i class="fas fa-swatchbook"></i> Wybierz szablon</h4>
                     <div class="settings-section-content">
@@ -119,6 +155,15 @@
                                 <label>Accent</label>
                                 <input type="color" id="color-accent" value="#00B894">
                             </div>
+                        </div>
+                        <div class="color-picker-item" style="margin-top: 15px; width: 100%;">
+                            <label>Kontrast Tekstu</label>
+                            <select id="text-contrast" onchange="updateTextContrast(this.value)"
+                                style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;">
+                                <option value="auto">Automatyczny (Auto)</option>
+                                <option value="light">Jasny Tekst (Wymuś)</option>
+                                <option value="dark">Ciemny Tekst (Wymuś)</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -197,7 +242,18 @@
                 <div class="settings-section gradients-panel collapsible">
                     <h4><i class="fas fa-palette"></i> Presety gradientów</h4>
                     <div class="settings-section-content">
-                        <!-- Category Tabs -->
+                        <!-- Intensity Control -->
+                        <div class="control-group" style="margin-top: 15px;">
+                            <label class="control-label" style="display:flex; justify-content:space-between;">
+                                <span>Intensywność Efektu</span>
+                                <span id="intensity-value"
+                                    style="font-weight:bold; color:var(--primary-color);">100%</span>
+                            </label>
+                            <input type="range" id="effect-intensity" min="0" max="2" step="0.1" value="1"
+                                style="width:100%;">
+                        </div>
+
+                        <!-- Gradient Categories -->
                         <div class="gradient-categories">
                             <button class="gradient-category-tab active" data-category="warm"
                                 onclick="switchGradientCategory('warm')">
@@ -214,6 +270,10 @@
                             <button class="gradient-category-tab" data-category="luxury"
                                 onclick="switchGradientCategory('luxury')">
                                 <i class="fas fa-crown"></i> Luksusowe
+                            </button>
+                            <button class="gradient-category-tab" data-category="seasonal"
+                                onclick="switchGradientCategory('seasonal')">
+                                <i class="fas fa-snowflake"></i> Sezonowe
                             </button>
                         </div>
 
@@ -402,6 +462,100 @@
                     </div>
                 </div>
 
+                <!-- Seasonal Gradients -->
+                <div class="gradients-grid hidden" data-category="seasonal">
+                    <!-- Winter -->
+                    <button class="gradient-btn" data-gradient="arctic-frost" onclick="setGradient('arctic-frost')"
+                        title="Arktyczny Mróz">
+                        <span style="background:linear-gradient(135deg, #e0f7fa 0%, #80deea 50%, #4dd0e1 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="polar-night" onclick="setGradient('polar-night')"
+                        title="Noc Polarna">
+                        <span style="background:linear-gradient(135deg, #0a1628 0%, #1a3a5c 50%, #3f7cac 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="frozen-lake" onclick="setGradient('frozen-lake')"
+                        title="Zamarznięte Jezioro">
+                        <span style="background:linear-gradient(135deg, #a8d8ea 0%, #aa96da 50%, #fcbad3 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="winter-forest" onclick="setGradient('winter-forest')"
+                        title="Zimowy Las">
+                        <span style="background:linear-gradient(135deg, #1e3d31 0%, #2e5848 50%, #a8d5ba 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="nordic-lights" onclick="setGradient('nordic-lights')"
+                        title="Nordyckie Światła">
+                        <span style="background:linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="snowstorm" onclick="setGradient('snowstorm')"
+                        title="Burza Śnieżna">
+                        <span style="background:linear-gradient(135deg, #e6e9f0 0%, #c1c8d4 50%, #9ba4b5 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="ice-cave" onclick="setGradient('ice-cave')"
+                        title="Lodowa Jaskinia">
+                        <span style="background:linear-gradient(135deg, #00d4ff 0%, #0099cc 50%, #007acc 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="frosty-morning" onclick="setGradient('frosty-morning')"
+                        title="Mroźny Poranek">
+                        <span style="background:linear-gradient(135deg, #e8f4fc 0%, #d1e8ff 50%, #b8d4f0 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="glacial" onclick="setGradient('glacial')"
+                        title="Lodowiec">
+                        <span style="background:linear-gradient(135deg, #134e5e 0%, #71b280 50%, #88d8b0 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="christmas" onclick="setGradient('christmas')"
+                        title="Świąteczny">
+                        <span style="background:linear-gradient(135deg, #c41e3a 0%, #1a472a 50%, #d4af37 100%)"></span>
+                    </button>
+                    <!-- Other Seasons -->
+                    <button class="gradient-btn" data-gradient="autumn-leaves" onclick="setGradient('autumn-leaves')"
+                        title="Jesienne Liście">
+                        <span style="background:linear-gradient(135deg, #d4521e 0%, #bf820d 50%, #6b4423 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="harvest" onclick="setGradient('harvest')"
+                        title="Zbiory">
+                        <span style="background:linear-gradient(135deg, #f4a020 0%, #e67e22 50%, #d35400 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="spring-bloom" onclick="setGradient('spring-bloom')"
+                        title="Wiosenny Rozkwit">
+                        <span style="background:linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ee9ca7 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="summer-sunset" onclick="setGradient('summer-sunset')"
+                        title="Letni Zachód">
+                        <span style="background:linear-gradient(135deg, #fa709a 0%, #fee140 50%, #ff9a8b 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="tropical-paradise"
+                        onclick="setGradient('tropical-paradise')" title="Tropikalny Raj">
+                        <span style="background:linear-gradient(135deg, #00c9ff 0%, #92fe9d 50%, #ffeb3b 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="mountain-dawn" onclick="setGradient('mountain-dawn')"
+                        title="Górski Świt">
+                        <span style="background:linear-gradient(135deg, #654ea3 0%, #eaafc8 50%, #ff9966 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="ocean-breeze" onclick="setGradient('ocean-breeze')"
+                        title="Morska Bryza">
+                        <span style="background:linear-gradient(135deg, #2193b0 0%, #6dd5ed 50%, #a8edea 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="forest-mist" onclick="setGradient('forest-mist')"
+                        title="Leśna Mgła">
+                        <span style="background:linear-gradient(135deg, #5d8a66 0%, #96bb98 50%, #c8e6c9 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="desert-dusk" onclick="setGradient('desert-dusk')"
+                        title="Pustynny Zmierzch">
+                        <span style="background:linear-gradient(135deg, #d4a373 0%, #bc6c25 50%, #1a1a2e 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="lavender-fields"
+                        onclick="setGradient('lavender-fields')" title="Pola Lawendy">
+                        <span style="background:linear-gradient(135deg, #e8d5e8 0%, #c8a2c8 50%, #9966cc 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="rainy-day" onclick="setGradient('rainy-day')"
+                        title="Deszczowy Dzień">
+                        <span style="background:linear-gradient(135deg, #616161 0%, #9bc5c3 50%, #c5e1e7 100%)"></span>
+                    </button>
+                    <button class="gradient-btn" data-gradient="golden-hour" onclick="setGradient('golden-hour')"
+                        title="Złota Godzina">
+                        <span style="background:linear-gradient(135deg, #f7971e 0%, #ffd200 50%, #ff8c00 100%)"></span>
+                    </button>
+                </div>
+
                 <!-- Toggle efektów hover -->
                 <div class="settings-section hover-effects-panel collapsible collapsed">
                     <h4><i class="fas fa-hand-pointer"></i> Efekty Hover</h4>
@@ -412,24 +566,40 @@
                                     onchange="toggleEffect('hoverEffects.cards', this.checked)">
                                 <span class="toggle-switch"></span>
                                 <span>Karty</span>
+                                <span class="help-tooltip"
+                                    title="Karty unoszą się do góry przy najechaniu myszką">?</span>
                             </label>
                             <label class="toggle-label">
                                 <input type="checkbox" id="hover-buttons" checked
                                     onchange="toggleEffect('hoverEffects.buttons', this.checked)">
                                 <span class="toggle-switch"></span>
                                 <span>Przyciski</span>
+                                <span class="help-tooltip"
+                                    title="Przyciski reagują na najechanie efektem świetlnym">?</span>
                             </label>
                             <label class="toggle-label">
                                 <input type="checkbox" id="hover-images" checked
                                     onchange="toggleEffect('hoverEffects.images', this.checked)">
                                 <span class="toggle-switch"></span>
                                 <span>Zoom zdjęć</span>
+                                <span class="help-tooltip"
+                                    title="Zdjęcia powiększają się lekko przy najechaniu">?</span>
                             </label>
                             <label class="toggle-label">
                                 <input type="checkbox" id="flip-cards"
                                     onchange="toggleEffect('hoverEffects.flipCards', this.checked)">
                                 <span class="toggle-switch"></span>
                                 <span>Flip 3D</span>
+                                <span class="help-tooltip"
+                                    title="Karty pokoi obracają się w 3D pokazując dodatkowe informacje z tyłu">?</span>
+                            </label>
+                            <label class="toggle-label">
+                                <input type="checkbox" id="slow-zoom"
+                                    onchange="toggleEffect('imageSlowZoom', this.checked)">
+                                <span class="toggle-switch"></span>
+                                <span>Powolne zoom</span>
+                                <span class="help-tooltip"
+                                    title="Zdjęcia powoli powiększają się tworząc efekt kinowy (Ken Burns)">?</span>
                             </label>
                         </div>
                     </div>
@@ -445,28 +615,153 @@
                                     onchange="toggleEffect('animations.fadeIn', this.checked)">
                                 <span class="toggle-switch"></span>
                                 <span>Fade In</span>
+                                <span class="help-tooltip"
+                                    title="Elementy pojawiają się płynnie podczas przewijania strony">?</span>
                             </label>
                             <label class="toggle-label">
                                 <input type="checkbox" id="anim-slideUp" checked
                                     onchange="toggleEffect('animations.slideUp', this.checked)">
                                 <span class="toggle-switch"></span>
                                 <span>Slide Up</span>
+                                <span class="help-tooltip"
+                                    title="Elementy wsuwają się od dołu przy przewijaniu">?</span>
                             </label>
                             <label class="toggle-label">
                                 <input type="checkbox" id="anim-parallax"
                                     onchange="toggleEffect('animations.parallax', this.checked)">
                                 <span class="toggle-switch"></span>
                                 <span>Parallax</span>
+                                <span class="help-tooltip"
+                                    title="Efekt głębi - tło porusza się wolniej niż treść przy przewijaniu">?</span>
                             </label>
                             <label class="toggle-label">
                                 <input type="checkbox" id="anim-countUp" checked
                                     onchange="toggleEffect('animations.countUp', this.checked)">
                                 <span class="toggle-switch"></span>
                                 <span>Liczniki</span>
+                                <span class="help-tooltip"
+                                    title="Statystyki liczą się od zera do wartości docelowej">?</span>
                             </label>
                         </div>
                     </div>
                 </div>
+
+                <!-- Efekty atmosferyczne -->
+                <div class="settings-section atmospheric-panel collapsible">
+                    <h4><i class="fas fa-snowflake"></i> Efekty atmosferyczne</h4>
+                    <div class="settings-section-content">
+                        <p class="section-desc"
+                            style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: var(--space-3);">
+                            Wybierz efekt, który będzie widoczny na podglądzie strony
+                        </p>
+                        <div class="atmosphere-effects-grid">
+                            <label class="effect-radio-label">
+                                <input type="radio" name="atmospheric-effect" value="none" checked
+                                    onchange="setAtmosphericEffect('none')">
+                                <span class="effect-box">
+                                    <i class="fas fa-ban"></i>
+                                    <span>Brak</span>
+                                </span>
+                            </label>
+                            <label class="effect-radio-label">
+                                <input type="radio" name="atmospheric-effect" value="snow"
+                                    onchange="setAtmosphericEffect('snow')">
+                                <span class="effect-box">
+                                    <i class="fas fa-snowflake"></i>
+                                    <span>Śnieg</span>
+                                </span>
+                            </label>
+                            <label class="effect-radio-label">
+                                <input type="radio" name="atmospheric-effect" value="aurora"
+                                    onchange="setAtmosphericEffect('aurora')">
+                                <span class="effect-box">
+                                    <i class="fas fa-moon"></i>
+                                    <span>Zorza</span>
+                                </span>
+                            </label>
+                            <label class="effect-radio-label">
+                                <input type="radio" name="atmospheric-effect" value="rain"
+                                    onchange="setAtmosphericEffect('rain')">
+                                <span class="effect-box">
+                                    <i class="fas fa-cloud-rain"></i>
+                                    <span>Deszcz</span>
+                                </span>
+                            </label>
+                            <label class="effect-radio-label">
+                                <input type="radio" name="atmospheric-effect" value="storm"
+                                    onchange="setAtmosphericEffect('storm')">
+                                <span class="effect-box">
+                                    <i class="fas fa-bolt"></i>
+                                    <span>Burza</span>
+                                </span>
+                            </label>
+                            <label class="effect-radio-label">
+                                <input type="radio" name="atmospheric-effect" value="wind"
+                                    onchange="setAtmosphericEffect('wind')">
+                                <span class="effect-box">
+                                    <i class="fas fa-wind"></i>
+                                    <span>Wiatr</span>
+                                </span>
+                            </label>
+                            <label class="effect-radio-label">
+                                <input type="radio" name="atmospheric-effect" value="drizzle"
+                                    onchange="setAtmosphericEffect('drizzle')">
+                                <span class="effect-box">
+                                    <i class="fas fa-smog"></i>
+                                    <span>Mżawka</span>
+                                </span>
+                            </label>
+                            <label class="effect-radio-label">
+                                <input type="radio" name="atmospheric-effect" value="sunrays"
+                                    onchange="setAtmosphericEffect('sunrays')">
+                                <span class="effect-box">
+                                    <i class="fas fa-sun"></i>
+                                    <span>Słońce</span>
+                                </span>
+                            </label>
+                            <label class="effect-radio-label">
+                                <input type="radio" name="atmospheric-effect" value="leaves"
+                                    onchange="setAtmosphericEffect('leaves')">
+                                <span class="effect-box">
+                                    <i class="fas fa-leaf"></i>
+                                    <span>Liście</span>
+                                </span>
+                            </label>
+                            <label class="effect-radio-label">
+                                <input type="radio" name="atmospheric-effect" value="fireflies"
+                                    onchange="setAtmosphericEffect('fireflies')">
+                                <span class="effect-box">
+                                    <i class="fas fa-star"></i>
+                                    <span>Świetliki</span>
+                                </span>
+                            </label>
+                            <label class="effect-radio-label">
+                                <input type="radio" name="atmospheric-effect" value="particles"
+                                    onchange="setAtmosphericEffect('particles')">
+                                <span class="effect-box">
+                                    <i class="fas fa-sparkles"></i>
+                                    <span>Cząsteczki</span>
+                                </span>
+                            </label>
+                        </div>
+
+                        <!-- Duration Controls -->
+                        <div class="effect-duration-controls" id="effect-duration-controls" style="display: none;">
+                            <label>
+                                <i class="fas fa-clock"></i> Czas trwania efektu
+                                <span class="duration-value" id="duration-value">∞</span>
+                            </label>
+                            <input type="range" id="effect-duration" min="5" max="60" value="60"
+                                oninput="updateEffectDuration(this.value)">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="effect-permanent" checked
+                                    onchange="togglePermanentEffect(this.checked)">
+                                <span>Efekt permanentny (bez limitu czasowego)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
 
                 <!-- Tryb wyświetlania pokoi -->
                 <div class="settings-section rooms-display-panel collapsible collapsed">
@@ -489,6 +784,122 @@
                             <span class="toggle-switch"></span>
                             <span>Pokaż kategorie pokoi</span>
                         </label>
+                    </div>
+                </div>
+
+                <!-- Stylowanie podstrony /offers -->
+                <div class="settings-section offers-styling-panel collapsible collapsed">
+                    <h4><i class="fas fa-list-alt"></i> Podstrona /offers</h4>
+                    <div class="settings-section-content">
+                        <p class="section-desc"
+                            style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: var(--space-3);">
+                            Generuj CSS dla systemowej podstrony z listą ofert. Style będą automatycznie dopasowane do
+                            Twoich kolorów.
+                        </p>
+
+                        <!-- Toggle główny -->
+                        <label class="toggle-label"
+                            style="margin-bottom: var(--space-4); padding: 12px; background: var(--bg-tertiary); border-radius: 8px;">
+                            <input type="checkbox" id="offers-enable-styling"
+                                onchange="toggleOffersPageStyling(this.checked)">
+                            <span class="toggle-switch"></span>
+                            <span><strong>Włącz stylowanie /offers</strong></span>
+                        </label>
+
+                        <!-- Opcje stylowania (widoczne gdy włączone) -->
+                        <div class="offers-options" id="offers-options" style="display: none;">
+
+                            <!-- Filtry -->
+                            <div class="effect-group" style="margin-bottom: var(--space-4);">
+                                <label class="effect-label" style="margin-bottom: var(--space-2);"><i
+                                        class="fas fa-sliders-h"></i> Panel filtrów</label>
+                                <div class="toggles-grid">
+                                    <label class="toggle-label">
+                                        <input type="checkbox" id="offers-filters-collapse" checked
+                                            onchange="updateOffersSetting('filtersCollapsible', this.checked)">
+                                        <span class="toggle-switch"></span>
+                                        <span>Zwijane filtry</span>
+                                        <span class="help-tooltip"
+                                            title="Dodaje możliwość zwijania sekcji filtrów">?</span>
+                                    </label>
+                                    <label class="toggle-label">
+                                        <input type="checkbox" id="offers-filters-modern" checked
+                                            onchange="updateOffersSetting('filtersModern', this.checked)">
+                                        <span class="toggle-switch"></span>
+                                        <span>Nowoczesny styl</span>
+                                        <span class="help-tooltip"
+                                            title="Nowoczesny wygląd checkboxów i paneli filtrów">?</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Karty ofert -->
+                            <div class="effect-group" style="margin-bottom: var(--space-4);">
+                                <label class="effect-label" style="margin-bottom: var(--space-2);"><i
+                                        class="fas fa-th-large"></i> Karty ofert</label>
+                                <div class="toggles-grid">
+                                    <label class="toggle-label">
+                                        <input type="checkbox" id="offers-cards-hover" checked
+                                            onchange="updateOffersSetting('cardsHover', this.checked)">
+                                        <span class="toggle-switch"></span>
+                                        <span>Efekty hover</span>
+                                        <span class="help-tooltip"
+                                            title="Karty unoszą się przy najechaniu myszką">?</span>
+                                    </label>
+                                    <label class="toggle-label">
+                                        <input type="checkbox" id="offers-cards-rounded" checked
+                                            onchange="updateOffersSetting('cardsRounded', this.checked)">
+                                        <span class="toggle-switch"></span>
+                                        <span>Zaokrąglone rogi</span>
+                                        <span class="help-tooltip" title="Karty i obrazy mają zaokrąglone rogi">?</span>
+                                    </label>
+                                    <label class="toggle-label">
+                                        <input type="checkbox" id="offers-cards-shadow" checked
+                                            onchange="updateOffersSetting('cardsShadow', this.checked)">
+                                        <span class="toggle-switch"></span>
+                                        <span>Cienie</span>
+                                        <span class="help-tooltip" title="Dodaje delikatne cienie pod kartami">?</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Przyciski -->
+                            <div class="effect-group" style="margin-bottom: var(--space-4);">
+                                <label class="effect-label" style="margin-bottom: var(--space-2);"><i
+                                        class="fas fa-hand-pointer"></i> Przyciski</label>
+                                <div class="toggles-grid">
+                                    <label class="toggle-label">
+                                        <input type="checkbox" id="offers-btns-rounded" checked
+                                            onchange="updateOffersSetting('buttonsRounded', this.checked)">
+                                        <span class="toggle-switch"></span>
+                                        <span>Zaokrąglone</span>
+                                        <span class="help-tooltip"
+                                            title="Przyciski mają zaokrąglone rogi (pill-style)">?</span>
+                                    </label>
+                                    <label class="toggle-label">
+                                        <input type="checkbox" id="offers-btns-gradient"
+                                            onchange="updateOffersSetting('buttonsGradient', this.checked)">
+                                        <span class="toggle-switch"></span>
+                                        <span>Gradient</span>
+                                        <span class="help-tooltip"
+                                            title="Przyciski używają wybranego gradientu">?</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Tło strony -->
+                            <div class="effect-group">
+                                <label class="effect-label" style="margin-bottom: var(--space-2);"><i
+                                        class="fas fa-fill-drip"></i> Tło strony</label>
+                                <select id="offers-background" onchange="updateOffersSetting('background', this.value)"
+                                    style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;">
+                                    <option value="white">Białe (domyślne)</option>
+                                    <option value="light">Jasne szare</option>
+                                    <option value="gradient">Delikatny gradient</option>
+                                    <option value="pattern">Subtelny wzór</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -605,15 +1016,17 @@
                     </div>
                 </div>
 
-                <!-- FAQ Editor -->
-                <div class="faq-editor-panel">
-                    <div class="panel-header">
-                        <h3><i class="fas fa-question-circle"></i> Edytor FAQ</h3>
-                        <button class="btn btn-primary" onclick="addFaqItem()">
-                            <i class="fas fa-plus"></i> Dodaj pytanie
+                <!-- FAQ Editor - Collapsible -->
+                <div class="faq-editor-panel collapsible collapsed" id="faq-editor-panel">
+                    <div class="panel-header collapsible-header" onclick="toggleFaqEditor()">
+                        <h3><i class="fas fa-question-circle"></i> Edytor FAQ
+                            <span class="collapse-indicator"><i class="fas fa-chevron-down"></i></span>
+                        </h3>
+                        <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); addFaqItem()">
+                            <i class="fas fa-plus"></i> Dodaj
                         </button>
                     </div>
-                    <div class="faq-items-list" id="faq-items-list">
+                    <div class="faq-items-list collapsible-content" id="faq-items-list">
                         <!-- Dynamicznie generowane pytania -->
                     </div>
                 </div>
@@ -906,15 +1319,18 @@
          SCRIPTS
          ============================================ -->
     <script src="data/templates.js"></script>
+    <script src="data/about-sections.js"></script>
     <script src="data/sections.js"></script>
     <script src="data/amenities.js"></script>
+    <script src="data/room-presets.js"></script>
     <script src="js/ai-engine.js"></script>
     <script src="js/wizard.js"></script>
     <script src="js/template-engine.js"></script>
-    <script src="js/css-engine.js"></script>
-    <script src="js/preview.js"></script>
+    <script src="js/css-engine.js?v=3"></script>
+    <script src="js/preview.js?v=3"></script>
     <script src="js/gemini-api.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/visual-effects.js?v=3"></script>
+    <script src="js/app.js?v=3"></script>
 </body>
 
 </html>

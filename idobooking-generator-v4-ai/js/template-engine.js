@@ -113,7 +113,34 @@ const TemplateEngine = {
     // ============================================
     // INTRO SECTION
     // ============================================
+    // ============================================
+    // INTRO SECTION (Now supports multiple variants)
+    // ============================================
     generateIntroSection(settings) {
+        // Try to use the new About Section system
+        if (window.generateAboutSection && window.ABOUT_SECTION_VARIANTS) {
+            // Get selected variant or pick a random one matching the category
+            let variantId = window.appState?.aboutVariant;
+
+            // If no variant selected, pick one based on template or random
+            if (!variantId && window.appState) {
+                const isApartment = window.appState.selectedTemplate?.id?.startsWith('apt')
+                    || window.appState.wizardData?.type?.includes('apartment');
+
+                const variants = isApartment ? window.getApartmentAboutVariants() : window.getHotelAboutVariants();
+                const randomVariant = variants[Math.floor(Math.random() * variants.length)];
+                variantId = randomVariant.id;
+
+                // Save for consistency
+                window.appState.aboutVariant = variantId;
+            }
+
+            if (variantId) {
+                return generateAboutSection(variantId, settings) + '\n\n';
+            }
+        }
+
+        // Fallback to original implementation
         const content = window.appState?.sectionContent?.intro || {};
         const title = content.title || settings.propertyName || 'Witamy w Naszym Obiekcie';
         const subtitle = content.subtitle || 'Twoje miejsce na wyjątkowy wypoczynek';
@@ -194,20 +221,29 @@ ${categoryRooms}
         </div>`;
             });
         } else if (displayMode === 'slider') {
-            // Slider mode
-            const roomCards = objects.map(obj => this.generateRoomCard(obj, effectsSettings)).join('\n');
+            // INFINITE SLIDER - duplicate cards for seamless looping
+            const roomCards = objects.map(obj => this.generateRoomCard(obj, effectsSettings));
+
+            // Create infinite loop by duplicating cards
+            // Add last cards at beginning, first cards at end
+            const numClones = Math.min(3, objects.length); // Clone up to 3 cards for smooth infinite effect
+            const startClones = roomCards.slice(-numClones); // Last N cards
+            const endClones = roomCards.slice(0, numClones);   // First N cards
+
+            const allCards = [...startClones, ...roomCards, ...endClones].join('\n');
+
             roomsHtml = `
         <div class="rooms-slider-wrapper">
-            <button class="slider-btn slider-prev" onclick="parent.slideRooms(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-btn slider-prev" onclick="slideRooms(-1)"><i class="fas fa-chevron-left"></i></button>
             <div class="rooms-slider">
-                <div class="rooms-slider-track">
-${roomCards}
+                <div class="rooms-slider-track" data-total-rooms="${objects.length}" data-clone-count="${numClones}">
+                    ${allCards}
                 </div>
             </div>
-            <button class="slider-btn slider-next" onclick="parent.slideRooms(1)"><i class="fas fa-chevron-right"></i></button>
+            <button class="slider-btn slider-next" onclick="slideRooms(1)"><i class="fas fa-chevron-right"></i></button>
         </div>
         <div class="slider-dots">
-            ${objects.map((_, i) => `<span class="slider-dot${i === 0 ? ' active' : ''}" onclick="parent.goToSlide(${i})"></span>`).join('')}
+            ${objects.map((_, i) => `<span class="slider-dot${i === 0 ? ' active' : ''}" onclick="goToSlide(${i})"></span>`).join('')}
         </div>`;
         } else {
             // Default grid mode
@@ -233,13 +269,67 @@ ${roomCards}
 `;
     },
 
-    generateRoomCard(obj) {
-        const amenitiesList = (obj.amenities || []).slice(0, 6).map(a => {
+    generateRoomCard(obj, effectsSettings = {}) {
+        // Create compact amenities icons for front
+        const amenityIcons = (obj.amenities || []).slice(0, 4).map(a => {
+            const amenityData = this.findAmenity(a);
+            return `<span class="amenity-icon-small" title="${amenityData?.name || a}"><i class="fas ${amenityData?.icon || 'fa-check'}"></i></span>`;
+        }).join('');
+
+        // Create detailed amenities list for back
+        const amenitiesListBack = (obj.amenities || []).slice(0, 6).map(a => {
             const amenityData = this.findAmenity(a);
             return `<li><i class="fas ${amenityData?.icon || 'fa-check'}"></i> ${amenityData?.name || a}</li>`;
-        }).join('\n                        ');
+        }).join('\n                            ');
 
-        return `            <article class="room-card">
+        const useFlipCards = effectsSettings.hoverEffects?.flipCards;
+
+        if (useFlipCards) {
+            // 3D Flip card - FRONT: image + amenities + price + button, BACK: detailed description
+            return `            <article class="room-card room-card-flip">
+                <div class="room-card-inner">
+                    <div class="room-card-front">
+                        <div class="room-image">
+                            <img src="${obj.images?.[0] || 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=600'}" alt="${obj.name}">
+                            ${obj.badge ? `<span class="room-badge">${obj.badge}</span>` : ''}
+                        </div>
+                        <div class="room-content">
+                            <h3>${obj.name}</h3>
+                            <div class="room-amenities-icons">
+                                ${amenityIcons}
+                                ${(obj.amenities || []).length > 4 ? `<span class="amenity-more">+${(obj.amenities || []).length - 4}</span>` : ''}
+                            </div>
+                            <div class="room-footer">
+                                <span class="room-price">od <strong>${obj.price || '199 zł'}</strong>/noc</span>
+                                <a href="#rezerwacja" class="room-cta">Rezerwuj</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-card-back">
+                        <div class="room-back-content">
+                            <h3>${obj.name}</h3>
+                            <p class="room-description">${obj.description || 'Komfortowy pokój z pełnym wyposażeniem, idealny na relaksujący wypoczynek.'}</p>
+                            <div class="room-back-features">
+                                <h4><i class="fas fa-concierge-bell"></i> Udogodnienia</h4>
+                                <ul class="room-features-list">
+                                    ${amenitiesListBack}
+                                </ul>
+                            </div>
+                            <a href="#rezerwacja" class="room-cta room-cta-large">
+                                <i class="fas fa-calendar-check"></i> Zarezerwuj teraz
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>`;
+        } else {
+            // Standard card without flip
+            const amenitiesList = (obj.amenities || []).slice(0, 6).map(a => {
+                const amenityData = this.findAmenity(a);
+                return `<li><i class="fas ${amenityData?.icon || 'fa-check'}"></i> ${amenityData?.name || a}</li>`;
+            }).join('\n                        ');
+
+            return `            <article class="room-card">
                 <div class="room-image">
                     <img src="${obj.images?.[0] || 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=600'}" alt="${obj.name}">
                     ${obj.badge ? `<span class="room-badge">${obj.badge}</span>` : ''}
@@ -256,7 +346,10 @@ ${roomCards}
                     </div>
                 </div>
             </article>`;
+        }
     },
+
+
 
     findAmenity(id) {
         for (const category of Object.values(AMENITIES)) {

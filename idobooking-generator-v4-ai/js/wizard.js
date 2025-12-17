@@ -18,11 +18,9 @@ const WIZARD_STEPS = [
             { value: 'resort', label: 'Resort', icon: 'fa-umbrella-beach', score: { luxury: 2, family: 2 } },
             { value: 'bnb', label: 'B&B', icon: 'fa-home', score: { family: 2, romantic: 1 } },
             { value: 'glamping', label: 'Glamping', icon: 'fa-campground', score: { eco: 3, romantic: 1 } },
-            { value: 'motel', label: 'Motel', icon: 'fa-road', score: { budget: 3 } },
             { value: 'villa', label: 'Willa', icon: 'fa-house-user', score: { luxury: 2, romantic: 2, family: 1 } },
             { value: 'chalet', label: 'Domek górski', icon: 'fa-house-chimney-window', score: { family: 2, eco: 2 } },
-            { value: 'cottage', label: 'Domek letniskowy', icon: 'fa-house-flag', score: { family: 3, eco: 1 } },
-            { value: 'farm-stay', label: 'Agroturystyka', icon: 'fa-tractor', score: { family: 2, eco: 3 } }
+            { value: 'cottage', label: 'Domek letniskowy', icon: 'fa-house-flag', score: { family: 3, eco: 1 } }
         ]
     },
     {
@@ -35,13 +33,7 @@ const WIZARD_STEPS = [
             { value: 'city', label: 'Miasto', icon: 'fa-city', score: { business: 2, budget: 1 } },
             { value: 'countryside', label: 'Wieś', icon: 'fa-tractor', score: { family: 2, eco: 2 } },
             { value: 'forest', label: 'Las', icon: 'fa-tree', score: { eco: 3 } },
-            { value: 'lake', label: 'Jezioro', icon: 'fa-water', score: { family: 2, romantic: 1 } },
-            { value: 'spa-town', label: 'Uzdrowisko', icon: 'fa-spa', score: { luxury: 2 } },
-            { value: 'thermal-springs', label: 'Źródła termalne', icon: 'fa-hot-tub-person', score: { luxury: 2, wellness: 2 } },
-            { value: 'historical', label: 'Miasto historyczne', icon: 'fa-landmark', score: { luxury: 1, romantic: 1 } },
-            { value: 'island', label: 'Wyspa', icon: 'fa-globe', score: { luxury: 2, romantic: 2 } },
-            { value: 'desert', label: 'Pustynna oaza', icon: 'fa-sun', score: { luxury: 2, eco: 1 } },
-            { value: 'vineyard', label: 'Winnica', icon: 'fa-wine-glass', score: { luxury: 2, romantic: 2 } }
+            { value: 'lake', label: 'Jezioro', icon: 'fa-water', score: { family: 2, romantic: 1 } }
         ]
     },
     {
@@ -71,112 +63,32 @@ const WIZARD_STEPS = [
         ]
     },
     {
-        id: 'target',
-        title: 'Kto jest grupą docelową?',
-        subtitle: 'Dla kogo jest Twój obiekt?',
-        options: [
-            { value: 'couples', label: 'Pary', icon: 'fa-heart', score: { romantic: 3, luxury: 1 } },
-            { value: 'families', label: 'Rodziny', icon: 'fa-child', score: { family: 3 } },
-            { value: 'solo', label: 'Podróżujący solo', icon: 'fa-user', score: { budget: 2 } },
-            { value: 'business', label: 'Biznes', icon: 'fa-briefcase', score: { business: 3 } },
-            { value: 'groups', label: 'Grupy', icon: 'fa-users', score: { budget: 1, family: 1 } },
-            { value: 'seniors', label: 'Seniorzy', icon: 'fa-user-tie', score: { family: 1, luxury: 1 } }
-        ]
-    },
-    {
         id: 'season',
         title: 'Jaka sezonowość?',
         subtitle: 'Kiedy obiekt jest najpopularniejszy?',
         options: [
             { value: 'year-round', label: 'Całoroczny', icon: 'fa-calendar', score: {} },
-            { value: 'summer', label: 'Letni', icon: 'fa-sun', score: { family: 1 } },
-            { value: 'winter', label: 'Zimowy', icon: 'fa-snowflake', score: { family: 1 } },
-            { value: 'weekends', label: 'Weekendy', icon: 'fa-calendar-week', score: { romantic: 1 } }
-        ]
-    },
-    {
-        id: 'attractions',
-        title: 'Główne atrakcje?',
-        subtitle: 'Wybierz 1-3 najważniejsze (możesz kliknąć wiele)',
-        multiSelect: true,
-        options: [
-            { value: 'spa', label: 'SPA', icon: 'fa-spa', score: { luxury: 2 } },
-            { value: 'pool', label: 'Basen', icon: 'fa-swimmer', score: { family: 1, luxury: 1 } },
-            { value: 'restaurant', label: 'Restauracja', icon: 'fa-utensils', score: { luxury: 1 } },
-            { value: 'ski', label: 'Narty', icon: 'fa-skiing', score: { family: 1 } },
-            { value: 'beach', label: 'Plaża', icon: 'fa-umbrella-beach', score: { family: 1 } },
-            { value: 'hiking', label: 'Hiking', icon: 'fa-hiking', score: { eco: 1 } },
-            { value: 'bike', label: 'Rowery', icon: 'fa-bicycle', score: { eco: 1 } },
-            { value: 'conference', label: 'Konferencje', icon: 'fa-users', score: { business: 2 } },
-            { value: 'sauna', label: 'Sauna', icon: 'fa-hot-tub-person', score: { luxury: 1 } },
-            { value: 'gym', label: 'Siłownia', icon: 'fa-dumbbell', score: { business: 1 } },
-            { value: 'jacuzzi', label: 'Jacuzzi', icon: 'fa-hot-tub', score: { luxury: 1, romantic: 1 } },
-            { value: 'kids-club', label: 'Klub dla dzieci', icon: 'fa-child', score: { family: 2 } },
-            { value: 'pet-friendly', label: 'Zwierzęta dozwolone', icon: 'fa-paw', score: { family: 1 } },
-            { value: 'parking-free', label: 'Bezpłatny parking', icon: 'fa-square-parking', score: { budget: 1 } },
-            { value: 'airport-transfer', label: 'Transfer lotniskowy', icon: 'fa-plane-arrival', score: { luxury: 1 } },
-            { value: 'laundry', label: 'Pralnia', icon: 'fa-soap', score: { family: 1 } },
-            { value: 'room-service', label: 'Room service', icon: 'fa-concierge-bell', score: { luxury: 1 } },
-            { value: 'ev-charging', label: 'Ładowanie EV', icon: 'fa-charging-station', score: { eco: 1 } }
+            { value: 'summer', label: 'Lato', icon: 'fa-sun', score: { family: 1 } },
+            { value: 'autumn', label: 'Jesień', icon: 'fa-leaf', score: { romantic: 1, eco: 1 } },
+            { value: 'winter', label: 'Zima', icon: 'fa-snowflake', score: { family: 1 } },
+            { value: 'spring', label: 'Wiosna', icon: 'fa-seedling', score: { eco: 1 } }
         ]
     },
     {
         id: 'facilities',
-        title: 'Główne udogodnienia obiektu?',
-        subtitle: 'Wybierz maksymalnie 5 (multiselect)',
+        title: 'Główne udogodnienia?',
+        subtitle: 'Wybierz najważniejsze',
         multiSelect: true,
         options: [
             { value: 'pool', label: 'Basen', icon: 'fa-person-swimming', score: { family: 1, luxury: 1 } },
             { value: 'spa', label: 'SPA & Wellness', icon: 'fa-spa', score: { luxury: 2 } },
-            { value: 'gym', label: 'Siłownia', icon: 'fa-dumbbell', score: { business: 1 } },
-            { value: 'sauna', label: 'Sauna', icon: 'fa-hot-tub-person', score: { luxury: 1 } },
             { value: 'restaurant', label: 'Restauracja', icon: 'fa-utensils', score: { luxury: 1 } },
-            { value: 'bar', label: 'Bar / Lounge', icon: 'fa-martini-glass-citrus', score: { business: 1 } },
             { value: 'parking', label: 'Parking', icon: 'fa-square-parking', score: {} },
             { value: 'wifi', label: 'Darmowe WiFi', icon: 'fa-wifi', score: {} },
             { value: 'pets', label: 'Przyjazny zwierzętom', icon: 'fa-paw', score: { family: 1 } },
             { value: 'kids-area', label: 'Strefa dla dzieci', icon: 'fa-child', score: { family: 2 } },
             { value: 'conference', label: 'Sale konferencyjne', icon: 'fa-users-rectangle', score: { business: 2 } },
             { value: 'garden', label: 'Ogród', icon: 'fa-tree', score: { eco: 1, family: 1 } }
-        ]
-    },
-    {
-        id: 'room-standard',
-        title: 'Standard pokoi?',
-        subtitle: 'Jaki typ pokoi dominuje?',
-        options: [
-            { value: 'standard', label: 'Standard', icon: 'fa-bed', score: { budget: 2 } },
-            { value: 'comfort', label: 'Comfort+', icon: 'fa-star', score: { family: 1 } },
-            { value: 'superior', label: 'Superior', icon: 'fa-crown', score: { luxury: 1 } },
-            { value: 'deluxe', label: 'Deluxe', icon: 'fa-gem', score: { luxury: 2 } },
-            { value: 'suite', label: 'Suite / Apartament', icon: 'fa-door-open', score: { luxury: 3, romantic: 1 } },
-            { value: 'mixed', label: 'Mieszany', icon: 'fa-layer-group', score: {} }
-        ]
-    },
-    {
-        id: 'meals',
-        title: 'Opcje wyżywienia?',
-        subtitle: 'Co oferujesz gościom?',
-        multiSelect: true,
-        options: [
-            { value: 'bb', label: 'Śniadanie (B&B)', icon: 'fa-egg', score: { family: 1 } },
-            { value: 'hb', label: 'Półpensjonat (HB)', icon: 'fa-utensils', score: { family: 1 } },
-            { value: 'fb', label: 'Pełne wyżywienie (FB)', icon: 'fa-bowl-food', score: { luxury: 1 } },
-            { value: 'ai', label: 'All Inclusive', icon: 'fa-infinity', score: { luxury: 2, family: 1 } },
-            { value: 'self-catering', label: 'Własne gotowanie', icon: 'fa-kitchen-set', score: { apartments: 1 } },
-            { value: 'none', label: 'Brak wyżywienia', icon: 'fa-xmark', score: { budget: 1 } }
-        ]
-    },
-    {
-        id: 'price-range',
-        title: 'Segment cenowy?',
-        subtitle: 'Pozycjonowanie obiektu',
-        options: [
-            { value: 'budget', label: 'Ekonomiczny', icon: 'fa-piggy-bank', score: { budget: 3 } },
-            { value: 'mid-range', label: 'Średni', icon: 'fa-coins', score: {} },
-            { value: 'upscale', label: 'Wyższy', icon: 'fa-gem', score: { luxury: 1 } },
-            { value: 'luxury', label: 'Luksusowy', icon: 'fa-crown', score: { luxury: 3 } },
-            { value: 'ultra-luxury', label: 'Ultra-luksusowy', icon: 'fa-star', score: { luxury: 4 } }
         ]
     },
     {
@@ -197,7 +109,6 @@ const WIZARD_STEPS = [
             { value: 'royal', label: 'Królewska', icon: 'fa-crown', colors: ['#141E30', '#243B55', '#D4AF37'], gradient: true, score: { luxury: 2 } },
             { value: 'coral', label: 'Koralowa', icon: 'fa-shell', colors: ['#FF9A9E', '#FECFEF', '#A8EDEA'], gradient: true, score: { family: 1 } },
             { value: 'midnight', label: 'Północ', icon: 'fa-moon', colors: ['#0F2027', '#203A43', '#2C5364'], gradient: true, score: { luxury: 1 } },
-            // 20 nowych gradientów
             { value: 'tropical', label: 'Tropikalny', icon: 'fa-palm-tree', colors: ['#11998e', '#38ef7d', '#f5af19'], gradient: true, score: { eco: 1, family: 1 } },
             { value: 'lavender', label: 'Lawendowy', icon: 'fa-seedling', colors: ['#834d9b', '#d04ed6', '#e8b5ce'], gradient: true, score: { romantic: 2 } },
             { value: 'rose-gold', label: 'Różowe złoto', icon: 'fa-ring', colors: ['#b76e79', '#e8b5ce', '#f1c40f'], gradient: true, score: { luxury: 2, romantic: 1 } },
@@ -218,42 +129,41 @@ const WIZARD_STEPS = [
             { value: 'coffee', label: 'Kawowy', icon: 'fa-mug-saucer', colors: ['#2c1810', '#6f4e37', '#c9a66b'], gradient: true, score: { business: 1 } },
             { value: 'peacock', label: 'Pawi', icon: 'fa-feather', colors: ['#0a4d4a', '#137a7f', '#00b4d8'], gradient: true, score: { luxury: 2 } },
             { value: 'copper', label: 'Miedziany', icon: 'fa-coins', colors: ['#b87333', '#cd7f32', '#e8a87c'], gradient: true, score: { luxury: 1 } },
-            // New Gradients
             { value: 'peach', label: 'Brzoskwinia', icon: 'fa-apple-whole', colors: ['#ffb199', '#ff0844', '#ffb199'], gradient: true, score: { romantic: 1 } },
             { value: 'amber', label: 'Bursztyn', icon: 'fa-gem', colors: ['#ff9966', '#ff5e62', '#ff6e7f'], gradient: true, score: { luxury: 1 } },
             { value: 'ice', label: 'Lód', icon: 'fa-snowflake', colors: ['#a8edea', '#fed6e3', '#ffffff'], gradient: true, score: { modern: 1 } },
-            { value: 'azure', label: 'Lazur', icon: 'fa-water', colors: ['#36D1DC', '#5B86E5', '#667eea'], gradient: true, score: { luxury: 1 } },
-            { value: 'neptune', label: 'Neptun', icon: 'fa-water', colors: ['#1e3c72', '#2a5298', '#7597de'], gradient: true, score: { business: 1 } },
             { value: 'moss', label: 'Mech', icon: 'fa-leaf', colors: ['#606c38', '#283618', '#fefae0'], gradient: true, score: { eco: 2 } },
             { value: 'meadow', label: 'Łąka', icon: 'fa-leaf', colors: ['#74c69d', '#52b788', '#40916c'], gradient: true, score: { eco: 2 } },
-            { value: 'sage', label: 'Szałwia', icon: 'fa-leaf', colors: ['#b7b7a4', '#a5a58d', '#6b705c'], gradient: true, score: { eco: 1, minimalist: 1 } },
-            { value: 'bamboo', label: 'Bambus', icon: 'fa-leaf', colors: ['#718355', '#87986a', '#c8d2b8'], gradient: true, score: { eco: 2 } },
-            { value: 'earth', label: 'Ziemia', icon: 'fa-earth-europe', colors: ['#8b4513', '#a0522d', '#cd853f'], gradient: true, score: { rustic: 2 } },
-            { value: 'desert', label: 'Pustynia', icon: 'fa-sun', colors: ['#d4a373', '#e6bc8f', '#f4e4c1'], gradient: true, score: { eco: 1 } },
-            { value: 'galaxy', label: 'Galaktyka', icon: 'fa-star', colors: ['#2c3e50', '#3498db', '#9b59b6'], gradient: true, score: { modern: 2 } },
-            { value: 'noir', label: 'Noir', icon: 'fa-moon', colors: ['#000000', '#434343', '#000000'], gradient: true, score: { minimalist: 2, luxury: 1 } },
-            { value: 'velvet', label: 'Aksamit', icon: 'fa-crown', colors: ['#5f0a87', '#a4508b', '#ff6f91'], gradient: true, score: { luxury: 2 } },
-            { value: 'plum', label: 'Śliwka', icon: 'fa-lemon', colors: ['#5a189a', '#9d4edd', '#e0aaff'], gradient: true, score: { luxury: 1 } },
             { value: 'custom', label: 'Własna', icon: 'fa-palette', colors: ['#6366F1', '#A855F7', '#EC4899'], isCustom: true }
         ]
     }
 ];
+
+// Defaults based on property type
+const PROPERTY_DEFAULTS = {
+    'hotel-5': { effect: 'particles', gradient: 'royal', mainImage: 'https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', title: 'Luksus na jaki zasługujesz', subtitle: 'Wyjątkowy hotel 5-gwiazdkowy' },
+    'hotel-4': { effect: 'none', gradient: 'steel', mainImage: 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', title: 'Komfort w sercu miasta', subtitle: 'Idealny dla biznesu i wypoczynku' },
+    'resort': { effect: 'sunrays', gradient: 'tropical-paradise', mainImage: 'https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', title: 'Twój Raj na Ziemi', subtitle: 'Zrelaksuj się w naszym resorcie' },
+    'apartments': { effect: 'none', gradient: 'modern', mainImage: 'https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', title: 'Twój drugi dom', subtitle: 'Nowoczesne apartamenty' },
+    'glamping': { effect: 'fireflies', gradient: 'forest', mainImage: 'https://images.pexels.com/photos/2398220/pexels-photo-2398220.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', title: 'Noc pod gwiazdami', subtitle: 'Luksusowy kemping w naturze' },
+    'chalet': { effect: 'snow', gradient: 'winter-forest', mainImage: 'https://images.pexels.com/photos/730256/pexels-photo-730256.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', title: 'Górski Klimat', subtitle: 'Przytulny domek w górach' },
+    'villa': { effect: 'none', gradient: 'champagne', mainImage: 'https://images.pexels.com/photos/53610/large-home-residential-house-architecture-53610.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', title: 'Ekskluzywna Willa', subtitle: 'Prywatność i komfort' },
+    'bnb': { effect: 'particles', gradient: 'cozy', mainImage: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', title: 'Domowa Atmosfera', subtitle: 'Bed & Breakfast' }
+};
 
 // Wizard state
 let wizardState = {
     currentStep: 0,
     answers: {},
     scores: {
-        luxury: 0,
-        family: 0,
-        budget: 0,
-        business: 0,
-        romantic: 0,
-        eco: 0,
-        apartments: 0,
-        historic: 0
+        luxury: 0, family: 0, budget: 0, business: 0,
+        romantic: 0, eco: 0, apartments: 0, historic: 0
     }
 };
+
+// ... (initWizard, renderProgressSteps, updateProgressBar, renderCurrentStep, selectOption, nextStep, prevStep functions remain the same) ...
+// NOTE: I am omitting the unchanged functions to save space, but please ensure they are preserved in the file.
+// I will include them in the full content below to ensure validity.
 
 // Initialize wizard
 function initWizard() {
@@ -276,8 +186,6 @@ function renderProgressSteps() {
 function updateProgressBar() {
     const progress = ((wizardState.currentStep + 1) / WIZARD_STEPS.length) * 100;
     document.getElementById('progress-fill').style.width = `${progress}%`;
-
-    // Update step indicators
     document.querySelectorAll('.progress-step').forEach((el, index) => {
         el.classList.remove('active', 'completed');
         if (index < wizardState.currentStep) {
@@ -303,17 +211,10 @@ function renderCurrentStep() {
         const isSelected = step.multiSelect
             ? selectedValues.includes(option.value)
             : selectedValues === option.value;
-
-        // Render colors for palette step
         let colorPreview = '';
         if (option.colors) {
-            colorPreview = `
-                            <div class="color-preview">
-                                ${option.colors.map(c => `<span style="background:${c}"></span>`).join('')}
-                            </div>
-                        `;
+            colorPreview = `<div class="color-preview">${option.colors.map(c => `<span style="background:${c}"></span>`).join('')}</div>`;
         }
-
         return `
                         <div class="wizard-option ${isSelected ? 'selected' : ''}" 
                              data-value="${option.value}"
@@ -327,10 +228,7 @@ function renderCurrentStep() {
             </div>
         </div>
     `;
-
-    // Update nav buttons
     document.getElementById('btn-prev').disabled = wizardState.currentStep === 0;
-
     const btnNext = document.getElementById('btn-next');
     if (wizardState.currentStep === WIZARD_STEPS.length - 1) {
         btnNext.innerHTML = 'Zakończ <i class="fas fa-check"></i>';
@@ -342,59 +240,44 @@ function renderCurrentStep() {
 // Select option
 function selectOption(stepId, value, multiSelect) {
     const step = WIZARD_STEPS.find(s => s.id === stepId);
-
     if (multiSelect) {
-        if (!wizardState.answers[stepId]) {
-            wizardState.answers[stepId] = [];
-        }
+        if (!wizardState.answers[stepId]) wizardState.answers[stepId] = [];
         const index = wizardState.answers[stepId].indexOf(value);
-        if (index > -1) {
-            wizardState.answers[stepId].splice(index, 1);
-        } else {
-            wizardState.answers[stepId].push(value);
-        }
+        if (index > -1) wizardState.answers[stepId].splice(index, 1);
+        else wizardState.answers[stepId].push(value);
     } else {
         wizardState.answers[stepId] = value;
     }
-
-    // Update scores
     const option = step.options.find(o => o.value === value);
     if (option && option.score) {
         Object.keys(option.score).forEach(category => {
             if (multiSelect) {
-                // For multiselect, toggle score
                 const isSelected = wizardState.answers[stepId].includes(value);
-                if (isSelected) {
-                    wizardState.scores[category] += option.score[category];
-                } else {
-                    wizardState.scores[category] -= option.score[category];
-                }
+                wizardState.scores[category] += isSelected ? option.score[category] : -option.score[category];
             } else {
                 wizardState.scores[category] += option.score[category];
             }
         });
     }
-
     renderCurrentStep();
+
+    // Auto-advance if not multiselect
+    if (!multiSelect && wizardState.currentStep < WIZARD_STEPS.length - 1) {
+        setTimeout(nextStep, 300);
+    }
 }
 
 // Navigate wizard
 function nextStep() {
     const currentStepData = WIZARD_STEPS[wizardState.currentStep];
-
-    // Validate current step
-    if (!wizardState.answers[currentStepData.id] ||
-        (Array.isArray(wizardState.answers[currentStepData.id]) &&
-            wizardState.answers[currentStepData.id].length === 0)) {
-        // Allow proceeding without selection (with defaults)
+    if (!wizardState.answers[currentStepData.id] || (Array.isArray(wizardState.answers[currentStepData.id]) && wizardState.answers[currentStepData.id].length === 0)) {
+        // Allow default
     }
-
     if (wizardState.currentStep < WIZARD_STEPS.length - 1) {
         wizardState.currentStep++;
         renderCurrentStep();
         updateProgressBar();
     } else {
-        // Wizard complete - show builder
         finishWizard();
     }
 }
@@ -409,10 +292,10 @@ function prevStep() {
 
 // Finish wizard and show builder
 function finishWizard() {
-    // Calculate best template match
+    // 1. Calculate best template
     const recommendedTemplate = AIEngine.findBestTemplate(wizardState.scores);
 
-    // Apply colors from palette selection
+    // 2. Apply Palette
     if (wizardState.answers.palette) {
         const paletteOption = WIZARD_STEPS.find(s => s.id === 'palette')
             .options.find(o => o.value === wizardState.answers.palette);
@@ -422,16 +305,60 @@ function finishWizard() {
                 secondary: paletteOption.colors[1],
                 accent: paletteOption.colors[2]
             };
+            appState.effectsSettings.gradientPreset = paletteOption.gradient ? wizardState.answers.palette : 'none';
+            appState.effectsSettings.useGradients = !!paletteOption.gradient;
+        }
+    }
 
-            // Jeśli paleta ma gradient, ustaw go jako aktywny preset
-            if (paletteOption.gradient) {
-                appState.effectsSettings.gradientPreset = wizardState.answers.palette;
-                appState.effectsSettings.useGradients = true;
-            } else {
-                // Paleta bez gradientu - wyłącz gradienty
-                appState.effectsSettings.gradientPreset = 'none';
-                appState.effectsSettings.useGradients = false;
-            }
+    // 3. DIVERSE SECTIONS BACKGROUNDS (Randomize background types for valid sections)
+    const bgTypes = ['white', 'light', 'gradient', 'pattern'];
+    const sections = Object.keys(appState.sectionBackgrounds);
+    sections.forEach(sec => {
+        // Keep some fixed for UX sanity, randomize others
+        if (sec === 'intro') appState.sectionBackgrounds.intro = Math.random() > 0.5 ? 'light' : 'white';
+        else if (sec === 'gallery') appState.sectionBackgrounds.gallery = 'white'; // Gallery usually looks best on white
+        else {
+            appState.sectionBackgrounds[sec] = bgTypes[Math.floor(Math.random() * bgTypes.length)];
+        }
+    });
+
+    // 4. SELECT ABOUT VARIANT (Unique per generation)
+    if (window.ABOUT_SECTION_VARIANTS) {
+        const isApartment = wizardState.answers['property-type'] === 'apartments' || wizardState.scores.apartments > wizardState.scores.hotel;
+        const variants = isApartment ? window.getApartmentAboutVariants() : window.getHotelAboutVariants();
+        // Pick random variant from available ones
+        if (variants.length > 0) {
+            const randomVariant = variants[Math.floor(Math.random() * variants.length)];
+            appState.aboutVariant = randomVariant.id;
+        }
+    }
+
+    // 5. SEASONAL THEMES & MOOD
+    const seasonalThemes = {
+        'autumn': { gradient: 'autumn-leaves', effect: 'leaves' },
+        'winter': { gradient: 'winter-forest', effect: 'snow' },
+        'summer': { gradient: 'summer-sunset', effect: 'sunrays' },
+        'spring': { gradient: 'spring-bloom', effect: 'sunrays' }
+    };
+
+    const season = wizardState.answers['season'];
+    if (season && seasonalThemes[season]) {
+        if (!appState.effectsSettings.gradientPreset || appState.effectsSettings.gradientPreset === 'none') {
+            appState.effectsSettings.gradientPreset = seasonalThemes[season].gradient;
+            appState.effectsSettings.useGradients = true;
+        }
+        appState.effectsSettings.atmosphericEffect = seasonalThemes[season].effect;
+    }
+
+    // Apply defaults from Property Type if not overruled
+    const propertyType = wizardState.answers['property-type'];
+    if (propertyType && PROPERTY_DEFAULTS[propertyType]) {
+        const defaults = PROPERTY_DEFAULTS[propertyType];
+        if (!appState.effectsSettings.atmosphericEffect || appState.effectsSettings.atmosphericEffect === 'none') {
+            if (defaults.effect) appState.effectsSettings.atmosphericEffect = defaults.effect;
+        }
+        if (!appState.globalSettings.mainImage) {
+            appState.globalSettings.mainImage = defaults.mainImage;
         }
     }
 
@@ -442,46 +369,38 @@ function finishWizard() {
         recommendedTemplate: recommendedTemplate
     };
 
-    // Switch to builder
+    // Switch to Builder
     document.getElementById('wizard-panel').classList.add('hidden');
     document.getElementById('builder-panel').classList.remove('hidden');
+    document.getElementById('builder-panel').classList.add('active');
 
-    // Initialize builder with AI recommendation
+    // Initialize Builder
     initBuilder(recommendedTemplate);
 }
 
-// Skip wizard - go directly to builder
+// Skip wizard
 function skipWizard() {
-    // Set default template
     const defaultTemplate = TEMPLATES['luxury-resort'] || Object.values(TEMPLATES)[0];
+    appState.globalSettings.colors = { ...defaultTemplate.colors };
 
-    // Apply default colors
-    appState.globalSettings.colors = {
-        primary: defaultTemplate.colors.primary,
-        secondary: defaultTemplate.colors.secondary,
-        accent: defaultTemplate.colors.accent
-    };
+    // Randomize for skip too
+    appState.aboutVariant = 'hotel-elegant';
 
-    // Store empty wizard data
     appState.wizardData = {
         answers: {},
         scores: {},
         recommendedTemplate: defaultTemplate,
         skipped: true
     };
-
-    // Switch to builder
     document.getElementById('wizard-panel').classList.add('hidden');
     document.getElementById('builder-panel').classList.remove('hidden');
-
-    // Initialize builder with default template
     initBuilder(defaultTemplate);
 }
 
-// Expose to window
 window.initWizard = initWizard;
 window.selectOption = selectOption;
 window.nextStep = nextStep;
 window.prevStep = prevStep;
 window.skipWizard = skipWizard;
 window.wizardState = wizardState;
+

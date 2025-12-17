@@ -71,7 +71,10 @@ const appState = {
         // Style kart
         cardStyle: 'elevated',    // 'flat' | 'elevated' | 'bordered' | 'glass'
         borderRadius: 'medium',   // 'none' | 'small' | 'medium' | 'large' | 'full'
-        shadowIntensity: 'medium' // 'none' | 'light' | 'medium' | 'strong'
+        shadowIntensity: 'medium', // 'none' | 'light' | 'medium' | 'strong'
+
+        // Efekty atmosferyczne
+        atmosphericEffect: 'none'  // 'none' | 'snow' | 'aurora' | 'rain' | 'drizzle' | 'sunrays' | 'leaves' | 'fireflies' | 'particles'
     },
     // ============================================
     // ROOMS DISPLAY SETTINGS
@@ -214,6 +217,20 @@ const appState = {
         cta: 'gradient',
         social: 'light',
         partners: 'white'
+    },
+    // ============================================
+    // OFFERS PAGE SETTINGS (for /offers subpage styling)
+    // ============================================
+    offersSettings: {
+        enabled: false,
+        filtersCollapsible: true,
+        filtersModern: true,
+        cardsHover: true,
+        cardsRounded: true,
+        cardsShadow: true,
+        buttonsRounded: true,
+        buttonsGradient: false,
+        background: 'white'
     }
 };
 
@@ -225,6 +242,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initApp() {
+    // Check for auto-saved project
+    checkAutoSave();
+
     // Initialize wizard
     initWizard();
 
@@ -242,6 +262,20 @@ function setupEventListeners() {
     // New project button
     document.getElementById('btn-new').addEventListener('click', resetApp);
 
+    // 7. Intensity Slider
+    document.getElementById('effect-intensity').addEventListener('input', (e) => {
+        const val = e.target.value;
+        document.getElementById('intensity-value').textContent = Math.round(val * 100) + '%';
+        appState.effectsSettings.intensity = val;
+
+        // Update live
+        if (window.VisualEffects) {
+            VisualEffects.setIntensity(val);
+        }
+    });
+
+    // 8. Generate Code
+    document.getElementById('btn-generate-code')?.addEventListener('click', generateCode);
     // Builder events (will be active after wizard)
     document.getElementById('btn-add-object')?.addEventListener('click', addNewObject);
     document.getElementById('btn-generate')?.addEventListener('click', generateCode);
@@ -287,6 +321,25 @@ function initBuilder(recommendation) {
         appState.globalSettings.fonts = { ...template.fonts };
         appState.enabledSections = [...template.sections];
 
+        // DIVERSITY: Randomize section order and enable optional sections
+        if (appState.wizardData && !appState.wizardData.skipped) {
+            // 1. Randomly add optional sections that fit the theme
+            const optionalSections = ['attractions', 'testimonials', 'faq', 'dining', 'spa', 'events', 'transport', 'rules', 'cta'];
+            optionalSections.forEach(sec => {
+                if (!appState.enabledSections.includes(sec) && Math.random() > 0.6) {
+                    appState.enabledSections.push(sec);
+                }
+            });
+
+            // 2. Shuffle sections (keep Intro first)
+            const contentSections = appState.enabledSections.filter(s => s !== 'intro');
+            for (let i = contentSections.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [contentSections[i], contentSections[j]] = [contentSections[j], contentSections[i]];
+            }
+            appState.enabledSections = ['intro', ...contentSections];
+        }
+
         // Update AI recommendation UI
         document.getElementById('ai-template-name').textContent = template.name;
         document.getElementById('ai-template-desc').textContent = template.description;
@@ -327,6 +380,40 @@ function initBuilder(recommendation) {
 
     // Initialize preview
     Preview.init();
+
+    // ============================================
+    // SYNC UI WITH STATE (Phase D & E)
+    // ============================================
+
+    // 1. Hero Content
+    if (appState.sectionContent?.intro) {
+        if (appState.sectionContent.intro.title) {
+            document.getElementById('hero-title').value = appState.sectionContent.intro.title;
+        }
+        if (appState.sectionContent.intro.subtitle) {
+            document.getElementById('hero-subtitle').value = appState.sectionContent.intro.subtitle;
+        }
+        if (appState.sectionContent.intro.description) {
+            document.getElementById('property-desc').value = appState.sectionContent.intro.description;
+        }
+    }
+
+    // 2. Main Image
+    if (appState.globalSettings.mainImage) {
+        const imgUrl = appState.globalSettings.mainImage;
+        document.getElementById('hero-image').value = imgUrl;
+        const previewEl = document.getElementById('hero-image-preview');
+        if (previewEl) {
+            previewEl.style.backgroundImage = `url('${imgUrl}')`;
+        }
+    }
+
+    // 3. Atmospheric Effects UI
+    const currentEffect = appState.effectsSettings.atmosphericEffect || 'none';
+    const effectRadio = document.querySelector(`input[name="atmospheric-effect"][value="${currentEffect}"]`);
+    if (effectRadio) {
+        effectRadio.checked = true;
+    }
 }
 
 function renderSectionsChecklist() {
@@ -504,6 +591,22 @@ function renderSectionEditorForm(sectionId, content) {
     // Zawsze dodawaj pola tytuł i podtytuł dla sekcji
     const defaultContent = appState.sectionContent[sectionId] || {};
     const mergedContent = { ...defaultContent, ...content };
+
+
+    // Wariant sekcji (tylko dla intro)
+    if (sectionId === 'intro' && window.ABOUT_SECTION_VARIANTS) {
+        const currentVariant = appState.aboutVariant || 'hotel-elegant';
+        html += `
+            <div class="form-group">
+                <label>Wariant układu</label>
+                <select id="intro-variant-select" class="form-control">
+                    ${Object.values(window.ABOUT_SECTION_VARIANTS).map(v =>
+            `<option value="${v.id}" ${v.id === currentVariant ? 'selected' : ''}>${v.name}</option>`
+        ).join('')}
+                </select>
+            </div>
+        `;
+    }
 
     // Tytuł sekcji - zawsze pokazuj
     html += `
@@ -692,6 +795,15 @@ function saveSectionContent() {
     if (subtitleEl) content.subtitle = subtitleEl.value;
     if (descEl) content.description = descEl.value;
 
+    // Save Intro Variant
+    if (sectionId === 'intro') {
+        const variantSelect = document.getElementById('intro-variant-select');
+        if (variantSelect) {
+            appState.aboutVariant = variantSelect.value;
+            console.log('Saved About Variant:', appState.aboutVariant);
+        }
+    }
+
     // Get section-specific fields
     switch (sectionId) {
         case 'attractions':
@@ -757,94 +869,53 @@ function closeSectionEditor() {
 // OBJECTS MANAGEMENT
 // ============================================
 function addDefaultObjects() {
-    const defaultRooms = [
-        {
-            id: appState.nextObjectId++,
-            name: 'Pokój Standard',
-            description: 'Przytulny pokój z wszystkim, czego potrzebujesz na komfortowy wypoczynek.',
-            price: '199 zł',
-            images: [
-                'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=600',
-                'https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=600',
-                'https://images.pexels.com/photos/210265/pexels-photo-210265.jpeg?auto=compress&cs=tinysrgb&w=600'
-            ],
-            amenities: ['wifi', 'tv', 'air-conditioning', 'private-bathroom'],
-            badge: 'Popularny',
-            category: 'standard'
-        },
-        {
-            id: appState.nextObjectId++,
-            name: 'Pokój z Widokiem na Morze',
-            description: 'Piękny pokój z panoramicznym widokiem na morze. Idealne miejsce aby podziwiać wschody i zachody słońca.',
-            price: '349 zł',
-            images: [
-                'https://images.pexels.com/photos/1578253/pexels-photo-1578253.jpeg?auto=compress&cs=tinysrgb&w=600',
-                'https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?auto=compress&cs=tinysrgb&w=600',
-                'https://images.pexels.com/photos/276671/pexels-photo-276671.jpeg?auto=compress&cs=tinysrgb&w=600'
-            ],
-            amenities: ['wifi', 'tv', 'air-conditioning', 'private-bathroom', 'balcony', 'sea-view'],
-            badge: 'Widok na morze',
-            category: 'sea-view'
-        },
-        {
-            id: appState.nextObjectId++,
-            name: 'Pokój Deluxe Górski',
-            description: 'Przestronny pokój z widokiem na góry. Doskonały dla miłośników natury.',
-            price: '399 zł',
-            images: [
-                'https://images.pexels.com/photos/1743231/pexels-photo-1743231.jpeg?auto=compress&cs=tinysrgb&w=600',
-                'https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=600',
-                'https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?auto=compress&cs=tinysrgb&w=600'
-            ],
-            amenities: ['wifi', 'tv', 'air-conditioning', 'private-bathroom', 'minibar', 'safe', 'mountain-view'],
-            badge: 'Widok na góry',
-            category: 'mountain'
-        },
-        {
-            id: appState.nextObjectId++,
-            name: 'Apartament Family',
-            description: 'Dwupokojowy apartament idealny dla rodzin z dziećmi, z aneksem kuchennym.',
-            price: '499 zł',
-            images: [
-                'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600',
-                'https://images.pexels.com/photos/1571468/pexels-photo-1571468.jpeg?auto=compress&cs=tinysrgb&w=600',
-                'https://images.pexels.com/photos/276583/pexels-photo-276583.jpeg?auto=compress&cs=tinysrgb&w=600'
-            ],
-            amenities: ['wifi', 'tv', 'air-conditioning', 'private-bathroom', 'kitchen', 'washing-machine'],
-            badge: 'Dla rodzin',
-            category: 'standard'
-        },
-        {
-            id: appState.nextObjectId++,
-            name: 'Suite Romantyczny',
-            description: 'Elegancki apartament dla par z wanną wolnostojącą i romantycznym wystrojem.',
-            price: '599 zł',
-            images: [
-                'https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=600',
-                'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=600',
-                'https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg?auto=compress&cs=tinysrgb&w=600'
-            ],
-            amenities: ['wifi', 'tv', 'air-conditioning', 'private-bathroom', 'bathtub', 'champagne', 'bathrobe'],
-            badge: 'Dla par',
-            category: 'premium'
-        },
-        {
-            id: appState.nextObjectId++,
-            name: 'Penthouse VIP',
-            description: 'Ekskluzywny apartament z tarasem, jacuzzi i panoramicznym widokiem.',
-            price: '899 zł',
-            images: [
-                'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=600',
-                'https://images.pexels.com/photos/1329711/pexels-photo-1329711.jpeg?auto=compress&cs=tinysrgb&w=600',
-                'https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg?auto=compress&cs=tinysrgb&w=600'
-            ],
-            amenities: ['wifi', 'tv', 'air-conditioning', 'private-bathroom', 'jacuzzi', 'terrace', 'butler', 'champagne'],
-            badge: 'VIP',
-            category: 'premium'
-        }
-    ];
+    // Get property type from wizard data
+    let propertyType = 'hotel-3star'; // default
 
-    defaultRooms.forEach(room => appState.objects.push(room));
+    if (appState.wizardData) {
+        // Map wizard property-type answers to preset keys
+        const typeMapping = {
+            'hotel-3': 'hotel-3star',
+            'hotel-4': 'hotel-4star',
+            'hotel-5': 'hotel-5star',
+            'boutique': 'boutique',
+            'pension': 'pension',
+            'hostel': 'hostel',
+            'apartments': 'apartments',
+            'resort': 'resort',
+            'glamping': 'glamping',
+            'bnb': 'pension',           // B&B -> Pensjonat preset
+            'motel': 'hostel',          // Motel -> Hostel preset (budget)
+            'villa': 'boutique',        // Willa -> Boutique preset
+            'chalet': 'gorski',         // Domek górski -> Górski preset
+            'cottage': 'agroturystyka', // Domek letniskowy -> Agro preset
+            'farm-stay': 'agroturystyka' // Agroturystyka
+        };
+
+        const wizardType = appState.wizardData['property-type'];
+        if (wizardType && typeMapping[wizardType]) {
+            propertyType = typeMapping[wizardType];
+        }
+    }
+
+    // Get rooms from presets
+    let presetRooms = [];
+    if (window.ROOM_PRESETS && window.ROOM_PRESETS[propertyType]) {
+        presetRooms = window.ROOM_PRESETS[propertyType].rooms;
+    } else {
+        // Fallback to hotel-3star if preset not found
+        presetRooms = window.ROOM_PRESETS?.['hotel-3star']?.rooms || [];
+    }
+
+    // Add rooms with unique IDs
+    presetRooms.forEach(room => {
+        appState.objects.push({
+            ...room,
+            id: appState.nextObjectId++
+        });
+    });
+
+    console.log(`✅ Loaded ${presetRooms.length} rooms from preset: ${propertyType}`);
     renderObjectsGrid();
 }
 
@@ -1082,10 +1153,30 @@ function toggleFullscreen() {
 // ============================================
 // CODE GENERATION
 // ============================================
-function generateCode() {
+async function generateCode() {
     // Collect data
     const objects = appState.objects;
     const enabledSections = appState.enabledSections;
+
+    // Fetch Visual Effects Script for Inlining
+    let effectsLib = '';
+    try {
+        const res = await fetch('js/visual-effects.js');
+        if (res.ok) {
+            let text = await res.text();
+            // Minify: Remove comments and trim whitespace to save space in CMS
+            effectsLib = text
+                .replace(/\/\*[\s\S]*?\*\//g, '')     // Remove block comments
+                .replace(/\/\/.*$/gm, '')            // Remove line comments
+                .replace(/^\s*[\r\n]/gm, '')         // Remove empty lines
+                .replace(/\s+/g, ' ')                // Collapse whitespace
+                .trim();
+        } else {
+            console.warn('Failed to load visual-effects.js');
+        }
+    } catch (e) {
+        console.error('Error loading visual-effects.js for inline:', e);
+    }
 
     // Generate all parts
     const settings = {
@@ -1094,8 +1185,30 @@ function generateCode() {
     };
     const head = TemplateEngine.generateHead(settings);
     const sections = TemplateEngine.generateSections(settings, objects, enabledSections);
-    const styles = CSSEngine.generate(settings, appState.effectsSettings, appState.sectionBackgrounds);
-    const scripts = generateScriptsFile();
+
+    // Generate main CSS
+    let styles = '';
+    try {
+        styles = CSSEngine.generate(settings, appState.effectsSettings, appState.sectionBackgrounds);
+    } catch (e) {
+        console.error('Error generating main CSS:', e);
+        styles = '/* CSS generation error: ' + e.message + ' */';
+    }
+
+    // Generate /offers page CSS if enabled
+    let offersCSS = '';
+    try {
+        offersCSS = CSSEngine.generateOffersPageCSS(settings, appState.effectsSettings, appState.offersSettings);
+        if (offersCSS) {
+            styles += `
+
+${offersCSS}`;
+        }
+    } catch (e) {
+        console.error('Error generating /offers CSS:', e);
+    }
+
+    const scripts = generateScriptsFile(effectsLib);
 
     // Generate subpage (body-only content)
     const subpage = generateSubpageCode(settings, objects, enabledSections, styles, scripts);
@@ -1111,36 +1224,88 @@ function generateCode() {
     document.getElementById('export-modal').classList.remove('hidden');
 }
 
-function generateScriptsFile() {
+// Generate subpage code (body-only content for CMS subpages)
+function generateSubpageCode(settings, objects, enabledSections, styles, scripts) {
+    // Generate only body sections without header/footer
+    const sectionsHTML = TemplateEngine.generateSections(settings, objects, enabledSections);
+
+    return `<!-- ============================================
+     ${settings.propertyName || 'Nazwa Obiektu'} - KOD PODSTRONY
+     
+     Wklej jako nową podstronę w CMS (tylko zawartość BODY)
+     ============================================ -->
+
+${sectionsHTML}
+
+<!-- Inline styles for subpage -->
+<style>
+${styles}
+</style>
+
+${scripts}`;
+}
+
+function generateScriptsFile(effectsLib) {
+    const effect = appState.effectsSettings.atmosphericEffect || 'none';
+
+    // Decide whether to inline or link
+    let effectsScriptTag = '';
+    if (effectsLib) {
+        effectsScriptTag = `<!-- Inlined Visual Effects -->
+<script>
+${effectsLib}
+</script>`;
+    } else {
+        effectsScriptTag = `<!-- External Effects Script (Fallback) -->
+<script src="https://cisek25.github.io/IdoBooking/js/visual-effects.js"></script>`;
+    }
+
     return `<!-- ============================================
      ${appState.globalSettings.propertyName || 'Nazwa Obiektu'} - SCRIPTS
      
      Wklej w panelu CMS → Koniec sekcji body
      ============================================ -->
 
+${effectsScriptTag}
+
 <script>
-// Lightbox - powiększanie zdjęć w galerii
-function openLightbox(element) {
-    var img = element.querySelector('img');
-    var lightbox = document.getElementById('lightbox');
-    var lightboxImg = document.getElementById('lightbox-img');
-    lightboxImg.src = img.src;
-    lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
+(function() {
+    function initEffects() {
+        if (window.VisualEffects && '${effect}' !== 'none') {
+            VisualEffects.setIntensity(${appState.effectsSettings.intensity || 1.0});
+            VisualEffects.start('${effect}', document.body);
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initEffects);
+    } else {
+        initEffects();
+    }
+
+    // 2. Gallery Lightbox
+    window.openLightbox = function(element) {
+        var img = element.querySelector('img');
+        var lightbox = document.getElementById('lightbox');
+        var lightboxImg = document.getElementById('lightbox-img');
+        if(lightbox && lightboxImg) {
+            lightboxImg.src = img.src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    };
+    
+    window.closeLightbox = function() {
+        var lightbox = document.getElementById('lightbox');
+        if(lightbox) {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    };
+})();
+</script>`;
 }
 
-function closeLightbox() {
-    var lightbox = document.getElementById('lightbox');
-    lightbox.classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-// Zamknij lightbox klawiszem Escape
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeLightbox();
-});
-<\/script>`;
-}
 
 // ============================================
 // EXPORT FUNCTIONS
@@ -1208,8 +1373,15 @@ function generateSubpage() {
 
     console.log('Generating subpage for sections:', selectedSections);
 
+    // Get settings and objects
+    const settings = {
+        ...appState.globalSettings,
+        propertyName: appState.globalSettings.propertyName || 'Nazwa Obiektu'
+    };
+    const objects = appState.objects;
+
     // Generate HTML for selected sections
-    const bodyHTML = TemplateEngine.generateSections(selectedSections);
+    const bodyHTML = TemplateEngine.generateSections(settings, objects, selectedSections);
 
     // Generate CSS
     const css = CSSEngine.generate(appState.globalSettings, appState.effectsSettings, appState.sectionBackgrounds);
@@ -1277,6 +1449,165 @@ function resetApp() {
 
     initWizard();
 }
+
+// ============================================
+// PROJECT SAVE / LOAD
+// ============================================
+const AUTOSAVE_KEY = 'idobooking-generator-autosave';
+
+function saveProject() {
+    const projectData = {
+        version: '4.0',
+        savedAt: new Date().toISOString(),
+        appState: {
+            mode: appState.mode,
+            wizardData: appState.wizardData,
+            globalSettings: appState.globalSettings,
+            effectsSettings: appState.effectsSettings,
+            roomsSettings: appState.roomsSettings,
+            sectionContent: appState.sectionContent,
+            objects: appState.objects,
+            enabledSections: appState.enabledSections,
+            nextObjectId: appState.nextObjectId,
+            sectionBackgrounds: appState.sectionBackgrounds
+        }
+    };
+
+    const json = JSON.stringify(projectData, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `idobooking-project-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    console.log('✅ Project saved');
+}
+
+function loadProject() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+
+    input.onchange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                const projectData = JSON.parse(event.target.result);
+
+                if (!projectData.appState) {
+                    alert('Nieprawidłowy format pliku projektu!');
+                    return;
+                }
+
+                // Restore state
+                Object.assign(appState, projectData.appState);
+
+                // Switch to builder mode
+                document.getElementById('wizard-panel').classList.add('hidden');
+                document.getElementById('builder-panel').classList.remove('hidden');
+
+                // Refresh UI
+                renderSectionsChecklist();
+                renderObjectsGrid();
+                renderFaqList();
+                Preview.render();
+
+                console.log('✅ Project loaded from:', projectData.savedAt);
+                alert('Projekt wczytany pomyślnie!');
+            } catch (err) {
+                console.error('Error loading project:', err);
+                alert('Błąd podczas wczytywania projektu!');
+            }
+        };
+        reader.readAsText(file);
+    };
+
+    input.click();
+}
+
+function autoSave() {
+    if (appState.mode !== 'builder') return;
+
+    const projectData = {
+        version: '4.0',
+        savedAt: new Date().toISOString(),
+        appState: {
+            mode: appState.mode,
+            wizardData: appState.wizardData,
+            globalSettings: appState.globalSettings,
+            effectsSettings: appState.effectsSettings,
+            roomsSettings: appState.roomsSettings,
+            sectionContent: appState.sectionContent,
+            objects: appState.objects,
+            enabledSections: appState.enabledSections,
+            nextObjectId: appState.nextObjectId,
+            sectionBackgrounds: appState.sectionBackgrounds
+        }
+    };
+
+    try {
+        localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(projectData));
+        console.log('💾 Auto-saved project');
+    } catch (err) {
+        console.error('Auto-save failed:', err);
+    }
+}
+
+function checkAutoSave() {
+    try {
+        const saved = localStorage.getItem(AUTOSAVE_KEY);
+        if (!saved) return;
+
+        const projectData = JSON.parse(saved);
+        const savedDate = new Date(projectData.savedAt);
+        const now = new Date();
+        const hoursSince = (now - savedDate) / (1000 * 60 * 60);
+
+        // Only offer to restore if saved less than 24 hours ago
+        if (hoursSince < 24) {
+            const restore = confirm(`Znaleziono zapisany projekt z ${savedDate.toLocaleString()}.\n\nCzy chcesz go przywrócić?`);
+
+            if (restore) {
+                Object.assign(appState, projectData.appState);
+
+                // Switch to builder mode
+                document.getElementById('wizard-panel').classList.add('hidden');
+                document.getElementById('builder-panel').classList.remove('hidden');
+
+                renderSectionsChecklist();
+                renderObjectsGrid();
+                renderFaqList();
+                Preview.render();
+
+                console.log('✅ Restored from auto-save');
+            }
+        }
+    } catch (err) {
+        console.error('Error checking auto-save:', err);
+    }
+}
+
+function clearAutoSave() {
+    localStorage.removeItem(AUTOSAVE_KEY);
+    console.log('🗑️ Auto-save cleared');
+}
+
+// Auto-save every 30 seconds when in builder mode
+setInterval(autoSave, 30000);
+
+// Expose save/load functions
+window.saveProject = saveProject;
+window.loadProject = loadProject;
+window.checkAutoSave = checkAutoSave;
+window.clearAutoSave = clearAutoSave;
 
 // ============================================
 // EXPOSE TO WINDOW
@@ -1349,6 +1680,13 @@ function selectTemplate(templateId) {
     Preview.debouncedRender();
 }
 window.selectTemplate = selectTemplate;
+
+function updateTextContrast(value) {
+    if (!appState.effectsSettings) appState.effectsSettings = {};
+    appState.effectsSettings.textContrast = value;
+    Preview.debouncedRender();
+}
+window.updateTextContrast = updateTextContrast;
 
 // ============================================
 // APPLY AI SUGGESTION WITH FEEDBACK
@@ -1580,6 +1918,73 @@ window.slideRooms = slideRooms;
 window.goToSlide = goToSlide;
 
 // ============================================
+// ATMOSPHERIC EFFECTS
+// ============================================
+function setAtmosphericEffect(effectType) {
+    appState.effectsSettings.atmosphericEffect = effectType;
+    console.log('🌨️ Atmospheric effect set to:', effectType);
+
+    // Re-render preview to apply effect
+    Preview.debouncedRender();
+}
+
+window.setAtmosphericEffect = setAtmosphericEffect;
+
+// ============================================
+// MAIN CONTENT UPDATES
+// ============================================
+function updateHeroContent(field, value) {
+    // Ensure structure exists
+    if (!appState.sectionContent) appState.sectionContent = {};
+    if (!appState.sectionContent.intro) appState.sectionContent.intro = {};
+
+    // Update specific field
+    if (field === 'title') {
+        appState.sectionContent.intro.title = value;
+    } else if (field === 'subtitle') {
+        appState.sectionContent.intro.subtitle = value;
+    } else if (field === 'description') {
+        appState.sectionContent.intro.description = value;
+    } else if (field === 'image') {
+        appState.globalSettings.mainImage = value;
+        // Update preview thumbnail
+        const previewEl = document.getElementById('hero-image-preview');
+        if (previewEl) {
+            previewEl.style.backgroundImage = `url('${value}')`;
+        }
+    }
+
+    console.log(`✏️ Updated hero ${field}:`, value);
+    Preview.debouncedRender();
+}
+
+window.updateHeroContent = updateHeroContent;
+
+
+// ============================================
+// OFFERS PAGE STYLING
+// ============================================
+function toggleOffersPageStyling(enabled) {
+    appState.offersSettings.enabled = enabled;
+
+    // Show/hide options
+    const optionsEl = document.getElementById('offers-options');
+    if (optionsEl) {
+        optionsEl.style.display = enabled ? 'block' : 'none';
+    }
+
+    console.log(`📋 Offers page styling ${enabled ? 'enabled' : 'disabled'}`);
+}
+
+function updateOffersSetting(setting, value) {
+    appState.offersSettings[setting] = value;
+    console.log(`📋 Updated offers setting ${setting}:`, value);
+}
+
+window.toggleOffersPageStyling = toggleOffersPageStyling;
+window.updateOffersSetting = updateOffersSetting;
+
+// ============================================
 // COLLAPSIBLE SECTIONS
 // ============================================
 function initCollapsibleSections() {
@@ -1593,8 +1998,283 @@ function initCollapsibleSections() {
     });
 }
 
+// Toggle FAQ Editor Panel
+function toggleFaqEditor() {
+    const panel = document.getElementById('faq-editor-panel');
+    if (panel) {
+        panel.classList.toggle('collapsed');
+    }
+}
+
+window.toggleFaqEditor = toggleFaqEditor;
+
+// Setup fullscreen button listener and collapsible sections
 // Setup fullscreen button listener and collapsible sections
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-fullscreen')?.addEventListener('click', toggleFullscreen);
     initCollapsibleSections();
+    renderGradientButtons();
 });
+
+// ============================================
+// ATMOSPHERIC EFFECT DURATION CONTROLS
+// ============================================
+let effectDurationTimeout = null;
+
+function updateEffectDuration(value) {
+    const valueEl = document.getElementById('duration-value');
+    if (valueEl) {
+        valueEl.textContent = value + 's';
+    }
+
+    appState.effectsSettings.effectDuration = parseInt(value);
+
+    // If not permanent, schedule effect stop
+    const permanentCheck = document.getElementById('effect-permanent');
+    if (permanentCheck && !permanentCheck.checked) {
+        scheduleEffectStop(parseInt(value));
+    }
+}
+
+function togglePermanentEffect(isPermanent) {
+    const durationRange = document.getElementById('effect-duration');
+    const durationValue = document.getElementById('duration-value');
+
+    if (isPermanent) {
+        if (durationRange) durationRange.disabled = true;
+        if (durationValue) durationValue.textContent = '∞';
+
+        // Cancel any scheduled stop
+        if (effectDurationTimeout) {
+            clearTimeout(effectDurationTimeout);
+            effectDurationTimeout = null;
+        }
+
+        appState.effectsSettings.effectPermanent = true;
+    } else {
+        if (durationRange) durationRange.disabled = false;
+        const duration = durationRange ? parseInt(durationRange.value) : 30;
+        if (durationValue) durationValue.textContent = duration + 's';
+
+        appState.effectsSettings.effectPermanent = false;
+        scheduleEffectStop(duration);
+    }
+}
+
+function scheduleEffectStop(seconds) {
+    // Clear any existing timeout
+    if (effectDurationTimeout) {
+        clearTimeout(effectDurationTimeout);
+    }
+
+    effectDurationTimeout = setTimeout(() => {
+        // Stop the effect
+        if (window.VisualEffects) {
+            VisualEffects.destroy();
+        }
+
+        // Reset the radio buttons
+        const noneRadio = document.querySelector('input[name="atmospheric-effect"][value="none"]');
+        if (noneRadio) noneRadio.checked = true;
+
+        appState.effectsSettings.atmosphericEffect = 'none';
+
+        // Hide duration controls
+        const durationControls = document.getElementById('effect-duration-controls');
+        if (durationControls) durationControls.style.display = 'none';
+
+        console.log('⏰ Effect duration expired');
+    }, seconds * 1000);
+}
+
+// Extend setAtmosphericEffect to show duration controls
+const originalSetAtmosphericEffect = window.setAtmosphericEffect;
+window.setAtmosphericEffect = function (effectType) {
+    originalSetAtmosphericEffect(effectType);
+
+    const durationControls = document.getElementById('effect-duration-controls');
+    if (durationControls) {
+        durationControls.style.display = effectType === 'none' ? 'none' : 'block';
+    }
+
+    // Start with permanent by default
+    const permanentCheck = document.getElementById('effect-permanent');
+    if (permanentCheck && permanentCheck.checked && effectType !== 'none') {
+        // Already permanent, no action needed
+    } else if (!permanentCheck?.checked && effectType !== 'none') {
+        // Schedule stop based on current duration
+        const durationRange = document.getElementById('effect-duration');
+        const duration = durationRange ? parseInt(durationRange.value) : 30;
+        scheduleEffectStop(duration);
+    }
+};
+
+window.updateEffectDuration = updateEffectDuration;
+window.togglePermanentEffect = togglePermanentEffect;
+
+// ============================================
+// IMPROVED AUTO-RECOVERY WITH STYLED NOTIFICATION
+// ============================================
+function showRecoveryNotification(savedDate) {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = 'recovery-notification';
+    notification.innerHTML = `
+        <i class="fas fa-clock-rotate-left" style="font-size: 1.5rem;"></i>
+        <div>
+            <strong>Znaleziono zapisany projekt</strong>
+            <div style="font-size: 0.85rem; opacity: 0.9;">z ${savedDate.toLocaleString()}</div>
+        </div>
+        <button onclick="restoreAutoSave()" style="margin-left: auto;">
+            <i class="fas fa-undo"></i> Przywróć
+        </button>
+        <button class="dismiss-btn" onclick="dismissRecovery()">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+
+    document.body.appendChild(notification);
+}
+
+function restoreAutoSave() {
+    try {
+        const saved = localStorage.getItem(AUTOSAVE_KEY);
+        if (!saved) return;
+
+        const projectData = JSON.parse(saved);
+        Object.assign(appState, projectData.appState);
+
+        // Switch to builder mode
+        document.getElementById('wizard-panel').classList.add('hidden');
+        document.getElementById('builder-panel').classList.remove('hidden');
+
+        renderSectionsChecklist();
+        renderObjectsGrid();
+        renderFaqList();
+        Preview.render();
+
+        // Sync UI with restored state
+        if (appState.globalSettings.colors) {
+            document.getElementById('color-primary').value = appState.globalSettings.colors.primary;
+            document.getElementById('color-secondary').value = appState.globalSettings.colors.secondary;
+            document.getElementById('color-accent').value = appState.globalSettings.colors.accent;
+        }
+
+        console.log('✅ Restored from auto-save');
+
+        // Show success indicator
+        showAutoSaveIndicator('Projekt przywrócony!');
+    } catch (err) {
+        console.error('Error restoring auto-save:', err);
+    }
+
+    // Remove notification
+    dismissRecovery();
+}
+
+function dismissRecovery() {
+    const notification = document.querySelector('.recovery-notification');
+    if (notification) {
+        notification.remove();
+    }
+}
+
+function showAutoSaveIndicator(message) {
+    const indicator = document.createElement('div');
+    indicator.className = 'auto-save-indicator';
+    indicator.innerHTML = `<i class="fas fa-check-circle"></i> ${message || 'Zapisano automatycznie'}`;
+    document.body.appendChild(indicator);
+
+    // Remove after animation
+    setTimeout(() => indicator.remove(), 2000);
+}
+
+// Override checkAutoSave to use styled notification
+const originalCheckAutoSave = window.checkAutoSave;
+window.checkAutoSave = function () {
+    try {
+        const saved = localStorage.getItem(AUTOSAVE_KEY);
+        if (!saved) return;
+
+        const projectData = JSON.parse(saved);
+        const savedDate = new Date(projectData.savedAt);
+        const now = new Date();
+        const hoursSince = (now - savedDate) / (1000 * 60 * 60);
+
+        // Only offer to restore if saved less than 24 hours ago
+        if (hoursSince < 24) {
+            showRecoveryNotification(savedDate);
+        }
+    } catch (err) {
+        console.error('Error checking auto-save:', err);
+    }
+};
+
+window.restoreAutoSave = restoreAutoSave;
+window.dismissRecovery = dismissRecovery;
+window.showAutoSaveIndicator = showAutoSaveIndicator;
+
+// ============================================
+// AUTO-SAVE ON SIGNIFICANT CHANGES
+// ============================================
+// Debounced auto-save on changes
+let autoSaveDebounceTimer = null;
+function triggerAutoSave() {
+    if (appState.mode !== 'builder') return;
+
+    if (autoSaveDebounceTimer) {
+        clearTimeout(autoSaveDebounceTimer);
+    }
+
+    autoSaveDebounceTimer = setTimeout(() => {
+        autoSave();
+        showAutoSaveIndicator();
+    }, 5000); // Wait 5 seconds after last change
+}
+
+// Make links open in new tab to preserve project
+document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href^="http"]');
+    if (link && appState.mode === 'builder') {
+        // Auto-save before navigating
+        autoSave();
+
+        // Ensure external links open in new tab
+        if (!link.hasAttribute('target')) {
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener noreferrer');
+        }
+    }
+});
+
+function renderGradientButtons() {
+    const categories = {
+        warm: ['sunset', 'coral', 'rose-gold', 'volcano', 'sahara', 'terracotta', 'coffee', 'copper', 'peach', 'amber', 'sunset-vibes', 'sandy-gold', 'desert-gold', 'golden-sands', 'autumn-glow', 'summer-heat', 'cherry-blossom', 'blush'],
+        cool: ['ocean', 'arctic', 'midnight', 'twilight', 'marine', 'peacock', 'steel', 'ice', 'azure', 'neptune', 'morning-dew', 'deep-ocean', 'northern-lights', 'mystic-river', 'winter-blues', 'aqua-splash'],
+        luxury: ['aurora', 'royal', 'lavender', 'champagne', 'cyberpunk', 'wine', 'neon', 'candy', 'galaxy', 'noir', 'velvet', 'plum', 'royal-velvet', 'mystic-mauve', 'urban-night', 'dark-volcano', 'silver-lining', 'bronze', 'midnight-bloom', 'berry-juice'],
+        seasonal: ['arctic-frost', 'polar-night', 'frozen-lake', 'winter-forest', 'nordic-lights', 'snowstorm', 'ice-cave', 'frosty-morning', 'glacial', 'christmas', 'midnight-city', 'autumn-leaves', 'harvest', 'spring-bloom', 'summer-sunset', 'tropical-paradise', 'mountain-dawn', 'ocean-breeze', 'forest-mist', 'desert-dusk', 'lavender-fields', 'rainy-day', 'golden-hour', 'mountain-mist', 'tropical-jungle']
+    };
+
+    const presets = CSSEngine.gradientPresets;
+
+    Object.keys(categories).forEach(cat => {
+        const container = document.querySelector(`.gradients-grid[data-category="${cat}"]`);
+        if (!container) return;
+
+        let html = '';
+        categories[cat].forEach(key => {
+            const gradient = presets[key];
+            if (gradient) {
+                html += `
+                    <button class="gradient-btn ${appState.effectsSettings.gradientPreset === key ? 'active' : ''}" 
+                            data-gradient="${key}" 
+                            onclick="setGradient('${key}')" 
+                            title="${key}">
+                        <span style="background: ${gradient}"></span>
+                    </button>`;
+            }
+        });
+        container.innerHTML = html;
+    });
+}
+window.renderGradientButtons = renderGradientButtons;
