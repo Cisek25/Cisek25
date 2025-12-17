@@ -569,6 +569,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// Resize Listener
+let resizeTimer;
+window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+        Object.keys(sliderStates).forEach(function(id) {
+            updateSliderPosition(id, false);
+        });
+    }, 200);
+});
 <\/script>`;
     },
 

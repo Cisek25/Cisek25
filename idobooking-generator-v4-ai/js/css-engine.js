@@ -867,14 +867,19 @@ ${effectsSettings.hoverEffects?.flipCards ? '' : `
     display: flex;
     gap: var(--space-6);
     transition: transform 0.5s ease;
-    padding: 10px 0; /* Prevent shadow clipping */
+    padding: 20px 0 40px 0; /* More padding for shadows */
+    width: 100%; /* Ensure track takes full width */
+}
+
+/* Ensure global box sizing for preview components */
+.rooms-slider *, .amenities-slider * {
+    box-sizing: border-box;
 }
 
 .rooms-slider .room-card {
     min-width: calc((100% - 2 * var(--space-6)) / 3);
     max-width: calc((100% - 2 * var(--space-6)) / 3);
     flex-shrink: 0;
-    box-sizing: border-box;
 }
 
 /* AMENITIES SLIDER */
@@ -889,13 +894,15 @@ ${effectsSettings.hoverEffects?.flipCards ? '' : `
     overflow: hidden;
     flex: 1;
     width: 100%;
+    padding: 0 5px; /* Tiny padding to prevent edge clipping of container */
 }
 
 .amenities-slider-track {
     display: flex;
     gap: var(--space-6);
     transition: transform 0.5s ease;
-    padding: 10px 0;
+    padding: 20px 0 30px 0;
+    width: 100%;
 }
 
 .amenities-slider .amenity-card {

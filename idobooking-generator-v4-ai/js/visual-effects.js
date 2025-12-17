@@ -392,50 +392,68 @@ const VisualEffects = {
     },
 
     // ============================================
-    // SUNRAYS EFFECT ☀️ (God Rays from top right)
+    // SUNRAYS EFFECT ☀️ (God Rays - Subtle, Angled, No Orb)
     // ============================================
     initSunrays() {
         this.rays = [];
-        const rayCount = 8;
+        const rayCount = 5;
+        // Create wide, subtle beams
         for (let i = 0; i < rayCount; i++) {
             this.rays.push({
-                angle: (Math.PI / 4) + (Math.random() - 0.5) * 0.5, // Around 45 degrees
-                width: Math.random() * 100 + 50,
-                length: Math.random() * this.canvas.height * 1.5 + this.canvas.height, // Very long
-                speed: (Math.random() - 0.5) * 0.002,
-                opacity: Math.random() * 0.2 + 0.1
+                x: this.canvas.width * 0.8 + (Math.random() * 200 - 100), // Top right area
+                y: -100,
+                angle: Math.PI / 3 + (Math.random() * 0.2 - 0.1), // Angled down-left
+                width: Math.random() * 150 + 100,
+                length: this.canvas.height * 1.5,
+                alpha: Math.random() * 0.15 + 0.05,
+                speed: Math.random() * 0.002 + 0.001
             });
         }
+        this.sunTime = 0;
     },
 
     drawSunrays() {
-        const cx = this.canvas.width + 100; // Source from top right, offscreen
-        const cy = -100;
+        this.sunTime += 0.01;
 
+        // 1. Warm overlay gradient (top-right corner)
+        const overlayGrad = this.ctx.createLinearGradient(
+            this.canvas.width, 0,
+            this.canvas.width * 0.5, this.canvas.height * 0.5
+        );
+        overlayGrad.addColorStop(0, `rgba(255, 240, 200, ${0.15 * this.intensity})`);
+        overlayGrad.addColorStop(1, 'rgba(255, 240, 200, 0)');
+
+        this.ctx.fillStyle = overlayGrad;
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+        // 2. Draw Rays
         this.ctx.save();
-        this.ctx.translate(cx, cy);
+        this.rays.forEach((ray, i) => {
+            // Pulse opacity slightly
+            const currentAlpha = ray.alpha + Math.sin(this.sunTime + i) * 0.02;
 
-        this.rays.forEach(ray => {
+            // Create ray gradient
+            const rayGrad = this.ctx.createLinearGradient(
+                0, 0,
+                Math.cos(ray.angle) * ray.width, Math.sin(ray.angle) * ray.length
+            );
+            rayGrad.addColorStop(0, `rgba(255, 250, 220, ${Math.max(0, currentAlpha * this.intensity)})`);
+            rayGrad.addColorStop(0.4, `rgba(255, 250, 220, ${Math.max(0, currentAlpha * 0.5 * this.intensity)})`);
+            rayGrad.addColorStop(1, 'rgba(255, 250, 220, 0)');
+
+            this.ctx.translate(ray.x, ray.y);
             this.ctx.rotate(ray.angle);
 
-            // Draw ray
-            const gradient = this.ctx.createLinearGradient(0, 0, 0, ray.length);
-            gradient.addColorStop(0, `rgba(255, 220, 150, ${ray.opacity * this.intensity})`);
-            gradient.addColorStop(0.5, `rgba(255, 240, 200, ${ray.opacity * 0.5 * this.intensity})`);
-            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-
-            this.ctx.fillStyle = gradient;
+            this.ctx.fillStyle = rayGrad;
             this.ctx.fillRect(-ray.width / 2, 0, ray.width, ray.length);
 
-            this.ctx.rotate(-ray.angle); // Rotate back for next ray logic
+            // Reset transform for next ray
+            this.ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-            // Animate
-            ray.angle += ray.speed;
+            // Move ray slightly
+            ray.x += Math.cos(this.sunTime * ray.speed) * 0.5;
         });
-
         this.ctx.restore();
-
-        // Add a glow at the source
         const glow = this.ctx.createRadialGradient(cx, cy, 0, cx, cy, 400);
         glow.addColorStop(0, `rgba(255, 200, 100, ${0.4 * this.intensity})`);
         glow.addColorStop(1, 'rgba(255, 255, 255, 0)');

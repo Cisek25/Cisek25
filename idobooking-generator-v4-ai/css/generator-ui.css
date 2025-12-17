@@ -8,51 +8,49 @@
    CSS VARIABLES
    ============================================ */
 :root {
-    /* Warm natural theme colors */
-    --bg-primary: #1A1410;
-    --bg-secondary: #2A2218;
-    --bg-tertiary: #3A3228;
-    --bg-elevated: #4A4238;
+    /* Refined Professional Theme - Natural & Elegant */
+    --bg-primary: #1e1e24;
+    /* Deep neutral charcoal */
+    --bg-secondary: #25252d;
+    /* Softer charcoal */
+    --bg-tertiary: #2e2e36;
+    /* Lighter panel bg */
+    --bg-elevated: #3a3a44;
+    /* Elevated element bg */
+    --bg-quaternary: #4a4a55;
 
-    --text-primary: #F5F1E8;
-    --text-secondary: #C9BFA8;
-    --text-muted: #9D9380;
+    --text-primary: #f2f2f5;
+    /* Off-white */
+    --text-secondary: #aab0c0;
+    /* Cool grey text */
+    --text-muted: #757a8a;
 
-    --border-primary: #4A4238;
-    --border-secondary: #3A3228;
+    --border-primary: #3a3a45;
+    --border-secondary: #2e2e36;
 
-    --accent-primary: #D4A574;
-    --accent-secondary: #B8956A;
-    --accent-success: #7B9E6B;
-    --accent-warning: #D9A566;
-    --accent-danger: #C97B6B;
-    --accent-purple: #9B8B9E;
-    --accent-pink: #C99B9E;
-    /* Professional Color Palette - Less Saturated */
-    --bg-primary: #0D1117;
-    --bg-secondary: #161B22;
-    --bg-tertiary: #21262D;
-    --bg-quaternary: #2D333B;
+    /* Accents - Golden/Copper for luxury feel instead of Neon Blue */
+    --accent-primary: #cba26e;
+    /* Muted Gold */
+    --accent-secondary: #e6c89c;
+    /* Pale Gold */
+    --accent-success: #6da373;
+    /* Sage Green */
+    --accent-warning: #e0b06b;
+    /* Amber */
+    --accent-danger: #d66a6a;
+    /* Muted Red */
+    --accent-purple: #9d8ca1;
+    /* Muted Lavender */
+    --accent-pink: #cc99a3;
+    /* Dusty Rose */
 
-    --text-primary: #E6EDF3;
-    --text-secondary: #8B949E;
-    --text-muted: #6E7681;
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, #cba26e 0%, #e6c89c 100%);
+    --gradient-success: linear-gradient(135deg, #6da373 0%, #8fc996 100%);
+    --gradient-accent: linear-gradient(135deg, #2e2e36 0%, #3a3a45 100%);
+    /* Subtle dark gradient for UI items */
 
-    --border-primary: #30363D;
-    --border-secondary: #21262D;
-
-    --accent-primary: #58A6FF;
-    --accent-secondary: #D4A85F;
-    --accent-success: #3FB950;
-    --accent-warning: #D29922;
-    --accent-danger: #F85149;
-
-    /* Natural Gradients */
-    --gradient-primary: linear-gradient(135deg, #8B6F47 0%, #C9A876 50%, #D4A574 100%);
-    --gradient-success: linear-gradient(135deg, #7B9E6B 0%, #8FB87C 100%);
-    --gradient-accent: linear-gradient(135deg, #B8956A 0%, #D4A574 100%);
-
-    /* Refined Spacing Scale */
+    /* Spacing */
     --space-1: 0.25rem;
     --space-2: 0.5rem;
     --space-3: 0.75rem;
@@ -71,21 +69,23 @@
     --text-lg: 1.125rem;
     --text-xl: 1.25rem;
     --text-2xl: 1.5rem;
+    --text-3xl: 2rem;
 
-    /* Professional Border Radiuses */
-    --radius-sm: 4px;
-    --radius-md: 6px;
-    --radius-lg: 8px;
-    --radius-xl: 12px;
+    /* Radius */
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
     --radius-full: 9999px;
 
-    /* Subtle Shadows - Professional */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.2);
-    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.25);
-    --shadow-glow: 0 0 20px rgba(88, 166, 255, 0.3);
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+    --shadow-glow: 0 0 15px rgba(203, 162, 110, 0.15);
+    /* Subtle gold glow */
 
-    /* Smooth Transitions */
+    /* Transitions */
     --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }

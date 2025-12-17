@@ -20,7 +20,8 @@ const WIZARD_STEPS = [
             { value: 'glamping', label: 'Glamping', icon: 'fa-campground', score: { eco: 3, romantic: 1 } },
             { value: 'villa', label: 'Willa', icon: 'fa-house-user', score: { luxury: 2, romantic: 2, family: 1 } },
             { value: 'chalet', label: 'Domek górski', icon: 'fa-house-chimney-window', score: { family: 2, eco: 2 } },
-            { value: 'cottage', label: 'Domek letniskowy', icon: 'fa-house-flag', score: { family: 3, eco: 1 } }
+            { value: 'cottage', label: 'Domek letniskowy', icon: 'fa-house-flag', score: { family: 3, eco: 1 } },
+            { value: 'vineyard', label: 'Winnica', icon: 'fa-wine-glass', score: { romantic: 3, luxury: 1, eco: 2 } }
         ]
     },
     {

@@ -871,8 +871,12 @@ function closeSectionEditor() {
 function addDefaultObjects() {
     // Get property type from wizard data
     let wizardType = 'hotel-3';
-    if (appState.wizardData && appState.wizardData['property-type']) {
-        wizardType = appState.wizardData['property-type'];
+    if (appState.wizardData) {
+        if (appState.wizardData.answers && appState.wizardData.answers['property-type']) {
+            wizardType = appState.wizardData.answers['property-type'];
+        } else if (appState.wizardData['property-type']) {
+            wizardType = appState.wizardData['property-type'];
+        }
     }
 
     console.log('Generating objects for type:', wizardType);
@@ -1913,11 +1917,50 @@ function setAtmosphericEffect(effectType) {
     appState.effectsSettings.atmosphericEffect = effectType;
     console.log('🌨️ Atmospheric effect set to:', effectType);
 
+    // Show/hide duration controls
+    const durationControls = document.getElementById('effect-duration-controls');
+    if (durationControls) {
+        if (effectType && effectType !== 'none') {
+            durationControls.style.display = 'block';
+            // Update duration value display
+            const val = document.getElementById('effect-duration')?.value;
+            const perm = document.getElementById('effect-permanent')?.checked;
+            updateEffectDuration(val, perm);
+        } else {
+            durationControls.style.display = 'none';
+        }
+    }
+
     // Re-render preview to apply effect
     Preview.debouncedRender();
 }
 
+// Add updateEffectDuration function if missing or ensure it's exposed
+function updateEffectDuration(value, isPermanent) {
+    if (value === undefined) value = document.getElementById('effect-duration')?.value || 60;
+    if (isPermanent === undefined) isPermanent = document.getElementById('effect-permanent')?.checked || false;
+
+    // Save to state
+    if (!appState.effectsSettings.duration) appState.effectsSettings.duration = {};
+    appState.effectsSettings.duration.value = parseInt(value);
+    appState.effectsSettings.duration.permanent = isPermanent;
+
+    const label = document.getElementById('duration-value');
+    if (label) {
+        label.textContent = isPermanent ? '∞' : value + 's';
+    }
+
+    // Update canvas if exists
+    const canvas = document.getElementById('atmospheric-canvas'); // In preview context? No, preview handles its own.
+    // The Preview.render() will pass these settings to the iframe script.
+    Preview.debouncedRender();
+}
+
 window.setAtmosphericEffect = setAtmosphericEffect;
+window.updateEffectDuration = updateEffectDuration;
+window.togglePermanentEffect = function (checked) {
+    updateEffectDuration(undefined, checked);
+};
 
 // ============================================
 // MAIN CONTENT UPDATES

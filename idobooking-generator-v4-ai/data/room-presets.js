@@ -34,6 +34,13 @@ window.ROOM_PRESETS = {
         { name: 'Dom nad Jeziorem', type: 'house', price: 800, personCount: 6, image: 'https://images.pexels.com/photos/1438832/pexels-photo-1438832.jpeg?auto=compress&cs=tinysrgb&w=800', description: 'Prywatny pomost i łódka w cenie.' },
         { name: 'Leśniczówka', type: 'cottage', price: 500, personCount: 4, image: 'https://images.pexels.com/photos/7061662/pexels-photo-7061662.jpeg?auto=compress&cs=tinysrgb&w=800', description: 'Dom w sercu puszczy, z dala od cywilizacji.' },
         { name: 'Bungalow', type: 'bungalow', price: 400, personCount: 2, image: 'https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=800', description: 'Parterowy domek z dużym tarasem.' }
+    ],
+    'vineyard': [
+        { name: 'Apartament Sommeliera', type: 'suite', price: 650, personCount: 2, image: 'https://images.pexels.com/photos/2082087/pexels-photo-2082087.jpeg?auto=compress&cs=tinysrgb&w=800', description: 'Elegancki apartament z widokiem na winnicę i prywatną piwniczką.' },
+        { name: 'Domek w Winnicy', type: 'cottage', price: 450, personCount: 4, image: 'https://images.pexels.com/photos/147411/italy-mountains-dawn-daybreak-147411.jpeg?auto=compress&cs=tinysrgb&w=800', description: 'Rustykalny domek położony pośród krzewów winorośli.' },
+        { name: 'Pokój Degustacyjny', type: 'room', price: 300, personCount: 2, image: 'https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?auto=compress&cs=tinysrgb&w=800', description: 'Przytulny pokój w głównym budynku z dostępem do sali kominkowej.' },
+        { name: 'Loft Winiarza', type: 'loft', price: 550, personCount: 2, image: 'https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=800', description: 'Industrialne wnętrze w odrestaurowanej winiarni.' },
+        { name: 'Rezydencja "Szczep"', type: 'villa', price: 1200, personCount: 8, image: 'https://images.pexels.com/photos/53610/large-home-residential-house-architecture-53610.jpeg?auto=compress&cs=tinysrgb&w=800', description: 'Luksusowa willa dla grupy przyjaciół, otoczona winnicami.' }
     ]
 };
 
@@ -45,6 +52,7 @@ window.getRoomPresets = function (wizardType) {
     if (['glamping', 'tent', 'yurt'].includes(wizardType)) return window.ROOM_PRESETS['glamping'];
     if (['apartments', 'flat', 'condo'].includes(wizardType)) return window.ROOM_PRESETS['apartments'];
     if (['villa', 'chalet', 'cottage', 'house'].includes(wizardType)) return window.ROOM_PRESETS['houses'];
+    if (['vineyard', 'winnica', 'agrotourism'].includes(wizardType)) return window.ROOM_PRESETS['vineyard'];
     if (['hotel-5', 'hotel-4', 'hotel-3', 'resort', 'boutique', 'hostel', 'pension', 'bnb'].includes(wizardType)) return window.ROOM_PRESETS['hotel'];
 
     return window.ROOM_PRESETS['hotel']; // Fallback
