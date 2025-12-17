@@ -454,13 +454,6 @@ const VisualEffects = {
             ray.x += Math.cos(this.sunTime * ray.speed) * 0.5;
         });
         this.ctx.restore();
-        const glow = this.ctx.createRadialGradient(cx, cy, 0, cx, cy, 400);
-        glow.addColorStop(0, `rgba(255, 200, 100, ${0.4 * this.intensity})`);
-        glow.addColorStop(1, 'rgba(255, 255, 255, 0)');
-        this.ctx.fillStyle = glow;
-        this.ctx.beginPath();
-        this.ctx.arc(cx, cy, 400, 0, Math.PI * 2);
-        this.ctx.fill();
     },
 
     // ============================================
