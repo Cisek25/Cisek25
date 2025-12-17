@@ -24,19 +24,7 @@ const WIZARD_STEPS = [
             { value: 'vineyard', label: 'Winnica', icon: 'fa-wine-glass', score: { romantic: 3, luxury: 1, eco: 2 } }
         ]
     },
-    {
-        id: 'location',
-        title: 'Gdzie znajduje się obiekt?',
-        subtitle: 'Lokalizacja wpływa na sugerowany styl',
-        options: [
-            { value: 'mountains', label: 'Góry', icon: 'fa-mountain', score: { family: 1, eco: 2 } },
-            { value: 'sea', label: 'Morze', icon: 'fa-umbrella-beach', score: { family: 2, budget: 1 } },
-            { value: 'city', label: 'Miasto', icon: 'fa-city', score: { business: 2, budget: 1 } },
-            { value: 'countryside', label: 'Wieś', icon: 'fa-tractor', score: { family: 2, eco: 2 } },
-            { value: 'forest', label: 'Las', icon: 'fa-tree', score: { eco: 3 } },
-            { value: 'lake', label: 'Jezioro', icon: 'fa-water', score: { family: 2, romantic: 1 } }
-        ]
-    },
+    // Location, Atmosphere, Season removed for simplicity
     {
         id: 'style',
         title: 'Jaki styl preferujesz?',
@@ -50,31 +38,7 @@ const WIZARD_STEPS = [
             { value: 'eco', label: 'Ekologiczny', icon: 'fa-leaf', score: { eco: 3 } }
         ]
     },
-    {
-        id: 'atmosphere',
-        title: 'Jaka atmosfera?',
-        subtitle: 'Jakie wrażenie ma mieć gość?',
-        options: [
-            { value: 'romantic', label: 'Romantyczna', icon: 'fa-heart', score: { romantic: 3, luxury: 1 } },
-            { value: 'family', label: 'Rodzinna', icon: 'fa-users', score: { family: 3 } },
-            { value: 'business', label: 'Biznesowa', icon: 'fa-briefcase', score: { business: 3 } },
-            { value: 'adventure', label: 'Przygoda', icon: 'fa-compass', score: { budget: 2, eco: 1 } },
-            { value: 'wellness', label: 'Wellness', icon: 'fa-spa', score: { luxury: 2 } },
-            { value: 'social', label: 'Towarzyska', icon: 'fa-comments', score: { budget: 2 } }
-        ]
-    },
-    {
-        id: 'season',
-        title: 'Jaka sezonowość?',
-        subtitle: 'Kiedy obiekt jest najpopularniejszy?',
-        options: [
-            { value: 'year-round', label: 'Całoroczny', icon: 'fa-calendar', score: {} },
-            { value: 'summer', label: 'Lato', icon: 'fa-sun', score: { family: 1 } },
-            { value: 'autumn', label: 'Jesień', icon: 'fa-leaf', score: { romantic: 1, eco: 1 } },
-            { value: 'winter', label: 'Zima', icon: 'fa-snowflake', score: { family: 1 } },
-            { value: 'spring', label: 'Wiosna', icon: 'fa-seedling', score: { eco: 1 } }
-        ]
-    },
+
     {
         id: 'facilities',
         title: 'Główne udogodnienia?',
@@ -334,7 +298,8 @@ function finishWizard() {
         }
     }
 
-    // 5. SEASONAL THEMES & MOOD
+    // 5. SEASONAL THEMES & MOOD (Removed)
+    /*
     const seasonalThemes = {
         'autumn': { gradient: 'autumn-leaves', effect: 'leaves' },
         'winter': { gradient: 'winter-forest', effect: 'snow' },
@@ -350,6 +315,7 @@ function finishWizard() {
         }
         appState.effectsSettings.atmosphericEffect = seasonalThemes[season].effect;
     }
+    */
 
     // Apply defaults from Property Type if not overruled
     const propertyType = wizardState.answers['property-type'];
@@ -381,11 +347,25 @@ function finishWizard() {
 
 // Skip wizard
 function skipWizard() {
+    console.log("⏩ Skipping wizard - initializing defaults...");
+
+    // Pick a random template or default
     const defaultTemplate = TEMPLATES['luxury-resort'] || Object.values(TEMPLATES)[0];
+
+    // Set colors from template
     appState.globalSettings.colors = { ...defaultTemplate.colors };
 
-    // Randomize for skip too
-    appState.aboutVariant = 'hotel-elegant';
+    // Initialize randomized state for variety (simulating "random placeholder")
+    if (typeof window.randomizeLayout === 'function') {
+        // Initialize basic structure first
+        appState.enabledSections = ['intro', 'rooms', 'amenities', 'gallery', 'testimonials', 'cta', 'map', 'footer'];
+        // Use the randomizer to set backgrounds and about variant
+        window.randomizeLayout(true); // pass true to skip confirmation if needed (need to update randomizeLayout signature or just handle confirm)
+    } else {
+        // Fallback if randomizer not ready
+        appState.aboutVariant = 'hotel-elegant';
+        appState.enabledSections = ['intro', 'rooms', 'amenities', 'gallery', 'testimonials', 'cta', 'map', 'footer'];
+    }
 
     appState.wizardData = {
         answers: {},
@@ -393,9 +373,18 @@ function skipWizard() {
         recommendedTemplate: defaultTemplate,
         skipped: true
     };
+
+    // Ensure we have a valid mode
+    appState.mode = 'builder';
+
     document.getElementById('wizard-panel').classList.add('hidden');
     document.getElementById('builder-panel').classList.remove('hidden');
+
+    // Init builder with the chosen template
     initBuilder(defaultTemplate);
+
+    // Initial save to ensure state is valid
+    triggerAutoSave();
 }
 
 window.initWizard = initWizard;

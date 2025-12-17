@@ -638,6 +638,397 @@ const ABOUT_SECTION_VARIANTS = {
         title: 'Miejsce na pierwsze wspomnienia',
         subtitle: 'Wasz pierwszy wspólny dom',
         description: 'Mały, przytulny, pełen miłości. Balkon na poranną kawę we dwoje, wygodna kuchnia na wspólne gotowanie, sypialnia jak z bajki. Idealne miejsce na start waszej wspólnej przygody.'
+    },
+    // ============================================
+    // NOWE APARTAMENTY - EXPANSION PACK
+    // ============================================
+    'apt-glamping-luxe': {
+        id: 'apt-glamping-luxe',
+        name: 'Glamping Luxe',
+        layout: 'full-width',
+        icon: 'fa-campground',
+        category: 'apartments',
+        stats: [
+            { number: 'Natura', label: '100% blisko' },
+            { number: 'Komfort', label: '5 gwiazdek' },
+            { number: 'Gwiazdy', label: 'nad głową' }
+        ],
+        title: 'Luksus pod gołym niebem',
+        subtitle: 'Kemping w wersji premium',
+        description: 'Połączenie bliskości natury z hotelowym komfortem. Śpij w luksusowym namiocie, budź się przy śpiewie ptaków, a wieczorem ciesz się prywatnym jacuzzi na tarasie pod gwiazdami.'
+    },
+
+    'apt-tiny-house': {
+        id: 'apt-tiny-house',
+        name: 'Tiny House',
+        layout: 'split-right-image',
+        icon: 'fa-house-chimney-window',
+        category: 'apartments',
+        stats: [
+            { number: '25m²', label: 'smart space' },
+            { number: 'Las', label: 'dookoła' },
+            { number: 'Minimal', label: 'design' }
+        ],
+        title: 'Mały dom, wielkie wrażenia',
+        subtitle: 'Minimalizm w sercu lasu',
+        description: 'Odkryj urok życia w skali mikro. Nasz Tiny House to mistrzostwo ergonomii i designu. Idealna kryjówka dla par szukających ucieczki od zgiełku miasta w objęcia natury.'
+    },
+
+    'apt-industrial-loft': {
+        id: 'apt-industrial-loft',
+        name: 'Industrial Loft',
+        layout: 'asymmetric',
+        icon: 'fa-industry',
+        category: 'apartments',
+        stats: [
+            { number: '4m', label: 'strop' },
+            { number: 'Cegła', label: 'oryginalna' },
+            { number: 'Centrum', label: '5 min' }
+        ],
+        title: 'Surowy klimat, czysty styl',
+        subtitle: 'Loft w starej fabryce',
+        description: 'Autentyczna pofabryczna przestrzeń. Czerwona cegła, betonowe stropy, wielkie okna. Przestrzeń, która robi wrażenie i pozwala poczuć puls miasta.'
+    },
+
+    'apt-scandi-hygge': {
+        id: 'apt-scandi-hygge',
+        name: 'Scandi Hygge',
+        layout: 'split-left-image',
+        icon: 'fa-mug-hot',
+        category: 'apartments',
+        stats: [
+            { number: 'Hygge', label: 'poziom max' },
+            { number: 'Kominek', label: 'na drewno' },
+            { number: 'Drewno', label: 'naturalne' }
+        ],
+        title: 'Przytulność w stylu północy',
+        subtitle: 'Znajdź swoje hygge',
+        description: 'Jasne wnętrza, naturalne materiały, dużo światła i ciepło kominka. Tutaj czas zwalnia, a proste przyjemności stają się najważniejsze. Idealne miejsce na reset.'
+    },
+
+    'apt-boho-chic': {
+        id: 'apt-boho-chic',
+        name: 'Boho Chic',
+        layout: 'cards-grid',
+        icon: 'fa-guitar',
+        category: 'apartments',
+        stats: [
+            { number: 'Art', label: 'dusza' },
+            { number: 'Hamak', label: 'w salonie' },
+            { number: 'Rośliny', label: 'wszędzie' }
+        ],
+        title: 'Swoboda, kolory, natura',
+        subtitle: 'Artystyczna dusza wnętrza',
+        description: 'Wnętrze pełne życia, kolorów i roślin. Plecione dodatki, etniczne wzory i artystyczny nieład tworzą niepowtarzalną atmosferę luzu i kreatywności.'
+    },
+
+    'apt-glass-cube': {
+        id: 'apt-glass-cube',
+        name: 'Szklana Kostka',
+        layout: 'full-width',
+        icon: 'fa-cube',
+        category: 'apartments',
+        stats: [
+            { number: '360°', label: 'widoku' },
+            { number: 'Szkło', label: 'ściany' },
+            { number: 'Las', label: 'prywatny' }
+        ],
+        title: 'Zatrzyj granice z naturą',
+        subtitle: 'Mieszkaj w widoku',
+        description: 'Dom, w którym ściany są oknami. Budź się w środku lasu, obserwuj sarny z kanapy. Architektura, która znika, by dać pierwszeństwo naturze.'
+    },
+
+    'apt-surfers-shack': {
+        id: 'apt-surfers-shack',
+        name: 'Surfer\'s Shack',
+        layout: 'split-right-image',
+        icon: 'fa-water',
+        category: 'apartments',
+        stats: [
+            { number: 'Deski', label: 'dla gości' },
+            { number: 'Plaża', label: 'na boso' },
+            { number: 'Chill', label: 'strefa' }
+        ],
+        title: 'Dla kochających fale',
+        subtitle: 'Aloha vibes nad Bałtykiem',
+        description: 'Luz, deski na ścianach, zapach morskiej bryzy. Idealna baza dla kitesurferów i miłośników plażowania. Po sesji na wodzie zrelaksuj się w hamaku na tarasie.'
+    },
+
+    'apt-floating-house': {
+        id: 'apt-floating-house',
+        name: 'Dom na Wodzie',
+        layout: 'asymmetric',
+        icon: 'fa-ship',
+        category: 'apartments',
+        stats: [
+            { number: '0m', label: 'do wody' },
+            { number: 'Taras', label: 'na dachu' },
+            { number: 'Kołysanie', label: 'do snu' }
+        ],
+        title: 'Życie na fali',
+        subtitle: 'Dosłownie nad wodą',
+        description: 'Wyjątkowy dom zacumowany w porcie. Śniadanie na tarasie z widokiem na jachty, delikatne kołysanie do snu. Niezapomniane doświadczenie życia na wodzie.'
+    },
+
+    'apt-forest-cabin': {
+        id: 'apt-forest-cabin',
+        name: 'Leśna Chatka',
+        layout: 'split-left-image',
+        icon: 'fa-tree',
+        category: 'apartments',
+        stats: [
+            { number: 'Las', label: 'dookoła' },
+            { number: 'Bania', label: 'z gorącą wodą' },
+            { number: 'WiFi', label: 'detox' }
+        ],
+        title: 'Ucieczka do lasu',
+        subtitle: 'Tylko Ty i natura',
+        description: 'Drewniana chatka ukryta głęboko w lesie. Brak sąsiadów, tylko śpiew ptaków i szum drzew. Wieczory w gorącej bani pod gwiazdami. Idealne miejsce na cyfrowy detoks.'
+    },
+
+    'apt-ski-resort': {
+        id: 'apt-ski-resort',
+        name: 'Apartament Ski-In',
+        layout: 'split-right-image',
+        icon: 'fa-person-skiing',
+        category: 'apartments',
+        stats: [
+            { number: 'Stok', label: 'za oknem' },
+            { number: 'Ski', label: 'room' },
+            { number: 'Grzaniec', label: 'przy kominku' }
+        ],
+        title: 'Z łóżka na stok',
+        subtitle: 'Zimowe szaleństwo',
+        description: 'Nie trać czasu na dojazdy. Zapnij narty przed drzwiami i ruszaj na stok. Po całym dniu wróć do ciepłego apartamentu na après-ski we własnym salonie.'
+    },
+
+    // ============================================
+    // DODATKOWE HOTELE - EXPANSION PACK
+    // ============================================
+
+    'hotel-castle': {
+        id: 'hotel-castle',
+        name: 'Zamek Hotel',
+        layout: 'full-width',
+        icon: 'fa-chess-rook',
+        stats: [
+            { number: 'XIV w', label: 'historia' },
+            { number: 'Duch', label: 'przyjazny' },
+            { number: 'Komnaty', label: 'królewskie' }
+        ],
+        title: 'Noc w średniowiecznej twierdzy',
+        subtitle: 'Poczuj historię murów',
+        description: 'Nocleg w prawdziwym zamku to podróż w czasie. Grube mury, tajemne przejścia, uczty w sali rycerskiej. Poczuj atmosferę dawnych wieków z nowoczesnym komfortem.'
+    },
+
+    'hotel-cyber-city': {
+        id: 'hotel-cyber-city',
+        name: 'Cyber City Hotel',
+        layout: 'cards-grid',
+        icon: 'fa-robot',
+        stats: [
+            { number: 'Check-in', label: 'automatyczny' },
+            { number: 'App', label: 'sterowanie' },
+            { number: 'Neon', label: 'design' }
+        ],
+        title: 'Przyszłość hotelarstwa',
+        subtitle: 'Technologia i komfort',
+        description: 'W pełni zautomatyzowany hotel przyszłości. Steruj całym pokojem ze smartfona, korzystaj z wirtualnego konsjerża. Futurystyczny design i najnowsze technologie dla geeków.'
+    },
+
+    'hotel-yoga-retreat': {
+        id: 'hotel-yoga-retreat',
+        name: 'Yoga & Meditation',
+        layout: 'split-left-image',
+        icon: 'fa-om',
+        stats: [
+            { number: 'Shala', label: 'z widokiem' },
+            { number: 'Vege', label: 'kuchnia' },
+            { number: 'Guru', label: 'na miejscu' }
+        ],
+        title: 'Odnajdź wewnętrzny spokój',
+        subtitle: 'Twoja droga do równowagi',
+        description: 'Miejsce stworzone do praktyki jogi i medytacji. Codzienne zajęcia, warsztaty oddechowe, zdrowa kuchnia roślinna. Zadbaj o ciało i ducha w pięknym otoczeniu.'
+    },
+
+    'hotel-convention-center': {
+        id: 'hotel-convention-center',
+        name: 'Centrum Kongresowe',
+        layout: 'full-width',
+        icon: 'fa-handshake',
+        stats: [
+            { number: '2000', label: 'osób' },
+            { number: 'Expo', label: 'hala' },
+            { number: 'Catering', label: 'premium' }
+        ],
+        title: 'Wydarzenia na wielką skalę',
+        subtitle: 'Profesjonalizm i przestrzeń',
+        description: 'Największe centrum konferencyjne w regionie. Organizujemy kongresy, targi i bankiety. Kompleksowa obsługa techniczna i gastronomiczna dla najbardziej wymagających klientów biznesowych.'
+    },
+
+    'hotel-lighthouse': {
+        id: 'hotel-lighthouse',
+        name: 'Latarnia Morska',
+        layout: 'asymmetric',
+        icon: 'fa-tower-observation',
+        stats: [
+            { number: '360°', label: 'morza' },
+            { number: 'Wiatr', label: 'i fale' },
+            { number: 'Światło', label: 'nawigacyjne' }
+        ],
+        title: 'Na straży wybrzeża',
+        subtitle: 'Noc w latarni morskiej',
+        description: 'Unikalna okazja spędzenia nocy w aktywnej latarni morskiej. Szum morza, krzyki mew i nieskończony horyzont. Dla poszukiwaczy wyjątkowych wrażeń i morskich opowieści.'
+    },
+    'mountain-chalet': {
+        id: 'mountain-chalet',
+        name: 'Górski Chalet',
+        layout: 'split-right-image', // Obrazek po prawej
+        icon: 'fa-mountain-sun',
+        category: 'hotel',
+        stats: [
+            { number: '2000m', label: 'n.p.m.' },
+            { number: 'Ski', label: 'in/out' },
+            { number: 'Kominek', label: 'w każdym pokoju' }
+        ],
+        title: 'Luksus na szczycie',
+        subtitle: 'Górska Oaza',
+        description: 'Ekskluzywny chalet położony na zboczu góry, oferujący bezpośredni dostęp do stoków narciarskich. Połączenie alpejskiej tradycji z nowoczesnym komfortem.'
+    },
+    'seaside-villa': {
+        id: 'seaside-villa',
+        name: 'Nadmorska Willa',
+        layout: 'asymmetric', // Asymetryczny
+        icon: 'fa-umbrella-beach',
+        category: 'apartments',
+        stats: [
+            { number: '50m', label: 'do plaży' },
+            { number: 'Prywatny', label: 'basen' },
+            { number: 'Taras', label: 'widokowy' }
+        ],
+        title: 'Twoja prywatna plaża',
+        subtitle: 'Relaks nad morzem',
+        description: 'Przestronna willa z bezpośrednim zejściem na piaszczystą plażę. Idealne miejsce na rodzinne wakacje z dala od tłumów, z szumem fal o poranku.'
+    },
+    'urban-loft': {
+        id: 'urban-loft',
+        name: 'Miejski Loft',
+        layout: 'split-left-image',
+        icon: 'fa-city',
+        category: 'apartments',
+        stats: [
+            { number: 'Centrum', label: 'miasta' },
+            { number: 'Design', label: 'industrialny' },
+            { number: 'Smart', label: 'Home' }
+        ],
+        title: 'Żyj w rytmie miasta',
+        subtitle: 'Industrialny Szyk',
+        description: 'Nowoczesne apartamenty w sercu metropolii, urządzone w stylu industrialnym. Surowa cegła, beton i szkło tworzą niepowtarzalny klimat dla miłośników miejskiego stylu życia.'
+    },
+    'historic-manor': {
+        id: 'historic-manor',
+        name: 'Zabytkowy Dwór',
+        layout: 'full-width',
+        icon: 'fa-landmark',
+        category: 'hotel',
+        stats: [
+            { number: 'XIX', label: 'wiek' },
+            { number: 'Park', label: 'krajobrazowy' },
+            { number: 'Stadnina', label: 'koni' }
+        ],
+        title: 'Podróż w czasie',
+        subtitle: 'Szlachecka Tradycja',
+        description: 'Odrestaurowany dwór szlachecki otoczony zabytkowym parkiem. Poczuj atmosferę minionych wieków, delektując się staropolską gościnnością i kuchnią.'
+    },
+    'wellness-retreat': {
+        id: 'wellness-retreat',
+        name: 'Uzdrowisko Wellness',
+        layout: 'cards-grid',
+        icon: 'fa-spa',
+        category: 'hotel',
+        stats: [
+            { number: '100%', label: 'bio' },
+            { number: 'Joga', label: 'codziennie' },
+            { number: 'Detox', label: 'programy' }
+        ],
+        title: 'Odzyskaj równowagę',
+        subtitle: 'Holistyczne Zdrowie',
+        description: 'Kameralny ośrodek wellness dedykowany regeneracji ciała i umysłu. Ekologiczna kuchnia, medytacja i zabiegi naturalne w otoczeniu kojącej przyrody.'
+    },
+    'family-resort': {
+        id: 'family-resort',
+        name: 'Rodzinny Kurort',
+        layout: 'full-width',
+        icon: 'fa-users',
+        category: 'hotel',
+        stats: [
+            { number: 'Aquapark', label: 'na miejscu' },
+            { number: 'Animacje', label: 'dla dzieci' },
+            { number: 'All', label: 'Inclusive' }
+        ],
+        title: 'Raj dla rodzin',
+        subtitle: 'Niezapomniane Wakacje',
+        description: 'Ogromny kompleks wypoczynkowy stworzony z myślą o rodzinach. Baseny, zjeżdżalnie, kluby dla dzieci i wieczorne show – tu nuda nie ma wstępu.'
+    },
+    'business-hub': {
+        id: 'business-hub',
+        name: 'Centrum Biznesowe',
+        layout: 'split-right-image',
+        icon: 'fa-briefcase',
+        category: 'hotel',
+        stats: [
+            { number: 'Coworking', label: 'space' },
+            { number: 'Szybkie', label: 'WiFi 1Gb' },
+            { number: 'Sale', label: 'konferencyjne' }
+        ],
+        title: 'Praca i wypoczynek',
+        subtitle: 'Biznes Klasa',
+        description: 'Nowoczesny hotel biznesowy z pełnym zapleczem konferencyjnym. Idealne miejsce na spotkania biznesowe, szkolenia oraz pracę zdalną w komfortowych warunkach.'
+    },
+    'eco-lodge': {
+        id: 'eco-lodge',
+        name: 'Eko Osada',
+        layout: 'asymmetric',
+        icon: 'fa-leaf',
+        category: 'hotel',
+        stats: [
+            { number: 'Zero', label: 'Waste' },
+            { number: 'Energia', label: 'słoneczna' },
+            { number: 'Las', label: 'dookoła' }
+        ],
+        title: 'W zgodzie z naturą',
+        subtitle: 'Ekologiczny Wybór',
+        description: 'Domki zbudowane całkowicie z naturalnych materiałów, zasilane energią odnawialną. Prawdziwy powrót do natury bez rezygnacji z komfortu.'
+    },
+    'art-hotel': {
+        id: 'art-hotel',
+        name: 'Art Hotel',
+        layout: 'split-left-image',
+        icon: 'fa-palette',
+        category: 'hotel',
+        stats: [
+            { number: 'Galeria', label: 'sztuki' },
+            { number: 'Designerskie', label: 'wnętrza' },
+            { number: 'Wernisaże', label: 'cykliczne' }
+        ],
+        title: 'Sztuka życia',
+        subtitle: 'Inspirujące Wnętrza',
+        description: 'Butikowy hotel będący jednocześnie galerią sztuki współczesnej. Każdy pokój to inne dzieło, a korytarze pełne są obrazów i rzeźb młodych artystów.'
+    },
+    'sky-scraper': {
+        id: 'sky-scraper',
+        name: 'Podniebny Apartament',
+        layout: 'full-width',
+        icon: 'fa-building',
+        category: 'apartments',
+        stats: [
+            { number: '40.', label: 'piętro' },
+            { number: 'Panorama', label: '360°' },
+            { number: 'VIP', label: 'concierge' }
+        ],
+        title: 'Głowa w chmurach',
+        subtitle: 'Luksus Wysokości',
+        description: 'Ekskluzywny penthouse na szczycie drapacza chmur. Zapierające dech w piersiach widoki na całą panoramę miasta, prywatna winda i obsługa na najwyższym poziomie.'
     }
 };
 

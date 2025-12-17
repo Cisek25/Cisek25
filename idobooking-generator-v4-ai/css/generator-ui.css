@@ -1,54 +1,56 @@
 /* ============================================
    IdoBooking AI Generator v4.0 - UI Styles
    
-   Ciemny, profesjonalny motyw
+   Jasny, profesjonalny motyw (Booking.com Style)
    ============================================ */
 
 /* ============================================
    CSS VARIABLES
    ============================================ */
 :root {
-    /* Refined Professional Theme - Natural & Elegant */
-    --bg-primary: #1e1e24;
-    /* Deep neutral charcoal */
-    --bg-secondary: #25252d;
-    /* Softer charcoal */
-    --bg-tertiary: #2e2e36;
-    /* Lighter panel bg */
-    --bg-elevated: #3a3a44;
-    /* Elevated element bg */
-    --bg-quaternary: #4a4a55;
+    /* Clean Professional Theme - Light & Modern */
+    --bg-primary: #f0f2f5;
+    /* Light Blue/Grey Background */
+    --bg-secondary: #ffffff;
+    /* Pure White Containers */
+    --bg-tertiary: #f9fafb;
+    /* Very Light Grey for contrasts */
+    --bg-elevated: #ffffff;
+    /* White for floating elements */
+    --bg-quaternary: #eef1f6;
 
-    --text-primary: #f2f2f5;
-    /* Off-white */
-    --text-secondary: #aab0c0;
-    /* Cool grey text */
-    --text-muted: #757a8a;
+    --text-primary: #1a1a1a;
+    /* Nearly Black */
+    --text-secondary: #4b5563;
+    /* Dark Grey */
+    --text-muted: #9ca3af;
+    /* Muted Grey */
 
-    --border-primary: #3a3a45;
-    --border-secondary: #2e2e36;
+    --border-primary: #e5e7eb;
+    /* Light Border */
+    --border-secondary: #f3f4f6;
 
-    /* Accents - Golden/Copper for luxury feel instead of Neon Blue */
-    --accent-primary: #cba26e;
-    /* Muted Gold */
-    --accent-secondary: #e6c89c;
-    /* Pale Gold */
-    --accent-success: #6da373;
-    /* Sage Green */
-    --accent-warning: #e0b06b;
+    /* Accents - Professional Blue & Gold hints */
+    --accent-primary: #006ce4;
+    /* Booking Blue */
+    --accent-secondary: #e7f1ff;
+    /* Very Light Blue */
+
+    --accent-success: #198754;
+    /* Standard Green */
+    --accent-warning: #f59e0b;
     /* Amber */
-    --accent-danger: #d66a6a;
-    /* Muted Red */
-    --accent-purple: #9d8ca1;
-    /* Muted Lavender */
-    --accent-pink: #cc99a3;
-    /* Dusty Rose */
+    --accent-danger: #dc2626;
+    /* Red */
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, #cba26e 0%, #e6c89c 100%);
-    --gradient-success: linear-gradient(135deg, #6da373 0%, #8fc996 100%);
-    --gradient-accent: linear-gradient(135deg, #2e2e36 0%, #3a3a45 100%);
-    /* Subtle dark gradient for UI items */
+    --accent-purple: #006ce4;
+    /* Reusing blue for consistency or specific purple: #7c3aed */
+    --accent-pink: #db2777;
+
+    /* Gradients - Subtle & Professional */
+    --gradient-primary: linear-gradient(135deg, #006ce4 0%, #004494 100%);
+    --gradient-success: linear-gradient(135deg, #198754 0%, #157347 100%);
+    --gradient-accent: linear-gradient(135deg, #006ce4 0%, #0056b3 100%);
 
     /* Spacing */
     --space-1: 0.25rem;
@@ -60,8 +62,8 @@
     --space-8: 3rem;
 
     /* Typography */
-    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+    --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
 
     --text-xs: 0.75rem;
     --text-sm: 0.875rem;
@@ -72,18 +74,17 @@
     --text-3xl: 2rem;
 
     /* Radius */
-    --radius-sm: 6px;
+    --radius-sm: 4px;
     --radius-md: 8px;
     --radius-lg: 12px;
     --radius-xl: 16px;
     --radius-full: 9999px;
 
-    /* Shadows */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
-    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
-    --shadow-glow: 0 0 15px rgba(203, 162, 110, 0.15);
-    /* Subtle gold glow */
+    /* Shadows - Softer for light theme */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-glow: 0 0 15px rgba(0, 108, 228, 0.15);
 
     /* Transitions */
     --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -91,7 +92,7 @@
 }
 
 /* ============================================
-   RESET & BASE
+   RESET & BASE & UTILITIES
    ============================================ */
 *,
 *::before,
@@ -115,25 +116,74 @@ body {
     overflow-x: hidden;
 }
 
-/* ============================================
-   SCROLLBAR
-   ============================================ */
+/* Scrollbar styling for Light Theme */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--bg-secondary);
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--bg-elevated);
+    background: #cbd5e1;
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--border-primary);
+    background: #94a3b8;
+}
+
+/* Help Tooltips - REDISGNED for JS Handling (or improved CSS) */
+.help-tooltip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    /* Increased size */
+    height: 20px;
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    margin-left: auto;
+    cursor: help;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+    border: 1px solid var(--border-primary);
+}
+
+.help-tooltip:hover {
+    background: var(--accent-primary);
+    color: white;
+    border-color: var(--accent-primary);
+}
+
+/* Note: Visual tooltip popup is now handled by JS or fixed positioning to avoid clipping. 
+   Keeping CSS fallback just in case, but moved to fixed or specific strategy if purely CSS wanted. */
+
+/* Temporary CSS Fallback for tooltips (removed overflow clipping logic) 
+   We will rely on JS 'app-tooltip' or similar. 
+   If strictly CSS, this ::after is often problematic in scroll containers. */
+.help-tooltip[data-title]:hover::after {
+    /* Using data-title for JS variant, or standard title */
+    content: none;
+    /* Disable default CSS hover to allow JS to handle it */
+}
+
+/* Fixing Gradient Categories */
+.gradient-categories {
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    border-bottom: 2px solid var(--border-primary);
+    overflow-x: auto;
+    padding-bottom: 4px;
+    /* Space for scrollbar */
+    scrollbar-width: thin;
+    /* Firefox */
 }
 
 /* ============================================
@@ -619,52 +669,48 @@ body {
 
 /* Settings Sections - Improved UX */
 .settings-section {
-    margin-bottom: var(--space-6);
-    /* More spacing */
+    margin-bottom: var(--space-4);
     padding: var(--space-4);
-    /* Add padding inside */
-    padding-bottom: var(--space-5);
-    border-bottom: 2px solid var(--border-primary);
-    /* Thicker border */
-    background: var(--bg-tertiary);
-    /* Subtle background */
-    border-radius: var(--radius-md);
-    transition: all var(--transition-base);
+    padding-bottom: var(--space-4);
+    border: 1px solid var(--border-primary);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .settings-section:hover {
     background: var(--bg-elevated);
     border-color: var(--accent-primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
 }
 
 .settings-section:last-child {
-    border-bottom: 2px solid var(--border-primary);
-    /* Keep border for consistency */
+    border-bottom: 1px solid var(--border-primary);
     margin-bottom: var(--space-4);
 }
 
 .settings-section h4 {
-    font-size: var(--text-base);
-    /* Larger font */
-    font-weight: 700;
-    /* Bolder */
+    font-size: var(--text-sm);
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--text-primary);
-    /* Better contrast */
-    margin-bottom: var(--space-4);
-    /* More space */
+    margin-bottom: var(--space-3);
     display: flex;
     align-items: center;
     gap: var(--space-3);
     cursor: pointer;
-    padding: var(--space-2);
-    border-radius: var(--radius-sm);
-    transition: background var(--transition-fast);
+    padding: var(--space-2) var(--space-3);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
 }
 
 .settings-section h4:hover {
-    background: rgba(203, 162, 110, 0.1);
+    background: rgba(203, 162, 110, 0.15);
+    color: var(--accent-primary);
 }
 
 .settings-section h4 i {

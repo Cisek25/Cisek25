@@ -521,6 +521,7 @@ function handleSectionDrop(e) {
 
         renderSectionsChecklist();
         Preview.debouncedRender();
+        triggerAutoSave();
     }
 }
 
@@ -532,6 +533,7 @@ function moveSectionUp(sectionId) {
         appState.enabledSections[index] = temp;
         renderSectionsChecklist();
         Preview.debouncedRender();
+        triggerAutoSave();
     }
 }
 
@@ -543,6 +545,7 @@ function moveSectionDown(sectionId) {
         appState.enabledSections[index] = temp;
         renderSectionsChecklist();
         Preview.debouncedRender();
+        triggerAutoSave();
     }
 }
 
@@ -555,11 +558,13 @@ function toggleSection(sectionId) {
     }
     renderSectionsChecklist();
     Preview.debouncedRender();
+    triggerAutoSave();
 }
 
 function changeSectionBackground(sectionId, backgroundType) {
     appState.sectionBackgrounds[sectionId] = backgroundType;
     Preview.debouncedRender();
+    triggerAutoSave();
 }
 
 
@@ -1444,9 +1449,86 @@ function resetApp() {
 }
 
 // ============================================
-// PROJECT SAVE / LOAD
+// TOOLTIP HANDLER (Fixes clipping issues)
 // ============================================
-const AUTOSAVE_KEY = 'idobooking-generator-autosave';
+function initTooltips() {
+    const tooltip = document.createElement('div');
+    tooltip.className = 'app-tooltip-popup';
+    tooltip.style.cssText = `
+        position: fixed;
+        background: #1e1e24; /* Dark for contrast against light theme */
+        color: #fff;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        z-index: 10000;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.2s;
+        max-width: 250px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        line-height: 1.4;
+    `;
+    document.body.appendChild(tooltip);
+
+    let activeElement = null;
+
+    document.addEventListener('mouseover', (e) => {
+        const target = e.target.closest('.help-tooltip');
+        if (!target) return;
+
+        const title = target.getAttribute('title') || target.getAttribute('data-title');
+        if (!title) return;
+
+        // Move title to data-title to prevent native tooltip
+        if (target.getAttribute('title')) {
+            target.setAttribute('data-title', title);
+            target.removeAttribute('title');
+        }
+
+        activeElement = target;
+        tooltip.textContent = title;
+        tooltip.style.opacity = '1';
+
+        // Position
+        const rect = target.getBoundingClientRect();
+
+        // Default: Top Center
+        let top = rect.top - tooltip.offsetHeight - 8;
+        let left = rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2);
+
+        // Check overflow top
+        if (top < 10) {
+            top = rect.bottom + 8; // Move to bottom
+        }
+
+        // Check overflow right
+        if (left + tooltip.offsetWidth > window.innerWidth - 10) {
+            left = window.innerWidth - tooltip.offsetWidth - 10;
+        }
+
+        // Check overflow left
+        if (left < 10) {
+            left = 10;
+        }
+
+        tooltip.style.top = top + 'px';
+        tooltip.style.left = left + 'px';
+    });
+
+    document.addEventListener('mouseout', (e) => {
+        const target = e.target.closest('.help-tooltip');
+        if (target && target === activeElement) {
+            tooltip.style.opacity = '0';
+            activeElement = null;
+        }
+    });
+}
+
+// ============================================
+// AUTO RECOVERY SYSTEM
+// ============================================
+const AUTOSAVE_KEY = 'idobooking_generator_autosave';
 
 function saveProject() {
     const projectData = {
@@ -2247,8 +2329,69 @@ window.dismissRecovery = dismissRecovery;
 window.showAutoSaveIndicator = showAutoSaveIndicator;
 
 // ============================================
+// RANDOMIZATION LOGIC
+// ============================================
+function randomizeLayout(skipConfirm = false) {
+    if (!skipConfirm && !confirm('Czy na pewno chcesz wylosować nowy układ? Obecne ustawienia sekcji zostaną zmienione.')) return;
+
+    // 1. Shuffle Sections (keep intro first)
+    const sections = appState.enabledSections.filter(s => s !== 'intro');
+    for (let i = sections.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [sections[i], sections[j]] = [sections[j], sections[i]];
+    }
+    appState.enabledSections = ['intro', ...sections];
+
+    // 2. Randomize Backgrounds
+    const bgTypes = ['white', 'light', 'gradient', 'white', 'light']; // skew towards white/light
+    appState.enabledSections.forEach(sectionId => {
+        if (sectionId === 'intro') {
+            appState.sectionBackgrounds[sectionId] = Math.random() > 0.5 ? 'light' : 'white';
+        } else {
+            appState.sectionBackgrounds[sectionId] = bgTypes[Math.floor(Math.random() * bgTypes.length)];
+        }
+    });
+
+    // 3. Randomize About Variant
+    if (window.ABOUT_SECTION_VARIANTS) {
+        const variants = Object.keys(window.ABOUT_SECTION_VARIANTS);
+        const randomVariant = variants[Math.floor(Math.random() * variants.length)];
+        appState.aboutVariant = randomVariant;
+    }
+
+    // 4. Update UI
+    renderSectionsChecklist();
+    Preview.render();
+    triggerAutoSave();
+
+    // Show notification
+    showAutoSaveIndicator('Wylosowano nowy układ!');
+}
+
+window.randomizeLayout = randomizeLayout;
+
+// ============================================
 // AUTO-SAVE ON SIGNIFICANT CHANGES
 // ============================================
+function autoSave() {
+    if (appState.mode !== 'builder') return;
+
+    try {
+        const dataToSave = {
+            appState: {
+                ...appState,
+                // Don't save large objects if unnecessary, but here we save everything
+                // except maybe volatile UI state
+            },
+            savedAt: new Date().toISOString()
+        };
+        localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(dataToSave));
+        console.log('💾 Auto-saved project state');
+    } catch (err) {
+        console.error('Error auto-saving:', err);
+    }
+}
+
 // Debounced auto-save on changes
 let autoSaveDebounceTimer = null;
 function triggerAutoSave() {

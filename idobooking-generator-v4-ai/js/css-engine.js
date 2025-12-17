@@ -289,6 +289,7 @@ ${contrastCSS}
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
@@ -297,6 +298,8 @@ body {
     line-height: 1.6;
     color: var(--color-dark);
     background: var(--color-white);
+    overflow-x: hidden;
+    width: 100%;
 }
 
 img {
@@ -2430,7 +2433,6 @@ input[type="checkbox"]:checked::after {
     overflow-y: auto;
 }
 `;
-
         }
 
         // Button Corrections
@@ -2450,58 +2452,57 @@ input[type="checkbox"]:checked::after {
 }
 `;
 
-
         // Card hover effects
         if (offersSettings.cardsHover !== false) {
             css += `
-    /* ============================================
-       OFFER CARDS - HOVER EFFECTS
-       ============================================ */
+/* ============================================
+   OFFER CARDS - HOVER EFFECTS
+   ============================================ */
 
-    /* Offer card container */
-    .object - icon,
-.offer - card,
-.offer - item,
-    [class*= "offer"],
-    [class*= "object-preview"],
-    a[href *= "/offers/"] {
-    transition: all 0.3s cubic - bezier(0.4, 0, 0.2, 1);
+/* Offer card container */
+.object-icon,
+.offer-card,
+.offer-item,
+[class*="offer"],
+[class*="object-preview"],
+a[href*="/offers/"] {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Card images - simple styling, no border/outline */
-.object - icon img,
-.offer - card img,
-    [class*= "offer"] img {
-    border - radius: 0!important;
+.object-icon img,
+.offer-card img,
+[class*="offer"] img {
+    border-radius: 0 !important;
     transition: transform 0.4s ease;
-    border: none!important;
-    outline: none!important;
-    box - shadow: none!important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
-.object - icon:hover img,
-.offer - card:hover img,
-    [class*= "offer"]:hover img {
+.object-icon:hover img,
+.offer-card:hover img,
+[class*="offer"]:hover img {
     transform: scale(1.01);
 }
 
 /* Card content containers */
-.offer - details,
-.offer - content,
-.offer - info {
+.offer-details,
+.offer-content,
+.offer-info {
     padding: 15px;
     background: #ffffff;
-    border - radius: 0 0 var(--offers - radius) var(--offers - radius);
+    border-radius: 0 0 var(--offers-radius) var(--offers-radius);
 }
 
 /* Hover lift effect on whole cards */
-[class*= "col-"][class*= "offer"],
-    [class*= "col-md-"] > [class*= "offer"] {
-    transition: transform 0.3s ease, box - shadow 0.3s ease;
+[class*="col-"][class*="offer"],
+[class*="col-md-"] > [class*="offer"] {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-[class*= "col-"][class*= "offer"]: hover,
-    [class*= "col-md-"] > [class*= "offer"]:hover {
+[class*="col-"][class*="offer"]:hover,
+[class*="col-md-"] > [class*="offer"]:hover {
     transform: translateY(-8px);
 }
 `;
@@ -2510,127 +2511,127 @@ input[type="checkbox"]:checked::after {
         // Card styling
         if (offersSettings.cardsRounded !== false || offersSettings.cardsShadow !== false) {
             css += `
-    /* ============================================
-       OFFER CARDS - GENERAL STYLING
-       ============================================ */
+/* ============================================
+   OFFER CARDS - GENERAL STYLING
+   ============================================ */
 
-    /* Card containers - NO BORDER/OUTLINE */
-    .offer - card,
-.object - card,
-    [class*= "offer-item"],
-.offers - container {
+/* Card containers - NO BORDER/OUTLINE */
+.offer-card,
+.object-card,
+[class*="offer-item"],
+.offers-container {
     background: #ffffff;
-    border - radius: var(--offers - radius);
-    box - shadow: var(--offers - shadow);
+    border-radius: var(--offers-radius);
+    box-shadow: var(--offers-shadow);
     overflow: hidden;
-    border: none!important;
-    outline: none!important;
+    border: none !important;
+    outline: none !important;
 }
 
 /* Price styling */
 .price,
-.offer - price,
-    [class*= "price"] {
-    color: var(--offers - primary);
-    font - weight: 700;
-    font - size: 1.25em;
+.offer-price,
+[class*="price"] {
+    color: var(--offers-primary);
+    font-weight: 700;
+    font-size: 1.25em;
 }
 
 /* Price label */
-.price - label,
-.from - price {
+.price-label,
+.from-price {
     color: #6c757d;
-    font - size: 0.85em;
+    font-size: 0.85em;
 }
 
 /* Offer title links */
-.offer - title,
-.offer - name,
-    a[href *= "/offers/"] h3,
-        a[href *= "/offers/"] h4 {
-    color: var(--offers - primary);
-    font - weight: 600;
+.offer-title,
+.offer-name,
+a[href*="/offers/"] h3,
+a[href*="/offers/"] h4 {
+    color: var(--offers-primary);
+    font-weight: 600;
     transition: color 0.2s ease;
 }
 
-.offer - title: hover,
-    a[href *= "/offers/"]:hover h3,
-        a[href *= "/offers/"]:hover h4 {
-    color: var(--offers - secondary);
+.offer-title:hover,
+a[href*="/offers/"]:hover h3,
+a[href*="/offers/"]:hover h4 {
+    color: var(--offers-secondary);
 }
 
 /* RESET h2 titles - remove any background/outline */
-.offers - container h2,
-.offers - container h2 a,
-.accommodation - rest h2,
-.accommodation - rest h2 a,
-    h2 a[href *= "/offer/"] {
-    background: transparent!important;
-    border: none!important;
-    outline: none!important;
-    box - shadow: none!important;
-    padding: 0!important;
+.offers-container h2,
+.offers-container h2 a,
+.accommodation-rest h2,
+.accommodation-rest h2 a,
+h2 a[href*="/offer/"] {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
     color: inherit;
-    text - decoration: none;
+    text-decoration: none;
 }
 `;
         }
 
         // Button styling
         css += `
-    /* ============================================
-       BUTTONS - FIXED FOR IDOBOOKING STRUCTURE
-       Structure: <a><span class="btn">SZCZEGÓŁY</span></a>
-       ============================================ */
+/* ============================================
+   BUTTONS - FIXED FOR IDOBOOKING STRUCTURE
+   Structure: <a><span class="btn">SZCZEGÓŁY</span></a>
+   ============================================ */
 
-    /* RESET outer link wrapper - make transparent */
-    .accommodation - buttons a,
-        a[aria - label*= "szczegóły"],
-a[aria - label*= "Szczegóły"],
-a[href *= "/offer/"] {
-    background: transparent!important;
-    border: none!important;
-    outline: none!important;
-    box - shadow: none!important;
-    padding: 0!important;
-    text - decoration: none!important;
-    display: inline - block;
+/* RESET outer link wrapper - make transparent */
+.accommodation-buttons a,
+a[aria-label*="szczegóły"],
+a[aria-label*="Szczegóły"],
+a[href*="/offer/"] {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    text-decoration: none !important;
+    display: inline-block;
 }
 
 /* Style ONLY the inner .btn span - single color */
-.accommodation - buttons.btn,
-.accommodation - buttons span.btn,
-    a[aria - label*= "szczegóły"] .btn,
-        a[aria - label*= "Szczegóły"] .btn,
-            a[href *= "/offer/"].btn,
-            span.btn {
+.accommodation-buttons.btn,
+.accommodation-buttons span.btn,
+a[aria-label*="szczegóły"] .btn,
+a[aria-label*="Szczegóły"] .btn,
+a[href*="/offer/"].btn,
+span.btn {
     ${offersSettings.buttonsRounded !== false ? 'border-radius: 25px !important;' : 'border-radius: 4px !important;'}
-    padding: 12px 24px!important;
-    font - weight: 600!important;
-    text - transform: uppercase;
-    letter - spacing: 0.5px;
-    font - size: 0.85em;
+    padding: 12px 24px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85em;
     transition: all 0.3s ease;
-    border: none!important;
-    outline: none!important;
+    border: none !important;
+    outline: none !important;
     cursor: pointer;
-    display: inline - block;
+    display: inline-block;
     ${offersSettings.buttonsGradient && useGradients
                 ? `background: ${gradientValue} !important;`
                 : `background: var(--offers-primary) !important;`
             }
-    color: #ffffff!important;
-    box - shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    color: #ffffff !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Hover on the span.btn only */
-.accommodation - buttons a: hover.btn,
-    a[aria - label*= "szczegóły"]: hover.btn,
-        a[aria - label*= "Szczegóły"]: hover.btn,
-            a[href *= "/offer/"]: hover.btn,
-                span.btn:hover {
+.accommodation-buttons a:hover.btn,
+a[aria-label*="szczegóły"]:hover.btn,
+a[aria-label*="Szczegóły"]:hover.btn,
+a[href*="/offer/"]:hover.btn,
+span.btn:hover {
     transform: translateY(-2px);
-    box - shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     ${offersSettings.buttonsGradient
                 ? 'filter: brightness(1.1);'
                 : `background: var(--offers-secondary) !important; color: #1a1a1a !important;`
@@ -2638,25 +2639,25 @@ a[href *= "/offer/"] {
 }
 
 /* General button styling for forms */
-button[type = "submit"],
-    input[type = "submit"],
-    #filters_submit {
+button[type="submit"],
+input[type="submit"],
+#filters_submit {
     ${offersSettings.buttonsRounded !== false ? 'border-radius: 25px !important;' : 'border-radius: 4px !important;'}
-    padding: 12px 24px!important;
-    font - weight: 600!important;
-    border: none!important;
-    outline: none!important;
+    padding: 12px 24px !important;
+    font-weight: 600 !important;
+    border: none !important;
+    outline: none !important;
     cursor: pointer;
     ${offersSettings.buttonsGradient && useGradients
                 ? `background: ${gradientValue} !important;`
                 : `background: var(--offers-primary) !important;`
             }
-    color: #ffffff!important;
+    color: #ffffff !important;
     transition: all 0.3s ease;
 }
 
-button[type = "submit"]: hover,
-    #filters_submit:hover {
+button[type="submit"]:hover,
+#filters_submit:hover {
     transform: translateY(-2px);
     ${offersSettings.buttonsGradient
                 ? 'filter: brightness(1.1);'
@@ -2667,50 +2668,50 @@ button[type = "submit"]: hover,
 
         // Navigation styling
         css += `
-    /* ============================================
-       NAVIGATION - CONSISTENT WITH MAIN PAGE
-       ============================================ */
+/* ============================================
+   NAVIGATION - CONSISTENT WITH MAIN PAGE
+   ============================================ */
 
-    /* Logo - remove shadow/outline */
-    .navbar - brand img,
+/* Logo - remove shadow/outline */
+.navbar-brand img,
 .logo img,
-    header img[alt *= "logo"],
-        header img[alt *= "Logo"] {
-    box - shadow: none!important;
-    border: none!important;
-    background: transparent!important;
-    filter: none!important;
+header img[alt*="logo"],
+header img[alt*="Logo"] {
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+    filter: none !important;
     transition: transform 0.3s ease;
 }
 
-.navbar - brand:hover img {
+.navbar-brand:hover img {
     transform: scale(1.05);
 }
 
-.nav - link {
-    color: var(--offers - primary);
-    font - weight: 500;
+.nav-link {
+    color: var(--offers-primary);
+    font-weight: 500;
     transition: color 0.2s ease;
     position: relative;
 }
 
-.nav - link:hover {
-    color: var(--offers - secondary);
+.nav-link:hover {
+    color: var(--offers-secondary);
 }
 
-.nav - link::after {
+.nav-link::after {
     content: '';
     position: absolute;
     bottom: -2px;
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--offers - secondary);
+    background: var(--offers-secondary);
     transition: width 0.3s ease;
 }
 
-.nav - link: hover::after {
-    width: 100 %;
+.nav-link:hover::after {
+    width: 100%;
 }
 `;
 
@@ -2721,8 +2722,8 @@ button[type = "submit"]: hover,
    ============================================ */
 
 #map_container,
-.leaflet - container {
-    border - radius: var(--offers - radius);
+.leaflet-container {
+    border-radius: var(--offers-radius);
     overflow: hidden;
     margin: 20px 0;
 }
@@ -2735,24 +2736,24 @@ button[type = "submit"]: hover,
    ============================================ */
 
 #backTop {
-    background: var(--offers - primary);
+    background: var(--offers-primary);
     color: #ffffff;
-    border - radius: 50 %;
+    border-radius: 50%;
     width: 50px;
     height: 50px;
     display: flex;
-    align - items: center;
-    justify - content: center;
+    align-items: center;
+    justify-content: center;
     position: fixed;
     bottom: 30px;
     right: 30px;
-    box - shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
-    z - index: 1000;
+    z-index: 1000;
 }
 
 #backTop:hover {
-    background: var(--offers - secondary);
+    background: var(--offers-secondary);
     transform: translateY(-4px);
 }
 `;
@@ -2763,21 +2764,21 @@ button[type = "submit"]: hover,
    RESPONSIVE IMPROVEMENTS
    ============================================ */
 
-@media(max - width: 768px) {
+@media (max-width: 768px) {
     .checkbox,
-        div[role = "checkbox"] {
+    div[role="checkbox"] {
         padding: 12px;
     }
     
     .btn,
-        #filters_submit {
-        width: 100 %;
+    #filters_submit {
+        width: 100%;
         padding: 14px;
     }
 
-    [class*= "offer"] img {
+    [class*="offer"] img {
         /* On mobile, cards may stack vertically so round top corners */
-        border - radius: var(--offers - radius) var(--offers - radius) 0 0!important;
+        border-radius: var(--offers-radius) var(--offers-radius) 0 0 !important;
     }
 }
 `;

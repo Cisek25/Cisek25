@@ -80,8 +80,11 @@
         <!-- BUILDER PANEL (po wizardzie) -->
         <section class="builder-panel hidden" id="builder-panel">
             <div class="builder-sidebar">
-                <div class="sidebar-header">
+                <div class="sidebar-header" style="display: flex; justify-content: space-between; align-items: center;">
                     <h3><i class="fas fa-cog"></i> Konfiguracja</h3>
+                    <button class="btn btn-sm btn-ghost" onclick="randomizeLayout()" title="Losuj układ i wygląd">
+                        <i class="fas fa-random"></i>
+                    </button>
                 </div>
 
                 <!-- AI Recommendation -->
