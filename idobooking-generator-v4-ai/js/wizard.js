@@ -5,8 +5,8 @@
 const WIZARD_STEPS = [
     {
         id: 'property-type',
-        title: 'Jaki typ obiektu?',
-        subtitle: 'Wybierz typ, który najlepiej opisuje Twój obiekt',
+        title: 'Rodzaj Obiektu',
+        subtitle: 'Wybierz kategorię, która najlepiej oddaje charakter Twojej oferty',
         options: [
             { value: 'hotel-3', label: 'Hotel 3★', icon: 'fa-hotel', score: { luxury: 1, family: 2, budget: 2 } },
             { value: 'hotel-4', label: 'Hotel 4★', icon: 'fa-hotel', score: { luxury: 2, business: 2 } },
@@ -27,8 +27,8 @@ const WIZARD_STEPS = [
     // Location, Atmosphere, Season removed for simplicity
     {
         id: 'style',
-        title: 'Jaki styl preferujesz?',
-        subtitle: 'Styl wizualny strony',
+        title: 'Estetyka i charakter',
+        subtitle: 'Wybierz styl wizualny, który zachwyci Twoich gości',
         options: [
             { value: 'luxury', label: 'Luksusowy', icon: 'fa-crown', score: { luxury: 3 } },
             { value: 'modern', label: 'Nowoczesny', icon: 'fa-shapes', score: { business: 2, apartments: 1 } },
@@ -41,8 +41,8 @@ const WIZARD_STEPS = [
 
     {
         id: 'facilities',
-        title: 'Główne udogodnienia?',
-        subtitle: 'Wybierz najważniejsze',
+        title: 'Atuty i udogodnienia',
+        subtitle: 'Zaznacz kluczowe udogodnienia, którymi chcesz się pochwalić',
         multiSelect: true,
         options: [
             { value: 'pool', label: 'Basen', icon: 'fa-person-swimming', score: { family: 1, luxury: 1 } },
@@ -58,8 +58,8 @@ const WIZARD_STEPS = [
     },
     {
         id: 'palette',
-        title: 'Wybierz paletę kolorów',
-        subtitle: 'Kolory możesz później dostosować',
+        title: 'Paleta kolorystyczna',
+        subtitle: 'Wybierz zestaw barw budujący nastrój Twojej marki',
         options: [
             { value: 'elegant', label: 'Elegancka', icon: 'fa-gem', colors: ['#1A365D', '#C9A227', '#8B6914'], score: { luxury: 2 } },
             { value: 'nature', label: 'Naturalna', icon: 'fa-leaf', colors: ['#2E7D32', '#81C784', '#FFA726'], score: { eco: 2, family: 1 } },
@@ -347,32 +347,108 @@ function finishWizard() {
 
 // Skip wizard
 function skipWizard() {
-    console.log("⏩ Skipping wizard - initializing defaults...");
+    console.log("⏩ Skipping wizard - initializing with random template...");
 
-    // Pick a random template or default
-    const defaultTemplate = TEMPLATES['luxury-resort'] || Object.values(TEMPLATES)[0];
+    // Pick a truly random template from all available templates
+    const templateKeys = Object.keys(TEMPLATES);
+    const randomTemplateKey = templateKeys[Math.floor(Math.random() * templateKeys.length)];
+    const randomTemplate = TEMPLATES[randomTemplateKey];
+
+    console.log("🎲 Selected random template:", randomTemplate.name);
 
     // Set colors from template
-    appState.globalSettings.colors = { ...defaultTemplate.colors };
+    appState.globalSettings.colors = { ...randomTemplate.colors };
+    appState.globalSettings.fonts = { ...randomTemplate.fonts };
 
-    // Initialize randomized state for variety (simulating "random placeholder")
-    if (typeof window.randomizeLayout === 'function') {
-        // Initialize basic structure first
-        appState.enabledSections = ['intro', 'rooms', 'amenities', 'gallery', 'testimonials', 'cta', 'map', 'footer'];
-        // Use the randomizer to set backgrounds and about variant
-        window.randomizeLayout(true); // pass true to skip confirmation if needed (need to update randomizeLayout signature or just handle confirm)
-    } else {
-        // Fallback if randomizer not ready
-        appState.aboutVariant = 'hotel-elegant';
-        appState.enabledSections = ['intro', 'rooms', 'amenities', 'gallery', 'testimonials', 'cta', 'map', 'footer'];
-    }
+    // Pick a random property type for room presets
+    const propertyTypes = ['hotel-3', 'hotel-4', 'hotel-5', 'apartments', 'resort', 'pension', 'boutique', 'glamping', 'villa', 'bnb'];
+    const randomPropertyType = propertyTypes[Math.floor(Math.random() * propertyTypes.length)];
 
+    // Set wizard data with property-type so addDefaultObjects() works correctly
     appState.wizardData = {
-        answers: {},
+        answers: {
+            'property-type': randomPropertyType,
+            'style': randomTemplate.category || 'luxury'
+        },
         scores: {},
-        recommendedTemplate: defaultTemplate,
+        recommendedTemplate: randomTemplate,
         skipped: true
     };
+
+    // Set enabled sections from template, but randomize and shuffle for variety
+    const coreSections = ['intro', 'rooms', 'gallery', 'cta'];
+    const optionalSections = ['amenities', 'testimonials', 'location', 'faq', 'newsletter', 'partners', 'attractions', 'dining', 'pricing', 'spa', 'events', 'transport', 'rules'];
+
+    // Pick 3-5 random optional sections
+    const shuffledOptional = [...optionalSections].sort(() => 0.5 - Math.random());
+    const selectedOptional = shuffledOptional.slice(0, Math.floor(Math.random() * 3) + 3);
+
+    // Combine and shuffle the order (keeping intro first usually looks better, but we'll allow some variety)
+    const finalSections = ['intro', ...[...coreSections.slice(1), ...selectedOptional].sort(() => 0.5 - Math.random())];
+    appState.enabledSections = [...new Set(finalSections)];
+
+    // Randomize section backgrounds for variety
+    const bgTypes = ['white', 'light', 'gradient', 'pattern', 'dark'];
+    Object.keys(appState.sectionBackgrounds).forEach(sec => {
+        if (sec === 'intro') {
+            appState.sectionBackgrounds.intro = Math.random() > 0.6 ? 'white' : (Math.random() > 0.5 ? 'light' : 'dark');
+        } else if (sec === 'gallery') {
+            appState.sectionBackgrounds.gallery = 'white';
+        } else {
+            appState.sectionBackgrounds[sec] = bgTypes[Math.floor(Math.random() * bgTypes.length)];
+        }
+    });
+
+    // Pick a random About variant - filter by category if possible
+    if (window.ABOUT_SECTION_VARIANTS) {
+        let variants = Object.keys(window.ABOUT_SECTION_VARIANTS);
+        const category = randomTemplate.category;
+
+        const matchedVariants = variants.filter(v => {
+            const variantObj = window.ABOUT_SECTION_VARIANTS[v];
+            return variantObj.category === category || (category === 'luxury' && variantObj.id.includes('luxury'));
+        });
+
+        const chosenVariantId = matchedVariants.length > 0
+            ? matchedVariants[Math.floor(Math.random() * matchedVariants.length)]
+            : variants[Math.floor(Math.random() * variants.length)];
+
+        appState.aboutVariant = chosenVariantId;
+        const variant = window.ABOUT_SECTION_VARIANTS[chosenVariantId];
+
+        // Sync to appState.sectionContent.intro
+        appState.sectionContent.intro.title = variant.title;
+        appState.sectionContent.intro.subtitle = variant.subtitle;
+        appState.sectionContent.intro.description = variant.description;
+
+        // Set property name if it's currently empty
+        if (!appState.globalSettings.propertyName) {
+            appState.globalSettings.propertyName = variant.name || randomTemplate.name;
+        }
+    }
+
+    // Randomize Hero Image from library
+    if (window.getRandomImage) {
+        const theme = randomTemplate.category === 'eco' ? 'nature' :
+            (randomTemplate.category === 'luxury' ? 'luxury' :
+                (randomPropertyType.includes('apart') ? 'apartments' : 'luxury'));
+        appState.sectionContent.intro.mainImage = window.getRandomImage(theme);
+    }
+
+    // Apply gradient from template's category if applicable
+    const categoryGradients = {
+        'luxury': 'royal',
+        'family': 'coral',
+        'business': 'steel',
+        'romantic': 'lavender',
+        'eco': 'forest',
+        'apartments': 'modern',
+        'budget': 'sunset',
+        'modern': 'midnight'
+    };
+    const matchedGradient = categoryGradients[randomTemplate.category] || 'emerald';
+    appState.effectsSettings.gradientPreset = matchedGradient;
+    appState.effectsSettings.useGradients = Math.random() > 0.1; // 90% chance for gradients
 
     // Ensure we have a valid mode
     appState.mode = 'builder';
@@ -381,10 +457,21 @@ function skipWizard() {
     document.getElementById('builder-panel').classList.remove('hidden');
 
     // Init builder with the chosen template
-    initBuilder(defaultTemplate);
+    initBuilder(randomTemplate);
+
+    // Add default objects for the chosen property type
+    addDefaultObjects();
+
+    // CRITICAL: Update Sidebar Inputs to match randomized state
+    if (window.updateSidebarInputs) {
+        window.updateSidebarInputs();
+    }
 
     // Initial save to ensure state is valid
     triggerAutoSave();
+
+    // Force preview render
+    Preview.debouncedRender();
 }
 
 window.initWizard = initWizard;

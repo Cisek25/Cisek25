@@ -6,6 +6,44 @@ const TEMPLATES = {
     // ============================================
     // LUXURY & PREMIUM
     // ============================================
+    'midnight-premium': {
+        id: 'midnight-premium',
+        name: 'Midnight Premium (Dark)',
+        icon: 'fa-moon',
+        category: 'luxury',
+        description: 'Nowoczesny, ciemny styl dla luksusowych apartamentów',
+        colors: {
+            primary: '#020617',
+            secondary: '#334155',
+            accent: '#FACC15'
+        },
+        fonts: {
+            heading: 'Outfit',
+            body: 'Inter'
+        },
+        sections: ['intro', 'rooms', 'amenities', 'gallery', 'testimonials', 'cta'],
+        keywords: ['dark', 'modern', 'luxury', 'midnight', 'premium']
+    },
+
+    'onyx-luxury': {
+        id: 'onyx-luxury',
+        name: 'Onyx Gold Resort',
+        icon: 'fa-crown',
+        category: 'luxury',
+        description: 'Złoto i czerń dla najbardziej prestiżowych lokalizacji',
+        colors: {
+            primary: '#111111',
+            secondary: '#D4AF37',
+            accent: '#FFFFFF'
+        },
+        fonts: {
+            heading: 'Playfair Display',
+            body: 'Montserrat'
+        },
+        sections: ['intro', 'rooms', 'gallery', 'amenities', 'cta'],
+        keywords: ['onyx', 'gold', 'prestige', 'black', 'luxury']
+    },
+
     'luxury-resort': {
         id: 'luxury-resort',
         name: 'Luksusowy Resort',
@@ -13,9 +51,9 @@ const TEMPLATES = {
         category: 'luxury',
         description: 'Ekskluzywny resort dla najbardziej wymagających gości',
         colors: {
-            primary: '#1A365D',
-            secondary: '#C9A227',
-            accent: '#8B6914'
+            primary: '#0F172A',
+            secondary: '#F59E0B',
+            accent: '#B45309'
         },
         fonts: {
             heading: 'Playfair Display',
@@ -32,9 +70,9 @@ const TEMPLATES = {
         category: 'luxury',
         description: 'Kameralny hotel z unikalnym charakterem',
         colors: {
-            primary: '#2D3436',
-            secondary: '#D4A574',
-            accent: '#8E7161'
+            primary: '#1E293B',
+            secondary: '#FB7185',
+            accent: '#E11D48'
         },
         fonts: {
             heading: 'Cinzel',
@@ -111,9 +149,9 @@ const TEMPLATES = {
         category: 'family',
         description: 'Wakacyjny wypoczynek nad morzem',
         colors: {
-            primary: '#0277BD',
-            secondary: '#4FC3F7',
-            accent: '#FFB74D'
+            primary: '#0C4A6E',
+            secondary: '#38BDF8',
+            accent: '#F97316'
         },
         fonts: {
             heading: 'Pacifico',
@@ -133,9 +171,9 @@ const TEMPLATES = {
         category: 'budget',
         description: 'Nowoczesny hostel w centrum miasta',
         colors: {
-            primary: '#FF6B35',
-            secondary: '#F7C948',
-            accent: '#00B894'
+            primary: '#C2410C',
+            secondary: '#FDBA74',
+            accent: '#10B981'
         },
         fonts: {
             heading: 'Poppins',
@@ -193,9 +231,9 @@ const TEMPLATES = {
         category: 'apartments',
         description: 'Nowoczesne apartamenty w centrum',
         colors: {
-            primary: '#37474F',
-            secondary: '#78909C',
-            accent: '#00BCD4'
+            primary: '#334155',
+            secondary: '#94A3B8',
+            accent: '#0EA5E9'
         },
         fonts: {
             heading: 'Montserrat',
@@ -234,9 +272,9 @@ const TEMPLATES = {
         category: 'business',
         description: 'Hotel dla podróżujących służbowo',
         colors: {
-            primary: '#1565C0',
-            secondary: '#42A5F5',
-            accent: '#FFC107'
+            primary: '#1E40AF',
+            secondary: '#60A5FA',
+            accent: '#FBBF24'
         },
         fonts: {
             heading: 'Oswald',
@@ -275,9 +313,9 @@ const TEMPLATES = {
         category: 'romantic',
         description: 'Idealne miejsce dla par',
         colors: {
-            primary: '#880E4F',
-            secondary: '#F48FB1',
-            accent: '#FFD54F'
+            primary: '#701A75',
+            secondary: '#F472B6',
+            accent: '#FCD34D'
         },
         fonts: {
             heading: 'Great Vibes',
@@ -316,9 +354,9 @@ const TEMPLATES = {
         category: 'eco',
         description: 'Ekologiczny wypoczynek w zgodzie z naturą',
         colors: {
-            primary: '#33691E',
-            secondary: '#8BC34A',
-            accent: '#795548'
+            primary: '#064E3B',
+            secondary: '#10B981',
+            accent: '#D97706'
         },
         fonts: {
             heading: 'Amatic SC',
@@ -335,9 +373,9 @@ const TEMPLATES = {
         category: 'eco',
         description: 'Luksusowe namioty w sercu natury',
         colors: {
-            primary: '#4E342E',
-            secondary: '#8D6E63',
-            accent: '#FFA000'
+            primary: '#1E3A1C',
+            secondary: '#A3E635',
+            accent: '#FACC15'
         },
         fonts: {
             heading: 'Lobster',
@@ -598,6 +636,231 @@ const TEMPLATES = {
         },
         sections: ['intro', 'rooms', 'gallery', 'amenities', 'location', 'cta'],
         keywords: ['urban', 'chic', 'trendy', 'modern', 'city']
+    },
+
+    // ============================================
+    // NEW CITY & APARTMENT TEMPLATES (20+)
+    // ============================================
+
+    'urban-loft-v2': {
+        id: 'urban-loft-v2',
+        name: 'Urban Loft V2',
+        icon: 'fa-layer-group',
+        category: 'apartments',
+        description: 'Przestronny loft z industrialnym zacięciem',
+        colors: { primary: '#2d3436', secondary: '#dfe6e9', accent: '#fdcb6e' },
+        fonts: { heading: 'Oswald', body: 'Roboto' },
+        sections: ['intro', 'rooms', 'amenities', 'gallery', 'location', 'cta'],
+        keywords: ['loft', 'industrial', 'city', 'modern']
+    },
+    'metro-chic': {
+        id: 'metro-chic',
+        name: 'Metro Chic',
+        icon: 'fa-subway',
+        category: 'apartments',
+        description: 'Elegancki apartament blisko metra',
+        colors: { primary: '#2c3e50', secondary: '#ecf0f1', accent: '#e74c3c' },
+        fonts: { heading: 'Raleway', body: 'Lato' },
+        sections: ['intro', 'rooms', 'location', 'amenities', 'cta'],
+        keywords: ['metro', 'chic', 'convenient', 'city']
+    },
+    'skyline-view': {
+        id: 'skyline-view',
+        name: 'Skyline View',
+        icon: 'fa-city',
+        category: 'luxury',
+        description: 'Apartament z widokiem na panoramę miasta',
+        colors: { primary: '#0984e3', secondary: '#74b9ff', accent: '#a29bfe' },
+        fonts: { heading: 'Montserrat', body: 'Open Sans' },
+        sections: ['intro', 'rooms', 'gallery', 'testimonials', 'cta'],
+        keywords: ['view', 'skyline', 'luxury', 'high-rise']
+    },
+    'concrete-jungle': {
+        id: 'concrete-jungle',
+        name: 'Concrete Jungle',
+        icon: 'fa-building',
+        category: 'apartments',
+        description: 'Surowy beton i ciepłe drewno',
+        colors: { primary: '#636e72', secondary: '#b2bec3', accent: '#00b894' },
+        fonts: { heading: 'Roboto Slab', body: 'Roboto' },
+        sections: ['intro', 'rooms', 'amenities', 'location', 'cta'],
+        keywords: ['concrete', 'modern', 'brutalist', 'city']
+    },
+    'downtown-luxury': {
+        id: 'downtown-luxury',
+        name: 'Downtown Luxury',
+        icon: 'fa-gem',
+        category: 'luxury',
+        description: 'Luksus w samym sercu wydarzeń',
+        colors: { primary: '#2d3436', secondary: '#000000', accent: '#d63031' },
+        fonts: { heading: 'Playfair Display', body: 'Lato' },
+        sections: ['intro', 'rooms', 'amenities', 'gallery', 'spa', 'cta'],
+        keywords: ['downtown', 'luxury', 'premium', 'central']
+    },
+    'old-town-gem': {
+        id: 'old-town-gem',
+        name: 'Perła Starówki',
+        icon: 'fa-landmark',
+        category: 'historic',
+        description: 'Historyczny klimat w nowoczesnym wydaniu',
+        colors: { primary: '#5d4037', secondary: '#d7ccc8', accent: '#ff7043' },
+        fonts: { heading: 'Cinzel', body: 'Lora' },
+        sections: ['intro', 'rooms', 'location', 'gallery', 'cta'],
+        keywords: ['old town', 'historic', 'charming', 'city']
+    },
+    'modernist-haven': {
+        id: 'modernist-haven',
+        name: 'Modernist Haven',
+        icon: 'fa-square',
+        category: 'modern',
+        description: 'Geometryczne formy i funkcjonalność',
+        colors: { primary: '#192a56', secondary: '#f5f6fa', accent: '#c23616' },
+        fonts: { heading: 'Jost', body: 'Inter' },
+        sections: ['intro', 'rooms', 'amenities', 'gallery', 'cta'],
+        keywords: ['modernist', 'functional', 'clean', 'city']
+    },
+    'scandi-city': {
+        id: 'scandi-city',
+        name: 'Skandynawskie Miasto',
+        icon: 'fa-snowflake',
+        category: 'modern',
+        description: 'Jasne wnętrza i przytulny minimalizm',
+        colors: { primary: '#34495e', secondary: '#ecf0f1', accent: '#1abc9c' },
+        fonts: { heading: 'Nunito', body: 'Nunito' },
+        sections: ['intro', 'rooms', 'amenities', 'testimonials', 'cta'],
+        keywords: ['scandi', 'bright', 'cozy', 'minimal']
+    },
+    'industrial-comfort': {
+        id: 'industrial-comfort',
+        name: 'Industrial Comfort',
+        icon: 'fa-wrench',
+        category: 'apartments',
+        description: 'Fabryczny styl z domowym ciepłem',
+        colors: { primary: '#2f3542', secondary: '#a4b0be', accent: '#ffa502' },
+        fonts: { heading: 'Bebas Neue', body: 'Open Sans' },
+        sections: ['intro', 'rooms', 'amenities', 'gallery', 'cta'],
+        keywords: ['industrial', 'warm', 'unique', 'city']
+    },
+    'brick-and-glass': {
+        id: 'brick-and-glass',
+        name: 'Cegła i Szkło',
+        icon: 'fa-cubes',
+        category: 'apartments',
+        description: 'Kontrastowe połączenie materiałów',
+        colors: { primary: '#800000', secondary: '#f1f2f6', accent: '#3742fa' },
+        fonts: { heading: 'Bitter', body: 'Source Sans Pro' },
+        sections: ['intro', 'rooms', 'amenities', 'location', 'cta'],
+        keywords: ['brick', 'glass', 'modern', 'contrast']
+    },
+    'city-penthouse': {
+        id: 'city-penthouse',
+        name: 'City Penthouse',
+        icon: 'fa-arrow-up',
+        category: 'luxury',
+        description: 'Apartament na ostatnim piętrze',
+        colors: { primary: '#1e272e', secondary: '#d2dae2', accent: '#ff3f34' },
+        fonts: { heading: 'Manrope', body: 'Manrope' },
+        sections: ['intro', 'rooms', 'gallery', 'amenities', 'cta'],
+        keywords: ['penthouse', 'view', 'luxury', 'top']
+    },
+    'studio-central': {
+        id: 'studio-central',
+        name: 'Studio Central',
+        icon: 'fa-compress',
+        category: 'budget',
+        description: 'Kompaktowe studio dla aktywnych',
+        colors: { primary: '#57606f', secondary: '#dfe4ea', accent: '#7bed9f' },
+        fonts: { heading: 'Rubik', body: 'Rubik' },
+        sections: ['intro', 'rooms', 'location', 'cta'],
+        keywords: ['studio', 'compact', 'budget', 'central']
+    },
+    'executive-suite': {
+        id: 'executive-suite',
+        name: 'Executive Suite',
+        icon: 'fa-briefcase',
+        category: 'business',
+        description: 'Idealne dla podróży służbowych',
+        colors: { primary: '#0c2461', secondary: '#dff9fb', accent: '#b33939' },
+        fonts: { heading: 'Crimson Text', body: 'Lato' },
+        sections: ['intro', 'rooms', 'amenities', 'location', 'cta'],
+        keywords: ['business', 'executive', 'work', 'city']
+    },
+    'cultural-district': {
+        id: 'cultural-district',
+        name: 'Dzielnica Kultury',
+        icon: 'fa-theater-masks',
+        category: 'apartments',
+        description: 'W sąsiedztwie teatrów i galerii',
+        colors: { primary: '#40407a', secondary: '#f7f1e3', accent: '#ccae62' },
+        fonts: { heading: 'Merriweather', body: 'Open Sans' },
+        sections: ['intro', 'rooms', 'attractions', 'gallery', 'cta'],
+        keywords: ['culture', 'art', 'location', 'city']
+    },
+    'nightlife-hub': {
+        id: 'nightlife-hub',
+        name: 'Centrum Rozrywki',
+        icon: 'fa-cocktail',
+        category: 'apartments',
+        description: 'Blisko najlepszych klubów i restauracji',
+        colors: { primary: '#2d3436', secondary: '#636e72', accent: '#e84393' },
+        fonts: { heading: 'Righteous', body: 'Barlow' },
+        sections: ['intro', 'rooms', 'location', 'dining', 'cta'],
+        keywords: ['nightlife', 'party', 'fun', 'city']
+    },
+    'green-city-oasis': {
+        id: 'green-city-oasis',
+        name: 'Zielona Oaza',
+        icon: 'fa-leaf',
+        category: 'eco',
+        description: 'Apartamenty z ogrodem w mieście',
+        colors: { primary: '#218c74', secondary: '#d1ccc0', accent: '#ff5252' },
+        fonts: { heading: 'Quicksand', body: 'Nunito' },
+        sections: ['intro', 'rooms', 'amenities', 'location', 'cta'],
+        keywords: ['green', 'garden', 'eco', 'city']
+    },
+    'tech-hub-stay': {
+        id: 'tech-hub-stay',
+        name: 'Tech Hub',
+        icon: 'fa-laptop-code',
+        category: 'business',
+        description: 'Smart home dla cyfrowych nomadów',
+        colors: { primary: '#341f97', secondary: '#c8d6e5', accent: '#00d2d3' },
+        fonts: { heading: 'Fira Code', body: 'Inter' },
+        sections: ['intro', 'rooms', 'amenities', 'cta'],
+        keywords: ['tech', 'smart', 'modern', 'business']
+    },
+    'student-smart': {
+        id: 'student-smart',
+        name: 'Student Smart',
+        icon: 'fa-graduation-cap',
+        category: 'budget',
+        description: 'Ekonomiczne i funkcjonalne',
+        colors: { primary: '#222f3e', secondary: '#c8d6e5', accent: '#5f27cd' },
+        fonts: { heading: 'Work Sans', body: 'Work Sans' },
+        sections: ['intro', 'rooms', 'location', 'cta'],
+        keywords: ['student', 'budget', 'smart', 'city']
+    },
+    'artist-atelier': {
+        id: 'artist-atelier',
+        name: 'Atelier Artysty',
+        icon: 'fa-palette',
+        category: 'apartments',
+        description: 'Kreatywna przestrzeń pełna inspiracji',
+        colors: { primary: '#b33771', secondary: '#f8c291', accent: '#18dcff' },
+        fonts: { heading: 'Pacifico', body: 'Caveat' },
+        sections: ['intro', 'rooms', 'gallery', 'cta'],
+        keywords: ['art', 'creative', 'colorful', 'city']
+    },
+    'riverside-modern': {
+        id: 'riverside-modern',
+        name: 'Nad Rzeką',
+        icon: 'fa-water',
+        category: 'modern',
+        description: 'Nowoczesne bulwary i widok na rzekę',
+        colors: { primary: '#192a56', secondary: '#dcdde1', accent: '#44bd32' },
+        fonts: { heading: 'Exo 2', body: 'Roboto' },
+        sections: ['intro', 'rooms', 'location', 'gallery', 'cta'],
+        keywords: ['river', 'view', 'modern', 'city']
     }
 };
 

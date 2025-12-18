@@ -903,15 +903,23 @@ function addDefaultObjects() {
     }
 
     // Convert presets to objects
-    appState.objects = presets.map((p, index) => ({
-        id: index + 1,
-        name: p.name,
-        type: p.type,
-        price: p.price,
-        persons: p.personCount,
-        image: p.image,
-        description: p.description
-    }));
+    appState.objects = presets.map((p, index) => {
+        let roomImage = p.image;
+        if (!roomImage && window.getRandomImage) {
+            roomImage = window.getRandomImage('rooms');
+        }
+
+        return {
+            id: index + 1,
+            name: p.name,
+            type: p.type,
+            price: p.price,
+            persons: p.personCount,
+            image: roomImage,
+            images: [roomImage],
+            description: p.description
+        };
+    });
 
     appState.nextObjectId = appState.objects.length + 1;
     renderObjectsGrid();
@@ -956,7 +964,7 @@ function editObject(objectId) {
             </div>
             <div class="form-group">
                 <label>URL zdjęcia</label>
-                <input type="text" id="obj-image" value="${obj.images?.[0] || ''}" placeholder="https://...">
+                <input type="text" id="obj-image" value="${obj.images?.[0] || obj.image || ''}" placeholder="https://...">
             </div>
             <div class="form-group">
                 <label>Badge (opcjonalnie)</label>
@@ -1079,8 +1087,8 @@ function renderObjectsGrid() {
     container.innerHTML = appState.objects.map(obj => `
         <div class="object-card">
             <div class="object-image">
-                ${obj.images?.[0]
-            ? `<img src="${obj.images[0]}" alt="${obj.name}">`
+                ${(obj.images?.[0] || obj.image)
+            ? `<img src="${obj.images?.[0] || obj.image}" alt="${obj.name}">`
             : '<i class="fas fa-image"></i>'
         }
             </div>
@@ -1128,6 +1136,56 @@ function updateAddress(value) {
 function updatePropertyName(value) {
     appState.globalSettings.propertyName = value;
     Preview.debouncedRender();
+}
+
+// ============================================
+// SYNC UI WITH STATE
+// ============================================
+function updateSidebarInputs() {
+    console.log('Syncing sidebar inputs with appState...');
+
+    // Property Name & Address
+    if (document.getElementById('property-name')) {
+        document.getElementById('property-name').value = appState.globalSettings.propertyName || '';
+    }
+    if (document.getElementById('location-address')) {
+        document.getElementById('location-address').value = appState.globalSettings.address || '';
+    }
+
+    // Intro Content
+    const intro = appState.sectionContent.intro;
+    if (document.getElementById('hero-title')) document.getElementById('hero-title').value = intro.title || '';
+    if (document.getElementById('hero-subtitle')) document.getElementById('hero-subtitle').value = intro.subtitle || '';
+    if (document.getElementById('property-desc')) document.getElementById('property-desc').value = intro.description || '';
+    if (document.getElementById('hero-image')) {
+        document.getElementById('hero-image').value = intro.mainImage || '';
+        const preview = document.getElementById('hero-image-preview');
+        if (preview && intro.mainImage) {
+            preview.style.backgroundImage = `url(${intro.mainImage})`;
+        }
+    }
+
+    // Colors
+    Object.keys(appState.globalSettings.colors).forEach(type => {
+        const input = document.querySelector(`input[type="color"][onchange*="updateColor('${type}'"]`);
+        if (input) input.value = appState.globalSettings.colors[type];
+    });
+
+    // Checkboxes (Sections)
+    const checklist = document.getElementById('sections-checklist');
+    if (checklist) {
+        const checkboxes = checklist.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+            cb.checked = appState.enabledSections.includes(cb.value);
+        });
+    }
+
+    // Gradient presets
+    if (appState.effectsSettings && appState.effectsSettings.gradientPreset) {
+        document.querySelectorAll('.gradient-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-gradient') === appState.effectsSettings.gradientPreset);
+        });
+    }
 }
 
 // ============================================
@@ -2332,40 +2390,103 @@ window.showAutoSaveIndicator = showAutoSaveIndicator;
 // RANDOMIZATION LOGIC
 // ============================================
 function randomizeLayout(skipConfirm = false) {
-    if (!skipConfirm && !confirm('Czy na pewno chcesz wylosować nowy układ? Obecne ustawienia sekcji zostaną zmienione.')) return;
+    if (!skipConfirm && !confirm('Czy na pewno chcesz wylosować nowy wygląd i układ? Obecne ustawienia zostaną zmienione.')) return;
 
-    // 1. Shuffle Sections (keep intro first)
-    const sections = appState.enabledSections.filter(s => s !== 'intro');
-    for (let i = sections.length - 1; i > 0; i--) {
+    console.log("🎲 Randomizing layout and theme...");
+
+    // 1. Pick a random template
+    const templateKeys = Object.keys(TEMPLATES);
+    const randomTemplateKey = templateKeys[Math.floor(Math.random() * templateKeys.length)];
+    const randomTemplate = TEMPLATES[randomTemplateKey];
+    appState.selectedTemplate = randomTemplate;
+
+    // Apply template colors and fonts
+    appState.globalSettings.colors = { ...randomTemplate.colors };
+    appState.globalSettings.fonts = { ...randomTemplate.fonts };
+
+    // 2. Sections Shuffle (Constraint: Intro -> Rooms -> Rest)
+    const alwaysFirst = ['intro', 'rooms'];
+    const otherSections = appState.enabledSections.filter(s => !alwaysFirst.includes(s));
+
+    // Shuffle others
+    for (let i = otherSections.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [sections[i], sections[j]] = [sections[j], sections[i]];
+        [otherSections[i], otherSections[j]] = [otherSections[j], otherSections[i]];
     }
-    appState.enabledSections = ['intro', ...sections];
 
-    // 2. Randomize Backgrounds
-    const bgTypes = ['white', 'light', 'gradient', 'white', 'light']; // skew towards white/light
+    // Reassemble: Intro -> Rooms -> Shuffled Others
+    // Ensure 'rooms' is actually enabled before forcing it to 2nd position, otherwise just intro
+    const hasRooms = appState.enabledSections.includes('rooms');
+    appState.enabledSections = hasRooms ? ['intro', 'rooms', ...otherSections] : ['intro', ...otherSections];
+
+    // 3. Randomize Backgrounds
+    const bgTypes = ['white', 'light', 'gradient', 'pattern', 'dark'];
     appState.enabledSections.forEach(sectionId => {
         if (sectionId === 'intro') {
-            appState.sectionBackgrounds[sectionId] = Math.random() > 0.5 ? 'light' : 'white';
+            appState.sectionBackgrounds[sectionId] = Math.random() > 0.6 ? 'white' : (Math.random() > 0.5 ? 'light' : 'dark');
+        } else if (sectionId === 'gallery') {
+            appState.sectionBackgrounds[sectionId] = 'white'; // Gallery looks best on white
         } else {
             appState.sectionBackgrounds[sectionId] = bgTypes[Math.floor(Math.random() * bgTypes.length)];
         }
     });
 
-    // 3. Randomize About Variant
+    // 4. Randomize About Variant & Content
     if (window.ABOUT_SECTION_VARIANTS) {
-        const variants = Object.keys(window.ABOUT_SECTION_VARIANTS);
-        const randomVariant = variants[Math.floor(Math.random() * variants.length)];
-        appState.aboutVariant = randomVariant;
+        let variants = Object.keys(window.ABOUT_SECTION_VARIANTS);
+        const category = randomTemplate.category;
+
+        // Filter variants by category if possible
+        let matchedVariants = variants.filter(v => {
+            const variantObj = window.ABOUT_SECTION_VARIANTS[v];
+            return variantObj.category === category;
+        });
+
+        // Fallback to all if no specific match
+        if (matchedVariants.length === 0) matchedVariants = variants;
+
+        const chosenVariantId = matchedVariants[Math.floor(Math.random() * matchedVariants.length)];
+        appState.aboutVariant = chosenVariantId;
+        const variant = window.ABOUT_SECTION_VARIANTS[chosenVariantId];
+
+        // Sync content
+        appState.sectionContent.intro.title = variant.title;
+        appState.sectionContent.intro.subtitle = variant.subtitle;
+        appState.sectionContent.intro.description = variant.description;
+
+        // Update property name if needed/wanted
+        appState.globalSettings.propertyName = variant.name || randomTemplate.name; // This effectively changes "everything on the right"
     }
 
-    // 4. Update UI
+    // 5. Randomize Hero Image
+    if (window.getRandomImage) {
+        const theme = randomTemplate.category === 'eco' ? 'nature' :
+            (randomTemplate.category === 'luxury' ? 'luxury' :
+                (randomTemplate.category === 'apartments' ? 'apartments' : 'luxury'));
+        appState.sectionContent.intro.mainImage = window.getRandomImage(theme);
+    }
+
+    // 6. Update Effects (Gradients)
+    const categoryGradients = {
+        'luxury': 'royal', 'family': 'coral', 'business': 'steel', 'romantic': 'lavender',
+        'eco': 'forest', 'apartments': 'modern', 'budget': 'sunset', 'modern': 'midnight'
+    };
+    const matchedGradient = categoryGradients[randomTemplate.category] || 'emerald';
+    appState.effectsSettings.gradientPreset = matchedGradient;
+    appState.effectsSettings.useGradients = Math.random() > 0.1;
+
+    // 7. Update UI
+    // CRITICAL: Update Sidebar Inputs to match randomized state
+    if (window.updateSidebarInputs) {
+        window.updateSidebarInputs();
+    }
+
     renderSectionsChecklist();
-    Preview.render();
+    Preview.debouncedRender();
     triggerAutoSave();
 
     // Show notification
-    showAutoSaveIndicator('Wylosowano nowy układ!');
+    showAutoSaveIndicator('Wylosowano nowy styl: ' + randomTemplate.name);
 }
 
 window.randomizeLayout = randomizeLayout;
@@ -2453,3 +2574,23 @@ function renderGradientButtons() {
     });
 }
 window.renderGradientButtons = renderGradientButtons;
+// ============================================
+// THEME & TESTIMONIALS LOGIC
+// ============================================
+
+window.toggleTheme = function() {
+    document.body.classList.toggle('light-mode');
+    const isLight = document.body.classList.contains('light-mode');
+    const btn = document.getElementById('btn-theme-toggle');
+    if(btn) btn.innerHTML = isLight ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+    // Save preference if needed, but not strictly required
+};
+
+window.updateTestimonialsSettings = function(key, value) {
+    if (!window.appState.testimonialsSettings) {
+        window.appState.testimonialsSettings = { displayMode: 'grid', count: 3 };
+    }
+    window.appState.testimonialsSettings[key] = value;
+    Preview.debouncedRender();
+    triggerAutoSave();
+};

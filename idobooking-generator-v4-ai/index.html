@@ -37,6 +37,9 @@
             <button class="nav-btn" id="btn-load" onclick="loadProject()" title="Wczytaj projekt z pliku JSON">
                 <i class="fas fa-folder-open"></i> Wczytaj
             </button>
+            <button class="nav-btn" id="btn-theme-toggle" onclick="toggleTheme()" title="Przełącz tryb jasny/ciemny">
+                <i class="fas fa-sun"></i>
+            </button>
             <button class="nav-btn" id="btn-new"><i class="fas fa-plus"></i> Nowy projekt</button>
             <button class="nav-btn" id="btn-help"><i class="fas fa-question-circle"></i> Pomoc</button>
         </nav>
@@ -264,6 +267,26 @@
                             </label>
                             <input type="range" id="body-scale" min="70" max="150" value="100"
                                 oninput="updateFontScale('body', this.value)">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Konfiguracja Opinii -->
+                <div class="settings-section collapsible collapsed">
+                    <h4><i class="fas fa-star"></i> Konfiguracja Opinii</h4>
+                    <div class="settings-section-content">
+                        <div class="form-group">
+                            <label>Tryb wyświetlania</label>
+                            <select onchange="updateTestimonialsSettings('displayMode', this.value)">
+                                <option value="grid">Siatka (Grid)</option>
+                                <option value="slider">Slider (Karuzela)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Liczba opinii</label>
+                            <input type="range" min="3" max="9" value="3"
+                                oninput="updateTestimonialsSettings('count', this.value); this.nextElementSibling.innerText = this.value">
+                            <span style="font-size: 0.8em; color: var(--text-muted)">3</span>
                         </div>
                     </div>
                 </div>
@@ -1348,20 +1371,23 @@
     <!-- ============================================
          SCRIPTS
          ============================================ -->
-    <script src="data/templates.js"></script>
-    <script src="data/about-sections.js"></script>
-    <script src="data/room-presets.js"></script>
-    <script src="data/sections.js"></script>
-    <script src="data/amenities.js"></script>
-    <script src="data/room-presets.js"></script>
-    <script src="js/ai-engine.js"></script>
-    <script src="js/wizard.js"></script>
-    <script src="js/template-engine.js"></script>
-    <script src="js/css-engine.js?v=3"></script>
-    <script src="js/preview.js?v=3"></script>
-    <script src="js/gemini-api.js"></script>
-    <script src="js/visual-effects.js?v=3"></script>
-    <script src="js/app.js?v=3"></script>
+    <!-- Data Repositories -->
+    <script src="data/templates.js?v=5"></script>
+    <script src="data/about-sections.js?v=5"></script>
+    <script src="data/room-presets.js?v=5"></script>
+    <script src="data/amenities.js?v=5"></script>
+    <script src="data/sections.js?v=5"></script>
+    <script src="data/image-library.js?v=5"></script>
+
+    <!-- Core App Logic -->
+    <script src="js/gemini-api.js?v=5"></script>
+    <script src="js/ai-engine.js?v=5"></script>
+    <script src="js/template-engine.js?v=5"></script>
+    <script src="js/css-engine.js?v=5"></script>
+    <script src="js/preview.js?v=5"></script>
+    <script src="js/visual-effects.js?v=5"></script>
+    <script src="js/wizard.js?v=5"></script>
+    <script src="js/app.js?v=5"></script>
 </body>
 
 </html>

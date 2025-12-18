@@ -8,49 +8,43 @@
    CSS VARIABLES
    ============================================ */
 :root {
-    /* Clean Professional Theme - Light & Modern */
-    --bg-primary: #f0f2f5;
-    /* Light Blue/Grey Background */
-    --bg-secondary: #ffffff;
-    /* Pure White Containers */
-    --bg-tertiary: #f9fafb;
-    /* Very Light Grey for contrasts */
-    --bg-elevated: #ffffff;
-    /* White for floating elements */
-    --bg-quaternary: #eef1f6;
+    /* Premium Professional Theme - Dark & Modern Hub */
+    --bg-primary: #111827;
+    /* Deep Navy/Black */
+    --bg-secondary: #1F2937;
+    /* Dark Grey Sidebar */
+    --bg-tertiary: #374151;
+    /* Lighter Grey for inputs */
+    --bg-elevated: #1F2937;
+    --bg-quaternary: #111827;
 
-    --text-primary: #1a1a1a;
-    /* Nearly Black */
-    --text-secondary: #4b5563;
-    /* Dark Grey */
+    --text-primary: #f9fafb;
+    /* Near white */
+    --text-secondary: #d1d5db;
+    /* Light grey */
     --text-muted: #9ca3af;
-    /* Muted Grey */
+    /* Muted grey */
 
-    --border-primary: #e5e7eb;
-    /* Light Border */
-    --border-secondary: #f3f4f6;
+    --border-primary: #374151;
+    /* Dark border */
+    --border-secondary: #4b5563;
 
-    /* Accents - Professional Blue & Gold hints */
-    --accent-primary: #006ce4;
-    /* Booking Blue */
-    --accent-secondary: #e7f1ff;
-    /* Very Light Blue */
+    /* Accents - Vibrant Gold & Indigo */
+    --accent-primary: #6366f1;
+    /* Indigo */
+    --accent-secondary: #4f46e5;
 
-    --accent-success: #198754;
-    /* Standard Green */
+    --accent-success: #10b981;
     --accent-warning: #f59e0b;
-    /* Amber */
-    --accent-danger: #dc2626;
-    /* Red */
+    --accent-danger: #ef4444;
 
-    --accent-purple: #006ce4;
-    /* Reusing blue for consistency or specific purple: #7c3aed */
-    --accent-pink: #db2777;
+    --accent-purple: #8b5cf6;
+    --accent-pink: #ec4899;
 
-    /* Gradients - Subtle & Professional */
-    --gradient-primary: linear-gradient(135deg, #006ce4 0%, #004494 100%);
-    --gradient-success: linear-gradient(135deg, #198754 0%, #157347 100%);
-    --gradient-accent: linear-gradient(135deg, #006ce4 0%, #0056b3 100%);
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    --gradient-accent: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
 
     /* Spacing */
     --space-1: 0.25rem;
@@ -116,23 +110,23 @@ body {
     overflow-x: hidden;
 }
 
-/* Scrollbar styling for Light Theme */
+/* Scrollbar styling for Dark Theme */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: transparent;
+    background: var(--bg-primary);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: var(--bg-tertiary);
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+    background: var(--border-secondary);
 }
 
 /* Help Tooltips - REDISGNED for JS Handling (or improved CSS) */
@@ -173,17 +167,14 @@ body {
     /* Disable default CSS hover to allow JS to handle it */
 }
 
-/* Fixing Gradient Categories */
+/* Fixing Gradient Categories - Now wrapping to avoid clipping in sidebar */
 .gradient-categories {
     display: flex;
+    flex-wrap: wrap;
     gap: var(--space-2);
     margin-bottom: var(--space-4);
     border-bottom: 2px solid var(--border-primary);
-    overflow-x: auto;
-    padding-bottom: 4px;
-    /* Space for scrollbar */
-    scrollbar-width: thin;
-    /* Firefox */
+    padding-bottom: 8px;
 }
 
 /* ============================================
@@ -437,10 +428,10 @@ body {
 
 .wizard-options {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: var(--space-3);
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--space-4);
     width: 100%;
-    max-width: 850px;
+    max-width: 900px;
 }
 
 .wizard-option {
@@ -477,9 +468,9 @@ body {
 
 .wizard-option:hover {
     border-color: var(--accent-primary);
-    background: var(--bg-tertiary);
+    background: var(--bg-secondary);
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.2);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(0, 108, 228, 0.1);
 }
 
 .wizard-option.selected {
@@ -1797,7 +1788,8 @@ body {
 }
 
 .settings-section-content {
-    overflow-y: auto;
+    overflow: visible;
+    /* Change to visible to prevent tooltip clipping */
     transition: max-height var(--transition-base) ease, opacity var(--transition-base) ease;
     max-height: 10000px;
     opacity: 1;
@@ -2752,4 +2744,21 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 .recovery-notification .dismiss-btn:hover {
     color: white;
+}/* LIGHT MODE OVERRIDES */
+body.light-mode {
+    --bg-primary: #f9fafb;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f3f4f6;
+    --bg-elevated: #ffffff;
+    --bg-quaternary: #f9fafb;
+
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --text-muted: #6b7280;
+
+    --border-primary: #e5e7eb;
+    --border-secondary: #d1d5db;
+    
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
 }

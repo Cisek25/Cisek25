@@ -8,10 +8,11 @@ const TemplateEngine = {
     // GENERATE HEAD
     // ============================================
     generateHead(settings) {
-        const fonts = this.getGoogleFontsUrl(settings.fonts);
+        const safeSettings = settings || window.appState?.globalSettings || {};
+        const fonts = this.getGoogleFontsUrl(safeSettings.fonts);
 
         return `<!-- ============================================
-     ${settings.propertyName || 'Nazwa Obiektu'} - HEAD
+     ${safeSettings.propertyName || 'Nazwa Obiektu'} - HEAD
      
      Wklej w panelu CMS → HEAD
      ============================================ -->
@@ -26,7 +27,7 @@ const TemplateEngine = {
 
 <!-- Viewport & SEO -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="${settings.metaDescription || settings.propertyName + ' - komfortowy nocleg w świetnej lokalizacji.'}">`;
+<meta name="description" content="${safeSettings.metaDescription || safeSettings.propertyName + ' - komfortowy nocleg w świetnej lokalizacji.'}">`;
     },
 
     getGoogleFontsUrl(fonts) {
@@ -42,8 +43,9 @@ const TemplateEngine = {
     // GENERATE SECTIONS
     // ============================================
     generateSections(settings, objects, enabledSections) {
+        const safeSettings = settings || window.appState?.globalSettings || {};
         let html = `<!-- ============================================
-     ${settings.propertyName || 'Nazwa Obiektu'} - SEKCJE BODY
+     ${safeSettings.propertyName || 'Nazwa Obiektu'} - SEKCJE BODY
      
      Wklej w panelu CMS → Sekcje BODY
      ============================================ -->\n\n`;
@@ -142,11 +144,12 @@ const TemplateEngine = {
 
         // Fallback to original implementation
         const content = window.appState?.sectionContent?.intro || {};
-        const title = content.title || settings.propertyName || 'Witamy w Naszym Obiekcie';
+        const safeSettings = settings || window.appState?.globalSettings || {};
+        const title = content.title || safeSettings.propertyName || 'Witamy w Naszym Obiekcie';
         const subtitle = content.subtitle || 'Twoje miejsce na wyjątkowy wypoczynek';
-        const description = content.description || settings.introText || AIEngine.generateIntroText(
+        const description = content.description || safeSettings.introText || AIEngine.generateIntroText(
             { category: 'family' },
-            settings.propertyName
+            safeSettings.propertyName
         );
 
         return `<!-- SEKCJA: O NAS -->
@@ -159,21 +162,21 @@ const TemplateEngine = {
                 <p class="intro-lead">${description}</p>
                 <div class="intro-stats">
                     <div class="stat-item">
-                        <span class="stat-number">${settings.stats?.rooms || '20+'}</span>
+                        <span class="stat-number">${safeSettings.stats?.rooms || '20+'}</span>
                         <span class="stat-label">pokoi</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">${settings.stats?.rating || '4.8'}</span>
+                        <span class="stat-number">${safeSettings.stats?.rating || '4.8'}</span>
                         <span class="stat-label">ocena</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">${settings.stats?.years || '10+'}</span>
+                        <span class="stat-number">${safeSettings.stats?.years || '10+'}</span>
                         <span class="stat-label">lat</span>
                     </div>
                 </div>
             </div>
             <div class="intro-image">
-                <img src="${settings.mainImage || 'https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=800'}" alt="${settings.propertyName}">
+                <img src="${safeSettings.mainImage || 'https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=800'}" alt="${safeSettings.propertyName}">
             </div>
         </div>
     </div>
@@ -210,7 +213,7 @@ const TemplateEngine = {
 
             Object.keys(groupedRooms).forEach(catId => {
                 const catInfo = categories.find(c => c.id === catId) || { name: catId, icon: 'fa-bed' };
-                const categoryRooms = groupedRooms[catId].map(obj => this.generateRoomCard(obj, effectsSettings)).join('\n');
+                const categoryRooms = groupedRooms[catId].map(obj => this.generateRoomCard(obj, effectsSettings, settings)).join('\n');
 
                 roomsHtml += `
         <div class="rooms-category">
@@ -222,7 +225,7 @@ ${categoryRooms}
             });
         } else if (displayMode === 'slider') {
             // INFINITE SLIDER - duplicate cards for seamless looping
-            const roomCards = objects.map(obj => this.generateRoomCard(obj, effectsSettings));
+            const roomCards = objects.map(obj => this.generateRoomCard(obj, effectsSettings, settings));
 
             // Create infinite loop by duplicating cards
             const numClones = Math.min(3, objects.length);
@@ -246,7 +249,7 @@ ${categoryRooms}
         </div>`;
         } else {
             // Default grid mode
-            const roomCards = objects.map(obj => this.generateRoomCard(obj, effectsSettings)).join('\n');
+            const roomCards = objects.map(obj => this.generateRoomCard(obj, effectsSettings, settings)).join('\n');
             roomsHtml = `
         <div class="rooms-grid">
 ${roomCards}
@@ -268,7 +271,10 @@ ${roomCards}
 `;
     },
 
-    generateRoomCard(obj, effectsSettings = {}) {
+    generateRoomCard(obj, effectsSettings = {}, settings = null) {
+        // Fallback to appState if settings not provided
+        const safeSettings = settings || window.appState?.globalSettings || {};
+        const bookingUrl = safeSettings.bookingUrl || '#';
         // Create compact amenities icons for front
         const amenityIcons = (obj.amenities || []).slice(0, 4).map(a => {
             const amenityData = this.findAmenity(a);
@@ -300,7 +306,7 @@ ${roomCards}
                             </div>
                             <div class="room-footer">
                                 <span class="room-price">od <strong>${obj.price || '199 zł'}</strong>/noc</span>
-                                <a href="${settings.bookingUrl || '#'}" target="_blank" rel="noopener noreferrer" class="room-cta">Rezerwuj</a>
+                                <a href="${bookingUrl}" target="_blank" rel="noopener noreferrer" class="room-cta">Rezerwuj</a>
                             </div>
                         </div>
                     </div>
@@ -314,7 +320,7 @@ ${roomCards}
                                     ${amenitiesListBack}
                                 </ul>
                             </div>
-                            <a href="${settings.bookingUrl || '#'}" target="_blank" rel="noopener noreferrer" class="room-cta room-cta-large">
+                            <a href="${bookingUrl}" target="_blank" rel="noopener noreferrer" class="room-cta room-cta-large">
                                 <i class="fas fa-calendar-check"></i> Zarezerwuj teraz
                             </a>
                         </div>
@@ -330,7 +336,7 @@ ${roomCards}
 
             return `            <article class="room-card">
                 <div class="room-image">
-                    <img src="${obj.images?.[0] || 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=600'}" alt="${obj.name}">
+                    <img src="${obj.images?.[0] || obj.image || 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=600'}" alt="${obj.name}">
                     ${obj.badge ? `<span class="room-badge">${obj.badge}</span>` : ''}
                 </div>
                 <div class="room-content">
@@ -341,7 +347,7 @@ ${roomCards}
                     </ul>
                     <div class="room-footer">
                         <span class="room-price">od <strong>${obj.price || '199 zł'}</strong>/noc</span>
-                        <a href="${settings.bookingUrl || '#'}" target="_blank" rel="noopener noreferrer" class="room-cta">Rezerwuj</a>
+                        <a href="${bookingUrl}" target="_blank" rel="noopener noreferrer" class="room-cta">Rezerwuj</a>
                     </div>
                 </div>
             </article>`;
@@ -467,8 +473,9 @@ ${galleryItems}
     // LOCATION SECTION
     // ============================================
     generateLocationSection(settings) {
-        const address = settings.address || '';
-        const nearbyPlaces = settings.nearbyPlaces || [
+        const safeSettings = settings || window.appState?.globalSettings || {};
+        const address = safeSettings.address || '';
+        const nearbyPlaces = safeSettings.nearbyPlaces || [
             { icon: 'fa-train', name: 'Dworzec', distance: '10 min' },
             { icon: 'fa-plane', name: 'Lotnisko', distance: '25 min' },
             { icon: 'fa-landmark', name: 'Centrum', distance: '5 min' }
@@ -524,6 +531,72 @@ ${galleryItems}
     // TESTIMONIALS SECTION
     // ============================================
     generateTestimonialsSection(settings) {
+        const testimonialsSettings = window.appState?.testimonialsSettings || {};
+        const displayMode = testimonialsSettings.displayMode || 'grid'; // 'grid' | 'slider'
+
+        // Extended pool of reviews
+        const allTestimonials = [
+            { rating: '9.8', label: 'Wyjątkowy', text: '"Idealne miejsce na weekend. Lokalizacja doskonała, pokoje piękne. Polecam!"', author: 'Marek K.', city: 'Kraków' },
+            { rating: '9.5', label: 'Fantastyczny', text: '"Świetne miejsce! Czysto, wygodnie, obsługa na najwyższym poziomie. Na pewno wrócimy!"', author: 'Anna i Piotr', city: 'Warszawa' },
+            { rating: '9.2', label: 'Wspaniały', text: '"Śniadania rewelacyjne, personel bardzo pomocny. Dzieci były zachwycone!"', author: 'Rodzina Kowalskich', city: 'Poznań' },
+            { rating: '10', label: 'Perfekcyjny', text: '"Najlepszy apartament w jakim byliśmy. Design powala na kolana."', author: 'Katarzyna W.', city: 'Gdańsk' },
+            { rating: '9.6', label: 'Znakomity', text: '"Wszystko dopięte na ostatni guzik. Bardzo wygodne łóżka."', author: 'Tomasz S.', city: 'Wrocław' },
+            { rating: '9.9', label: 'Rewelacja', text: '"Piękne widoki i cisza. Idealne miejsce na reset."', author: 'Magda i Paweł', city: 'Katowice' }
+        ];
+
+        // Pick 3-6 based on settings or random
+        const count = testimonialsSettings.count || 3;
+        const selectedTestimonials = allTestimonials.slice(0, count);
+
+        const cardsHtml = selectedTestimonials.map(t => `
+            <article class="testimonial-card ${displayMode === 'slider' ? 'slider-item' : ''}">
+                <div class="testimonial-rating">
+                    <span class="rating-score">${t.rating}</span>
+                    <span class="rating-label">${t.label}</span>
+                </div>
+                <p class="testimonial-text">${t.text}</p>
+                <div class="testimonial-author">
+                    <h5>${t.author}</h5>
+                    <span>${t.city}</span>
+                </div>
+            </article>`).join('\n');
+
+        let contentHtml = '';
+        if (displayMode === 'slider') {
+            // Clone for infinite loop
+            const numClones = Math.min(2, selectedTestimonials.length);
+            const startClones = selectedTestimonials.slice(-numClones).map(t => `
+            <article class="testimonial-card slider-item">
+                <div class="testimonial-rating">
+                    <span class="rating-score">${t.rating}</span>
+                    <span class="rating-label">${t.label}</span>
+                </div>
+                <p class="testimonial-text">${t.text}</p>
+                <div class="testimonial-author">
+                    <h5>${t.author}</h5>
+                    <span>${t.city}</span>
+                </div>
+            </article>`).join('\n');
+
+            const fullCardsHtml = startClones + cardsHtml + startClones; // Simple cloning
+
+            contentHtml = `
+            <div class="testimonials-slider-wrapper">
+                 <button class="slider-btn slider-prev" onclick="slide('testimonials-slider', -1)"><i class="fas fa-chevron-left"></i></button>
+                 <div class="testimonials-slider">
+                     <div class="testimonials-slider-track" data-total-items="${selectedTestimonials.length}" data-clone-count="${numClones}">
+                         ${fullCardsHtml}
+                     </div>
+                 </div>
+                 <button class="slider-btn slider-next" onclick="slide('testimonials-slider', 1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="slider-dots" data-slider-target="testimonials-slider">
+                ${selectedTestimonials.map((_, i) => `<span class="slider-dot${i === 0 ? ' active' : ''}" onclick="goToSlide('testimonials-slider', ${i})"></span>`).join('')}
+            </div>`;
+        } else {
+            contentHtml = `<div class="testimonials-grid">${cardsHtml}</div>`;
+        }
+
         return `<!-- SEKCJA: OPINIE -->
 <section class="section-testimonials" id="opinie">
     <div class="container">
@@ -531,41 +604,7 @@ ${galleryItems}
             <span class="section-label"><i class="fas fa-star"></i> Opinie</span>
             <h2 class="section-title">Co Mówią Goście</h2>
         </div>
-        <div class="testimonials-grid">
-            <article class="testimonial-card">
-                <div class="testimonial-rating">
-                    <span class="rating-score">9.5</span>
-                    <span class="rating-label">Fantastyczny</span>
-                </div>
-                <p class="testimonial-text">"Świetne miejsce! Czysto, wygodnie, obsługa na najwyższym poziomie. Na pewno wrócimy!"</p>
-                <div class="testimonial-author">
-                    <h5>Anna i Piotr</h5>
-                    <span>Warszawa</span>
-                </div>
-            </article>
-            <article class="testimonial-card">
-                <div class="testimonial-rating">
-                    <span class="rating-score">9.8</span>
-                    <span class="rating-label">Wyjątkowy</span>
-                </div>
-                <p class="testimonial-text">"Idealne miejsce na weekend. Lokalizacja doskonała, pokoje piękne. Polecam!"</p>
-                <div class="testimonial-author">
-                    <h5>Marek K.</h5>
-                    <span>Kraków</span>
-                </div>
-            </article>
-            <article class="testimonial-card">
-                <div class="testimonial-rating">
-                    <span class="rating-score">9.2</span>
-                    <span class="rating-label">Wspaniały</span>
-                </div>
-                <p class="testimonial-text">"Śniadania rewelacyjne, personel bardzo pomocny. Dzieci były zachwycone!"</p>
-                <div class="testimonial-author">
-                    <h5>Rodzina Kowalskich</h5>
-                    <span>Poznań</span>
-                </div>
-            </article>
-        </div>
+        ${contentHtml}
     </div>
 </section>
 
@@ -576,7 +615,8 @@ ${galleryItems}
     // FAQ SECTION
     // ============================================
     generateFaqSection(settings) {
-        const faqItems = settings.faqItems || [
+        const safeSettings = settings || window.appState?.globalSettings || {};
+        const faqItems = safeSettings.faqItems || [
             { question: 'O której godzinie zameldowanie/wymeldowanie?', answer: 'Zameldowanie od 15:00, wymeldowanie do 11:00. Wcześniejsze/późniejsze godziny możliwe po wcześniejszym uzgodnieniu.' },
             { question: 'Czy można przyjechać ze zwierzętami?', answer: 'Tak! Zwierzęta są mile widziane. Prosimy o wcześniejszą informację przy rezerwacji.' },
             { question: 'Czy jest parking?', answer: 'Tak, dysponujemy bezpłatnym parkingiem dla gości.' },
@@ -767,11 +807,25 @@ ${galleryItems}
         const content = window.appState?.sectionContent?.pricing || {};
         const title = content.title || 'Pakiety Pobytowe';
         const subtitle = content.subtitle || 'Wybierz idealny dla siebie';
-        const packages = content.packages || [
-            { name: 'Weekend Relax', price: '399 zł/os.', features: ['2 noce', 'Śniadania', 'Strefa SPA', 'Parking gratis'] },
-            { name: 'Tydzień Wypoczynku', price: '1299 zł/os.', features: ['7 nocy', 'Pełne wyżywienie', 'Masaż 30 min', 'Basen & SPA'], featured: true },
-            { name: 'Romantyczny Pobyt', price: '599 zł/para', features: ['1 noc', 'Kolacja przy świecach', 'Szampan w pokoju', 'Późne wymeldowanie'] }
-        ];
+
+        // Dynamic packages based on category/type
+        let packages = content.packages;
+        if (!packages) {
+            const isApartment = window.appState.selectedTemplate?.category === 'apartments' || window.appState.wizardData?.type?.includes('apartment');
+            if (isApartment) {
+                packages = [
+                    { name: 'City Break', price: '299 zł/doba', features: ['Min. 2 doby', 'Ścisłe centrum', 'Samodzielne zameldowanie', 'Netflix gratis'] },
+                    { name: 'Long Stay', price: '199 zł/doba', features: ['Min. 7 dób', 'Sprzątanie w cenie', 'Pełne wyposażenie kuchni', 'Rabat 15%'], featured: true },
+                    { name: 'Business Trip', price: '349 zł/doba', features: ['Faktura VAT', 'Szybkie Wi-Fi', 'Biurko do pracy', 'Kawa bez limitu'] }
+                ];
+            } else {
+                packages = [
+                    { name: 'Weekend Relax', price: '399 zł/os.', features: ['2 noce', 'Śniadania', 'Strefa SPA', 'Parking gratis'] },
+                    { name: 'Tydzień Wypoczynku', price: '1299 zł/os.', features: ['7 nocy', 'Pełne wyżywienie', 'Masaż 30 min', 'Basen & SPA'], featured: true },
+                    { name: 'Romantyczny Pobyt', price: '599 zł/para', features: ['1 noc', 'Kolacja przy świecach', 'Szampan w pokoju', 'Późne wymeldowanie'] }
+                ];
+            }
+        }
 
         const packagesHtml = packages.map((pkg, index) => {
             const isFeatured = pkg.featured || index === 1;
@@ -953,6 +1007,36 @@ ${galleryItems}
     // RULES SECTION
     // ============================================
     generateRulesSection(settings) {
+        const isApartment = window.appState.selectedTemplate?.category === 'apartments' || window.appState.wizardData?.type?.includes('apartment');
+
+        let rules = [];
+        if (isApartment) {
+            rules = [
+                { icon: 'fa-clock', title: 'Check-in', text: 'Od 16:00 (Samodzielne)' },
+                { icon: 'fa-door-open', title: 'Check-out', text: 'Do 11:00' },
+                { icon: 'fa-volume-mute', title: 'Cisza nocna', text: '22:00 - 6:00 (Restrykcyjna)' },
+                { icon: 'fa-key', title: 'Klucze', text: 'Kod do skrytki SMS' },
+                { icon: 'fa-ban', title: 'Imprezy', text: 'Zakaz organizacji imprez' },
+                { icon: 'fa-dog', title: 'Zwierzęta', text: 'Tylko za zgodą gospodarza' }
+            ];
+        } else {
+            rules = [
+                { icon: 'fa-clock', title: 'Godziny', text: 'Doba hotelowa 15:00 - 11:00' },
+                { icon: 'fa-concierge-bell', title: 'Recepcja', text: 'Czynna 24h na dobę' },
+                { icon: 'fa-utensils', title: 'Śniadania', text: '7:00 - 10:30 (Restauracja)' },
+                { icon: 'fa-smoking-ban', title: 'Palenie', text: 'Zakaz palenia w obiekcie' },
+                { icon: 'fa-parking', title: 'Parking', text: 'Monitorowany 24h' },
+                { icon: 'fa-paw', title: 'Pupile', text: 'Mile widziane (dopłata)' }
+            ];
+        }
+
+        const rulesHtml = rules.map(r => `
+            <div class="rule-item">
+                <i class="fas ${r.icon}"></i>
+                <h4>${r.title}</h4>
+                <p>${r.text}</p>
+            </div>`).join('\n');
+
         return `<!-- SEKCJA: REGULAMIN -->
 <section class="section-rules" id="regulamin">
     <div class="container">
@@ -961,36 +1045,7 @@ ${galleryItems}
             <h2 class="section-title">Zasady Pobytu</h2>
         </div>
         <div class="rules-grid">
-            <div class="rule-item">
-                <i class="fas fa-clock"></i>
-                <h4>Godziny zameldowania</h4>
-                <p>Check-in: od 15:00<br>Check-out: do 11:00</p>
-            </div>
-            <div class="rule-item">
-                <i class="fas fa-volume-mute"></i>
-                <h4>Cisza nocna</h4>
-                <p>Od 22:00 do 7:00<br>Prosimy o poszanowanie innych gości.</p>
-            </div>
-            <div class="rule-item">
-                <i class="fas fa-paw"></i>
-                <h4>Zwierzęta</h4>
-                <p>Zwierzęta mile widziane.<br>Dopłata: 50 zł/doba.</p>
-            </div>
-            <div class="rule-item">
-                <i class="fas fa-smoking-ban"></i>
-                <h4>Palenie</h4>
-                <p>Obiekt całkowicie wolny od dymu.<br>Miejsce dla palących na zewnątrz.</p>
-            </div>
-            <div class="rule-item">
-                <i class="fas fa-ban"></i>
-                <h4>Anulacja</h4>
-                <p>Bezpłatna do 48h przed przyjazdem.<br>Później: 50% opłaty.</p>
-            </div>
-            <div class="rule-item">
-                <i class="fas fa-child"></i>
-                <h4>Dzieci</h4>
-                <p>Dzieci do lat 3 gratis.<br>Łóżeczka na życzenie.</p>
-            </div>
+            ${rulesHtml}
         </div>
     </div>
 </section>
@@ -1002,6 +1057,7 @@ ${galleryItems}
     // CONTACT SECTION
     // ============================================
     generateContactSection(settings) {
+        const safeSettings = settings || window.appState?.globalSettings || {};
         return `<!-- SEKCJA: KONTAKT -->
 <section class="section-contact" id="kontakt">
     <div class="container">
@@ -1015,7 +1071,7 @@ ${galleryItems}
                     <i class="fas fa-phone"></i>
                     <div>
                         <h4>Telefon</h4>
-                        <p><a href="tel:${settings.phone || '+48123456789'}">${settings.phone || '+48 123 456 789'}</a></p>
+                        <p><a href="tel:${safeSettings.phone || '+48123456789'}">${safeSettings.phone || '+48 123 456 789'}</a></p>
                     </div>
                 </div>
                 <div class="contact-item">
@@ -1029,7 +1085,7 @@ ${galleryItems}
                     <i class="fas fa-map-marker-alt"></i>
                     <div>
                         <h4>Adres</h4>
-                        <p>${settings.address || 'ul. Przykładowa 123, 00-000 Miasto'}</p>
+                        <p>${safeSettings.address || 'ul. Przykładowa 123, 00-000 Miasto'}</p>
                     </div>
                 </div>
             </div>
@@ -1055,6 +1111,7 @@ ${galleryItems}
     // CTA SECTION
     // ============================================
     generateCtaSection(settings) {
+        const safeSettings = settings || window.appState?.globalSettings || {};
         return `<!-- SEKCJA: CTA REZERWACJA -->
 <section class="section-cta" id="rezerwacja">
     <div class="container">
@@ -1063,10 +1120,10 @@ ${galleryItems}
             <h2 class="cta-title">Zarezerwuj Pobyt</h2>
             <p class="cta-desc">Sprawdź dostępność i zarezerwuj swój wymarzony pobyt już teraz!</p>
             <div class="cta-buttons">
-                <a href="${settings.bookingUrl || '#'}" class="btn-primary btn-large">
+                <a href="${safeSettings.bookingUrl || '#'}" class="btn-primary btn-large">
                     <i class="fas fa-calendar-alt"></i> Sprawdź Dostępność
                 </a>
-                <a href="tel:${settings.phone || '+48123456789'}" class="btn-secondary btn-large">
+                <a href="tel:${safeSettings.phone || '+48123456789'}" class="btn-secondary btn-large">
                     <i class="fas fa-phone"></i> Zadzwoń
                 </a>
             </div>

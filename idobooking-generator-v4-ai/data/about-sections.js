@@ -18,7 +18,8 @@ const ABOUT_SECTION_VARIANTS = {
         ],
         title: 'Elegancja i komfort w sercu miasta',
         subtitle: 'Gdzie tradycja spotyka nowoczesność',
-        description: 'Nasz hotel to oaza spokoju, gdzie każdy detal został starannie przemyślany, by zapewnić Państwu niezapomniany pobyt. Połączenie klasycznej elegancji z nowoczesnymi udogodnieniami tworzy przestrzeń idealną zarówno dla podróży służbowych, jak i romantycznych weekendów.'
+        description: 'Nasz hotel to oaza spokoju, gdzie każdy detal został starannie przemyślany, by zapewnić Państwu niezapomniany pobyt. Połączenie klasycznej elegancji z nowoczesnymi udogodnieniami tworzy przestrzeń idealną zarówno dla podróży służbowych, jak i romantycznych weekendów.',
+        category: 'luxury'
     },
 
     'hotel-family': {
@@ -48,7 +49,8 @@ const ABOUT_SECTION_VARIANTS = {
         ],
         title: 'Harmonia ciała i umysłu',
         subtitle: 'Luksusowe zabiegi, kompletny relaks',
-        description: 'Zanurz się w świecie absolutnego relaksu. Nasza strefa SPA oferuje holistyczne podejście do wellness, łącząc starożytne techniki z nowoczesnymi terapiami. Każdy zabieg to podróż ku głębokiej odnowie.'
+        description: 'Zanurz się w świecie absolutnego relaksu. Nasza strefa SPA oferuje holistyczne podejście do wellness, łącząc starożytne techniki z nowoczesnymi terapiami. Każdy zabieg to podróż ku głębokiej odnowie.',
+        category: 'luxury'
     },
 
     'hotel-business': {
@@ -1029,6 +1031,69 @@ const ABOUT_SECTION_VARIANTS = {
         title: 'Głowa w chmurach',
         subtitle: 'Luksus Wysokości',
         description: 'Ekskluzywny penthouse na szczycie drapacza chmur. Zapierające dech w piersiach widoki na całą panoramę miasta, prywatna winda i obsługa na najwyższym poziomie.'
+    },
+
+    'hotel-modern-dark': {
+        id: 'hotel-modern-dark',
+        name: 'Nowoczesna Ciemna',
+        layout: 'full-width',
+        icon: 'fa-moon',
+        theme: 'dark',
+        stats: [
+            { number: '24/7', label: 'serwis' },
+            { number: 'Gold', label: 'standard' },
+            { number: '100%', label: 'komfort' }
+        ],
+        title: 'Odkryj nową definicję luksusu',
+        subtitle: 'Minimalizm, który zachwyca',
+        description: 'Stworzyliśmy przestrzeń dla osób ceniących spokój i nowoczesny design. Ciemne, stonowane barwy, naturalne materiały i inteligentne rozwiązania sprawią, że Twój pobyt będzie czystą przyjemnością.',
+        category: 'luxury'
+    },
+
+    'apt-grid-features': {
+        id: 'apt-grid-features',
+        name: 'Siatka Atutów',
+        layout: 'cards-grid',
+        icon: 'fa-table-cells',
+        stats: [
+            { number: 'WiFi 6', label: 'szybkość' },
+            { number: 'Parking', label: 'podziemny' },
+            { number: 'Self', label: 'check-in' }
+        ],
+        title: 'Wszystko czego potrzebujesz, by poczuć się jak w domu',
+        subtitle: 'Komfort bez kompromisów',
+        description: 'Nasze apartamenty to nie tylko miejsce do spania. To w pełni wyposażone przestrzenie do życia, pracy i relaksu. Zależy nam na Twojej niezależności, dlatego oferujemy system bezobsługowy i pełne wsparcie online.'
+    },
+
+    'eco-nature-hero': {
+        id: 'eco-nature-hero',
+        name: 'Natura Hero',
+        layout: 'full-width',
+        icon: 'fa-mountain-sun',
+        stats: [
+            { number: 'Zero', label: 'plastyku' },
+            { number: '100%', label: 'eko' },
+            { number: 'Cisza', label: 'leśna' }
+        ],
+        title: 'Zwolnij tempo i poczuj rytm natury',
+        subtitle: 'Ucieczka od zgiełku miasta',
+        description: 'Wierzymy, że najlepszy odpoczynek to ten w bliskości z przyrodą. Nasz obiekt został zbudowany z poszanowaniem ekosystemu, oferując Ci autentyczne doświadczenie życia w lesie, ale w wersji premium.'
+    },
+
+    'boutique-elegant-split': {
+        id: 'boutique-elegant-split',
+        name: 'Elegancka Dzielona',
+        layout: 'split-right-image',
+        icon: 'fa-vest-patches',
+        stats: [
+            { number: 'Design', label: 'Unique' },
+            { number: 'Klimat', label: 'Kameralny' },
+            { number: 'Obsługa', label: 'Personal' }
+        ],
+        title: 'Hotel z Duszą i Charakterem',
+        subtitle: 'Butikowe doświadczenie gościnności',
+        description: 'Nie jesteśmy kolejnym anonimowym hotelem. Znamy naszych gości po imieniu, parzymy ich ulubioną kawę i dbamy o to, by czuli się u nas wyjątkowo. Każdy detal ma swoją historię, którą chętnie Ci opowiemy.',
+        category: 'luxury'
     }
 };
 
