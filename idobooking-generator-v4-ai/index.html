@@ -109,6 +109,40 @@
                 <div class="settings-section main-content-panel collapsible">
                     <h4><i class="fas fa-pen-to-square"></i> Treść Główna</h4>
                     <div class="settings-section-content">
+                        <!-- Layout Selector -->
+                        <div class="form-group">
+                            <label>Układ Sekcji (Layout)</label>
+                            <div id="intro-layout-controls"
+                                style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px;">
+                                <button class="btn-layout" data-layout="full-width"
+                                    onclick="window.updateIntroLayout('full-width')"
+                                    title="Pełna szerokość (zdjęcie w tle)"
+                                    style="padding: 6px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; border-radius: 4px;">
+                                    <i class="fas fa-image"></i>
+                                </button>
+                                <button class="btn-layout" data-layout="split-left-image"
+                                    onclick="window.updateIntroLayout('split-left-image')" title="Zdjęcie po lewej"
+                                    style="padding: 6px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; border-radius: 4px;">
+                                    <i class="fas fa-arrow-left"></i>
+                                </button>
+                                <button class="btn-layout" data-layout="split-right-image"
+                                    onclick="window.updateIntroLayout('split-right-image')" title="Zdjęcie po prawej"
+                                    style="padding: 6px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; border-radius: 4px;">
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                                <button class="btn-layout" data-layout="asymmetric"
+                                    onclick="window.updateIntroLayout('asymmetric')" title="Asymetryczny"
+                                    style="padding: 6px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; border-radius: 4px;">
+                                    <i class="fas fa-columns"></i>
+                                </button>
+                                <button class="btn-layout" data-layout="cards-grid"
+                                    onclick="window.updateIntroLayout('cards-grid')" title="Karty / Grid"
+                                    style="padding: 6px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; border-radius: 4px;">
+                                    <i class="fas fa-th-large"></i>
+                                </button>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label>Tytuł Główny</label>
                             <input type="text" id="hero-title" placeholder="Np. Luksusowy Wypoczynek"
@@ -138,6 +172,31 @@
                 <div class="settings-section collapsible collapsed">
                     <h4><i class="fas fa-swatchbook"></i> Wybierz szablon</h4>
                     <div class="settings-section-content">
+                        <!-- Template Category Tabs -->
+                        <div class="template-category-tabs"
+                            style="display: flex; gap: 4px; margin-bottom: 10px; flex-wrap: wrap;">
+                            <button class="template-tab active" data-category="all" onclick="filterTemplates('all')">
+                                Wszystkie
+                            </button>
+                            <button class="template-tab city-tab" data-category="city" onclick="filterTemplates('city')"
+                                style="background: linear-gradient(135deg, #0077B6, #FB8500); color: white;">
+                                <i class="fas fa-city"></i> Miasta
+                            </button>
+                            <button class="template-tab" data-category="luxury"
+                                onclick="filterTemplates('luxury')">Luksusowe</button>
+                            <button class="template-tab" data-category="family"
+                                onclick="filterTemplates('family')">Rodzinne</button>
+                            <button class="template-tab" data-category="apartments"
+                                onclick="filterTemplates('apartments')">Apartamenty</button>
+                        </div>
+                        <!-- City Templates Quick Access -->
+                        <div id="city-templates-grid" class="city-templates-grid"
+                            style="display: none; margin-bottom: 15px;">
+                            <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">
+                                <i class="fas fa-map-marker-alt"></i> Szablony dla polskich miast:
+                            </div>
+                            <!-- Dynamically generated -->
+                        </div>
                         <div class="templates-gallery" id="templates-gallery">
                             <!-- Dynamicznie generowane -->
                         </div>
@@ -969,6 +1028,26 @@
                     <h4><i class="fas fa-map-marker-alt"></i> Lokalizacja</h4>
                     <div class="settings-section-content">
                         <div class="form-group">
+                            <label>Wczytaj gotową treść (Miasto)</label>
+                            <select id="city-content-select" onchange="applyCityContent(this.value)"
+                                style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; margin-bottom: 5px;">
+                                <option value="">-- Wybierz miasto --</option>
+                                <option value="sopot">Sopot</option>
+                                <option value="zakopane">Zakopane</option>
+                                <option value="krakow">Kraków</option>
+                                <option value="warszawa">Warszawa</option>
+                                <option value="gdansk">Gdańsk</option>
+                                <option value="trojmiasto">Trójmiasto</option>
+                                <option value="wroclaw">Wrocław</option>
+                                <option value="poznan">Poznań</option>
+                                <option value="kolobrzeg">Kołobrzeg</option>
+                                <option value="karpacz">Karpacz</option>
+                            </select>
+                            <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">
+                                Automatycznie uzupełni opis i atrakcje.
+                            </p>
+                        </div>
+                        <div class="form-group">
                             <label>Adres obiektu</label>
                             <input type="text" id="location-address" placeholder="np. ul. Przykładowa 123, Warszawa"
                                 oninput="updateAddress(this.value)">
@@ -1378,6 +1457,7 @@
     <script src="data/amenities.js?v=5"></script>
     <script src="data/sections.js?v=5"></script>
     <script src="data/image-library.js?v=5"></script>
+    <script src="data/city-attractions.js?v=5"></script>
 
     <!-- Core App Logic -->
     <script src="js/gemini-api.js?v=5"></script>

@@ -104,7 +104,25 @@ const CSSEngine = {
         'midnight-bloom': 'linear-gradient(to right, #2b5876, #4e4376)',
         'blush': 'linear-gradient(to right, #B24592, #F15F79)',
         'aqua-splash': 'linear-gradient(to right, #13547a, #80d0c7)',
-        'berry-juice': 'linear-gradient(to right, #8E2DE2, #4A00E0)'
+        'berry-juice': 'linear-gradient(to right, #8E2DE2, #4A00E0)',
+
+        // ===== POLISH CITY GRADIENTS (10) =====
+        // Nadmorskie
+        'sopot-sunset': 'linear-gradient(135deg, #0077B6 0%, #00B4D8 30%, #FFB703 70%, #FB8500 100%)',
+        'baltic-dawn': 'linear-gradient(135deg, #023E8A 0%, #0077B6 50%, #CAF0F8 100%)',
+        'kolobrzeg-spa': 'linear-gradient(135deg, #90E0EF 0%, #48CAE4 50%, #00B4D8 100%)',
+
+        // Górskie
+        'zakopane-winter': 'linear-gradient(135deg, #1A1A2E 0%, #4A5568 30%, #E2E8F0 70%, #FFFFFF 100%)',
+        'karpacz-forest': 'linear-gradient(135deg, #1B4332 0%, #2D6A4F 50%, #40916C 100%)',
+        'tatry-alpenglow': 'linear-gradient(135deg, #FF6B6B 0%, #C9184A 30%, #590D22 100%)',
+
+        // Historyczne/Miejskie
+        'krakow-royal': 'linear-gradient(135deg, #2D2D34 0%, #800020 50%, #D4AF37 100%)',
+        'gdansk-amber': 'linear-gradient(135deg, #6D4C41 0%, #D4A373 50%, #FFBA08 100%)',
+        'wroclaw-riverside': 'linear-gradient(135deg, #1E3A5F 0%, #3D5A80 50%, #98C1D9 100%)',
+        'warszawa-metro': 'linear-gradient(135deg, #1A1A2E 0%, #E63946 50%, #F1FAEE 100%)',
+        'poznan-tradition': 'linear-gradient(135deg, #8B4513 0%, #DEB887 50%, #CD853F 100%)'
     },
 
 

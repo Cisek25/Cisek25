@@ -130,12 +130,16 @@ const TemplateEngine = {
                     || window.appState.wizardData?.type?.includes('apartment');
 
                 const variants = isApartment ? window.getApartmentAboutVariants() : window.getHotelAboutVariants();
-                const randomVariant = variants[Math.floor(Math.random() * variants.length)];
-                variantId = randomVariant.id;
+                const randomVariant = variants.length > 0 ? variants[Math.floor(Math.random() * variants.length)] : null;
+
+                variantId = randomVariant ? randomVariant.id : 'hotel-elegant';
 
                 // Save for consistency
                 window.appState.aboutVariant = variantId;
             }
+
+            // Fallback if still empty
+            if (!variantId) variantId = 'hotel-elegant';
 
             if (variantId) {
                 return generateAboutSection(variantId, settings) + '\n\n';

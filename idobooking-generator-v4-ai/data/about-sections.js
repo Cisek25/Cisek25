@@ -1106,7 +1106,7 @@ const AboutSectionLayouts = {
     <div class="container">
         <div class="intro-grid">
             <div class="intro-image">
-                <img src="${settings.mainImage || 'https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=800'}" alt="${settings.propertyName}">
+                <img src="${settings.mainImage || (window.getRandomImage ? window.getRandomImage('luxury') : 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200')}" alt="${settings.propertyName}">
             </div>
             <div class="intro-content">
                 <span class="section-label"><i class="fas ${variant.icon}"></i> ${variant.subtitle}</span>
@@ -1141,7 +1141,7 @@ const AboutSectionLayouts = {
                 </div>
             </div>
             <div class="intro-image">
-                <img src="${settings.mainImage || 'https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=800'}" alt="${settings.propertyName}">
+                <img src="${settings.mainImage || (window.getRandomImage ? window.getRandomImage('luxury') : 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200')}" alt="${settings.propertyName}">
             </div>
         </div>
     </div>
@@ -1149,7 +1149,7 @@ const AboutSectionLayouts = {
 
     'full-width': (variant, settings) => `
 <section class="section-intro section-intro-fullwidth" id="o-nas">
-    <div class="intro-hero" style="background-image: url('${settings.mainImage || 'https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1600'}')">
+    <div class="intro-hero" style="background-image: url('${settings.mainImage || (window.getRandomImage ? window.getRandomImage('luxury') : 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200')}')">
         <div class="intro-hero-overlay"></div>
         <div class="container">
             <div class="intro-hero-content">
@@ -1191,7 +1191,7 @@ const AboutSectionLayouts = {
     <div class="container">
         <div class="intro-asymmetric-grid">
             <div class="intro-main-image">
-                <img src="${settings.mainImage || 'https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=800'}" alt="${settings.propertyName}">
+                <img src="${settings.mainImage || (window.getRandomImage ? window.getRandomImage('luxury') : 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200')}" alt="${settings.propertyName}">
             </div>
             <div class="intro-side-content">
                 <span class="section-label"><i class="fas ${variant.icon}"></i> ${variant.subtitle}</span>
@@ -1213,21 +1213,260 @@ const AboutSectionLayouts = {
 // ============================================
 // GENERATE ABOUT SECTION
 // ============================================
+// ============================================
+// GENERATE ABOUT SECTION
+// ============================================
 function generateAboutSection(variantId, settings) {
-    const variant = ABOUT_SECTION_VARIANTS[variantId];
+    let variant = ABOUT_SECTION_VARIANTS[variantId];
     if (!variant) {
         console.warn('About section variant not found:', variantId);
-        return '';
+        // Fallback to a default if ID not found
+        variant = ABOUT_SECTION_VARIANTS['hotel-elegant'];
+    }
+
+    // clone to avoid mutation
+    variant = { ...variant };
+
+    // 1. Override Layout if global setting exists
+    if (window.appState?.introLayout && window.appState.introLayout !== 'auto') {
+        variant.layout = window.appState.introLayout;
+    }
+
+    // 2. Override Content from App State (Editor)
+    if (window.appState?.sectionContent?.intro) {
+        const custom = window.appState.sectionContent.intro;
+        if (custom.title) variant.title = custom.title;
+        if (custom.subtitle) variant.subtitle = custom.subtitle;
+        if (custom.description) variant.description = custom.description;
     }
 
     const layoutGenerator = AboutSectionLayouts[variant.layout];
     if (!layoutGenerator) {
         console.warn('Layout generator not found:', variant.layout);
-        return '';
+        // Fallback layout
+        return AboutSectionLayouts['split-left-image'](variant, settings);
     }
-
     return layoutGenerator(variant, settings);
 }
+
+// ============================================
+// POLISH CITIES - 10 UNIQUE ABOUT SECTIONS
+// ============================================
+const CITY_ABOUT_SECTIONS = {
+    'city-sopot-about': {
+        id: 'city-sopot-about',
+        name: 'Sopot - Nadmorskie Perły',
+        layout: 'split-left-image',
+        icon: 'fa-umbrella-beach',
+        category: 'apartments-city',
+        city: 'sopot',
+        stats: [
+            { number: '150m', label: 'do plaży' },
+            { number: '5 min', label: 'do mola' },
+            { number: '24/7', label: 'recepcja' }
+        ],
+        title: 'W sercu sopockiego kurortu',
+        subtitle: 'Gdzie elegancja spotyka morską bryzę',
+        description: 'Nasz apartament to idealna baza wypadowa do odkrywania najpiękniejszego polskiego kurortu. Zaledwie kilka kroków dzieli Cię od słynnego mola, kawiarenek Monte Cassino i złocistej plaży.',
+        attractions: [
+            { name: 'Molo w Sopocie', distance: '5 min', icon: 'fa-bridge' },
+            { name: 'Monte Cassino', distance: '3 min', icon: 'fa-street-view' },
+            { name: 'Opera Leśna', distance: '10 min', icon: 'fa-music' }
+        ]
+    },
+    'city-zakopane-about': {
+        id: 'city-zakopane-about',
+        name: 'Zakopane - Góralski Klimat',
+        layout: 'split-right-image',
+        icon: 'fa-mountain',
+        category: 'apartments-city',
+        city: 'zakopane',
+        stats: [
+            { number: '1000m', label: 'n.p.m.' },
+            { number: '5 min', label: 'do Krupówek' },
+            { number: 'Góry', label: 'za oknem' }
+        ],
+        title: 'Pod Giewontem, blisko nieba',
+        subtitle: 'Góralska gościnność i tatrzańskie widoki',
+        description: 'Przytulny apartament w sercu Zakopanego, gdzie tradycja góralska łączy się z nowoczesnym komfortem.',
+        attractions: [
+            { name: 'Krupówki', distance: '5 min', icon: 'fa-street-view' },
+            { name: 'Gubałówka', distance: '10 min', icon: 'fa-mountain' },
+            { name: 'Termy', distance: '15 min', icon: 'fa-hot-tub' }
+        ]
+    },
+    'city-krakow-about': {
+        id: 'city-krakow-about',
+        name: 'Kraków - Starówka Premium',
+        layout: 'full-width',
+        icon: 'fa-crown',
+        category: 'apartments-city',
+        city: 'krakow',
+        stats: [
+            { number: 'Rynek', label: '3 min' },
+            { number: 'Wawel', label: '10 min' },
+            { number: 'UNESCO', label: 'dziedzictwo' }
+        ],
+        title: 'Królewskie serce Krakowa',
+        subtitle: 'Historia i magia na wyciągnięcie ręki',
+        description: 'Zamieszkaj w zabytkowej kamienicy, gdzie każdy kamień opowiada historię.',
+        attractions: [
+            { name: 'Rynek Główny', distance: '3 min', icon: 'fa-store' },
+            { name: 'Wawel', distance: '10 min', icon: 'fa-chess-rook' },
+            { name: 'Kazimierz', distance: '12 min', icon: 'fa-synagogue' }
+        ]
+    },
+    'city-warszawa-about': {
+        id: 'city-warszawa-about',
+        name: 'Warszawa - Metropolitan Chic',
+        layout: 'cards-grid',
+        icon: 'fa-city',
+        category: 'apartments-city',
+        city: 'warszawa',
+        stats: [
+            { number: 'Metro', label: '2 min' },
+            { number: 'Smart', label: 'home' },
+            { number: '5G', label: 'internet' }
+        ],
+        title: 'W rytmie stolicy',
+        subtitle: 'Nowoczesność i energia wielkiego miasta',
+        description: 'Nowoczesny apartament w dynamicznym sercu Warszawy.',
+        attractions: [
+            { name: 'Stare Miasto', distance: '10 min', icon: 'fa-landmark' },
+            { name: 'Pałac Kultury', distance: '5 min', icon: 'fa-building' },
+            { name: 'Łazienki', distance: '15 min', icon: 'fa-tree' }
+        ]
+    },
+    'city-gdansk-about': {
+        id: 'city-gdansk-about',
+        name: 'Gdańsk - Hanzeatycki Urok',
+        layout: 'asymmetric',
+        icon: 'fa-landmark',
+        category: 'apartments-city',
+        city: 'gdansk',
+        stats: [
+            { number: 'Długi Targ', label: '2 min' },
+            { number: 'Żuraw', label: '5 min' },
+            { number: 'Bursztyn', label: 'miasto' }
+        ],
+        title: 'Kolorowe kamienice i morze',
+        subtitle: 'Hanzeatyckie dziedzictwo w każdym detalu',
+        description: 'Apartament w samym sercu gdańskiej Starówki.',
+        attractions: [
+            { name: 'Długi Targ', distance: '2 min', icon: 'fa-store' },
+            { name: 'Bazylika Mariacka', distance: '4 min', icon: 'fa-church' },
+            { name: 'Żuraw', distance: '5 min', icon: 'fa-anchor' }
+        ]
+    },
+    'city-trojmiasto-about': {
+        id: 'city-trojmiasto-about',
+        name: 'Trójmiasto - Perła Bałtyku',
+        layout: 'split-left-image',
+        icon: 'fa-water',
+        category: 'apartments-city',
+        city: 'trojmiasto',
+        stats: [
+            { number: '3', label: 'miasta' },
+            { number: 'SKM', label: '15 min' },
+            { number: 'Plaże', label: 'km długości' }
+        ],
+        title: 'Trzy miasta, jedno morze',
+        subtitle: 'Najlepsza baza do odkrywania wybrzeża',
+        description: 'Strategiczna lokalizacja w sercu Trójmiasta.',
+        attractions: [
+            { name: 'Molo Sopot', distance: 'Sopot', icon: 'fa-bridge' },
+            { name: 'Starówka', distance: 'Gdańsk', icon: 'fa-landmark' },
+            { name: 'Klif Orłowo', distance: 'Gdynia', icon: 'fa-mountain' }
+        ]
+    },
+    'city-wroclaw-about': {
+        id: 'city-wroclaw-about',
+        name: 'Wrocław - Miasto Mostów',
+        layout: 'cards-grid',
+        icon: 'fa-bridge',
+        category: 'apartments-city',
+        city: 'wroclaw',
+        stats: [
+            { number: '100+', label: 'mostów' },
+            { number: '300+', label: 'krasnali' },
+            { number: '12', label: 'wysp' }
+        ],
+        title: 'Między wyspami i mostami',
+        subtitle: 'Artystyczna dusza Dolnego Śląska',
+        description: 'Wrocław zachwyca na każdym kroku.',
+        attractions: [
+            { name: 'Ostrów Tumski', distance: '8 min', icon: 'fa-church' },
+            { name: 'Rynek', distance: '5 min', icon: 'fa-store' },
+            { name: 'ZOO', distance: '15 min', icon: 'fa-hippo' }
+        ]
+    },
+    'city-poznan-about': {
+        id: 'city-poznan-about',
+        name: 'Poznań - Staropolski Szyk',
+        layout: 'split-right-image',
+        icon: 'fa-building-columns',
+        category: 'apartments-city',
+        city: 'poznan',
+        stats: [
+            { number: '12:00', label: 'koziołki' },
+            { number: 'Rogale', label: 'świętomarcińskie' },
+            { number: 'Targi', label: 'miasto' }
+        ],
+        title: 'Tu Polska się zaczęła',
+        subtitle: 'Tradycja, handel i poznańska duma',
+        description: 'Poznań to miasto z charakterem.',
+        attractions: [
+            { name: 'Stary Rynek', distance: '3 min', icon: 'fa-store' },
+            { name: 'Stary Browar', distance: '10 min', icon: 'fa-shopping-bag' },
+            { name: 'Katedra', distance: '12 min', icon: 'fa-church' }
+        ]
+    },
+    'city-kolobrzeg-about': {
+        id: 'city-kolobrzeg-about',
+        name: 'Kołobrzeg - Uzdrowiskowy Relaks',
+        layout: 'full-width',
+        icon: 'fa-spa',
+        category: 'apartments-city',
+        city: 'kolobrzeg',
+        stats: [
+            { number: 'Plaża', label: '200m' },
+            { number: 'Tężnie', label: 'w parku' },
+            { number: 'SPA', label: 'w cenie' }
+        ],
+        title: 'Uzdrowisko nad Bałtykiem',
+        subtitle: 'Gdzie zdrowie spotyka morze',
+        description: 'Kołobrzeg to idealne połączenie wypoczynku nad morzem z prozdrowotną regeneracją.',
+        attractions: [
+            { name: 'Molo', distance: '5 min', icon: 'fa-bridge' },
+            { name: 'Park Zdrojowy', distance: '3 min', icon: 'fa-tree' },
+            { name: 'Latarnia', distance: '10 min', icon: 'fa-tower-observation' }
+        ]
+    },
+    'city-karpacz-about': {
+        id: 'city-karpacz-about',
+        name: 'Karpacz - Karkonoska Ucieczka',
+        layout: 'asymmetric',
+        icon: 'fa-person-hiking',
+        category: 'apartments-city',
+        city: 'karpacz',
+        stats: [
+            { number: 'Śnieżka', label: 'wycieczka' },
+            { number: 'Wang', label: '10 min' },
+            { number: 'Wodospad', label: '15 min' }
+        ],
+        title: 'U stóp Śnieżki',
+        subtitle: 'Karkonosze w zasięgu ręki',
+        description: 'Przytulny apartament z widokiem na góry, skąd wyruszysz na szczyt Śnieżki.',
+        attractions: [
+            { name: 'Świątynia Wang', distance: '10 min', icon: 'fa-church' },
+            { name: 'Śnieżka', distance: '1h', icon: 'fa-mountain' },
+            { name: 'Wodospad', distance: '15 min', icon: 'fa-water' }
+        ]
+    }
+};
+
+// Merge city sections into main object
+Object.assign(ABOUT_SECTION_VARIANTS, CITY_ABOUT_SECTIONS);
 
 // Get all apartment variants
 function getApartmentAboutVariants() {
@@ -1239,9 +1478,23 @@ function getHotelAboutVariants() {
     return Object.values(ABOUT_SECTION_VARIANTS).filter(v => !v.category || v.category === 'hotel');
 }
 
+// Get city-specific about variants
+function getCityAboutVariants() {
+    return Object.values(ABOUT_SECTION_VARIANTS).filter(v => v.category === 'apartments-city');
+}
+
+// Get about variant for specific city
+function getCityAboutVariant(cityId) {
+    return Object.values(ABOUT_SECTION_VARIANTS).find(v => v.city === cityId);
+}
+
 // Export
 window.ABOUT_SECTION_VARIANTS = ABOUT_SECTION_VARIANTS;
+window.CITY_ABOUT_SECTIONS = CITY_ABOUT_SECTIONS;
 window.AboutSectionLayouts = AboutSectionLayouts;
 window.generateAboutSection = generateAboutSection;
 window.getApartmentAboutVariants = getApartmentAboutVariants;
 window.getHotelAboutVariants = getHotelAboutVariants;
+window.getCityAboutVariants = getCityAboutVariants;
+window.getCityAboutVariant = getCityAboutVariant;
+

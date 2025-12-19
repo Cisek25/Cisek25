@@ -24,6 +24,25 @@ const WIZARD_STEPS = [
             { value: 'vineyard', label: 'Winnica', icon: 'fa-wine-glass', score: { romantic: 3, luxury: 1, eco: 2 } }
         ]
     },
+    // New Location Step
+    {
+        id: 'location',
+        title: 'Lokalizacja',
+        subtitle: 'Gdzie znajduje się Twój obiekt? Pomoże to dobrać odpowiednie atrakcje.',
+        options: [
+            { value: 'generic', label: 'Cała Polska', icon: 'fa-map', score: {} },
+            { value: 'sopot', label: 'Sopot', icon: 'fa-umbrella-beach', score: { luxury: 1, apartments: 1 } },
+            { value: 'zakopane', label: 'Zakopane', icon: 'fa-mountain', score: { family: 1, eco: 1 } },
+            { value: 'krakow', label: 'Kraków', icon: 'fa-chess-rook', score: { historic: 2 } },
+            { value: 'warszawa', label: 'Warszawa', icon: 'fa-city', score: { business: 2 } },
+            { value: 'gdansk', label: 'Gdańsk', icon: 'fa-anchor', score: { historic: 1 } },
+            { value: 'trojmiasto', label: 'Trójmiasto', icon: 'fa-water', score: { family: 1 } },
+            { value: 'wroclaw', label: 'Wrocław', icon: 'fa-bridge', score: { historic: 1 } },
+            { value: 'poznan', label: 'Poznań', icon: 'fa-building-columns', score: { business: 1 } },
+            { value: 'kolobrzeg', label: 'Kołobrzeg', icon: 'fa-spa', score: { family: 1 } },
+            { value: 'karpacz', label: 'Karpacz', icon: 'fa-person-hiking', score: { family: 1, eco: 1 } }
+        ]
+    },
     // Location, Atmosphere, Season removed for simplicity
     {
         id: 'style',
@@ -343,6 +362,19 @@ function finishWizard() {
 
     // Initialize Builder
     initBuilder(recommendedTemplate);
+
+    // 6. APPLY LOCATION CONTENT (If selected)
+    const location = wizardState.answers['location'];
+    if (location && location !== 'generic') {
+        // We delay this slightly to let builder init first
+        setTimeout(() => {
+            if (window.applyCityContent) {
+                console.log(`📍 Applying city content for: ${location}`);
+                window.applyCityContent(location);
+                triggerAutoSave();
+            }
+        }, 100);
+    }
 }
 
 // Skip wizard
@@ -432,7 +464,11 @@ function skipWizard() {
         const theme = randomTemplate.category === 'eco' ? 'nature' :
             (randomTemplate.category === 'luxury' ? 'luxury' :
                 (randomPropertyType.includes('apart') ? 'apartments' : 'luxury'));
-        appState.sectionContent.intro.mainImage = window.getRandomImage(theme);
+
+        const randomImage = window.getRandomImage(theme);
+        appState.sectionContent.intro.mainImage = randomImage;
+        appState.sectionContent.intro.image = randomImage;
+        appState.globalSettings.mainImage = randomImage; // Sync for preview
     }
 
     // Apply gradient from template's category if applicable

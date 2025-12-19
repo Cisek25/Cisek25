@@ -785,6 +785,78 @@ function renderCtaEditor(perks) {
     `;
 }
 
+
+// ============================================
+// CITY CONTENT LOADER
+// ============================================
+function applyCityContent(cityId) {
+    if (!window.CITY_ATTRACTIONS) {
+        console.error("City attractions data not loaded!");
+        return;
+    }
+
+    const cityData = window.CITY_ATTRACTIONS[cityId];
+    if (!cityData) {
+        console.warn(`No data found for city: ${cityId}`);
+        return;
+    }
+
+    // 1. Update Global Settings (Address)
+    // Don't overwrite if user already typed something specific, unless it's default
+    if (!appState.globalSettings.address || appState.globalSettings.address === 'Polska') {
+        const zipMap = {
+            'sopot': '81-700 Sopot',
+            'zakopane': '34-500 Zakopane',
+            'krakow': '30-001 Kraków',
+            'warszawa': '00-001 Warszawa',
+            'gdansk': '80-001 Gdańsk',
+            'trojmiasto': '81-001 Trójmiasto',
+            'wroclaw': '50-001 Wrocław',
+            'poznan': '60-001 Poznań',
+            'kolobrzeg': '78-100 Kołobrzeg',
+            'karpacz': '58-540 Karpacz'
+        };
+        appState.globalSettings.address = `ul. Przykładowa 1, ${zipMap[cityId] || cityData.name}`;
+    }
+
+    // 2. Update Intro Content
+    appState.sectionContent.intro.subtitle = cityData.tagline || appState.sectionContent.intro.subtitle;
+    // Append city description to existing or replace if generic
+    if (appState.sectionContent.intro.description.includes('Odkryj komfort')) {
+        appState.sectionContent.intro.description = cityData.description;
+    }
+
+    // 3. Update Attractions Section
+    if (cityData.landmarks) {
+        appState.sectionContent.attractions = {
+            title: `Atrakcje w ${cityData.name === 'Zakopane' || cityData.name === 'Karpacz' || cityData.name === 'Sopot' ? 'mieście' : 'mieście'} ${cityData.name}`,
+            subtitle: 'Co warto zobaczyć w okolicy',
+            items: cityData.landmarks.map(l => ({
+                name: l.name,
+                desc: l.description,
+                distance: l.distance
+            }))
+        };
+    }
+
+    // 4. Update Dining (Optional - based on restaurants)
+    if (cityData.restaurants) {
+        // Just flavor text updates or keep generic
+    }
+
+    // 5. Update UI Inputs if in Builder Mode
+    if (appState.mode === 'builder') {
+        updateSidebarInputs();
+    }
+
+    console.log(`✅ Applied content for ${cityData.name}`);
+
+    // Force re-render
+    Preview.debouncedRender();
+}
+
+window.applyCityContent = applyCityContent;
+
 function saveSectionContent() {
     if (!currentEditingSection) return;
 
@@ -871,6 +943,31 @@ function closeSectionEditor() {
     document.getElementById('section-editor-modal')?.classList.add('hidden');
     currentEditingSection = null;
 }
+
+// Helper to update inputs in Sidebar from AppState
+function updateSidebarInputs() {
+    // Hero
+    safeSetVal('hero-title', appState.sectionContent?.intro?.title);
+    safeSetVal('hero-subtitle', appState.sectionContent?.intro?.subtitle);
+    safeSetVal('property-desc', appState.sectionContent?.intro?.description);
+    safeSetVal('hero-image', appState.globalSettings?.mainImage);
+
+    // Address
+    safeSetVal('property-name', appState.globalSettings?.propertyName);
+    safeSetVal('location-address', appState.globalSettings?.address);
+
+    // Colors
+    safeSetVal('color-primary', appState.globalSettings?.colors?.primary);
+    safeSetVal('color-secondary', appState.globalSettings?.colors?.secondary);
+    safeSetVal('color-accent', appState.globalSettings?.colors?.accent);
+}
+
+function safeSetVal(id, val) {
+    const el = document.getElementById(id);
+    if (el && val !== undefined) el.value = val;
+}
+window.updateSidebarInputs = updateSidebarInputs;
+
 // OBJECTS MANAGEMENT
 // ============================================
 function addDefaultObjects() {
@@ -1771,13 +1868,24 @@ window.toggleAmenity = toggleAmenity;
 // ============================================
 // TEMPLATE GALLERY FUNCTIONS
 // ============================================
-function renderTemplateGallery() {
+let currentTemplateCategory = 'all';
+
+function renderTemplateGallery(category = currentTemplateCategory) {
     const container = document.getElementById('templates-gallery');
+    const cityContainer = document.getElementById('city-templates-grid');
     if (!container) return;
 
-    const templates = Object.values(TEMPLATES);
+    // Get templates based on category
+    let templates = Object.values(TEMPLATES);
 
-    container.innerHTML = templates.slice(0, 20).map(template => `
+    if (category === 'city') {
+        templates = templates.filter(t => t.category === 'apartments-city');
+    } else if (category !== 'all') {
+        templates = templates.filter(t => t.category === category);
+    }
+
+    // Render main gallery
+    container.innerHTML = templates.slice(0, 24).map(template => `
         <div class="template-card ${appState.selectedTemplate?.id === template.id ? 'selected' : ''}" 
              onclick="selectTemplate('${template.id}')"
              title="${template.description}"
@@ -1788,9 +1896,51 @@ function renderTemplateGallery() {
                 <span style="background: ${template.colors.accent}"></span>
             </div>
             <div class="template-name">${template.name}</div>
+            ${template.city ? `<div class="template-city-badge"><i class="fas fa-map-marker-alt"></i> ${template.city}</div>` : ''}
         </div>
     `).join('');
+
+    // Render city templates grid (if visible)
+    if (cityContainer && category === 'city') {
+        const cityTemplates = Object.values(TEMPLATES).filter(t => t.category === 'apartments-city');
+        cityContainer.style.display = 'block';
+        cityContainer.innerHTML = `
+            <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">
+                <i class="fas fa-map-marker-alt"></i> Szablony dla polskich miast:
+            </div>
+            <div class="city-templates-list" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;">
+                ${cityTemplates.map(t => `
+                    <button class="city-template-btn ${appState.selectedTemplate?.id === t.id ? 'active' : ''}"
+                            onclick="selectTemplate('${t.id}')"
+                            style="padding: 8px 10px; font-size: 11px; border: 1px solid var(--border); border-radius: 6px; 
+                                   background: linear-gradient(135deg, ${t.colors.primary}22, ${t.colors.secondary}22);
+                                   cursor: pointer; text-align: left; transition: all 0.2s;">
+                        <i class="fas ${t.icon}" style="color: ${t.colors.primary}; margin-right: 4px;"></i>
+                        ${t.city ? t.city.charAt(0).toUpperCase() + t.city.slice(1) : t.name}
+                    </button>
+                `).join('')}
+            </div>
+        `;
+    } else if (cityContainer) {
+        cityContainer.style.display = 'none';
+    }
 }
+
+function filterTemplates(category) {
+    currentTemplateCategory = category;
+
+    // Update active tab
+    document.querySelectorAll('.template-tab').forEach(tab => {
+        tab.classList.remove('active');
+        if (tab.dataset.category === category) {
+            tab.classList.add('active');
+        }
+    });
+
+    renderTemplateGallery(category);
+}
+
+window.filterTemplates = filterTemplates;
 
 function selectTemplate(templateId) {
     const template = TEMPLATES[templateId];
@@ -2130,7 +2280,22 @@ function updateHeroContent(field, value) {
     Preview.debouncedRender();
 }
 
+function updateIntroLayout(layout) {
+    appState.introLayout = layout;
+
+    // Update UI buttons
+    document.querySelectorAll('#intro-layout-controls .btn-layout').forEach(btn => {
+        btn.style.background = btn.dataset.layout === layout ? 'var(--primary-color)' : 'var(--surface)';
+        btn.style.borderColor = btn.dataset.layout === layout ? 'var(--primary-color)' : 'var(--border)';
+        btn.style.color = btn.dataset.layout === layout ? '#fff' : 'var(--text-main)';
+    });
+
+    console.log(`📐 Updated intro layout:`, layout);
+    Preview.debouncedRender();
+}
+
 window.updateHeroContent = updateHeroContent;
+window.updateIntroLayout = updateIntroLayout;
 
 
 // ============================================
@@ -2463,7 +2628,13 @@ function randomizeLayout(skipConfirm = false) {
         const theme = randomTemplate.category === 'eco' ? 'nature' :
             (randomTemplate.category === 'luxury' ? 'luxury' :
                 (randomTemplate.category === 'apartments' ? 'apartments' : 'luxury'));
-        appState.sectionContent.intro.mainImage = window.getRandomImage(theme);
+
+        const randomImage = window.getRandomImage(theme);
+        appState.sectionContent.intro.mainImage = randomImage;
+        appState.sectionContent.intro.image = randomImage; // Legacy support
+        appState.globalSettings.mainImage = randomImage;   // Crucial for preview sync
+
+        console.log('🎲 Randomized Hero Image:', randomImage);
     }
 
     // 6. Update Effects (Gradients)
@@ -2578,15 +2749,15 @@ window.renderGradientButtons = renderGradientButtons;
 // THEME & TESTIMONIALS LOGIC
 // ============================================
 
-window.toggleTheme = function() {
+window.toggleTheme = function () {
     document.body.classList.toggle('light-mode');
     const isLight = document.body.classList.contains('light-mode');
     const btn = document.getElementById('btn-theme-toggle');
-    if(btn) btn.innerHTML = isLight ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+    if (btn) btn.innerHTML = isLight ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
     // Save preference if needed, but not strictly required
 };
 
-window.updateTestimonialsSettings = function(key, value) {
+window.updateTestimonialsSettings = function (key, value) {
     if (!window.appState.testimonialsSettings) {
         window.appState.testimonialsSettings = { displayMode: 'grid', count: 3 };
     }

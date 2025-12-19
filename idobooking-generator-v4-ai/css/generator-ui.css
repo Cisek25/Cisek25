@@ -1408,6 +1408,57 @@ body {
     text-overflow: ellipsis;
 }
 
+/* Template Category Tabs */
+.template-tab {
+    padding: 4px 10px;
+    font-size: 11px;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-sm);
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-family: var(--font-main);
+}
+
+.template-tab:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+.template-tab.active {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: white;
+}
+
+.template-tab.city-tab {
+    font-weight: 600;
+}
+
+.template-tab.city-tab:hover {
+    transform: scale(1.05);
+}
+
+/* City Badge on Template Card */
+.template-city-badge {
+    font-size: 9px;
+    color: var(--accent-primary);
+    margin-top: 2px;
+    opacity: 0.8;
+}
+
+/* City Template Buttons */
+.city-template-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.city-template-btn.active {
+    border-color: var(--accent-success) !important;
+    background: rgba(16, 185, 129, 0.2) !important;
+}
+
 /* ============================================
    AI APPLIED MESSAGE
    ============================================ */

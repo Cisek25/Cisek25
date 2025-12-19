@@ -114,3 +114,68 @@ window.getRandomImage = (category) => {
     const pool = window.IMAGE_LIBRARY[category] || window.IMAGE_LIBRARY['luxury'];
     return pool[Math.floor(Math.random() * pool.length)];
 };
+
+// ============================================
+// ADDED: 40+ NEW DIVERSE AI-GENERATED (SIMULATED) IMAGES
+// ============================================
+Object.assign(window.IMAGE_LIBRARY, {
+    'modern': [
+        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80', // Modern House
+        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80', // Modern Living Room
+        'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80', // Kitchen
+        'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&q=80', // Modern Exterior
+        'https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1200&q=80', // Pool
+        'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80', // Bathroom
+        'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=1200&q=80', // Bedroom
+        'https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=1200&q=80', // Kitchen Detail
+        'https://images.unsplash.com/photo-1600607686527-6fb886090705?w=1200&q=80', // Patio
+        'https://images.unsplash.com/photo-1600566752355-35792bedcfe1?w=1200&q=80'  // Minimalist
+    ],
+    'lofts': [
+        'https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?w=1200&q=80', // Industrial Kitchen
+        'https://images.unsplash.com/photo-1505693314120-0d443867891c?w=1200&q=80', // Loft Bed
+        'https://images.unsplash.com/photo-1537726235470-8504e3beef77?w=1200&q=80', // Brick Wall
+        'https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1200&q=80', // High Ceiling
+        'https://images.unsplash.com/photo-1534349762230-e5de624ac95a?w=1200&q=80', // Open Space
+        'https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=1200&q=80'
+    ],
+    'luxury': [
+        ...window.IMAGE_LIBRARY.luxury,
+        'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&q=80', // Luxury Hotel
+        'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80', // Resort
+        'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&q=80', // Beach Hotel
+        'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1200&q=80', // Pool Resort
+        'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1200&q=80', // Hotel Room
+        'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1200&q=80', // Luxury Interior
+        'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1200&q=80', // Fine Dining
+        'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=1200&q=80', // Spa
+        'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=1200&q=80', // Modern Luxury
+        'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=1200&q=80'  // Pool
+    ],
+    'apartments': [
+        ...window.IMAGE_LIBRARY.apartments,
+        'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&q=80', // Apartment Interior
+        'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=80', // Cozy Apartment
+        'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1200&q=80', // City Apartment
+        'https://images.unsplash.com/photo-1502005229766-9397ebb86c98?w=1200&q=80', // Modern Home
+        'https://images.unsplash.com/photo-1484154218962-a1c002085aac?w=1200&q=80', // Kitchen
+        'https://images.unsplash.com/photo-1522771753035-4a5046258283?w=1200&q=80', // Room
+        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&q=80', // Real Estate
+        'https://images.unsplash.com/photo-1460317442991-0ec2aa249849?w=1200&q=80', // Urban
+        'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200&q=80', // Office/Apt
+        'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1200&q=80'  // Bedroom
+    ],
+    'boutique': [
+        ...window.IMAGE_LIBRARY.boutique, // Preserve existing
+        'https://images.unsplash.com/photo-1571896349842-6e53ce41e887?w=1200&q=80',
+        'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=1200&q=80',
+        'https://images.unsplash.com/photo-1549294413-26f195200c16?w=1200&q=80',
+        'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=1200&q=80',
+        'https://images.unsplash.com/photo-1586611292717-f828b167408c?w=1200&q=80',
+        'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&q=80',
+        'https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=1200&q=80',
+        'https://images.unsplash.com/photo-1596436889106-be35e843f974?w=1200&q=80',
+        'https://images.unsplash.com/photo-1591088398332-8a7791972843?w=1200&q=80',
+        'https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?w=1200&q=80'
+    ]
+});
